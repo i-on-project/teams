@@ -24,15 +24,12 @@
 [ ] High-level organization/architecture
 
 - Identify components [x]
-  - Desktop App (Teacher)
-  - Web App (Students)
-  - Server
-- Identify interactions between components (e.g. desktop app -> GitHub API) and between components and users
-- Identify technologies (e.g. ElectronJS, ReactJS)
+- Identify interactions between components [ ] (e.g. desktop app -> GitHub API) and between components and users
+- Identify technologies [x]
 
 [ ] Weekly planning
 
-## Features
+## Features and Functionality
 
 - Web App - Students
   - authentication - user github(or ipl*);
@@ -54,5 +51,25 @@
   - creation of link per class -> teacher creates a class and automatically generates a link that can be shared with students for repos creation;
   - statistics of deliveries per class;
   - private notes in each group*.
+
+## High Level organization/architecture
+
+### Components
+- Desktop App (Teacher)
+- Web App (Students)
+- Web Server (Exposes API)
+- Database* (User data)
+
+### Interactions between components
+
+
+### Tecnologies
+- ElectronJS -> Used for the development of the Desktop App
+- ReactJS -> Used for building the UI for both the Desktop and Web Apps
+- Spring Framework -> Used for building the server component
+- PostgreSQL -> Used for the database
+
+## Weekly Planning
+
 
 *questions
