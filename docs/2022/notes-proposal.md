@@ -66,7 +66,6 @@
 
 ## High Level organization/architecture
 
-
 ### Components
 
 - Desktop App (Teacher)
@@ -76,6 +75,7 @@
 
 ### Interactions between components
 
+![](https://github.com/i-on-project/teams/blob/main/docs/2022/interactions_between_components.png)
 
 ### Tecnologies
 
