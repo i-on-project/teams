@@ -7,6 +7,7 @@
   - Identify components and technologies used in the project
 - W2
   - **Project proposal delivery**
+  - Study ElectronJS tecnology
 - W3
 - W4
 - W5
@@ -14,10 +15,12 @@
 - W7
 - W8
 - W9
+  - **Alpha version delivery**
 - W10
 - W11
 - W12
 - W13
+  - **Project demo**
 - W14
 - W15
 - W16
@@ -25,3 +28,4 @@
 - W18
 - W19
 - W20
+  - **Final project delivery**
