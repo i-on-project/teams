@@ -43,31 +43,38 @@
 
 ## Features and Functionality (step-by-step)
 
-- Web App - Students
-  - authentication:
-    - through github;
-    - link student number and name;                                        #
-  - active projects
-    - project description (loaded by teacher)*
-    - delivery dates;
-  - creation via link shared by teacher -> fill form of group members;
-  - small git tutorial for new students (for first year students)*.
+- Web App - Students                                                                                   #
+  - creation via link shared by teacher:
+    - student clicks the link
+      - associates is gut hub account and form will appear
+        - student associates is student number and full name
+        - he may select an already existing group or create another (this action will work as a pending request waiting for the teacher to accepted)
+  - access to active projects
+    - select the class
+      - access to project description;
+      - access to delivery dates.
+  - small git tutorial for new students (for first year students) -> OPTIONAL.
 
 - Desktop app - Teacher
-  - authentication via github;
-  - list of groups and its students for each class;
-  - Pull:                                                         #
+  - when creating an account user must authenticate via github;
+  - creates a class -> in the end of this action will automatically generate a sharable link for group selection
+    - user can set a maximum number of groups to be generated
+    - must load a template repository from the generation
+  - when the user wants to pull the repositories he may select one of the above:                        #
     - All repos of a class;
     - All repos that have delivered on time;
     - All repos that haven't delivered on time;
     - Selection of specific repos.
-  - creation of link per class -> teacher creates a class and automatically generates a link that can be shared with students for repos creation;
-  - statistics of deliveries per class;                           #
-  - private notes in each group(only visible for teacher)*.       #
+  - when the user visits an existing class
+    - as access to a statistics of the deliveries
+    - as access to the requests for group creation -> can accept/deny all or individually
+    - as access to all students information (full name and number)
+  - when visiting a group the user my add/edit a private note(only visible by the teacher).            #
 
-- Optional:
-  - display grades in github classroom.
-
+- OPTIONAL:
+  - teacher can give feedback
+  - teacher can give grades to each student
+  
 ## High Level organization/architecture
 
 ### Components
