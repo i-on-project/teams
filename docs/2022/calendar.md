@@ -1,5 +1,27 @@
 # Calendar
 
+- W0
+  - Identify project functionality
+- W1
+  - Developing project proposal document
+  - Identify components and technologies used in the project
 - W2
-...
+  - **Project proposal delivery**
+- W3
+- W4
+- W5
+- W6
+- W7
+- W8
+- W9
+- W10
+- W11
+- W12
+- W13
+- W14
+- W15
+- W16
+- W17
+- W18
 - W19
+- W20
