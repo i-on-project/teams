@@ -14,8 +14,8 @@
   - Features that are more student oriented
     - Features that are "classroom" specific and not available on other Git clients.
     - Features that make Git more easier to use by first-year students.
-  - Avoid storing secrets on cloud servers.           #
-  - Have minimum requirements for the backend         #
+  - Avoid storing secrets on cloud servers.           #(token stored on the server -> request to create)
+  - Have minimum requirements for the backend         #(deploy)
 
 [x] Characterize functionality
 
@@ -41,7 +41,7 @@
   - High Level organization/architecture
 - Weekly plan
 
-## Features and Functionality
+## Features and Functionality (step-by-step)
 
 - Web App - Students
   - authentication:
