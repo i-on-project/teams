@@ -6,26 +6,49 @@
   - Developing project proposal document
   - Identify components and technologies used in the project
 - W2
-  - **Project proposal delivery**
-  - Study ElectronJS tecnology
+  - Analyse GitHub API
+  - Decide which SQL library to use
+  - Develop data model
 - W3
+  - **Project proposal delivery**
+  - Begin studying Electron
+  - Make a draft for the UI of both user apps
+  - Define the authorization and authentication architecture
+  - Begin i-on Service server development
 - W4
+  - Begin testing
+  - Begin the design and documentation of the service API
 - W5
+  - Begin development of the desktop App
+  - Search for possible service hosts
 - W6
+  - Begin studying React
 - W7
+  - Start development of the web app
 - W8
+  - Prepare project for intermediate delivery
+  - Finish implementation of i-on Service server
 - W9
   - **Alpha version delivery**
 - W10
+  - Continue implementing desktop and web app functionalities
 - W11
+  - Begin writing the final report
 - W12
 - W13
   - **Project demo**
 - W14
+  - Finish implementing desktop and web app functionality
+  - Finish implementing remaining and/or lacking tests
 - W15
+  - Improve design of both UIs
 - W16
+  - Begin bug fixing phase
 - W17
 - W18
+  - Begin reviewing project
+  - Improve existing and create lacking documentation
+  - Finalize final report
 - W19
 - W20
   - **Final project delivery**
