@@ -47,9 +47,9 @@
   - The user must be loggedin (if an account needs to be created, it will be done so through GitHub)
   - After logging in the user has the following options:
     - Create a group through a link shared by the teacher:
-        - After using the link a form will appear: 
-          - User provides the name and student number
-            - User may then select an already existing group or create a new one (this action will work as a pending request waiting for the teacher to accept)
+      - After using the link a form will appear:
+        - User provides the name and student number
+          - User may then select an already existing group or create a new one (this action will work as a pending request waiting for the teacher to accept)
     - Access to active assignments:
       - Select the class:
         - access to project description;
@@ -59,10 +59,12 @@
 - Desktop app - Teacher (from here on out refered as "user")
   - When the user runs the app for the first time he must create an account through GitHub;
   - After creating an account the user has the following options:
-    - Create a new class
+    - Create a new class (in a organization)
+      - load the assignments and respective due dates (some of then can be invisible for the student)
       - user can set a maximum number of groups to be generated
       - must load a template repository from the generation
       - at the end of class setup the app will generate a sharable link for group creation/selection
+    - Management of a group and is members (delete a member)
     - Inside of an existing class the user will have the following options:
       - Pull groups repositories (which can be achieved in one of the following patterns):                  #
         - All repos of a class;
