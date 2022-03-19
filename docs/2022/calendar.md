@@ -35,6 +35,7 @@
 - W11
   - Begin writing the final report
 - W12
+  - Continue implementing desktop and web app functionalities
 - W13
   - **Project demo**
 - W14
