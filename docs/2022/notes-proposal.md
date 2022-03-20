@@ -62,6 +62,7 @@
     - Create a new class (in a organization)
       - load the assignments and respective due dates (some of then can be invisible for the student)
       - user can set a maximum number of groups to be generated
+      - user can set a maximum/minimum number of group members
       - must load a template repository from the generation
       - at the end of class setup the app will generate a sharable link for group creation/selection
     - Management of a group and is members (delete a member)
