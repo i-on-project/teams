@@ -1,11 +1,11 @@
 CREATE TABLE ORGANIZATION (
-    id int GENERATED ALWAYS AS IDENTITY,
+    id serial,
     name varchar(50),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE CLASSROOM (
-    id int GENERATED ALWAYS AS IDENTITY,
+    id serial,
     name varchar(50),
     maxGroups int,
     maxMembersPerGroup int,
@@ -22,34 +22,33 @@ CREATE TABLE TEACHER (
     PRIMARY KEY(number)
 );
 
-CREATE TABLE GROUP (
-    id int GENERATED ALWAYS AS IDENTITY,
+CREATE TABLE TEAM (
+    id serial,
     cId int,
-    nMembers int,
     PRIMARY KEY(id),
     FOREIGN KEY(cId) REFERENCES CLASSROOM(id)
 );
 
 CREATE TABLE NOTE (
-    gId int,
+    tId int,
     date timestamp,
     description varchar(200),
-    PRIMARY KEY(gId,date),
-    FOREIGN KEY(gId) REFERENCES GROUP(id)
+    PRIMARY KEY(tId,date),
+    FOREIGN KEY(tId) REFERENCES TEAM(id)
 );
 
 CREATE TABLE STUDENT (
     number int,
     name varchar(50),
     cId int,
-    gId int,
+    tId int,
     PRIMARY KEY(number),
     FOREIGN KEY(cId) REFERENCES CLASSROOM(id),
-    FOREIGN KEY(gId) REFERENCES GROUP(id)
+    FOREIGN KEY(tId) REFERENCES TEAM(id)
 );
 
 CREATE TABLE ASSIGNMENT (
-    id int GENERATED ALWAYS AS IDENTITY,
+    id serial,
     releaseDate timestamp,
     dueDate timestamp,
     cId int,
@@ -61,15 +60,15 @@ CREATE TABLE ASSIGNMENT (
 CREATE TABLE REPO (
     url varchar(50),
     name varchar(50),
-    gId int,
+    tId int,
     assId int,
     PRIMARY KEY (url),
-    FOREIGN KEY (gId) REFERENCES GROUP(id),
+    FOREIGN KEY (tId) REFERENCES TEAM(id),
     FOREIGN KEY (assId) REFERENCES ASSIGNMENT(id)
 );
 
 CREATE TABLE DELIVERY (
-    id int GENERATED ALWAYS AS IDENTITY,
+    id serial,
     assId int,
     date timestamp,
     PRIMARY KEY (id),
