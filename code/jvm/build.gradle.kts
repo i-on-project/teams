@@ -16,6 +16,12 @@ repositories {
 }
 
 dependencies {
+	implementation("org.jdbi:jdbi3-kotlin-sqlobject:3.28.0")
+	implementation("org.jdbi:jdbi3-core:3.28.0")
+	implementation("org.jdbi:jdbi3-kotlin:3.28.0")
+	implementation("org.jdbi:jdbi3-postgres:3.28.0")
+	implementation("org.postgresql:postgresql:42.3.3")
+
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

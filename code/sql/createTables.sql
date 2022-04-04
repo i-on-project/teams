@@ -1,6 +1,7 @@
 CREATE TABLE ORGANIZATION (
     id serial,
     name varchar(50),
+    description varchar(256),
     PRIMARY KEY (id)
 );
 
