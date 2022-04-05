@@ -61,7 +61,7 @@ An organization represents a [GitHub Organization](https://docs.github.com/en/or
 ## Actions
 
 * [List Organizations](#list-organizations)
-* [Get Organization](#get-organizations)
+* [Get Organization](#get-organization)
 
 ---
 
@@ -163,6 +163,12 @@ Status: 401 Unauthorized
 ```
 
 ### Get Organization
+
+Get a single organization. Both the user and the GitHub App need to be in the organization.
+
+```http
+GET /api/orgs/{orgId}
+```
 
 #### Success Response
 
