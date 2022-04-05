@@ -1,10 +1,11 @@
-CREATE TABLE ORGANIZATION (
+CREATE TABLE ORGANIZATIONS (
     id serial,
     name varchar(50),
+    description varchar(200),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE CLASSROOM (
+CREATE TABLE CLASSROOMS (
     id serial,
     name varchar(50),
     maxGroups int,
@@ -12,30 +13,33 @@ CREATE TABLE CLASSROOM (
     linkRepo varchar(50),
     schoolYear timestamp,
     orgId int,
+    --state ,
     PRIMARY KEY(id),
     FOREIGN KEY(orgId) REFERENCES ORGANIZATION(id)
 );
 
-CREATE TABLE TEACHER (
+CREATE TABLE TEACHERS (
     number int unique,
     name varchar(50),
     PRIMARY KEY(number)
 );
 
-CREATE TABLE TEAM (
+CREATE TABLE TEAMS (
     id serial,
-    cId int,
+    cId int,            --class id
     PRIMARY KEY(id),
     FOREIGN KEY(cId) REFERENCES CLASSROOM(id)
 );
 
-CREATE TABLE NOTE (
+CREATE TABLE NOTES (
     tId int,
     date timestamp,
     description varchar(200),
     PRIMARY KEY(tId,date),
     FOREIGN KEY(tId) REFERENCES TEAM(id)
 );
+
+CREATE TABLE STUDENTS
 
 CREATE TABLE STUDENT (
     number int,
@@ -47,7 +51,7 @@ CREATE TABLE STUDENT (
     FOREIGN KEY(tId) REFERENCES TEAM(id)
 );
 
-CREATE TABLE ASSIGNMENT (
+CREATE TABLE ASSIGNMENTS (
     id serial,
     releaseDate timestamp,
     dueDate timestamp,
@@ -57,7 +61,7 @@ CREATE TABLE ASSIGNMENT (
     FOREIGN KEY (cId) REFERENCES CLASSROOM(id)
 );
 
-CREATE TABLE REPO (
+CREATE TABLE REPOS (
     url varchar(50),
     name varchar(50),
     tId int,
@@ -67,7 +71,7 @@ CREATE TABLE REPO (
     FOREIGN KEY (assId) REFERENCES ASSIGNMENT(id)
 );
 
-CREATE TABLE DELIVERY (
+CREATE TABLE DELIVERIES (
     id serial,
     assId int,
     date timestamp,
@@ -75,7 +79,7 @@ CREATE TABLE DELIVERY (
     FOREIGN KEY (assId) REFERENCES ASSIGNMENT(id)
 );
 
-CREATE TABLE TAG (
+CREATE TABLE TAGS (
     name varchar(50),
     date timestamp,
     PRIMARY KEY (name)
