@@ -36,14 +36,32 @@ An organization represents a [GitHub Organization](https://docs.github.com/en/or
 
 * `class`
 * `properties`
+* `entities`
+* `links`
 
-### Standard [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
+### Standard
 
 * `item`
+* `rel`
+
+## Link Relations
+
+### Domain Specific
+
+* [Organizations](#list-organizations)
+* github - GitHub Organization URI
+* avatar - GitHub Organization Avatar URI
+
+### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
+
+* [self](https://www.iana.org/go/rfc4287)
+* [next](https://html.spec.whatwg.org/multipage/links.html#link-type-next)
+* [prev](https://html.spec.whatwg.org/multipage/links.html#link-type-prev)
 
 ## Actions
 
 * [List Organizations](#list-organizations)
+* [Get Organization](#get-organizations)
 
 ---
 
@@ -103,11 +121,11 @@ Status:  200 OK
       "href": "/api/orgs?page=0&limit=10"
     },
     {
-      "rel": ["page"],
-      "hrefTemplate": "/api/orgs{?page,limit}"
+      "rel": ["next"],
+      "href": "/api/orgs?page=1&limit=10"
     },
     {
-      "rel": ["next"],
+      "rel": ["prev"],
       "href": "/api/orgs?page=1&limit=10"
     }
   ]
@@ -120,8 +138,113 @@ Status:  200 OK
 Status: 400 Bad Request
 ```
 
+```json
+{
+  "type": "PROBLEM URI",
+  "title": "The request parameters are invalid.",
+  "status": 400,
+  "detail": "Some parameters are missing or are of an invalid type."
+}
+```
+
 #### Unauthorized
 
 ```text
 Status: 401 Unauthorized
+```
+
+```json
+{
+  "type": "PROBLEM URI",
+  "title": "The request is unauthorized.",
+  "status": 401,
+  "detail": "User must be authenticated to perform this request."
+}
+```
+
+### Get Organization
+
+#### Success Response
+
+```text
+Status:  200 OK
+```
+
+```json
+{
+  "class": [ "organization" ],
+  "rel": [ "item" ],
+  "properties": {
+      "id": 123123,
+      "name": "i-on-project",
+      "description": "GitHub organization for the i-on projects"
+  },
+  "links": [
+      {
+          "rel": ["self"],
+          "href": "/api/orgs/123123"
+      },
+      {
+          "rel": ["github"],
+          "href": "https://github.com/i-on-project"
+      },
+      {
+          "rel": ["avatar"],
+          "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+      },
+      {
+          "rel": ["classrooms"],
+          "href": "/api/orgs/123123/classrooms"
+      },
+      {
+          "rel": ["organizations"],
+          "href": "/api/orgs"
+      }
+  ]
+}
+```
+
+#### Bad Request
+
+```text
+Status: 400 Bad Request
+```
+
+```json
+{
+  "type": "PROBLEM URI",
+  "title": "The request parameters are invalid.",
+  "status": 400,
+  "detail": "Some parameters are missing or are of an invalid type."
+}
+```
+
+#### Unauthorized
+
+```text
+Status: 401 Unauthorized
+```
+
+```json
+{
+  "type": "PROBLEM URI",
+  "title": "The request is unauthorized.",
+  "status": 401,
+  "detail": "User must be authenticated to perform this request."
+}
+```
+
+#### Not Found
+
+```text
+Status: 404 Not Found
+```
+
+```json
+{
+  "type": "PROBLEM URI",
+  "title": "Resource not found.",
+  "status": 404,
+  "detail": "The requested resource could not be found."
+}
 ```
