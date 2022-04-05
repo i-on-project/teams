@@ -1,7 +1,11 @@
 CREATE TABLE ORGANIZATIONS (
     id serial,
     name varchar(50),
+<<<<<<< HEAD
     description varchar(200),
+=======
+    description varchar(256),
+>>>>>>> fa33e7063af0cd8a8f944f08823adfc1b0166749
     PRIMARY KEY (id)
 );
 
