@@ -13,9 +13,10 @@ CREATE TABLE CLASSROOMS (
     linkRepo varchar(50),
     schoolYear timestamp,
     orgId int,
-    --state ,
+    state varchar(50),
     PRIMARY KEY(id),
-    FOREIGN KEY(orgId) REFERENCES ORGANIZATION(id)
+    FOREIGN KEY(orgId) REFERENCES ORGANIZATIONS(id),
+    CONSTRAINT state_check CHECK ( state = 'active' AND state ='inactive' )
 );
 
 CREATE TABLE TEACHERS (
@@ -28,7 +29,7 @@ CREATE TABLE TEAMS (
     id serial,
     cId int,            --class id
     PRIMARY KEY(id),
-    FOREIGN KEY(cId) REFERENCES CLASSROOM(id)
+    FOREIGN KEY(cId) REFERENCES CLASSROOMS(id)
 );
 
 CREATE TABLE NOTES (
@@ -36,7 +37,7 @@ CREATE TABLE NOTES (
     date timestamp,
     description varchar(200),
     PRIMARY KEY(tId,date),
-    FOREIGN KEY(tId) REFERENCES TEAM(id)
+    FOREIGN KEY(tId) REFERENCES TEAMS(id)
 );
 
 CREATE TABLE STUDENTS (
@@ -51,7 +52,7 @@ CREATE TABLE STUDENT (
     name varchar(50),
     tId int,
     PRIMARY KEY(number),
-    FOREIGN KEY(tId) REFERENCES TEAM(id)
+    FOREIGN KEY(tId) REFERENCES TEAMS(id)
 );
 
 CREATE TABLE ASSIGNMENTS (
@@ -61,7 +62,7 @@ CREATE TABLE ASSIGNMENTS (
     cId int,
     description varchar(200),
     PRIMARY KEY (id),
-    FOREIGN KEY (cId) REFERENCES CLASSROOM(id)
+    FOREIGN KEY (cId) REFERENCES CLASSROOMS(id)
 );
 
 CREATE TABLE REPOS (
@@ -70,8 +71,8 @@ CREATE TABLE REPOS (
     tId int,
     assId int,
     PRIMARY KEY (url),
-    FOREIGN KEY (tId) REFERENCES TEAM(id),
-    FOREIGN KEY (assId) REFERENCES ASSIGNMENT(id)
+    FOREIGN KEY (tId) REFERENCES TEAMS(id),
+    FOREIGN KEY (assId) REFERENCES ASSIGNMENTS(id)
 );
 
 CREATE TABLE DELIVERIES (
@@ -79,7 +80,7 @@ CREATE TABLE DELIVERIES (
     assId int,
     date timestamp,
     PRIMARY KEY (id),
-    FOREIGN KEY (assId) REFERENCES ASSIGNMENT(id)
+    FOREIGN KEY (assId) REFERENCES ASSIGNMENTS(id)
 );
 
 CREATE TABLE TAGS (
