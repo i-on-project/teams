@@ -1,8 +1,8 @@
-# Sketches
+# API Sketches
 
 ## Table of contents
 
-- [Sketches](#sketches)
+- [API Sketches](#api-sketches)
   - [Table of contents](#table-of-contents)
   - [Design the API guided by application requirements](#design-the-api-guided-by-application-requirements)
     - [Before authentication](#before-authentication)
@@ -38,8 +38,22 @@
   - Actions
     - No actions
 
+- Organization
+  - Content
+    - Name
+    - Classrooms list that the student is apart of (sorted by name or added)
+  - Links
+    - Home page
+    - Individual classroom
+    - Logout
+  - Actions
+    - No actions
+
 - Classroom
   - Content
+    - Name
+    - Description
+    - State
     - List of assignments
     - Upcoming delivery information
     - Team(s) information
@@ -54,46 +68,153 @@
     - No actions
 
 - Team
-  - Repo or list of repos
-  - tags made
+  - Content
+    - Repo or list of repos
+    - Tags
+    - Upcoming delivery information (?)
+  - Links
+    - Home page
+    - Classroom
+    - Individual Repository
+    - Assignment (?)
+    - Logout
+  - Actions
+    - No actions
 
 - Repo
   - Content
+    - Name
+    - Assignment
+    - List of tags
+  - Links
+    - Home page
+    - Team
+    - GitHub Repo URL
+    - Individual Tags
+    - Logout
+  - Actions
+    - No actions
 
 - Assignment
-  - description
-  - next deliveries
-  - create delivery
+  - Content
+    - Description
+    - Deliveries
+    - Due date (?)
+  - Links
+    - Home page
+    - Classroom
+    - Logout
+  - Actions
+    - No actions
 
 #### Teacher (Desktop App)
 
 - Home page
-  - Organization list, for which the teacher is a member (sorted by name or recent)
+  - Content
+    - Organization list that the teacher is apart of (sorted by name or added)
+    - Classroom list that the teacher is apart of (sorted by name or added)
+    - Upcoming deliveries
+  - Links
+    - Organizations that the student is apart of
+    - Individual classroom
+    - Individual team
+    - Individual upcoming assignment
+    - Logout
+  - Actions
+    - Create a new organization
+    - Delete an organization
 
 - Organization
-  - Classroom list (sorted by name or recent)
-    - with next delivery
-    - link to assignment or list of assignments
+  - Content
+    - Name
+    - Classroom list
+  - Links
+    - Home page
+    - Individual classroom
+    - Logout
+  - Actions
+    - Create a new classroom
+    - Delete an existing classroom
+    - Update organization
 
 - Classroom
-  - Team list, for which the teacher owens  (sorted by )
-    - link to assignment or list of assignments
-    - with next delivery
+  - Content
+    - Name
+    - Description
+    - State
+    - List of teams
+    - List of students (?)
+    - List of assignments
+    - List of requests
+  - Links
+    - Home page
+    - Organization
+    - Individual team
+    - Individual assignment
+    - Logout
+  - Actions
+    - Create assignment
+    - Delete assignment
+    - Generate invite link (Should it be an action?)
+    - Accept request
+    - Update classroom
 
 - Team
-  - Repo or list of repos
-  - tags made
-
-- Assignment
-  - description
-  - next deliveries
-
-- Repo
-  - Notes
   - Content
+    - Repo or list of repos
+    - Tags
+    - Comments
+  - Links
+    - Home page
+    - Classroom
+    - Individual Repository
+    - Individual note
+    - Assignment (?)
+    - Logout
+  - Actions
+    - Delete team
+    - Update team
+    - Add comment
+    - Delete note
 
 - Note
-  - editable
+  - Content
+    - Description
+  - Links
+    - Home page
+    - Team
+    - Classroom
+    - Logout
+  - Actions
+    - Update note
+
+- Repo
+  - Content
+    - Name
+    - Assignment
+    - List of tags
+  - Links
+    - Home page
+    - Team
+    - GitHub Repo URL
+    - Individual Tags
+    - Logout
+  - Actions
+    - Update Repo
+
+- Assignment
+  - Content
+    - Description
+    - Deliveries
+    - Due date (?)
+  - Links
+    - Home page
+    - Classroom
+    - Logout
+  - Actions
+    - Add delivery
+    - Remove delivery
+    - Update assignment
 
 ## Notes (changes in the DB)
 
