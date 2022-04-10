@@ -13,7 +13,7 @@ CREATE TABLE CLASSROOMS (
     linkRepo varchar(50),
     schoolYear timestamp,
     orgId int,
-    state varchar(50),
+    state varchar(50) DEFAULT 'active',
     PRIMARY KEY(id),
     FOREIGN KEY(orgId) REFERENCES ORGANIZATIONS(id),
     CONSTRAINT state_check CHECK ( state = 'active' AND state ='inactive' )
@@ -28,8 +28,10 @@ CREATE TABLE TEACHERS (
 CREATE TABLE TEAMS (
     id serial,
     cId int,            --class id
+    state varchar(50) DEFAULT 'active',
     PRIMARY KEY(id),
-    FOREIGN KEY(cId) REFERENCES CLASSROOMS(id)
+    FOREIGN KEY(cId) REFERENCES CLASSROOMS(id),
+    CONSTRAINT state_check CHECK ( state = 'active' AND state ='inactive' )
 );
 
 CREATE TABLE NOTES (
@@ -40,13 +42,6 @@ CREATE TABLE NOTES (
     FOREIGN KEY(tId) REFERENCES TEAMS(id)
 );
 
-CREATE TABLE STUDENTS (
-    sId int,
-    cId int,
-    PRIMARY KEY (sId,cId),
-    FOREIGN KEY (sId) REFERENCES STUDENT(number)
-);
-
 CREATE TABLE STUDENT (
     number int,
     name varchar(50),
@@ -54,6 +49,15 @@ CREATE TABLE STUDENT (
     PRIMARY KEY(number),
     FOREIGN KEY(tId) REFERENCES TEAMS(id)
 );
+
+
+CREATE TABLE STUDENTS (
+    sId int,
+    cId int,
+    PRIMARY KEY (sId,cId),
+    FOREIGN KEY (sId) REFERENCES STUDENT(number)
+);
+
 
 CREATE TABLE ASSIGNMENTS (
     id serial,
