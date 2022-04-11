@@ -65,7 +65,9 @@ An organization represents a [GitHub Organization](https://docs.github.com/en/or
 
 ---
 
-### List Organizations
+### Success Responses
+
+#### List Organizations
 
 List all the organizations that the user has access to.
 
@@ -73,49 +75,35 @@ List all the organizations that the user has access to.
 GET /api/orgs
 ```
 
-#### Success Response
-
 ```text
 Status:  200 OK
 ```
 
 ```json
 {
-    "class": [ "organization", "collection" ],
-    "properties": {
-        "pageIndex": 0,
-        "pageSize": 2
-    },
-    "entities": [
+  "class": [ "organization", "collection" ],
+  "properties": {
+    "pageIndex": 0,
+    "pageSize": 1
+  },
+  "entities": [
+    {
+      "class": [ "organization" ],
+      "rel": [ "item" ],
+      "properties": {
+        "id": 123123,
+        "name": "i-on-project",
+        "description": "GitHub organization for the i-on projects"
+      },
+      "links": [
         {
-            "class": [ "organization" ],
-            "rel": [ "item" ],
-            "properties": {
-                "id": 123123,
-                "name": "i-on-project",
-                "description": "GitHub organization for the i-on projects"
-            },
-            "links": [
-                {
-                    "rel": ["self"],
-                    "href": "/api/orgs/123123"
-                },
-                {
-                    "rel": ["github"],
-                    "href": "https://github.com/i-on-project"
-                },
-                {
-                    "rel": ["avatar"],
-                    "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
-                },
-                {
-                    "rel": ["organizations"],
-                    "href": "/api/orgs"
-                }
-            ]
+          "rel": ["self"],
+          "href": "/api/orgs/123123"
         }
-    ],
-    "links": [
+      ]
+    }
+  ],
+  "links": [
     {
       "rel": ["self"],
       "href": "/api/orgs?page=0&limit=10"
@@ -132,45 +120,13 @@ Status:  200 OK
 }
 ```
 
-#### Bad Request
+#### Get Organization (Student)
 
-```text
-Status: 400 Bad Request
-```
-
-```json
-{
-  "type": "PROBLEM URI",
-  "title": "The request parameters are invalid.",
-  "status": 400,
-  "detail": "Some parameters are missing or are of an invalid type."
-}
-```
-
-#### Unauthorized
-
-```text
-Status: 401 Unauthorized
-```
-
-```json
-{
-  "type": "PROBLEM URI",
-  "title": "The request is unauthorized.",
-  "status": 401,
-  "detail": "User must be authenticated to perform this request."
-}
-```
-
-### Get Organization
-
-Get a single organization. Both the user and the GitHub App need to be in the organization.
+Student view of a Get Organization request. This returns a single request. The user must be apart of the organization to make such request.
 
 ```http
 GET /api/orgs/{orgId}
 ```
-
-#### Success Response
 
 ```text
 Status:  200 OK
@@ -181,36 +137,159 @@ Status:  200 OK
   "class": [ "organization" ],
   "rel": [ "item" ],
   "properties": {
-      "id": 123123,
-      "name": "i-on-project",
-      "description": "GitHub organization for the i-on projects"
+    "id": 123123,
+    "name": "i-on-project",
+    "description": "GitHub organization for the i-on projects"
   },
-  "links": [
-      {
+  "entities": [
+    {
+      "class": [ "classroom" ],
+      "rel": [ "item" ],
+      "properties": {
+        "id": 1,
+        "name": "LI61D",
+      },
+      "links": [
+        {
           "rel": ["self"],
-          "href": "/api/orgs/123123"
-      },
-      {
-          "rel": ["github"],
-          "href": "https://github.com/i-on-project"
-      },
-      {
-          "rel": ["avatar"],
-          "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
-      },
-      {
-          "rel": ["classrooms"],
-          "href": "/api/orgs/123123/classrooms"
-      },
-      {
-          "rel": ["organizations"],
-          "href": "/api/orgs"
-      }
+          "href": "/api/orgs/123123/class/1"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+        "rel": ["self"],
+        "href": "/api/orgs/123123"
+    },
+    {
+        "rel": ["home"],
+        "href": "/api"
+    },
+    {
+        "rel": ["github"],
+        "href": "https://github.com/i-on-project"
+    },
+    {
+        "rel": ["avatar"],
+        "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+    },
+    {
+        "rel": ["classrooms"],
+        "href": "/api/orgs/123123/classrooms"
+    },
+    {
+        "rel": ["organizations"],
+        "href": "/api/orgs"
+    }
   ]
 }
 ```
 
+#### Get Organization (Teacher)
+
+Teacher view of a Get Organization request. This returns a single request. The user must be apart of the organization to make such request.
+
+```http
+GET /api/orgs/{orgId}
+```
+
+```text
+Status:  200 OK
+```
+
+```json
+{
+  "class": [ "organization" ],
+  "rel": [ "item" ],
+  "properties": {
+    "id": 123123,
+    "name": "i-on-project",
+    "description": "GitHub organization for the i-on projects"
+  },
+  "entities": [
+    {
+      "class": [ "classroom" ],
+      "rel": [ "item" ],
+      "properties": {
+        "id": 1,
+        "name": "LI61D",
+      },
+      "links": [
+        {
+          "rel": ["self"],
+          "href": "/api/orgs/123123/class/1"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "create-classroom",
+      "title": "Create Classroom",
+      "method": "POST",
+      "href": "/api/orgs/{orgId}/class",
+      "type": "application/json",
+      "field": [
+        {"name": "name", "type": "string"},
+        {"name": "description", "type": "string"},
+        {"name": "schoolYear", "type": "string"},
+        {"name": "maxGroups", "type": "string"},
+        {"name": "maxGroupMembers", "type": "string"}
+      ]
+    },
+    {
+      "name": "delete-classroom",
+      "title": "Delete Classroom",
+      "method": "DELETE",
+      "href": "/api/orgs/{orgId}/class/{classId}"
+    },
+    {
+      "name": "update-organization",
+      "title": "Update Organization",
+      "method": "PUT",
+      "href": "/api/orgs/{orgId}",
+      "type": "application/json",
+      "field": [
+        {"name": "name", "type": "string"},
+        {"name": "description", "type": "string"},
+      ]
+    }
+  ],
+  "links": [
+    {
+        "rel": ["self"],
+        "href": "/api/orgs/123123"
+    },
+    {
+        "rel": ["home"],
+        "href": "/api"
+    },
+    {
+        "rel": ["github"],
+        "href": "https://github.com/i-on-project"
+    },
+    {
+        "rel": ["avatar"],
+        "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+    },
+    {
+        "rel": ["classrooms"],
+        "href": "/api/orgs/123123/classrooms"
+    },
+    {
+        "rel": ["organizations"],
+        "href": "/api/orgs"
+    }
+  ]
+}
+```
+
+### Error Responses
+
 #### Bad Request
+
+Used in requests that return both collection and individual items.
 
 ```text
 Status: 400 Bad Request
@@ -218,7 +297,7 @@ Status: 400 Bad Request
 
 ```json
 {
-  "type": "PROBLEM URI",
+  "type": "",
   "title": "The request parameters are invalid.",
   "status": 400,
   "detail": "Some parameters are missing or are of an invalid type."
@@ -227,20 +306,24 @@ Status: 400 Bad Request
 
 #### Unauthorized
 
+Used in requests that return both collection and individual items.
+
 ```text
 Status: 401 Unauthorized
 ```
 
 ```json
 {
-  "type": "PROBLEM URI",
-  "title": "The request is unauthorized.",
+  "type": "",
+  "title": "The request parameters are invalid.",
   "status": 401,
-  "detail": "User must be authenticated to perform this request."
+  "detail": "Some parameters are missing or are of an invalid type."
 }
 ```
 
 #### Not Found
+
+Used only in requests that return individual items.
 
 ```text
 Status: 404 Not Found
@@ -248,9 +331,26 @@ Status: 404 Not Found
 
 ```json
 {
-  "type": "PROBLEM URI",
-  "title": "Resource not found.",
+  "type": "",
+  "title": "The request parameters are invalid.",
   "status": 404,
-  "detail": "The requested resource could not be found."
+  "detail": "Some parameters are missing or are of an invalid type."
+}
+```
+
+#### Conflict
+
+Used in requests that return both collection and individual items.
+
+```text
+Status: 409 Conflict
+```
+
+```json
+{
+  "type": "",
+  "title": "There is a conflict with the request.",
+  "status": 409,
+  "detail": "There is a conflict with the request because the resource already exists."
 }
 ```
