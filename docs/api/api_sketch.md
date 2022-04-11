@@ -57,13 +57,13 @@
     - List of assignments
     - Upcoming delivery information
     - Team(s) information
-    - Teacher(s) information (discuss w/ Afonso)
+    - Teacher(s) information (email,gabinete)[ ]
   - Links
     - Home page
     - Individual assignments
     - Individual Team (and or Repo)
     - Logout
-    - Individual Teacher (discuss w/ Afonso)
+    - Individual Teacher (to teacher(s) information)
   - Actions
     - No actions
 
@@ -71,12 +71,12 @@
   - Content
     - Repo or list of repos
     - Tags
-    - Upcoming delivery information (?)
+    - Upcoming delivery information
   - Links
     - Home page
     - Classroom
     - Individual Repository
-    - Assignment (?)
+    - Assignment
     - Logout
   - Actions
     - No actions
@@ -99,7 +99,7 @@
   - Content
     - Description
     - Deliveries
-    - Due date (?)
+    - 
   - Links
     - Home page
     - Classroom
@@ -141,7 +141,7 @@
     - Description
     - State
     - List of teams
-    - List of students (?)
+    - List of students
     - List of assignments
     - List of requests
   - Links
@@ -153,7 +153,7 @@
   - Actions
     - Create assignment
     - Delete assignment
-    - Generate invite link (Should it be an action?)
+    - Generate invite link (Should it be an action?) [ ]
     - Accept request
     - Update classroom
 
@@ -167,7 +167,7 @@
     - Classroom
     - Individual Repository
     - Individual note
-    - Assignment (?)
+    - Assignment
     - Logout
   - Actions
     - Delete team
