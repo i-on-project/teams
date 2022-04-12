@@ -64,6 +64,7 @@
     - Individual Team (and or Repo)
     - Logout
     - Individual Teacher (to teacher(s) information)
+    - Organization
   - Actions
     - No actions
 
@@ -99,10 +100,10 @@
   - Content
     - Description
     - Deliveries
-    - 
   - Links
     - Home page
     - Classroom
+    - Repo
     - Logout
   - Actions
     - No actions
