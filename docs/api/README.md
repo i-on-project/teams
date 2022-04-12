@@ -8,8 +8,17 @@ A diagram of the relation between resources is shown [here](api_resource_diagram
 
 ## Resources
 
+* [Assignments](resources/assignments.md)
+* [Classrooms](resources/classrooms.md)
+* [Home](resources/home.md)
+* [Notes](resources/notes.md)
 * [Organizations](resources/organizations.md)
+* [Repos](resources/repos.md)
+* [Teams](resources/teams.md)
 
 ## Problems
 
 * [Bad Request](errors/badrequest.md)
+* [Not Found](errors/not_found.md)
+* [Unauthorized](errors/unauthorized.md)
+* [Conflict](errors/conflict.md)

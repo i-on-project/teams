@@ -11,12 +11,12 @@ An organization represents a [GitHub Organization](https://docs.github.com/en/or
   * non editable
   * type: **number**
   * example: `1`
-* `name` - Unique and short name that defined the GitHub Organization
+* `name` - Unique and short name that defines the resource
   * mandatory
   * non editable
   * type: **string**
   * example: `Some Organization`
-* `description` - Description that characterizes GitHub Organization
+* `description` - Description that characterizes the resource
   * non mandatory
   * non editable
   * type: **string**
@@ -38,6 +38,7 @@ An organization represents a [GitHub Organization](https://docs.github.com/en/or
 * `properties`
 * `entities`
 * `links`
+* `actions`
 
 ### Standard
 
@@ -49,8 +50,10 @@ An organization represents a [GitHub Organization](https://docs.github.com/en/or
 ### Domain Specific
 
 * [Organizations](#list-organizations)
+* [Classrooms](/docs/api/resources/classrooms.md#list-classrooms)
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
+* home - Home page
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
@@ -61,7 +64,8 @@ An organization represents a [GitHub Organization](https://docs.github.com/en/or
 ## Actions
 
 * [List Organizations](#list-organizations)
-* [Get Organization](#get-organization)
+* [Get Organization - Student](#get-organization-student)
+* [Ger Organization - Teacher](#get-organization-teacher)
 
 ---
 
@@ -297,7 +301,7 @@ Status: 400 Bad Request
 
 ```json
 {
-  "type": "",
+  "type": "https://github.com/i-on-project/teams/blob/main/docs/api/problems/bad_request.md",
   "title": "The request parameters are invalid.",
   "status": 400,
   "detail": "Some parameters are missing or are of an invalid type."
@@ -314,7 +318,7 @@ Status: 401 Unauthorized
 
 ```json
 {
-  "type": "",
+  "type": "https://github.com/i-on-project/teams/blob/main/docs/api/problems/unauthorized.md",
   "title": "The request parameters are invalid.",
   "status": 401,
   "detail": "Some parameters are missing or are of an invalid type."
@@ -331,7 +335,7 @@ Status: 404 Not Found
 
 ```json
 {
-  "type": "",
+  "type": "https://github.com/i-on-project/teams/blob/main/docs/api/problems/not_found.md",
   "title": "The request parameters are invalid.",
   "status": 404,
   "detail": "Some parameters are missing or are of an invalid type."
@@ -348,7 +352,7 @@ Status: 409 Conflict
 
 ```json
 {
-  "type": "",
+  "type": "https://github.com/i-on-project/teams/blob/main/docs/api/problems/conflict.md",
   "title": "There is a conflict with the request.",
   "status": 409,
   "detail": "There is a conflict with the request because the resource already exists."
