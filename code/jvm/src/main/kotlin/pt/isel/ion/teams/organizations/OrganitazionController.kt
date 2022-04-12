@@ -20,8 +20,8 @@ class OrganizationController(val organizationService: OrganizationService) {
     fun getOrganization(@PathVariable id: Int): OrganizationOutput = organizationService.getOrganization(id).toOutput()
 
     @PostMapping
-    fun createOrganization(organization: OrganizationInput): OrganizationOutput =
-        organizationService.createOrganization(organization.toDb()).toOutput()
+    fun createOrganization(organization: OrganizationInput)/*: OrganizationOutput*/ =
+        organizationService.createOrganization(organization.toDb())//.toOutput()
 
     @PutMapping
     fun updateOrganization(organization: OrganizationUpdate) =

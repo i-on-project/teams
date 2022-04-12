@@ -16,9 +16,9 @@ interface OrganizationDAO {
 
     @SqlUpdate("INSERT INTO organizations VALUES (:name,:description)")
     @GetGeneratedKeys
-    fun createOrganization(organization: OrganizationDbWrite): OrganizationDbRead
+    fun createOrganization(organization: OrganizationDbWrite): Int
 
     @SqlUpdate("UPDATE organizations SET name=:name, description=:description WHERE id=:id")
-    fun updateOrganization(@BindBean("organization") organization: OrganizationDbUpdate): OrganizationDbUpdate
+    fun updateOrganization(@BindBean("organization") organization: OrganizationDbUpdate)
 
 }
