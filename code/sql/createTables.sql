@@ -1,94 +1,112 @@
-CREATE TABLE ORGANIZATIONS (
-    id serial,
-    name varchar(50),
+CREATE TABLE ORGANIZATIONS
+(
+    id          serial,
+    name        varchar(50),
     description varchar(200),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE CLASSROOMS (
-    id serial,
-    name varchar(50),
-    maxGroups int,
+CREATE TABLE CLASSROOMS
+(
+    id                 serial,
+    name               varchar(50),
+    maxGroups          int,
     maxMembersPerGroup int,
-    linkRepo varchar(50),
-    schoolYear timestamp,
-    orgId int,
-    state varchar(50) DEFAULT 'active',
-    PRIMARY KEY(id),
-    FOREIGN KEY(orgId) REFERENCES ORGANIZATIONS(id),
-    CONSTRAINT state_check CHECK ( state = 'active' AND state ='inactive' )
+    linkRepo           varchar(50),
+    schoolYear         varchar, -- (e.g. 2021/22)
+    orgId              int,     --organization id
+    state              varchar(50) DEFAULT 'active',
+    PRIMARY KEY (id),
+    FOREIGN KEY (orgId) REFERENCES ORGANIZATIONS (id),
+    CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' ),
+    CONSTRAINT schoolYear_check CHECK ( schoolYear ~* '[0-9][0-9][0-9][0-9]/[0-9][0-9]')
 );
 
-CREATE TABLE TEACHERS (
+CREATE TABLE INVITE_LINKS
+(
+    link varchar,
+    cId  int, --classroom id
+    PRIMARY KEY (link),
+    FOREIGN KEY (cId) REFERENCES CLASSROOMS (id)
+);
+
+CREATE TABLE TEACHER
+(
     number int unique,
-    name varchar(50),
-    PRIMARY KEY(number)
+    name   varchar(50),
+    email  varchar,     --TODO: not sure what it is (CHECK)
+    office varchar(20), --X.X.XX (e.g G.1.16)
+    PRIMARY KEY (number),
+    CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
 );
 
-CREATE TABLE TEAMS (
-    id serial,
-    cId int,            --class id
-    state varchar(50) DEFAULT 'active',
-    PRIMARY KEY(id),
-    FOREIGN KEY(cId) REFERENCES CLASSROOMS(id),
-    CONSTRAINT state_check CHECK ( state = 'active' AND state ='inactive' )
+CREATE TABLE TEAMS
+(
+    id    serial,
+    cId   int,                          --class id
+    state varchar(50) DEFAULT 'active', --TODO: Pending state??
+    PRIMARY KEY (id),
+    FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
+    CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' )
 );
 
-CREATE TABLE NOTES (
-    tId int,
-    date timestamp,
+CREATE TABLE NOTES
+(
+    tId         int, --team id
+    date        timestamp,
     description varchar(200),
-    PRIMARY KEY(tId,date),
-    FOREIGN KEY(tId) REFERENCES TEAMS(id)
+    PRIMARY KEY (tId, date),
+    FOREIGN KEY (tId) REFERENCES TEAMS (id)
 );
 
-CREATE TABLE STUDENT (
+CREATE TABLE STUDENT
+(
     number int,
-    name varchar(50),
-    tId int,
-    PRIMARY KEY(number),
-    FOREIGN KEY(tId) REFERENCES TEAMS(id)
+    name   varchar(50),
+    tId    int, --team id
+    cId    int, --class id
+    PRIMARY KEY (number),
+    FOREIGN KEY (tId) REFERENCES TEAMS (id)
 );
 
-
-CREATE TABLE STUDENTS (
-    sId int,
-    cId int,
-    PRIMARY KEY (sId,cId),
-    FOREIGN KEY (sId) REFERENCES STUDENT(number)
-);
-
-
-CREATE TABLE ASSIGNMENTS (
-    id serial,
+CREATE TABLE ASSIGNMENTS
+(
+    id          serial,
     releaseDate timestamp,
-    dueDate timestamp,
-    cId int,
+    cId         int, --class id
     description varchar(200),
     PRIMARY KEY (id),
-    FOREIGN KEY (cId) REFERENCES CLASSROOMS(id)
+    FOREIGN KEY (cId) REFERENCES CLASSROOMS (id)
 );
 
-CREATE TABLE REPOS (
-    url varchar(50),
-    name varchar(50),
-    tId int,
-    assId int,
-    PRIMARY KEY (url),
-    FOREIGN KEY (tId) REFERENCES TEAMS(id),
-    FOREIGN KEY (assId) REFERENCES ASSIGNMENTS(id)
-);
-
-CREATE TABLE DELIVERIES (
-    id serial,
-    assId int,
-    date timestamp,
+CREATE TABLE REPOS
+(
+    id    serial,
+    url   varchar(50) unique,
+    name  varchar(50),
+    tId   int, --team id
+    assId int, --assignment id
     PRIMARY KEY (id),
-    FOREIGN KEY (assId) REFERENCES ASSIGNMENTS(id)
+    FOREIGN KEY (tId) REFERENCES TEAMS (id),
+    FOREIGN KEY (assId) REFERENCES ASSIGNMENTS (id)
 );
 
-CREATE TABLE TAGS (
-    name varchar(50),
-    date timestamp,
-    PRIMARY KEY (name)
+CREATE TABLE DELIVERIES
+(
+    id    serial,
+    assId int,       --assignment id
+    date  timestamp, --due date
+    PRIMARY KEY (id),
+    FOREIGN KEY (assId) REFERENCES ASSIGNMENTS (id)
 );
+
+CREATE TABLE TAGS
+(
+    name  varchar(50),
+    date  timestamp,
+    delId int, --delivery id
+    PRIMARY KEY (name),
+    FOREIGN KEY (delId) REFERENCES DELIVERIES (id)
+);
+
+

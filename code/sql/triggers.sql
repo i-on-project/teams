@@ -24,7 +24,7 @@ DECLARE
                            FROM student
                            WHERE tid = tId);
 BEGIN
-    IF ((SELECT cid FROM teams WHERE id = tId) != (SELECT cid FROM students WHERE sid = stdNumber) ||
+    IF ((SELECT cid FROM teams WHERE id = tId) != (SELECT cid FROM student WHERE sid = stdNumber) ||
                                                  (members_counter > (SELECT maxmemberspergroup
                                                                      FROM classrooms
                                                                      WHERE id = (SELECT cid FROM teams WHERE id = tId)))) THEN
