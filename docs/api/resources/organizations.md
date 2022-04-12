@@ -113,6 +113,10 @@ Status:  200 OK
       "href": "/api/orgs?page=0&limit=10"
     },
     {
+        "rel": ["home"],
+        "href": "/api"
+    },
+    {
       "rel": ["next"],
       "href": "/api/orgs?page=1&limit=10"
     },

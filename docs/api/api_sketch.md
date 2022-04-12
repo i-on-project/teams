@@ -57,7 +57,7 @@
     - List of assignments
     - Upcoming delivery information
     - Team(s) information
-    - Teacher(s) information (email,gabinete)[ ]
+    - Teacher(s) information
   - Links
     - Home page
     - Individual assignments
