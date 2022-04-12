@@ -6,15 +6,15 @@ import org.springframework.stereotype.Component
 @Component
 class OrganizationService(val jdbi: Jdbi) {
 
-    fun getAllOrganizations() = jdbi.onDemand(OrganizationDAO::class.java).getAllOrganizations().map { it.toOutput() }
+    fun getAllOrganizations() = jdbi.onDemand(OrganizationDAO::class.java).getAllOrganizations()
 
-    fun getOrganization(id: Int) = jdbi.onDemand(OrganizationDAO::class.java).getOrganization(id).toOutput()
+    fun getOrganization(id: Int) = jdbi.onDemand(OrganizationDAO::class.java).getOrganization(id)
 
-    fun createOrganization(organization: OrganizationInput) =
-        jdbi.onDemand(OrganizationDAO::class.java).createOrganization(organization.toDb())
+    fun createOrganization(organization: OrganizationDbWrite) =
+        jdbi.onDemand(OrganizationDAO::class.java).createOrganization(organization)
 
-    fun updateOrganization(organization: OrganizationUpdate) =
-        jdbi.onDemand(OrganizationDAO::class.java).updateOrganization(organization.toDb())
+    fun updateOrganization(organization: OrganizationDbUpdate) =
+        jdbi.onDemand(OrganizationDAO::class.java).updateOrganization(organization)
 
 
 }

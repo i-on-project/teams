@@ -6,20 +6,24 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping("api/orgs")
+@RequestMapping(Uris.Organizations.PATH)
 class OrganizationController(val organizationService: OrganizationService) {
 
     @GetMapping
-    fun getAllOrganizations() = organizationService.getAllOrganizations()
+    fun getAllOrganizations(): List<OrganizationOutput> =
+        organizationService.getAllOrganizations().map { it.toOutput() }
 
-    @GetMapping("{id}")
-    fun getOrganization(@PathVariable("id") id: Int) = organizationService.getOrganization(id)
+    @GetMapping(Uris.Organizations.SingleOrganization.PATH)
+    fun getOrganization(@PathVariable id: Int): OrganizationOutput = organizationService.getOrganization(id).toOutput()
 
     @PostMapping
-    fun createOrganization(organization: OrganizationInput) = organizationService.createOrganization(organization)
+    fun createOrganization(organization: OrganizationInput): OrganizationOutput =
+        organizationService.createOrganization(organization.toDb()).toOutput()
 
     @PutMapping
-    fun updateOrganization(organization: OrganizationUpdate) = organizationService.updateOrganization(organization)
+    fun updateOrganization(organization: OrganizationUpdate) =
+        organizationService.updateOrganization(organization.toDb())
 }
