@@ -91,20 +91,14 @@ Status:  200 OK
       "rel": [ "item" ],
       "properties": {
         "id": 123123,
-<<<<<<< HEAD
         "name": "li61d_g4",
-=======
->>>>>>> aac3b78f6a0741efb70c9f4cefbba141feeb8f0f
         "state": "active"
       },
       "links": [
         {
           "rel": ["self"],
-<<<<<<< HEAD
+
           "href": "/api/orgs/852/classrooms/123123/teams/123123"
-=======
-          "href": "/api/orgs/852/classrooms/123123/teams/456"
->>>>>>> aac3b78f6a0741efb70c9f4cefbba141feeb8f0f
         }
       ]
     }
@@ -134,15 +128,10 @@ Status:  200 OK
 }
 ```
 
-<<<<<<< HEAD
-#### Get Team (Student)
-
-This returns a single response. The user must be a part of the team to make such request.
-=======
 #### Get Team - Student
 
 This returns a single team item. The user must be apart of the team to make such request.
->>>>>>> aac3b78f6a0741efb70c9f4cefbba141feeb8f0f
+
 
 ```http
 GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}
@@ -154,105 +143,60 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "team" ],
-  "rel": [ "item" ],
+  "class": [
+    "team"
+  ],
+  "rel": [
+    "item"
+  ],
   "properties": {
     "id": 234342,
-<<<<<<< HEAD
     "name": "li61d_g4",
-=======
->>>>>>> aac3b78f6a0741efb70c9f4cefbba141feeb8f0f
     "state": "active"
   },
   "entities": [
     {
-      "class": [ "repo", "collection" ],
-      "rel": [ "item" ],
+      "class": [
+        "repo"
+      ],
+      "rel": [
+        "item"
+      ],
       "properties": {
-<<<<<<< HEAD
         "id": 1,
         "url": "https://github.com/example",
         "name": "assignment1"
-=======
-        "pageIndex": 0,
-        "pageSize": 1
->>>>>>> aac3b78f6a0741efb70c9f4cefbba141feeb8f0f
       },
-      "entities": [
-        {
-          "class": [ "repo" ],
-          "rel": [ "item" ],
-          "properties": {
-            "id": 123123,
-            "name": "someRepo"
-          },
-          "links": [
-            {
-              "rel": ["self"],
-              "href": "/api/orgs/852/classrooms/123123/teams/456"
-            }
-          ]
-        }
-      ],
       "links": [
         {
-<<<<<<< HEAD
           "rel": [
             "self"
           ],
           "href": "/api/orgs/123123/classrooms/1/teams/234342/repo/1"
-=======
-          "rel": [ "self" ],
-          "href": "/api/orgs/123123/classrooms/1/teams/234342/repos"
-        }
-      ]
-    },
-    {
-      "class": [ "tag", "collection" ],
-      "rel": [ "item" ],
-      "properties": {
-        "pageIndex": 0,
-        "pageSize": 1
-      },
-      "entities": [
-        {
-          "class": [ "tag" ],
-          "rel": [ "item" ],
-          "properties": {
-            "name": "someTag"
-          },
-          "links": [
-            {
-              "rel": ["self"],
-              "href": "/api/orgs/852/classrooms/123123/teams/456/tags/someTag"
-            }
-          ]
-        }
-      ],
-      "links": [
-        {
-          "rel": [ "self" ],
-          "href": "/api/orgs/123123/classrooms/1/teams/234342/tags"
->>>>>>> aac3b78f6a0741efb70c9f4cefbba141feeb8f0f
         }
       ]
     }
   ],
   "links": [
     {
-      "rel": [ "self" ],
+      "rel": [
+        "self"
+      ],
       "href": "/api/orgs/123123/classrooms/1/teams/234342"
     },
     {
-      "rel": [ "home" ],
+      "rel": [
+        "home"
+      ],
       "href": "/api"
     },
     {
-      "rel": [ "classroom" ],
-      "href": "/api/orgs/123123/classrooms/1"
+      "rel": [
+        "github"
+      ],
+      "href": "https://github.com/i-on-project"
     },
     {
-<<<<<<< HEAD
       "rel": [
         "avatar"
       ],
@@ -273,6 +217,14 @@ Status:  200 OK
         "assignment"
       ],
       "href": "/api/orgs/123123/classrooms/1/assignment/7"
+    },
+    {
+      "rel": [ "assignment" ],
+      "href": "/api/orgs/123123/classrooms/1/assignment/7"
+    },
+    {
+      "rel": [ "repo" ],
+      "href": "/api/orgs/123123/classrooms/1/teams/234342/repos/3"
     }
   ]
 }
@@ -402,9 +354,12 @@ Status:  200 OK
       "href": "/api/orgs/123123/classrooms/1/assignment/7"
     },
     {
-      "rel": ["notes"],
+      "rel": [
+        "notes"
+      ],
       "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/234342/notes"
-=======
+    },
+    {
       "rel": [ "assignment" ],
       "href": "/api/orgs/123123/classrooms/1/assignment/7"
     },
@@ -555,7 +510,6 @@ Status:  200 OK
     {
       "rel": [ "repo" ],
       "href": "/api/orgs/123123/classrooms/1/teams/234342/repos/3"
->>>>>>> aac3b78f6a0741efb70c9f4cefbba141feeb8f0f
     }
   ]
 }
