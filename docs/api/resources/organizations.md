@@ -123,6 +123,10 @@ Status:  200 OK
     {
       "rel": ["prev"],
       "href": "/api/orgs?page=1&limit=10"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
     }
   ]
 }
@@ -156,6 +160,8 @@ Status:  200 OK
       "properties": {
         "id": 1,
         "name": "LI61D",
+        "state": "active",
+        "schoolYear": "2021/22"
       },
       "links": [
         {
@@ -181,6 +187,10 @@ Status:  200 OK
     {
         "rel": ["avatar"],
         "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
     },
     {
         "rel": ["classrooms"],
@@ -280,6 +290,10 @@ Status:  200 OK
     {
         "rel": ["avatar"],
         "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
     },
     {
         "rel": ["classrooms"],

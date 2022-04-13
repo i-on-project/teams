@@ -43,6 +43,7 @@ CREATE TABLE TEACHER
 CREATE TABLE TEAMS
 (
     id    serial,
+    name varchar(50),
     cId   int,                          --class id
     state varchar(50) DEFAULT 'pending',
     PRIMARY KEY (id),

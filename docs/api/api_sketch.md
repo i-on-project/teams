@@ -61,7 +61,7 @@
   - Links
     - Home page
     - Individual assignments
-    - Individual Team (and or Repo)
+    - Individual Team
     - Logout
     - Individual Teacher (to teacher(s) information)
     - Organization
@@ -71,7 +71,6 @@
 - Team
   - Content
     - Repo or list of repos
-    - Tags
     - Upcoming delivery information
   - Links
     - Home page
@@ -167,7 +166,7 @@
     - Home page
     - Classroom
     - Individual Repository
-    - Individual note
+    - list of notes
     - Assignment
     - Logout
   - Actions
@@ -200,6 +199,7 @@
     - Logout
   - Actions
     - Update Repo
+    - Create Repo
 
 - Assignment
   - Content

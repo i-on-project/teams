@@ -114,15 +114,17 @@ Status:  200 OK
   },
   "entities": [
     {
-      "class": [ "classroom" ],
+      "class": [ "team" ],
       "rel": [ "item" ],
       "properties": {
-        "name": "LI61D",
+        "id": 123123,
+        "cId": 456,
+        "state": "active"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/123123/classrooms"
+          "href": "/api/orgs/852/classrooms/123123/teams/456"
         }
       ]
     }
@@ -139,17 +141,21 @@ Status:  200 OK
     {
       "rel": ["prev"],
       "href": "/api/orgs?page=1&limit=10"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
     }
   ]
 }
 ```
 
-#### Get Organization (Student)
+#### Get Classroom (Student)
 
-Student view of a Get Organization request. This returns a single request. The user must be apart of the organization to make such request.
+Student view of a Get Classroom request. This returns a single request. The user must be apart of the classroom to make such request.
 
 ```http
-GET /api/orgs/{orgId}
+GET /api/orgs/{orgId}/classrooms/{classId}
 ```
 
 ```text
@@ -158,29 +164,31 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "organization" ],
+  "class": [ "classroom" ],
   "rel": [ "item" ],
   "properties": {
-    "id": 123123,
-    "name": "i-on-project",
-    "description": "GitHub organization for the i-on projects"
+    "properties": {
+      "id": 9,
+      "name": "LI61D",
+      "state": "active",
+      "schoolYear": "2021/22"
+    }
   },
-  "entities": [
-    {
-      "class": [ "classroom" ],
+  "entities": {
+      "class": [ "team" ],
       "rel": [ "item" ],
       "properties": {
-        "id": 1,
-        "name": "LI61D",
+        "id": 123123,
+        "cId": 456,
+        "state": "active"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/123123/class/1"
+          "href": "/api/orgs/852/classrooms/123123/teams/456"
         }
       ]
-    }
-  ],
+    },
   "links": [
     {
         "rel": ["self"],
@@ -199,23 +207,27 @@ Status:  200 OK
         "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
-        "rel": ["classrooms"],
-        "href": "/api/orgs/123123/classrooms"
+        "rel": ["logout"],
+        "href": "/api/logout"
     },
     {
         "rel": ["organizations"],
         "href": "/api/orgs"
+    },
+    {
+        "rel": ["assignment"],
+        "href": "/api/orgs/123123/classrooms/1/assignments"
     }
   ]
 }
 ```
 
-#### Get Organization (Teacher)
+#### Get Classroom (Teacher)
 
-Teacher view of a Get Organization request. This returns a single request. The user must be apart of the organization to make such request.
+Teacher view of a Get Classroom request. This returns a single request. The user must be apart of the classroom to make such request.
 
 ```http
-GET /api/orgs/{orgId}
+GET /api/orgs/{orgId}/classrooms/{classId}
 ```
 
 ```text
@@ -224,25 +236,27 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "organization" ],
+  "class": [ "classroom" ],
   "rel": [ "item" ],
   "properties": {
-    "id": 123123,
-    "name": "i-on-project",
-    "description": "GitHub organization for the i-on projects"
+    "id": 9,
+    "name": "LI61D",
+    "state": "active",
+    "schoolYear": "2021/22"
   },
   "entities": [
     {
-      "class": [ "classroom" ],
+      "class": [ "team" ],
       "rel": [ "item" ],
       "properties": {
-        "id": 1,
-        "name": "LI61D",
+        "id": 123123,
+        "cId": 456,
+        "state": "active"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/123123/class/1"
+          "href": "/api/orgs/852/classrooms/123123/teams/456"
         }
       ]
     }
@@ -276,7 +290,7 @@ Status:  200 OK
       "type": "application/json",
       "field": [
         {"name": "name", "type": "string"},
-        {"name": "description", "type": "string"},
+        {"name": "description", "type": "string"}
       ]
     }
   ],
@@ -298,12 +312,16 @@ Status:  200 OK
         "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
-        "rel": ["classrooms"],
-        "href": "/api/orgs/123123/classrooms"
+      "rel": ["logout"],
+      "href": "/api/logout"
     },
     {
-        "rel": ["organizations"],
-        "href": "/api/orgs"
+      "rel": ["organizations"],
+      "href": "/api/orgs"
+    },
+    {
+      "rel": ["assignment"],
+      "href": "/api/orgs/123123/classrooms/1/assignments"
     }
   ]
 }

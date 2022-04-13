@@ -6,17 +6,17 @@
 
 [How to redirect to authorization?](https://docs.github.com/en/developers/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps)
 
+[Authentication with GitHub Apps](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps)
+
+[Refreshing user-to-server access tokens](https://docs.github.com/en/developers/apps/building-github-apps/refreshing-user-to-server-access-tokens)
+
+---
+
 ## Information needed
 ### Student
-- client ID
-- client secret
-- app ID (?)
-- username
-- token
+- Token
+  - username
 
 ### Teacher
-- client ID
-- client secret
-- app ID (?)
-- username
 - token (guardado localmente)
+  - capaz de fazer pedidos em nome do utilizador

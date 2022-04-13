@@ -1,8 +1,6 @@
 # Teams
 
-teams is _**Not yet completed**_
-
-**STARTED BY AFONSO MACHADO**
+teams is _**Completed**_
 
 ## Properties
 
@@ -57,9 +55,9 @@ teams is _**Not yet completed**_
 
 ## Actions
 
-* [List Classrooms](#list-user-classrooms)
-* [Get Assignment](#get-assignment)
-* [Get Repo](#get-Repo)
+* [List Teams](#list-teams)
+* [Get Team - Student](#get-team-student)
+* [Get Team - Teacher](#get-team-teacher)
 
 ---
 
@@ -90,13 +88,13 @@ Status:  200 OK
       "rel": [ "item" ],
       "properties": {
         "id": 123123,
-        "cId": 456,
+        "name": "li61d_g4",
         "state": "active"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "GET /api/orgs/852/classrooms/123123/teams/456"
+          "href": "/api/orgs/852/classrooms/123123/teams/123123"
         }
       ]
     }
@@ -117,14 +115,18 @@ Status:  200 OK
     {
       "rel": ["prev"],
       "href": "/api/orgs?page=1&limit=10"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
     }
   ]
 }
 ```
 
-#### Get Team
+#### Get Team (Student)
 
-This returns a single response. The user must be apart of the team to make such request.
+This returns a single response. The user must be a part of the team to make such request.
 
 ```http
 GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}
@@ -144,7 +146,7 @@ Status:  200 OK
   ],
   "properties": {
     "id": 234342,
-    "cId": 1,
+    "name": "li61d_g4",
     "state": "active"
   },
   "entities": [
@@ -158,16 +160,14 @@ Status:  200 OK
       "properties": {
         "id": 1,
         "url": "https://github.com/example",
-        "name": "assignment1",
-        "tId": 234342,
-        "assId": 7
+        "name": "assignment1"
       },
       "links": [
         {
           "rel": [
             "self"
           ],
-          "href": "/api/orgs/123123/classrooms/1/teams/234342"
+          "href": "/api/orgs/123123/classrooms/1/teams/234342/repo/1"
         }
       ]
     }
@@ -198,6 +198,137 @@ Status:  200 OK
       "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
+      "rel": ["logout"],
+      "href": "/api/logout"
+    },
+    {
+      "rel": [
+        "classrooms"
+      ],
+      "href": "/api/orgs/123123/classrooms"
+    },
+    {
+      "rel": [
+        "assignment"
+      ],
+      "href": "/api/orgs/123123/classrooms/1/assignment/7"
+    }
+  ]
+}
+```
+
+
+#### Get Team (Teacher)
+
+This returns a single response. The user must be a part of the team to make such request.
+
+```http
+GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}
+```
+
+```text
+Status:  200 OK
+```
+
+```json
+{
+  "class": [
+    "team"
+  ],
+  "rel": [
+    "item"
+  ],
+  "properties": {
+    "id": 234342,
+    "name": "li61d_g4",
+    "state": "active"
+  },
+  "entities": [
+    {
+      "class": [
+        "repo"
+      ],
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "id": 1,
+        "url": "https://github.com/example",
+        "name": "assignment1"
+      },
+      "links": [
+        {
+          "rel": [
+            "self"
+          ],
+          "href": "/api/orgs/123123/classrooms/1/teams/234342/repo/1"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "create-team",
+      "title": "Create Team",
+      "method": "POST",
+      "href": "/api/orgs/{orgId}/class/{classId}/teams",
+      "type": "application/json",
+      "field": [
+        {"name": "id", "type": "number"},
+        {"name": "name", "type": "string"},
+        {"name": "state", "type": "string"},
+        {"name": "cId", "type": "number"}
+      ]
+    },
+    {
+      "name": "delete-team",
+      "title": "Delete Team",
+      "method": "DELETE",
+      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}"
+    },
+    {
+      "name": "update-team",
+      "title": "Update Team",
+      "method": "PUT",
+      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}",
+      "type": "application/json",
+      "field": [
+        {"name": "name", "type": "string"},
+        {"name": "state", "type": "string"},
+        {"name": "cId", "type": "number"}
+      ]
+    }
+  ],
+  "links": [
+    {
+      "rel": [
+        "self"
+      ],
+      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+    },
+    {
+      "rel": [
+        "home"
+      ],
+      "href": "/api"
+    },
+    {
+      "rel": [
+        "github"
+      ],
+      "href": "https://github.com/i-on-project"
+    },
+    {
+      "rel": [
+        "avatar"
+      ],
+      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
+    },
+    {
       "rel": [
         "classrooms"
       ],
@@ -210,10 +341,8 @@ Status:  200 OK
       "href": "/api/orgs/123123/classrooms/1/assignment/7"
     },
     {
-      "rel": [
-        "repo"
-      ],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342/repo/3"
+      "rel": ["notes"],
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/234342/notes"
     }
   ]
 }
