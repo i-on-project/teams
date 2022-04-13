@@ -14,7 +14,16 @@ teams is _**Not yet completed**_
   - type: number
   - example: ``1``
 - ``cId`` - Identifies the Classroom that this team belongs 
-  - **HERE**
+  - mandatory
+  - editable
+  - type: number
+  - example: ``2``
+- ``state`` - Indicates the state of the team, having 3 possible values.
+  - mandatory
+  - editable
+  - type: string
+  - possible values: ``pending``, ``active``, ``inactive``
+
 ### Media-type [Siren](https://github.com/kevinswiber/siren)
 
 * `class`
@@ -32,8 +41,10 @@ teams is _**Not yet completed**_
 
 ### Domain Specific
 
-* [Organizations](#list-organizations)
-* [Classrooms](/docs/api/resources/classrooms.md#list-classrooms)
+* [Classrooms](/docs/api/resources/classrooms.md#list-user-classrooms)
+* [Repo](/docs/api/resources/Repo.md#get-repo)
+* [Assignment](/docs/api/resources/Assignment.md#get-Assignment)
+* logout
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
 * home - Home page
@@ -46,20 +57,20 @@ teams is _**Not yet completed**_
 
 ## Actions
 
-* [List Organizations](#list-organizations)
-* [Get Organization - Student](#get-organization-student)
-* [Ger Organization - Teacher](#get-organization-teacher)
+* [List Classrooms](#list-user-classrooms)
+* [Get Assignment](#get-assignment)
+* [Get Repo](#get-Repo)
 
 ---
 
 ### Success Responses
 
-#### List Organizations
+#### List Teams
 
-List all the organizations that the user has access to.
+List all the Teams that the user has access to.
 
 ```http
-GET /api/orgs
+GET /api/orgs/{orgId}/classrooms/{classId}/teams
 ```
 
 ```text
@@ -68,24 +79,24 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "organization", "collection" ],
+  "class": [ "team", "collection" ],
   "properties": {
     "pageIndex": 0,
     "pageSize": 1
   },
   "entities": [
     {
-      "class": [ "organization" ],
+      "class": [ "team" ],
       "rel": [ "item" ],
       "properties": {
         "id": 123123,
-        "name": "i-on-project",
-        "description": "GitHub organization for the i-on projects"
+        "cId": 456,
+        "state": "active"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/123123"
+          "href": "GET /api/orgs/852/classrooms/123123/teams/456"
         }
       ]
     }
@@ -93,7 +104,7 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs?page=0&limit=10"
+      "href": "/api/orgs/852/classrooms/123123/teams?page=0&limit=10"
     },
     {
         "rel": ["home"],
@@ -111,12 +122,12 @@ Status:  200 OK
 }
 ```
 
-#### Get Organization (Student)
+#### Get Team
 
-Student view of a Get Organization request. This returns a single request. The user must be apart of the organization to make such request.
+This returns a single response. The user must be apart of the team to make such request.
 
 ```http
-GET /api/orgs/{orgId}
+GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}
 ```
 
 ```text
@@ -125,152 +136,84 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "organization" ],
-  "rel": [ "item" ],
+  "class": [
+    "team"
+  ],
+  "rel": [
+    "item"
+  ],
   "properties": {
-    "id": 123123,
-    "name": "i-on-project",
-    "description": "GitHub organization for the i-on projects"
+    "id": 234342,
+    "cId": 1,
+    "state": "active"
   },
   "entities": [
     {
-      "class": [ "classroom" ],
-      "rel": [ "item" ],
+      "class": [
+        "repo"
+      ],
+      "rel": [
+        "item"
+      ],
       "properties": {
         "id": 1,
-        "name": "LI61D",
+        "url": "https://github.com/example",
+        "name": "assignment1",
+        "tId": 234342,
+        "assId": 7
       },
       "links": [
         {
-          "rel": ["self"],
-          "href": "/api/orgs/123123/class/1"
+          "rel": [
+            "self"
+          ],
+          "href": "/api/orgs/123123/classrooms/1/teams/234342"
         }
       ]
     }
   ],
   "links": [
     {
-        "rel": ["self"],
-        "href": "/api/orgs/123123"
+      "rel": [
+        "self"
+      ],
+      "href": "/api/orgs/123123/classrooms/1/teams/234342"
     },
     {
-        "rel": ["home"],
-        "href": "/api"
+      "rel": [
+        "home"
+      ],
+      "href": "/api"
     },
     {
-        "rel": ["github"],
-        "href": "https://github.com/i-on-project"
+      "rel": [
+        "github"
+      ],
+      "href": "https://github.com/i-on-project"
     },
     {
-        "rel": ["avatar"],
-        "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+      "rel": [
+        "avatar"
+      ],
+      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
-        "rel": ["classrooms"],
-        "href": "/api/orgs/123123/classrooms"
+      "rel": [
+        "classrooms"
+      ],
+      "href": "/api/orgs/123123/classrooms"
     },
     {
-        "rel": ["organizations"],
-        "href": "/api/orgs"
-    }
-  ]
-}
-```
-
-#### Get Organization (Teacher)
-
-Teacher view of a Get Organization request. This returns a single request. The user must be apart of the organization to make such request.
-
-```http
-GET /api/orgs/{orgId}
-```
-
-```text
-Status:  200 OK
-```
-
-```json
-{
-  "class": [ "organization" ],
-  "rel": [ "item" ],
-  "properties": {
-    "id": 123123,
-    "name": "i-on-project",
-    "description": "GitHub organization for the i-on projects"
-  },
-  "entities": [
-    {
-      "class": [ "classroom" ],
-      "rel": [ "item" ],
-      "properties": {
-        "id": 1,
-        "name": "LI61D",
-      },
-      "links": [
-        {
-          "rel": ["self"],
-          "href": "/api/orgs/123123/class/1"
-        }
-      ]
-    }
-  ],
-  "actions": [
-    {
-      "name": "create-classroom",
-      "title": "Create Classroom",
-      "method": "POST",
-      "href": "/api/orgs/{orgId}/class",
-      "type": "application/json",
-      "field": [
-        {"name": "name", "type": "string"},
-        {"name": "description", "type": "string"},
-        {"name": "schoolYear", "type": "string"},
-        {"name": "maxGroups", "type": "string"},
-        {"name": "maxGroupMembers", "type": "string"}
-      ]
+      "rel": [
+        "assignment"
+      ],
+      "href": "/api/orgs/123123/classrooms/1/assignment/7"
     },
     {
-      "name": "delete-classroom",
-      "title": "Delete Classroom",
-      "method": "DELETE",
-      "href": "/api/orgs/{orgId}/class/{classId}"
-    },
-    {
-      "name": "update-organization",
-      "title": "Update Organization",
-      "method": "PUT",
-      "href": "/api/orgs/{orgId}",
-      "type": "application/json",
-      "field": [
-        {"name": "name", "type": "string"},
-        {"name": "description", "type": "string"},
-      ]
-    }
-  ],
-  "links": [
-    {
-        "rel": ["self"],
-        "href": "/api/orgs/123123"
-    },
-    {
-        "rel": ["home"],
-        "href": "/api"
-    },
-    {
-        "rel": ["github"],
-        "href": "https://github.com/i-on-project"
-    },
-    {
-        "rel": ["avatar"],
-        "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
-    },
-    {
-        "rel": ["classrooms"],
-        "href": "/api/orgs/123123/classrooms"
-    },
-    {
-        "rel": ["organizations"],
-        "href": "/api/orgs"
+      "rel": [
+        "repo"
+      ],
+      "href": "/api/orgs/123123/classrooms/1/teams/234342/repo/3"
     }
   ]
 }

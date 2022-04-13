@@ -34,20 +34,20 @@ CREATE TABLE TEACHER
 (
     number int unique,
     name   varchar(50),
-    email  varchar,     --TODO: not sure what it is (CHECK)
+    email  varchar,
     office varchar(20), --X.X.XX (e.g G.1.16)
     PRIMARY KEY (number),
-    CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
+    CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$') --TODO: not sure what it is (CHECK)
 );
 
 CREATE TABLE TEAMS
 (
     id    serial,
     cId   int,                          --class id
-    state varchar(50) DEFAULT 'active', --TODO: Pending state??
+    state varchar(50) DEFAULT 'pending',
     PRIMARY KEY (id),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
-    CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' )
+    CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' OR state = 'pending')
 );
 
 CREATE TABLE NOTES
