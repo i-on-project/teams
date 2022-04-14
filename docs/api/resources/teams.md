@@ -130,7 +130,7 @@ Status:  200 OK
 }
 ```
 
-#### Get Team - Student
+#### Get Team (Student)
 
 This returns a single team item. The user must be apart of the team to make such request.
 

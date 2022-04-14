@@ -50,7 +50,7 @@ An organization represents a [GitHub Organization](https://docs.github.com/en/or
 ### Domain Specific
 
 * [Organizations](#list-organizations)
-* [Classrooms](/docs/api/resources/classrooms.md#list-classrooms)
+* [Classrooms](classrooms.md#list-classrooms)
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
 * home - Home page
@@ -95,14 +95,14 @@ Status:  200 OK
       "class": [ "organization" ],
       "rel": [ "item" ],
       "properties": {
-        "id": 123123,
+        "id": 123,
         "name": "i-on-project",
         "description": "GitHub organization for the i-on projects"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/123123"
+          "href": "/api/orgs/123"
         }
       ]
     }
@@ -113,16 +113,16 @@ Status:  200 OK
       "href": "/api/orgs?page=0&limit=10"
     },
     {
-        "rel": ["home"],
-        "href": "/api"
-    },
-    {
       "rel": ["next"],
       "href": "/api/orgs?page=1&limit=10"
     },
     {
       "rel": ["prev"],
       "href": "/api/orgs?page=1&limit=10"
+    },
+    {
+      "rel": ["home"],
+      "href": "/api"
     },
     {
       "rel": ["logout"],
@@ -232,6 +232,7 @@ Status:  200 OK
       "properties": {
         "id": 1,
         "name": "LI61D",
+        "description": "Day class 6 semester number 1."
       },
       "links": [
         {

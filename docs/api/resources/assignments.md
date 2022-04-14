@@ -125,7 +125,7 @@ Status:  200 OK
 }
 ```
 
-#### Get Assignment - Student
+#### Get Assignment (Student)
 
 This returns a single team item. The user must be a part of the classroom to make such request.
 

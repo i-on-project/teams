@@ -44,8 +44,10 @@
     - Classrooms list that the student is apart of (sorted by name or added)
   - Links
     - Home page
-    - Individual classroom
     - Logout
+    - Individual classroom
+    - List of classrooms
+    - List of organizations
   - Actions
     - No actions
 
@@ -60,11 +62,11 @@
     - Teacher(s) information
   - Links
     - Home page
-    - Individual assignments
-    - Individual Team
     - Logout
+    - Individual organization
+    - Individual Team
     - Individual Teacher (to teacher(s) information)
-    - Organization
+    - List of assignments
   - Actions
     - No actions
 
@@ -126,8 +128,10 @@
     - Classroom list
   - Links
     - Home page
-    - Individual classroom
     - Logout
+    - Individual classroom
+    - List of organizations
+    - List of classrooms
   - Actions
     - Create a new classroom
     - Delete an existing classroom
@@ -144,10 +148,10 @@
     - List of requests
   - Links
     - Home page
-    - Organization
-    - Individual team
-    - Individual assignment
     - Logout
+    - Organization
+    - List of teams
+    - List of assignment
   - Actions
     - Create assignment
     - Delete assignment

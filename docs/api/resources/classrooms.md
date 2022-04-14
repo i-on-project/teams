@@ -23,6 +23,16 @@ Classrooms is _**Not yet completed**_
   * non editable
   * type: **string**
   * example: `This is some organization`
+* `state` - Classroom status
+  * mandatory
+  * non editable
+  * type: **string**
+  * example: `This is some organization`
+* ``ShcoolYear`` - School year of the present class
+  * mandatory
+  * non editable
+  * type: **string**
+  * example: ``2022/23``
 * `maxGroups` - Maximum allowed number os teams in a classroom
   * mandatory
   * non editable
@@ -32,11 +42,6 @@ Classrooms is _**Not yet completed**_
   * mandatory
   * non editable
   * type: **number**
-  * example: `This is some organization`
-* `state` - Classroom status
-  * mandatory
-  * non editable
-  * type: **string**
   * example: `This is some organization`
 * `schoolYear` - Year in which the classroom functioned
   * mandatory
@@ -71,8 +76,10 @@ Classrooms is _**Not yet completed**_
 
 ### Domain Specific
 
-* [Organizations](#list-organizations)
-* [Classrooms](/docs/api/resources/classrooms.md#list-classrooms)
+* [Organizations](organizations.md#list-organizations)
+* [Classrooms](#list-classrooms)
+* [Assignments](assignments.md#list-assignments)
+* [Team](teams.md#list-teams)
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
 * home - Home page
@@ -107,15 +114,15 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "classrooms", "collection" ],
+  "class": ["classrooms", "collection"],
   "properties": {
     "pageIndex": 0,
     "pageSize": 1
   },
   "entities": [
     {
-      "class": [ "classroom" ],
-      "rel": [ "item" ],
+      "class": ["classroom"],
+      "rel": ["item"],
       "properties": {
         "id": 9,
         "name": "LI61D",
@@ -133,15 +140,15 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs?page=0&limit=10"
+      "href": "/api/orgs/852/classrooms?page=0&limit=10"
     },
     {
       "rel": ["next"],
-      "href": "/api/orgs?page=1&limit=10"
+      "href": "/api/orgs/852/classrooms?page=1&limit=10"
     },
     {
       "rel": ["prev"],
-      "href": "/api/orgs?page=1&limit=10"
+      "href": "/api/orgs/852/classrooms?page=1&limit=10"
     },
     {
       "rel": ["logout"],
@@ -212,12 +219,16 @@ Status:  200 OK
         "href": "/api/logout"
     },
     {
-        "rel": ["organizations"],
-        "href": "/api/orgs"
+        "rel": ["organization"],
+        "href": "/api/orgs/123123"
     },
     {
-        "rel": ["assignment"],
+        "rel": ["assignments"],
         "href": "/api/orgs/123123/classrooms/1/assignments"
+    },
+    {
+      "rel": ["team"],
+      "href": "/api/orgs/123123/classrooms/1/teams/5"
     }
   ]
 }
@@ -298,19 +309,19 @@ Status:  200 OK
   "links": [
     {
         "rel": ["self"],
-        "href": "/api/orgs/123123"
+        "href": "/api/orgs/123123/classrooms/9"
     },
     {
-        "rel": ["home"],
-        "href": "/api"
+      "rel": ["github"],
+      "href": "https://github.com/i-on-project"
     },
     {
-        "rel": ["github"],
-        "href": "https://github.com/i-on-project"
+      "rel": ["avatar"],
+      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
-        "rel": ["avatar"],
-        "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+      "rel": ["home"],
+      "href": "/api"
     },
     {
       "rel": ["logout"],
@@ -318,7 +329,7 @@ Status:  200 OK
     },
     {
       "rel": ["organizations"],
-      "href": "/api/orgs"
+      "href": "/api/orgs/123123"
     },
     {
       "rel": ["assignment"],
