@@ -1,7 +1,6 @@
 # Assignments
 
-Assignments is _**Completed**_
-
+Represents a task and is description.
 
 ## Properties
 
@@ -40,8 +39,8 @@ Assignments is _**Completed**_
 
 ### Domain Specific
 
-* [Classrooms](/docs/api/resources/classrooms.md#list-user-classrooms)
-* [Repo](/docs/api/resources/Repo.md#get-repo)
+* [Classrooms for student](./classrooms.md#get-classroom-student)
+* [Classrooms for teacher](./classrooms.md#get-classroom-teacher)
 * logout
 * home - Home page
 * github - GitHub Organization URI
@@ -103,19 +102,19 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/852/classrooms/123123/teams?page=0&limit=10"
+      "href": "/api/orgs/852/classrooms/123123/assignments?page=0&limit=10"
+    },
+    {
+    "rel": ["next"],
+    "href": "/api/orgs/852/classrooms/123123/assignments?page=1&limit=10"
+    },
+    {
+    "rel": ["prev"],
+    "href": "/api/orgs/852/classrooms/123123/assignments?page=1&limit=10"
     },
     {
       "rel": ["home"],
       "href": "/api"
-    },
-    {
-      "rel": ["next"],
-      "href": "/api/orgs?page=1&limit=10"
-    },
-    {
-      "rel": ["prev"],
-      "href": "/api/orgs?page=1&limit=10"
     },
     {
       "rel": ["logout"],
@@ -128,7 +127,6 @@ Status:  200 OK
 #### Get Assignment (Student)
 
 This returns a single team item. The user must be a part of the classroom to make such request.
-
 
 ```http
 GET /api/orgs/{orgId}/classrooms/{classId}/assignments/{assignmentId}
@@ -168,7 +166,7 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "href": "/api/orgs/123123/classrooms/1/assignments/234342"
     },
     {
       "rel": ["home"],
@@ -185,10 +183,6 @@ Status:  200 OK
     {
       "rel": ["logout"],
       "href": "/api/logout"
-    },
-    {
-      "rel": ["classrooms"],
-      "href": "/api/orgs/123123/classrooms"
     }
   ]
 }
@@ -249,12 +243,6 @@ Status:  200 OK
       ]
     },
     {
-      "name": "delete-assignment",
-      "title": "Delete Assignment",
-      "method": "DELETE",
-      "href": "/api/orgs/{orgId}/class/{classId}/assignments{assignmentId}"
-    },
-    {
       "name": "update-assignment",
       "title": "Update Assignment",
       "method": "PUT",
@@ -266,11 +254,17 @@ Status:  200 OK
         {"name": "description", "type": "string"}
       ]
     }
+    {
+    "name": "delete-assignment",
+    "title": "Delete Assignment",
+    "method": "DELETE",
+    "href": "/api/orgs/{orgId}/class/{classId}/assignments{assignmentId}"
+    },
   ],
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "href": "/api/orgs/123123/classrooms/1/assignments/123123"
     },
     {
       "rel": ["home"],
@@ -287,10 +281,6 @@ Status:  200 OK
     {
       "rel": ["logout"],
       "href": "/api/logout"
-    },
-    {
-      "rel": ["classrooms"],
-      "href": "/api/orgs/123123/classrooms"
     }
   ]
 }

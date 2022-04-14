@@ -1,6 +1,6 @@
 # Repos
 
-Repos is _**Completed**_
+Represents a GitHub repository, as the solution for an assignment.
 
 ## Properties
 
@@ -50,12 +50,13 @@ Repos is _**Completed**_
 
 ### Domain Specific
 
-* [Team](/docs/api/resources/teams.md#get-team)
-* [Tags](/docs/api/resources/tags.md#list-tags)
+* [Team - Student](./teams.md#get-team-student)
+* [Team - Teacher](./teams.md#get-team-teacher)
+* Tags
+* home - Home page
 * logout
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
-* home - Home page
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
@@ -66,7 +67,8 @@ Repos is _**Completed**_
 ## Actions
 
 * [List Repos](#list-repos)
-* [Get Repo](#get-repo)
+* [Get Repo - Student](#get-repo-student)
+* [Get Repo - Teacher](#get-repo-teacher)
 
 ---
 
@@ -111,19 +113,19 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/852/classrooms/123123/teams?page=0&limit=10"
+      "href": "/api/orgs/852/classrooms/123123/teams/4/repos?page=0&limit=10"
     },
     {
-        "rel": ["home"],
-        "href": "/api"
+    "rel": ["next"],
+    "href": "/api/orgs/852/classrooms/123123/teams/4/repos?page=1&limit=10"
     },
     {
-      "rel": ["next"],
-      "href": "/api/orgs?page=1&limit=10"
+    "rel": ["prev"],
+    "href": "/api/orgs/852/classrooms/123123/teams/4/repos?page=1&limit=10"
     },
     {
-      "rel": ["prev"],
-      "href": "/api/orgs?page=1&limit=10"
+      "rel": ["home"],
+      "href": "/api"
     },
     {
       "rel": ["logout"],
@@ -133,9 +135,89 @@ Status:  200 OK
 }
 ```
 
-#### Get Repo
+#### Get Repo (Student)
 
-This returns a single response. The user must be a part of the team that this repo belongs to to make such request.
+This returns a single response.
+
+```http
+GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}
+```
+
+```text
+Status:  200 OK
+```
+
+```json
+{
+  "class": [
+    "repo"
+  ],
+  "rel": [
+    "item"
+  ],
+  "properties": {
+    "id": 88,
+    "url": "https://github.com/i-on-project/teams",
+    "name": "li61d_g4_repo"
+  },
+  "entities": [
+    {
+      "class": [
+        "team"
+      ],
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "id": 85,
+        "name": "li61d_g4",
+        "state": "active"
+      },
+      "links": [
+        {
+          "rel": ["self"],
+
+          "href": "/api/orgs/852/classrooms/123123/teams/85"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "rel": ["self"],
+      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+    },
+    {
+      "rel": ["home"],
+      "href": "/api"
+    },
+    {
+      "rel": ["github"],
+      "href": "https://github.com/i-on-project"
+    },
+    {
+      "rel": ["avatar"],
+      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
+    },
+    {
+      "rel": ["tags"],
+      "href": "/api/orgs/123123/classrooms/1/teams/4/repos/88/tags"
+    },
+    {
+      "rel": ["assignment"],
+      "href": "/api/orgs/123123/classrooms/1/assignments/5"
+    }
+  ]
+}
+```
+
+#### Get Repo (Teacher)
+
+This returns a single response.
 
 ```http
 GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}
@@ -180,6 +262,26 @@ Status:  200 OK
       ]
     }
   ],
+  "actions": [
+    {
+      "name": "update-repo",
+      "title": "Update Repo",
+      "method": "PUT",
+      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}/repos/{repoID}",
+      "type": "application/json",
+      "field": [
+        {"name": "id", "type": "int"},
+        {"name": "name", "type": "string"},
+        {"name": "state", "type": "string"}
+      ]
+    },
+    {
+      "name": "delete-repo",
+      "title": "Delete Repo",
+      "method": "DELETE",
+      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}/repos/{repoId}"
+    }
+  ],
   "links": [
     {
       "rel": ["self"],
@@ -190,20 +292,24 @@ Status:  200 OK
       "href": "/api"
     },
     {
-      "rel": ["github"],
-      "href": "https://github.com/i-on-project"
-    },
-    {
-      "rel": ["avatar"],
-      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
-    },
-    {
       "rel": ["logout"],
       "href": "/api/logout"
     },
     {
-      "rel": ["classroom"],
-      "href": "/api/orgs/123123/classrooms/1"
+    "rel": ["github"],
+    "href": "https://github.com/i-on-project"
+    },
+    {
+    "rel": ["avatar"],
+    "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+    },
+    {
+      "rel": ["tags"],
+      "href": "/api/orgs/123123/classrooms/1/teams/4/repos/88/tags"
+    },
+    {
+      "rel": ["assignment"],
+      "href": "/api/orgs/123123/classrooms/1/assignments/5"
     }
   ]
 }

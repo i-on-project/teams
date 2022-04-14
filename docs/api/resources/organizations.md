@@ -146,8 +146,12 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "organization" ],
-  "rel": [ "item" ],
+  "class": [
+    "organization"
+  ],
+  "rel": [
+    "item"
+  ],
   "properties": {
     "id": 123123,
     "name": "i-on-project",
@@ -155,8 +159,12 @@ Status:  200 OK
   },
   "entities": [
     {
-      "class": [ "classroom" ],
-      "rel": [ "item" ],
+      "class": [
+        "classroom"
+      ],
+      "rel": [
+        "item"
+      ],
       "properties": {
         "id": 1,
         "name": "LI61D",
@@ -165,40 +173,59 @@ Status:  200 OK
       },
       "links": [
         {
-          "rel": ["self"],
+          "rel": [
+            "self"
+          ],
           "href": "/api/orgs/123123/class/1"
         }
       ]
     }
   ],
+  "actions":  [
+    
+  ],
   "links": [
     {
-        "rel": ["self"],
-        "href": "/api/orgs/123123"
+      "rel": [
+        "self"
+      ],
+      "href": "/api/orgs/123123"
     },
     {
-        "rel": ["home"],
-        "href": "/api"
+      "rel": [
+        "home"
+      ],
+      "href": "/api"
     },
     {
-        "rel": ["github"],
-        "href": "https://github.com/i-on-project"
+      "rel": [
+        "github"
+      ],
+      "href": "https://github.com/i-on-project"
     },
     {
-        "rel": ["avatar"],
-        "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+      "rel": [
+        "avatar"
+      ],
+      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
-      "rel": ["logout"],
+      "rel": [
+        "logout"
+      ],
       "href": "/api/logout"
     },
     {
-        "rel": ["classrooms"],
-        "href": "/api/orgs/123123/classrooms"
+      "rel": [
+        "classrooms"
+      ],
+      "href": "/api/orgs/123123/classrooms"
     },
     {
-        "rel": ["organizations"],
-        "href": "/api/orgs"
+      "rel": [
+        "organizations"
+      ],
+      "href": "/api/orgs"
     }
   ]
 }
@@ -247,11 +274,13 @@ Status:  200 OK
       "name": "create-classroom",
       "title": "Create Classroom",
       "method": "POST",
-      "href": "/api/orgs/{orgId}/class",
+      "href": "/api/orgs/{orgId}/classrooms",
       "type": "application/json",
       "field": [
         {"name": "name", "type": "string"},
+        {"name": "state", "type":  "string"},
         {"name": "description", "type": "string"},
+        {"name": "orgId", "type":  "number"},
         {"name": "schoolYear", "type": "string"},
         {"name": "maxGroups", "type": "string"},
         {"name": "maxGroupMembers", "type": "string"}
@@ -261,7 +290,7 @@ Status:  200 OK
       "name": "delete-classroom",
       "title": "Delete Classroom",
       "method": "DELETE",
-      "href": "/api/orgs/{orgId}/class/{classId}"
+      "href": "/api/orgs/{orgId}/classrooms/{classId}"
     },
     {
       "name": "update-organization",
@@ -271,7 +300,11 @@ Status:  200 OK
       "type": "application/json",
       "field": [
         {"name": "name", "type": "string"},
+        {"state": "state", "type":  "string"},
         {"name": "description", "type": "string"},
+        {"name": "schoolYear", "type": "string"},
+        {"name": "maxGroups", "type": "string"},
+        {"name": "maxGroupMembers", "type": "string"}
       ]
     }
   ],

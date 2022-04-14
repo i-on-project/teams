@@ -32,7 +32,7 @@
   - Links
     - Organizations that the student is apart of
     - Individual classroom
-    - Individual team
+    - List of teams
     - Individual upcoming assignment
     - Logout
   - Actions
@@ -72,14 +72,14 @@
 
 - Team
   - Content
-    - Repo or list of repos
+    - Repo or list of repos 
     - Upcoming delivery information
   - Links
     - Home page
+    - Logout
     - Classroom
     - Individual Repository
-    - Assignment
-    - Logout
+    - List of Assignments
   - Actions
     - No actions
 
@@ -90,10 +90,11 @@
     - List of tags
   - Links
     - Home page
-    - Team
-    - GitHub Repo URL
-    - Individual Tags
     - Logout
+    - GitHub Repo URL
+    - Team
+    - Individual assignment
+    - List of Tags
   - Actions
     - No actions
 
@@ -115,8 +116,8 @@
     - Organization list that the teacher is apart of (sorted by name or added)
     - Classroom list that the teacher is apart of (sorted by name or added)
   - Links
-    - Individual classroom
-    - Individual team
+    - List of classroom
+    - List of team
     - Logout
   - Actions
     - Create a new organization
@@ -155,9 +156,10 @@
   - Actions
     - Create assignment
     - Delete assignment
-    - Generate invite link (Should it be an action?) [ ]
-    - Accept request
+    - Update assignment
     - Update classroom
+    - **REVER** Generate invite link (Should it be an action?) [ ]
+    - **REVER** Accept request
 
 - Team
   - Content
@@ -166,15 +168,14 @@
     - Comments
   - Links
     - Home page
-    - Classroom
-    - Individual Repository
-    - list of notes
-    - Assignment
     - Logout
+    - Individual Repository
+    - Classroom
+    - List of notes
   - Actions
     - Delete team
     - Update team
-    - Add comment
+    - Create note
     - Delete note
 
 - Note
@@ -182,9 +183,10 @@
     - Description
   - Links
     - Home page
+    - Logout
     - Team
     - Classroom
-    - Logout
+    - Assignment
   - Actions
     - Update note
 
@@ -195,10 +197,11 @@
     - List of tags
   - Links
     - Home page
+    - Logout
     - Team
     - GitHub Repo URL
-    - Individual Tags
-    - Logout
+    - Assignment
+    - List of Tags
   - Actions
     - Update Repo
     - Create Repo
@@ -212,7 +215,7 @@
     - Classroom
     - Logout
   - Actions
-    - Add delivery
+    - Create delivery
     - Remove delivery
     - Update assignment
 

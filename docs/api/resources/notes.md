@@ -1,8 +1,6 @@
 # Notes
 
-Notes is _**Completed**_
-
-Only available for the Teachers app.
+Represents a comment or review of the teacher relative to a Team. Only available for the Teachers app.
 
 ## Properties
 
@@ -41,11 +39,12 @@ Only available for the Teachers app.
 
 ### Domain Specific
 
-* [Classroom](/docs/api/resources/classrooms.md#get-classroom-teacher)
+* [Classroom](./classrooms.md#get-classroom-teacher)
+* [Team](./teams.md#get-team-teacher)
+* Home page
 * logout
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
-* home - Home page
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
@@ -101,19 +100,19 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/852/classrooms/123123/teams?page=0&limit=10"
+      "href": "/api/orgs/852/team/123123/notes?page=0&limit=10"
     },
     {
-        "rel": ["home"],
-        "href": "/api"
+    "rel": ["next"],
+    "href": "/api/orgs/852/team/123123/notes?page=1&limit=10"
     },
     {
-      "rel": ["next"],
-      "href": "/api/orgs?page=1&limit=10"
+    "rel": ["prev"],
+    "href": "/api/orgs/852/team/123123/notes?page=1&limit=10"
     },
     {
-      "rel": ["prev"],
-      "href": "/api/orgs?page=1&limit=10"
+      "rel": ["home"],
+      "href": "/api"
     },
     {
       "rel": ["logout"],
@@ -128,7 +127,7 @@ Status:  200 OK
 This returns a single response.
 
 ```http
-GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes/{noteId}
+GET /api/orgs/{orgId}/classrooms/{classroomId}/teams/{teamId}/notes/{noteId}
 ```
 
 ```text
@@ -151,21 +150,22 @@ Status:  200 OK
   "entities": [
     {
       "class": [
-        "tag"
+        "team"
       ],
       "rel": [
         "item"
       ],
       "properties": {
-        "name": "0.1.0",
-        "date": "2022-4-14"
+        "id": 9,
+        "name": "li61d_g4",
+        "state": "active"
       },
       "links": [
         {
           "rel": [
             "self"
           ],
-          "href": "/api/orgs/123123/classrooms/1/teams/234342/repo/88/tags/0.1.0"
+          "href": "/api/orgs/123123/classrooms/1/teams/9"
         }
       ]
     }
@@ -192,8 +192,8 @@ Status:  200 OK
       "href": "/api/logout"
     },
     {
-      "rel": ["Team"],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "rel": ["classroom"],
+      "href": "/api/orgs/123123/classrooms/1"
     }
   ]
 }

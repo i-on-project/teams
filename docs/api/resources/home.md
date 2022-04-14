@@ -57,9 +57,9 @@ Home is _**Not yet completed**_
 
 ### Domain Specific
 
-* [Organizations](/docs/api/resources/organizations.md#list-organizations)
-* [Classrooms](/docs/api/resources/classrooms.md#list-classrooms)
-* [Teams](/docs/api/resources/Teams.md#list-teams)
+* [Organizations](./organizations.md#list-organizations)
+* [Classrooms](./classrooms.md#list-classrooms)
+* [Teams](./teams.md#list-teams)
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
 * logout
@@ -138,8 +138,11 @@ Status:  200 OK
     {
       "rel": ["teams"],
       "href": "/api/orgs/852/classrooms/123123/teams"
+    },
+    {
+      "rel": ["assignments"],
+      "href": "/api/orgs/852/classrooms/123123/assignments"
     }
-    
   ]
 }
 ```
@@ -166,7 +169,7 @@ Status:  200 OK
   },
   "entities": [
     {
-      "class": [ "organizations" ],
+      "class": [ "organization" ],
       "rel": [ "item" ],
       "properties": {
         "id": 852,
@@ -184,15 +187,15 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/852/classrooms?page=0&limit=10"
+      "href": "/api/orgs?page=0&limit=10"
     },
     {
       "rel": ["next"],
-      "href": "/api/orgs/852/classrooms?page=1&limit=10"
+      "href": "/api/orgs?page=1&limit=10"
     },
     {
       "rel": ["prev"],
-      "href": "/api/orgs/852/classrooms?page=1&limit=10"
+      "href": "/api/orgs?page=1&limit=10"
     },
     {
       "rel": ["logout"],

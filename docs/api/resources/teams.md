@@ -1,6 +1,6 @@
 # Teams
 
-teams is _**Completed**_
+Represents a group of students. 
 
 ## Properties
 
@@ -11,6 +11,11 @@ teams is _**Completed**_
   * non editable
   * type: number
   * example: ``1``
+* ``name`` - display name for the team
+  * mandatory
+  * non editable
+  * type: string
+  * example: ``62D_G2``
 * ``state`` - Indicates the state of the team, having 3 possible values.
   * mandatory
   * editable
@@ -44,13 +49,15 @@ teams is _**Completed**_
 
 ### Domain Specific
 
-* [Classrooms](/docs/api/resources/classrooms.md#list-user-classrooms)
-* [Repo](/docs/api/resources/Repo.md#get-repo)
-* [Assignment](/docs/api/resources/Assignment.md#get-Assignment)
-* logout
-* home - Home page
+* [Classrooms](./classrooms.md#list-classrooms)
+* [Repo for student](./repos.md#get-repo-student)
+* [Repo for teacher](./repos.md#get-repo-teacher)
+* [List assignments](./assignments.md#list-assignments)
+* [Note](./notes.md#get-note)
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
+* logout
+* home - Home page
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
@@ -111,19 +118,19 @@ Status:  200 OK
       "href": "/api/orgs/852/classrooms/123123/teams?page=0&limit=10"
     },
     {
+    "rel": ["next"],
+    "href": "/api/orgs/852/classrooms/123123/teams?page=1&limit=10"
+    },
+    {
+    "rel": ["prev"],
+    "href": "/api/orgs/852/classrooms/123123/teams?page=1&limit=10"
+    },
+    {
       "rel": ["home"],
       "href": "/api"
     },
     {
-      "rel": ["next"],
-      "href": "/api/orgs?page=1&limit=10"
-    },
-    {
-      "rel": ["prev"],
-      "href": "/api/orgs?page=1&limit=10"
-    },
-    {
-      "rel": ["logout"],
+    "rel": ["logout"],
       "href": "/api/logout"
     }
   ]
@@ -145,88 +152,62 @@ Status:  200 OK
 
 ```json
 {
-  "class": [
-    "team"
-  ],
-  "rel": [
-    "item"
-  ],
+  "class": ["team"],
+  "rel": ["item"],
   "properties": {
-    "id": 234342,
+    "id": 234,
     "name": "li61d_g4",
     "state": "active"
   },
   "entities": [
     {
-      "class": [
-        "repo"
-      ],
-      "rel": [
-        "item"
-      ],
+      "class": ["repo"],
+      "rel": ["item"],
       "properties": {
-        "id": 1,
-        "url": "https://github.com/example",
-        "name": "assignment1"
+        "id": 88,
+        "url": "https://github.com/i-on-project/teams",
+        "name": "li61d_g4_repo"
       },
       "links": [
         {
-          "rel": [
-            "self"
-          ],
-          "href": "/api/orgs/123123/classrooms/1/teams/234342/repo/1"
+          "rel": ["self"],
+          "href": "/api/orgs/123123/classrooms/1/teams/234/repo/88"
         }
       ]
     }
   ],
   "links": [
     {
-      "rel": [
-        "self"
-      ],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "rel": ["self"],
+    "href": "/api/orgs/123123/classrooms/1/teams/234342"
     },
     {
-      "rel": [
-        "home"
-      ],
+      "rel": ["home"],
       "href": "/api"
     },
     {
-      "rel": [
-        "github"
-      ],
-      "href": "https://github.com/i-on-project"
+    "rel": ["github"],
+    "href": "https://github.com/i-on-project"
     },
     {
-      "rel": [
-        "avatar"
-      ],
-      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+    "rel": ["avatar"],
+    "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
       "rel": ["logout"],
       "href": "/api/logout"
     },
     {
-      "rel": [
-        "classrooms"
-      ],
+      "rel": ["classrooms"],
       "href": "/api/orgs/123123/classrooms"
-    },
-    {
-      "rel": [
-        "assignment"
-      ],
-      "href": "/api/orgs/123123/classrooms/1/assignment/7"
-    },
-    {
-      "rel": [ "assignment" ],
-      "href": "/api/orgs/123123/classrooms/1/assignment/7"
     },
     {
       "rel": [ "repo" ],
       "href": "/api/orgs/123123/classrooms/1/teams/234342/repos/3"
+    },
+    {
+      "rel": [ "assignments" ],
+      "href": "/api/orgs/123123/classrooms/1/assignments"
     }
   ]
 }
@@ -235,7 +216,7 @@ Status:  200 OK
 
 #### Get Team (Teacher)
 
-This returns a single response. The user must be a part of the team to make such request.
+This returns a single response.
 
 ```http
 GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}
@@ -283,17 +264,16 @@ Status:  200 OK
   ],
   "actions": [
     {
-      "name": "create-team",
-      "title": "Create Team",
-      "method": "POST",
-      "href": "/api/orgs/{orgId}/class/{classId}/teams",
-      "type": "application/json",
-      "field": [
-        {"name": "id", "type": "number"},
-        {"name": "name", "type": "string"},
-        {"name": "state", "type": "string"},
-        {"name": "cId", "type": "number"}
-      ]
+    "name": "update-team",
+    "title": "Update Team",
+    "method": "PUT",
+    "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}",
+    "type": "application/json",
+    "field": [
+      {"name": "name", "type": "string"},
+      {"name": "state", "type": "string"},
+      {"name": "cId", "type": "number"}
+    ]
     },
     {
       "name": "delete-team",
@@ -302,41 +282,40 @@ Status:  200 OK
       "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}"
     },
     {
-      "name": "update-team",
-      "title": "Update Team",
-      "method": "PUT",
-      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}",
-      "type": "application/json",
+    "name": "create-note",
+    "title": "Create note",
+    "method": "POST",
+    "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}/notes",
+    "type": "application/json",
       "field": [
         {"name": "name", "type": "string"},
-        {"name": "state", "type": "string"},
-        {"name": "cId", "type": "number"}
+        {"name": "date", "type": "date"},
+        {"name": "tId", "type": "number"},
+        {"name": "description", "type": "string"}
       ]
+    },
+    {
+      "name": "delete-note",
+      "title": "Delete Note",
+      "method": "DELETE",
+      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}/notes/{noteId}"
     }
   ],
   "links": [
     {
-      "rel": [
-        "self"
-      ],
+      "rel": ["self"],
       "href": "/api/orgs/123123/classrooms/1/teams/234342"
     },
     {
-      "rel": [
-        "home"
-      ],
+      "rel": ["home"],
       "href": "/api"
     },
     {
-      "rel": [
-        "github"
-      ],
+      "rel": ["github"],
       "href": "https://github.com/i-on-project"
     },
     {
-      "rel": [
-        "avatar"
-      ],
+      "rel": ["avatar"],
       "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
@@ -344,174 +323,12 @@ Status:  200 OK
       "href": "/api/logout"
     },
     {
-      "rel": [
-        "classrooms"
-      ],
-      "href": "/api/orgs/123123/classrooms"
-    },
-    {
-      "rel": [
-        "assignment"
-      ],
-      "href": "/api/orgs/123123/classrooms/1/assignment/7"
-    },
-    {
-      "rel": [
-        "notes"
-      ],
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/234342/notes"
-    },
-    {
-      "rel": [ "assignment" ],
-      "href": "/api/orgs/123123/classrooms/1/assignment/7"
-    },
-    {
-      "rel": [ "repo" ],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342/repos/3"
-    }
-  ]
-}
-```
-
-#### Get Team - Teacher
-
-This returns a single team item. The user must be apart of the team to make such request.
-
-```http
-GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}
-```
-
-```text
-Status:  200 OK
-```
-
-```json
-{
-  "class": [ "team" ],
-  "rel": [ "item" ],
-  "properties": {
-    "id": 234342,
-    "state": "active"
-  },
-  "entities": [
-    {
-      "class": [ "repo", "collection" ],
-      "rel": [ "item" ],
-      "properties": {
-        "pageIndex": 0,
-        "pageSize": 1
-      },
-      "entities": [
-        {
-          "class": [ "repo" ],
-          "rel": [ "item" ],
-          "properties": {
-            "id": 123123,
-            "name": "someRepo"
-          },
-          "links": [
-            {
-              "rel": ["self"],
-              "href": "/api/orgs/852/classrooms/123123/teams/456"
-            }
-          ]
-        }
-      ],
-      "links": [
-        {
-          "rel": [ "self" ],
-          "href": "/api/orgs/123123/classrooms/1/teams/234342/repos"
-        }
-      ]
-    },
-    {
-      "class": [ "tag", "collection" ],
-      "rel": [ "item" ],
-      "properties": {
-        "pageIndex": 0,
-        "pageSize": 1
-      },
-      "entities": [
-        {
-          "class": [ "tag" ],
-          "rel": [ "item" ],
-          "properties": {
-            "name": "someTag"
-          },
-          "links": [
-            {
-              "rel": ["self"],
-              "href": "/api/orgs/852/classrooms/123123/teams/456/tags/someTag"
-            }
-          ]
-        }
-      ],
-      "links": [
-        {
-          "rel": [ "self" ],
-          "href": "/api/orgs/123123/classrooms/1/teams/234342/tags"
-        }
-      ]
-    }
-  ],
-  "actions": [
-    {
-      "name": "delete-team",
-      "title": "Delete Team",
-      "method": "DELETE",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}"
-    },
-    {
-      "name": "update-team",
-      "title": "Update Team",
-      "method": "PUT",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}",
-      "type": "application/json",
-      "fields": [
-        { "name": "state", "type": "string" }
-      ]
-    },
-    {
-      "name": "add-note",
-      "title": "Add Note",
-      "method": "POST",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes",
-      "type": "application/json",
-      "fields": [
-        { "name": "description", "type": "string" }
-      ]
-    },
-    {
-      "name": "delete-note",
-      "title": "Delete Note",
-      "method": "DELETE",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes/{noteId}"
-    }
-  ],
-  "links": [
-    {
-      "rel": [ "self" ],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
-    },
-    {
-      "rel": [ "home" ],
-      "href": "/api"
-    },
-    {
-      "rel": [ "classroom" ],
+      "rel": ["classroom"],
       "href": "/api/orgs/123123/classrooms/1"
-    },
+    }, 
     {
-      "rel": [ "assignment" ],
-      "href": "/api/orgs/123123/classrooms/1/assignment/7"
-    },
-    {
-      "rel": [ "notes" ],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342/notes"
-    },
-    {
-      "rel": [ "repo" ],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342/repos/3"
+      "rel": ["notes"],
+      "href": "/api/orgs/{orgId}/classrooms/1/teams/234342/notes"
     }
   ]
 }

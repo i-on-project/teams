@@ -2,8 +2,6 @@
 
 A classroom represents a classroom of a given course, it is also associated with a given repo.
 
-Classrooms is _**Not yet completed**_
-
 ## Properties
 
 ### Domain specific
@@ -163,7 +161,7 @@ Status:  200 OK
 Student view of a Get Classroom request. This returns a single request. The user must be apart of the classroom to make such request.
 
 ```http
-GET /api/orgs/{orgId}/classrooms/{classId}
+GET /api/orgs/{orgId}/classrooms/{classroomId}
 ```
 
 ```text
@@ -239,7 +237,7 @@ Status:  200 OK
 Teacher view of a Get Classroom request. This returns a single request. The user must be apart of the classroom to make such request.
 
 ```http
-GET /api/orgs/{orgId}/classrooms/{classId}
+GET /api/orgs/{orgId}/classrooms/{classroomId}
 ```
 
 ```text
@@ -275,34 +273,48 @@ Status:  200 OK
   ],
   "actions": [
     {
-      "name": "create-classroom",
-      "title": "Create Classroom",
+      "name": "create-assignment",
+      "title": "Create Assignment",
       "method": "POST",
-      "href": "/api/orgs/{orgId}/class",
+      "href": "/api/orgs/{orgId}/classrooms/{classroomId}/assignments",
+      "type": "application/json",
+      "field": [
+        {"name": "releaseDate", "type": "date"},
+        {"name": "cId", "type": "int"},
+        {"name": "description", "type": "string"}
+      ]
+    },
+    {
+      "name": "delete-assignment",
+      "title": "Delete Assignment",
+      "method": "DELETE",
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/assignments"
+    },
+    {
+      "name": "update-assignment",
+      "title": "Update Organization",
+      "method": "PUT",
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/assignments",
+      "type": "application/json",
+      "field": [
+        {"name": "releaseDate", "type": "date"},
+        {"name": "cId", "type": "int"},
+        {"name": "description", "type": "string"}
+      ]
+    },
+    {
+      "name": "update-classroom",
+      "title": "Update Classroom",
+      "method": "PUT",
+      "href": "/api/orgs/{orgId}/classrooms/{classId}",
       "type": "application/json",
       "field": [
         {"name": "name", "type": "string"},
+        {"state": "state", "type":  "string"},
         {"name": "description", "type": "string"},
         {"name": "schoolYear", "type": "string"},
         {"name": "maxGroups", "type": "string"},
         {"name": "maxGroupMembers", "type": "string"}
-      ]
-    },
-    {
-      "name": "delete-classroom",
-      "title": "Delete Classroom",
-      "method": "DELETE",
-      "href": "/api/orgs/{orgId}/class/{classId}"
-    },
-    {
-      "name": "update-organization",
-      "title": "Update Organization",
-      "method": "PUT",
-      "href": "/api/orgs/{orgId}",
-      "type": "application/json",
-      "field": [
-        {"name": "name", "type": "string"},
-        {"name": "description", "type": "string"}
       ]
     }
   ],
