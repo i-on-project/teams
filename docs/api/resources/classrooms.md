@@ -346,7 +346,12 @@ Status:  200 OK
     {
       "rel": ["assignment"],
       "href": "/api/orgs/123123/classrooms/1/assignments"
+    },
+    {
+      "rel": ["requests"],
+      "href": "api/orgs/{orgId}/classrooms/{classId}/requests"
     }
+    
   ]
 }
 ```

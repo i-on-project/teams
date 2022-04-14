@@ -26,7 +26,7 @@
 
 - Home page
   - Content
-    - Classrooms list that the student is apart of (sorted by name or added)
+    - Classrooms list that the student is a part of (sorted by name or added)
     - Teams list
     - Upcoming deliveries
   - Links
@@ -151,6 +151,7 @@
     - Home page
     - Logout
     - Organization
+    - Requests
     - List of teams
     - List of assignment
   - Actions
@@ -204,7 +205,7 @@
     - List of Tags
   - Actions
     - Update Repo
-    - Create Repo
+    - Delete Repo
 
 - Assignment
   - Content
@@ -219,6 +220,15 @@
     - Remove delivery
     - Update assignment
 
+- Requests **NEW - MISSING FILE**
+  - Content
+    - List of teams in the 'pending' state
+      - Can accept/decline a team
+  - Links
+    - List of classroom
+  - Actions
+    - Create Repo
+  
 ## Notes (changes in the DB)
 
 [x] Add the notion of _archived_ (or _inactive_)
