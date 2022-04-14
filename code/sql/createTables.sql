@@ -53,10 +53,11 @@ CREATE TABLE TEAMS
 
 CREATE TABLE NOTES
 (
+    id serial,
     tId         int, --team id
     date        timestamp,
     description varchar(200),
-    PRIMARY KEY (tId, date),
+    PRIMARY KEY (id),
     FOREIGN KEY (tId) REFERENCES TEAMS (id)
 );
 

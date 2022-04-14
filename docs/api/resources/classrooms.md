@@ -107,19 +107,20 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "classroom", "collection" ],
+  "class": [ "classrooms", "collection" ],
   "properties": {
     "pageIndex": 0,
     "pageSize": 1
   },
   "entities": [
     {
-      "class": [ "team" ],
+      "class": [ "classroom" ],
       "rel": [ "item" ],
       "properties": {
-        "id": 123123,
-        "cId": 456,
-        "state": "active"
+        "id": 9,
+        "name": "LI61D",
+        "state": "active",
+        "schoolYear": "2021/22"
       },
       "links": [
         {

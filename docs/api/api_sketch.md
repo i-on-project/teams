@@ -102,7 +102,6 @@
   - Links
     - Home page
     - Classroom
-    - Repo
     - Logout
   - Actions
     - No actions
@@ -205,7 +204,6 @@
   - Content
     - Description
     - Deliveries
-    - Due date (?)
   - Links
     - Home page
     - Classroom

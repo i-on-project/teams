@@ -1,6 +1,6 @@
 # Repos
 
-Repos is _**Not yet completed**_
+Repos is _**Completed**_
 
 ## Properties
 
@@ -11,7 +11,7 @@ Repos is _**Not yet completed**_
     - non editable
     - type: number
     - example: ``1``
-- ``name`` - Indicates the state of the team, having 3 possible values.
+- ``name`` - Indicates the name.
   - mandatory
   - editable
   - type: string
@@ -70,16 +70,14 @@ Repos is _**Not yet completed**_
 
 ---
 
-# ------ STOPEP HERE ------
-
 ### Success Responses
 
-#### List Teams
+#### List Repos
 
-List all the Teams that the user has access to.
+List all the Repos of a specific team.
 
 ```http
-GET /api/orgs/{orgId}/classrooms/{classId}/teams
+GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos
 ```
 
 ```text
@@ -88,24 +86,24 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "team", "collection" ],
+  "class": [ "repo", "collection" ],
   "properties": {
     "pageIndex": 0,
     "pageSize": 1
   },
   "entities": [
     {
-      "class": [ "team" ],
+      "class": [ "repo" ],
       "rel": [ "item" ],
       "properties": {
-        "id": 123123,
-        "name": "li61d_g4",
-        "state": "active"
+        "id": 88,
+        "url": "https://github.com/i-on-project/teams",
+        "name": "li61d_g4_repo"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/852/classrooms/123123/teams/123123"
+          "href": "/api/orgs/852/classrooms/123123/teams/4/repos/88"
         }
       ]
     }
@@ -135,12 +133,12 @@ Status:  200 OK
 }
 ```
 
-#### Get Team (Student)
+#### Get Repo
 
-This returns a single response. The user must be a part of the team to make such request.
+This returns a single response. The user must be a part of the team that this repo belongs to to make such request.
 
 ```http
-GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}
+GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}
 ```
 
 ```text
@@ -150,62 +148,53 @@ Status:  200 OK
 ```json
 {
   "class": [
-    "team"
+    "repo"
   ],
   "rel": [
     "item"
   ],
   "properties": {
-    "id": 234342,
-    "name": "li61d_g4",
-    "state": "active"
+    "id": 88,
+    "url": "https://github.com/i-on-project/teams",
+    "name": "li61d_g4_repo"
   },
   "entities": [
     {
       "class": [
-        "repo"
+        "tags"
       ],
       "rel": [
         "item"
       ],
       "properties": {
-        "id": 1,
-        "url": "https://github.com/example",
-        "name": "assignment1"
+        "id": 123123,
+        "name": "li61d_g4",
+        "state": "active"
       },
       "links": [
         {
-          "rel": [
-            "self"
-          ],
-          "href": "/api/orgs/123123/classrooms/1/teams/234342/repo/1"
+          "rel": ["self"],
+
+          "href": "/api/orgs/852/classrooms/123123/teams/123123"
         }
       ]
     }
   ],
   "links": [
     {
-      "rel": [
-        "self"
-      ],
+      "rel": ["self"],
       "href": "/api/orgs/123123/classrooms/1/teams/234342"
     },
     {
-      "rel": [
-        "home"
-      ],
+      "rel": ["home"],
       "href": "/api"
     },
     {
-      "rel": [
-        "github"
-      ],
+      "rel": ["github"],
       "href": "https://github.com/i-on-project"
     },
     {
-      "rel": [
-        "avatar"
-      ],
+      "rel": ["avatar"],
       "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
@@ -213,147 +202,8 @@ Status:  200 OK
       "href": "/api/logout"
     },
     {
-      "rel": [
-        "classrooms"
-      ],
-      "href": "/api/orgs/123123/classrooms"
-    },
-    {
-      "rel": [
-        "assignment"
-      ],
-      "href": "/api/orgs/123123/classrooms/1/assignment/7"
-    }
-  ]
-}
-```
-
-
-#### Get Team (Teacher)
-
-This returns a single response. The user must be a part of the team to make such request.
-
-```http
-GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}
-```
-
-```text
-Status:  200 OK
-```
-
-```json
-{
-  "class": [
-    "team"
-  ],
-  "rel": [
-    "item"
-  ],
-  "properties": {
-    "id": 234342,
-    "name": "li61d_g4",
-    "state": "active"
-  },
-  "entities": [
-    {
-      "class": [
-        "repo"
-      ],
-      "rel": [
-        "item"
-      ],
-      "properties": {
-        "id": 1,
-        "url": "https://github.com/example",
-        "name": "assignment1"
-      },
-      "links": [
-        {
-          "rel": [
-            "self"
-          ],
-          "href": "/api/orgs/123123/classrooms/1/teams/234342/repo/1"
-        }
-      ]
-    }
-  ],
-  "actions": [
-    {
-      "name": "create-team",
-      "title": "Create Team",
-      "method": "POST",
-      "href": "/api/orgs/{orgId}/class/{classId}/teams",
-      "type": "application/json",
-      "field": [
-        {"name": "id", "type": "number"},
-        {"name": "name", "type": "string"},
-        {"name": "state", "type": "string"},
-        {"name": "cId", "type": "number"}
-      ]
-    },
-    {
-      "name": "delete-team",
-      "title": "Delete Team",
-      "method": "DELETE",
-      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}"
-    },
-    {
-      "name": "update-team",
-      "title": "Update Team",
-      "method": "PUT",
-      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}",
-      "type": "application/json",
-      "field": [
-        {"name": "name", "type": "string"},
-        {"name": "state", "type": "string"},
-        {"name": "cId", "type": "number"}
-      ]
-    }
-  ],
-  "links": [
-    {
-      "rel": [
-        "self"
-      ],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
-    },
-    {
-      "rel": [
-        "home"
-      ],
-      "href": "/api"
-    },
-    {
-      "rel": [
-        "github"
-      ],
-      "href": "https://github.com/i-on-project"
-    },
-    {
-      "rel": [
-        "avatar"
-      ],
-      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
-    },
-    {
-      "rel": ["logout"],
-      "href": "/api/logout"
-    },
-    {
-      "rel": [
-        "classrooms"
-      ],
-      "href": "/api/orgs/123123/classrooms"
-    },
-    {
-      "rel": [
-        "assignment"
-      ],
-      "href": "/api/orgs/123123/classrooms/1/assignment/7"
-    },
-    {
-      "rel": ["notes"],
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/234342/notes"
+      "rel": ["classroom"],
+      "href": "/api/orgs/123123/classrooms/1"
     }
   ]
 }
