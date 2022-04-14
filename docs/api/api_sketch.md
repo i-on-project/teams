@@ -113,7 +113,6 @@
     - Organization list that the teacher is apart of (sorted by name or added)
     - Classroom list that the teacher is apart of (sorted by name or added)
   - Links
-    - Organizations that the student is apart of
     - Individual classroom
     - Individual team
     - Logout

@@ -85,7 +85,7 @@ Classrooms is _**Not yet completed**_
 
 ## Actions
 
-* [List Classrooms](#list-user-classrooms)
+* [List Classrooms](#list-classrooms)
 * [Get Classroom - Student](#get-classroom-student)
 * [Ger Classroom - Teacher](#get-classroom-teacher)
 

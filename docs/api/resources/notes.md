@@ -138,7 +138,7 @@ Status:  200 OK
 ```json
 {
   "class": [
-    "repo"
+    "notes"
   ],
   "rel": [
     "item"
@@ -151,7 +151,7 @@ Status:  200 OK
   "entities": [
     {
       "class": [
-        "team"
+        "tag"
       ],
       "rel": [
         "item"

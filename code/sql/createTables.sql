@@ -104,11 +104,12 @@ CREATE TABLE DELIVERIES
 
 CREATE TABLE TAGS
 (
+    id serial,
     name   varchar(50),
     date   timestamp,
     delId  int, --delivery id
     teamId int, --team id
-    PRIMARY KEY (name),
+    PRIMARY KEY (id),
     FOREIGN KEY (delId) REFERENCES DELIVERIES (id)
 );
 

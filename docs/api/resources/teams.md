@@ -49,6 +49,8 @@ teams is _**Completed**_
 * [Assignment](/docs/api/resources/Assignment.md#get-Assignment)
 * logout
 * home - Home page
+* github - GitHub Organization URI
+* avatar - GitHub Organization Avatar URI
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
