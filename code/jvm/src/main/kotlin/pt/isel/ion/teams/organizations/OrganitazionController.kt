@@ -1,11 +1,6 @@
 package pt.isel.ion.teams.organizations
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import pt.isel.ion.teams.common.Uris
 
 @RestController
@@ -20,10 +15,11 @@ class OrganizationController(val organizationService: OrganizationService) {
     fun getOrganization(@PathVariable id: Int): OrganizationOutput = organizationService.getOrganization(id).toOutput()
 
     @PostMapping
-    fun createOrganization(organization: OrganizationInput)/*: OrganizationOutput*/ =
-        organizationService.createOrganization(organization.toDb())//.toOutput()
+    fun createOrganization(@RequestBody organization: OrganizationInput) =
+        organizationService.createOrganization(organization.toDb())
 
-    @PutMapping
-    fun updateOrganization(organization: OrganizationUpdate) =
-        organizationService.updateOrganization(organization.toDb())
+
+    @PutMapping(Uris.Organizations.SingleOrganization.PATH)
+    fun updateOrganization(@PathVariable id: Int, @RequestBody organization: OrganizationUpdate) =
+        organizationService.updateOrganization(organization.toDb(id))
 }

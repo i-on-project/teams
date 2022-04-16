@@ -9,7 +9,7 @@ object Uris {
         const val PATH = "api/orgs"
 
         object SingleOrganization {
-            const val PATH = "api/orgs/{id}"
+            const val PATH = "/{id}"
             private val TEMPLATE = UriTemplate(PATH)
             fun make(id: Int) = TEMPLATE.expand(mapOf("id" to id))
         }

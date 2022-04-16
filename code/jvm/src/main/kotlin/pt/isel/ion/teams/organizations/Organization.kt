@@ -36,7 +36,6 @@ data class OrganizationInput(
 )
 
 data class OrganizationUpdate(
-    val id: Int,
     val name: String?,
     val description: String?
 )
@@ -45,6 +44,6 @@ data class OrganizationUpdate(
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun OrganizationInput.toDb() = OrganizationDbWrite(this.name,this.description)
-fun OrganizationUpdate.toDb() = OrganizationDbUpdate(this.id,this.name,this.description)
-fun OrganizationDbRead.toOutput() = OrganizationOutput(this.id,this.name,this.description)
+fun OrganizationInput.toDb() = OrganizationDbWrite(this.name, this.description)
+fun OrganizationUpdate.toDb(id: Int) = OrganizationDbUpdate(id, this.name, this.description)
+fun OrganizationDbRead.toOutput() = OrganizationOutput(this.id, this.name, this.description)
