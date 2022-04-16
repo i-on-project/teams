@@ -8,18 +8,18 @@ import pt.isel.ion.teams.common.Uris
 class OrganizationController(val organizationService: OrganizationService) {
 
     @GetMapping
-    fun getAllOrganizations(): List<OrganizationOutput> =
+    fun getAllOrganizations(): List<OrganizationOutputModel> =
         organizationService.getAllOrganizations().map { it.toOutput() }
 
     @GetMapping(Uris.Organizations.SingleOrganization.PATH)
-    fun getOrganization(@PathVariable id: Int): OrganizationOutput = organizationService.getOrganization(id).toOutput()
+    fun getOrganization(@PathVariable id: Int): OrganizationOutputModel = organizationService.getOrganization(id).toOutput()
 
     @PostMapping
-    fun createOrganization(@RequestBody organization: OrganizationInput) =
+    fun createOrganization(@RequestBody organization: OrganizationInputModel) =
         organizationService.createOrganization(organization.toDb())
 
 
     @PutMapping(Uris.Organizations.SingleOrganization.PATH)
-    fun updateOrganization(@PathVariable id: Int, @RequestBody organization: OrganizationUpdate) =
+    fun updateOrganization(@PathVariable id: Int, @RequestBody organization: OrganizationUpdateModel) =
         organizationService.updateOrganization(organization.toDb(id))
 }

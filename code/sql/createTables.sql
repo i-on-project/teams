@@ -10,6 +10,7 @@ CREATE TABLE CLASSROOMS
 (
     id                 serial,
     name               varchar(50),
+    description        varchar(200),
     maxGroups          int,
     maxMembersPerGroup int,
     linkRepo           varchar(50),

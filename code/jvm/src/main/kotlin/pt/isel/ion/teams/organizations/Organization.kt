@@ -24,18 +24,18 @@ data class OrganizationDbUpdate(
  * For external use only.
  */
 
-data class OrganizationOutput(
+data class OrganizationOutputModel(
     val id: Int,
     val name: String,
     val description: String
 )
 
-data class OrganizationInput(
+data class OrganizationInputModel(
     val name: String,
     val description: String
 )
 
-data class OrganizationUpdate(
+data class OrganizationUpdateModel(
     val name: String?,
     val description: String?
 )
@@ -44,6 +44,6 @@ data class OrganizationUpdate(
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun OrganizationInput.toDb() = OrganizationDbWrite(this.name, this.description)
-fun OrganizationUpdate.toDb(id: Int) = OrganizationDbUpdate(id, this.name, this.description)
-fun OrganizationDbRead.toOutput() = OrganizationOutput(this.id, this.name, this.description)
+fun OrganizationInputModel.toDb() = OrganizationDbWrite(this.name, this.description)
+fun OrganizationUpdateModel.toDb(id: Int) = OrganizationDbUpdate(id, this.name, this.description)
+fun OrganizationDbRead.toOutput() = OrganizationOutputModel(this.id, this.name, this.description)
