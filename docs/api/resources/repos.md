@@ -272,7 +272,9 @@ Status:  200 OK
       "field": [
         {"name": "id", "type": "int"},
         {"name": "name", "type": "string"},
-        {"name": "state", "type": "string"}
+        {"name": "url", "type": "string"},
+        {"name": "assId", "type": "number"}
+        
       ]
     },
     {

@@ -1,21 +1,15 @@
-# Requests
+# Invite
 
-Represents a request to create a team, made by one student. Only available for teacher.
+Represents an invitation to a classroom. Only available for teacher.
 
 ## Properties
+### Domain Specif
 
-### Domain specific
-
-- `link` - Invite link for the creation.
-    - mandatory
-    - non editable
-    - type: number
-    - example: ``api/orgs/3/classrooms/4/invite-link``
-- ``teamId`` - Indicates the team that is pending.
-    - mandatory
-    - editable
-    - type: Date
-    - possible values: ``5``
+- `classroom-name` - Name of the classroom in question
+  - mandatory
+  - non editable
+  - type: number
+  - example: ``api/orgs/3/classrooms/4/invite-link``
 
 ### Media-type [Siren](https://github.com/kevinswiber/siren)
 
@@ -48,79 +42,18 @@ Represents a request to create a team, made by one student. Only available for t
 
 ## Actions
 
-* [List Requests](#list-requests)
-* [Get Request](#get-request)
+* [Get Link](#get-link)
 
 ---
 
 ### Success Responses
 
-#### List Requests
-
-List all the Notes of a specific team.
-
-```http
-GET api/orgs/{orgId}/classrooms/{classId}/requests
-```
-
-```text
-Status:  200 OK
-```
-
-```json
-{
-  "class": [ "requests", "collection" ],
-  "properties": {
-    "pageIndex": 0,
-    "pageSize": 1
-  },
-  "entities": [
-    {
-      "class": [ "request" ],
-      "rel": [ "item" ],
-      "properties": {
-        "link": "api/orgs/3/classrooms/4/invite_link",
-        "teamId": "5"
-      },
-      "links": [
-        {
-          "rel": ["self"],
-          "href": "api/orgs/3/classrooms/4/requests/{teamId}"
-        }
-      ]
-    }
-  ],
-  "links": [
-    {
-      "rel": ["self"],
-      "href": "api/orgs/3/classrooms/4/requests?page=0&limit=10"
-    },
-    {
-    "rel": ["next"],
-    "href": "api/orgs/3/classrooms/4/requests?page=1&limit=10"
-    },
-    {
-    "rel": ["prev"],
-    "href": "api/orgs/3/classrooms/4/requests?page=1&limit=10"
-    },
-    {
-      "rel": ["home"],
-      "href": "/api"
-    },
-    {
-      "rel": ["logout"],
-      "href": "/api/logout"
-    }
-  ]
-}
-```
-
-#### Get Request
+#### Get Link
 
 This returns a single response.
 
 ```http
-GET api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}
+GET api/orgs/{orgId}/classrooms/{classId}/invite-link
 ```
 
 ```text
@@ -130,55 +63,54 @@ Status:  200 OK
 ```json
 {
   "class": [
-    "request"
+    "invite-link"
   ],
   "rel": [
     "item"
   ],
-  "properties": {
-    "link": "api/orgs/3/classrooms/4/invite_link",
-    "teamId": "5"
+  "properties": { 
+    "classroom-name": "62d_daw"
   },
   "entities": [
     {
       "class": [
-        "team"
+        "classroom"
       ],
       "rel": [
         "item"
       ],
       "properties": {
         "id": 9,
-        "name": "li61d_g4",
-        "state": "active"
+        "name": "LI61D",
+        "description": "Class for Web application development.",
+        "state": "active",
+        "schoolYear": "2021/22"
       },
       "links": [
         {
           "rel": [
             "self"
           ],
-          "href": "/api/orgs/123123/classrooms/1/teams/9"
+          "href": "/api/orgs/123123/classrooms/9"
         }
       ]
     }
   ],
   "actions": [
     {
-      "name": "accept-request",
-      "title": "Accept Request",
-      "method": "PUT",
-      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}",
+      "name": "create-team",
+      "title": "Create Team",
+      "method": "POST",
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams",
       "field": [
-        {"name": "name", "type": "string"},
-        {"name": "url", "type": "string"},
-        {"name": "assId", "type": "number"}
+        {"name": "name", "type": "string"}
       ]
     }
   ],
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "href": "/api/orgs/123123/classrooms/9/invite-link"
     },
     {
       "rel": ["home"],
@@ -195,10 +127,6 @@ Status:  200 OK
     {
       "rel": ["logout"],
       "href": "/api/logout"
-    },
-    {
-      "rel": ["classroom"],
-      "href": "/api/orgs/123123/classrooms/1"
     }
   ]
 }

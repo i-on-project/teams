@@ -267,7 +267,7 @@ Status:  200 OK
     "name": "update-team",
     "title": "Update Team",
     "method": "PUT",
-    "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}",
+    "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}",
     "type": "application/json",
     "field": [
       {"name": "name", "type": "string"},
@@ -279,13 +279,13 @@ Status:  200 OK
       "name": "delete-team",
       "title": "Delete Team",
       "method": "DELETE",
-      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}"
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}"
     },
     {
     "name": "create-note",
     "title": "Create note",
     "method": "POST",
-    "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}/notes",
+    "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes",
     "type": "application/json",
       "field": [
         {"name": "name", "type": "string"},
@@ -298,7 +298,7 @@ Status:  200 OK
       "name": "delete-note",
       "title": "Delete Note",
       "method": "DELETE",
-      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}/notes/{noteId}"
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes/{noteId}"
     }
   ],
   "links": [

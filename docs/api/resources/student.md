@@ -1,21 +1,21 @@
-# Requests
+# Student
 
-Represents a request to create a team, made by one student. Only available for teacher.
+Represents a student
 
 ## Properties
 
 ### Domain specific
 
-- `link` - Invite link for the creation.
+- `number` - Student number.
     - mandatory
     - non editable
     - type: number
-    - example: ``api/orgs/3/classrooms/4/invite-link``
-- ``teamId`` - Indicates the team that is pending.
+    - example: ``90654``
+- ``name`` - Student name.
     - mandatory
     - editable
     - type: Date
-    - possible values: ``5``
+    - possible values: ``Jumberto Silva``
 
 ### Media-type [Siren](https://github.com/kevinswiber/siren)
 
@@ -48,8 +48,7 @@ Represents a request to create a team, made by one student. Only available for t
 
 ## Actions
 
-* [List Requests](#list-requests)
-* [Get Request](#get-request)
+* [List Students](#list-students)
 
 ---
 
@@ -57,10 +56,10 @@ Represents a request to create a team, made by one student. Only available for t
 
 #### List Requests
 
-List all the Notes of a specific team.
+List all the students of a classroom.
 
 ```http
-GET api/orgs/{orgId}/classrooms/{classId}/requests
+GET api/orgs/{orgId}/classrooms/{classId}/students
 ```
 
 ```text
@@ -69,128 +68,38 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "requests", "collection" ],
+  "class": [ "students", "collection" ],
   "properties": {
     "pageIndex": 0,
     "pageSize": 1
   },
   "entities": [
     {
-      "class": [ "request" ],
+      "class": [ "students" ],
       "rel": [ "item" ],
       "properties": {
-        "link": "api/orgs/3/classrooms/4/invite_link",
-        "teamId": "5"
+        "number": "82264",
+        "name": "Xhang-Chi"
       },
-      "links": [
-        {
-          "rel": ["self"],
-          "href": "api/orgs/3/classrooms/4/requests/{teamId}"
-        }
-      ]
+      "links": []
     }
   ],
   "links": [
     {
       "rel": ["self"],
-      "href": "api/orgs/3/classrooms/4/requests?page=0&limit=10"
+      "href": "api/orgs/3/classrooms/4/students/requests?page=0&limit=10"
     },
     {
-    "rel": ["next"],
-    "href": "api/orgs/3/classrooms/4/requests?page=1&limit=10"
+      "rel": ["next"],
+      "href": "api/orgs/3/classrooms/4/students/requests?page=1&limit=10"
     },
     {
-    "rel": ["prev"],
-    "href": "api/orgs/3/classrooms/4/requests?page=1&limit=10"
-    },
-    {
-      "rel": ["home"],
-      "href": "/api"
-    },
-    {
-      "rel": ["logout"],
-      "href": "/api/logout"
-    }
-  ]
-}
-```
-
-#### Get Request
-
-This returns a single response.
-
-```http
-GET api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}
-```
-
-```text
-Status:  200 OK
-```
-
-```json
-{
-  "class": [
-    "request"
-  ],
-  "rel": [
-    "item"
-  ],
-  "properties": {
-    "link": "api/orgs/3/classrooms/4/invite_link",
-    "teamId": "5"
-  },
-  "entities": [
-    {
-      "class": [
-        "team"
-      ],
-      "rel": [
-        "item"
-      ],
-      "properties": {
-        "id": 9,
-        "name": "li61d_g4",
-        "state": "active"
-      },
-      "links": [
-        {
-          "rel": [
-            "self"
-          ],
-          "href": "/api/orgs/123123/classrooms/1/teams/9"
-        }
-      ]
-    }
-  ],
-  "actions": [
-    {
-      "name": "accept-request",
-      "title": "Accept Request",
-      "method": "PUT",
-      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}",
-      "field": [
-        {"name": "name", "type": "string"},
-        {"name": "url", "type": "string"},
-        {"name": "assId", "type": "number"}
-      ]
-    }
-  ],
-  "links": [
-    {
-      "rel": ["self"],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "rel": ["prev"],
+      "href": "api/orgs/3/classrooms/4/students?page=1&limit=10"
     },
     {
       "rel": ["home"],
       "href": "/api"
-    },
-    {
-      "rel": ["github"],
-      "href": "https://github.com/i-on-project"
-    },
-    {
-      "rel": ["avatar"],
-      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
       "rel": ["logout"],
@@ -198,7 +107,7 @@ Status:  200 OK
     },
     {
       "rel": ["classroom"],
-      "href": "/api/orgs/123123/classrooms/1"
+      "href": "api/orgs/3/classrooms/4"
     }
   ]
 }

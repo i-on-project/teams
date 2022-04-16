@@ -77,7 +77,10 @@ A classroom represents a classroom of a given course, it is also associated with
 * [Organizations](organizations.md#list-organizations)
 * [Classrooms](#list-classrooms)
 * [Assignments](assignments.md#list-assignments)
-* [Team](teams.md#list-teams)
+* [Requests](requests.md#list-requests)
+* [Teams](teams.md#list-teams)
+* [Invite](invite.md#get-invite)
+* [Student](student.md#get-student)
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
 * home - Home page
@@ -124,6 +127,7 @@ Status:  200 OK
       "properties": {
         "id": 9,
         "name": "LI61D",
+        "description": "Class for Web application development.",
         "state": "active",
         "schoolYear": "2021/22"
       },
@@ -173,12 +177,11 @@ Status:  200 OK
   "class": [ "classroom" ],
   "rel": [ "item" ],
   "properties": {
-    "properties": {
       "id": 9,
       "name": "LI61D",
+      "description": "Class for Web application development.",
       "state": "active",
       "schoolYear": "2021/22"
-    }
   },
   "entities": {
       "class": [ "team" ],
@@ -198,7 +201,7 @@ Status:  200 OK
   "links": [
     {
         "rel": ["self"],
-        "href": "/api/orgs/123123"
+        "href": "/api/orgs/852/classrooms/123123"
     },
     {
         "rel": ["home"],
@@ -218,7 +221,7 @@ Status:  200 OK
     },
     {
         "rel": ["organization"],
-        "href": "/api/orgs/123123"
+        "href": "/api/orgs/852"
     },
     {
         "rel": ["assignments"],
@@ -252,6 +255,7 @@ Status:  200 OK
     "id": 9,
     "name": "LI61D",
     "state": "active",
+    "description": "Class for Web application development.",
     "schoolYear": "2021/22"
   },
   "entities": [
@@ -310,12 +314,20 @@ Status:  200 OK
       "type": "application/json",
       "field": [
         {"name": "name", "type": "string"},
-        {"state": "state", "type":  "string"},
+        {"name": "state", "type":  "string"},
         {"name": "description", "type": "string"},
         {"name": "schoolYear", "type": "string"},
         {"name": "maxGroups", "type": "string"},
         {"name": "maxGroupMembers", "type": "string"}
       ]
+    },
+    {
+      "name": "create-invite-link",
+      "title": "Create Invite-Link",
+      "method": "POST",
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/invite-link",
+      "type": "application/json",
+      "field": []
     }
   ],
   "links": [
@@ -350,8 +362,11 @@ Status:  200 OK
     {
       "rel": ["requests"],
       "href": "api/orgs/{orgId}/classrooms/{classId}/requests"
+    },
+    {
+      "rel": ["students"],
+      "href": "api/orgs/{orgId}/classrooms/{classId}/students"
     }
-    
   ]
 }
 ```

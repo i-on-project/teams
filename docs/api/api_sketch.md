@@ -143,6 +143,8 @@
     - Name
     - Description
     - State
+    - Requests
+    - Invite Link
     - List of teams
     - List of students
     - List of assignments
@@ -151,7 +153,7 @@
     - Home page
     - Logout
     - Organization
-    - Requests
+    - List of Requests
     - List of teams
     - List of assignment
   - Actions
@@ -159,8 +161,7 @@
     - Delete assignment
     - Update assignment
     - Update classroom
-    - **REVER** Generate invite link (Should it be an action?) [ ]
-    - **REVER** Accept request
+    - Generate invite link
 
 - Team
   - Content
@@ -220,15 +221,35 @@
     - Remove delivery
     - Update assignment
 
-- Requests **NEW - MISSING FILE**
+- Requests
   - Content
     - List of teams in the 'pending' state
       - Can accept/decline a team
   - Links
-    - List of classroom
+    - Classroom
+    - Team
   - Actions
-    - Create Repo
-  
+    - Create Repo (Service automatically does this action when a resquest is accepted)
+    - Accepting requests
+
+- Invite
+  - Content
+    - sing up for student
+    - team selection
+  - Links
+    - Classroom
+  - Actions
+    - Create a team
+    - Create Student **Missing** (how to represent with sign up?)
+
+- Students
+  - Content
+    - list of students
+  - Links 
+    - Classroom
+  - Actions
+    - No actions
+    
 ## Notes (changes in the DB)
 
 [x] Add the notion of _archived_ (or _inactive_)

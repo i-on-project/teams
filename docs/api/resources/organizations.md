@@ -277,10 +277,8 @@ Status:  200 OK
       "href": "/api/orgs/{orgId}/classrooms",
       "type": "application/json",
       "field": [
-        {"name": "name", "type": "string"},
-        {"name": "state", "type":  "string"},
+        {"name": "name", "type": "string"}
         {"name": "description", "type": "string"},
-        {"name": "orgId", "type":  "number"},
         {"name": "schoolYear", "type": "string"},
         {"name": "maxGroups", "type": "string"},
         {"name": "maxGroupMembers", "type": "string"}
