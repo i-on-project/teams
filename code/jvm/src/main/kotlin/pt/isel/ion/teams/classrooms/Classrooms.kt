@@ -32,6 +32,7 @@ data class ClassroomDbUpdate(
     val maxGroups: Int?,
     val maxGroupMembers: Int?,
     val state: String?,
+    val schoolYear: String?,
 )
 
 /**
@@ -51,24 +52,27 @@ data class ClassroomInputModel(
     val description: String,
     val maxGroups: Int,
     val maxGroupMembers: Int,
+    val repoURI: String,
     val schoolYear: String,
 )
 
 data class ClassroomUpdateModel(
+    val id: Int,
     val name: String?,
     val description: String?,
     val maxGroups: Int?,
     val maxGroupMembers: Int?,
     val state: String?,
+    val schoolYear: String?,
 )
 
 /**
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun ClassroomInputModel.toDb(repoURI: String, orgId: Int) =
-    ClassroomDbWrite(this.name, this.description, this.maxGroups, this.maxGroupMembers, repoURI, this.schoolYear, orgId)
-fun ClassroomUpdateModel.toDb(id: Int) =
-    ClassroomDbUpdate(id, this.name, this.description, this.maxGroups, this.maxGroupMembers, this.state)
+fun ClassroomInputModel.toDb(orgId: Int) =
+    ClassroomDbWrite(this.name, this.description, this.maxGroups, this.maxGroupMembers, this.repoURI, this.schoolYear, orgId)
+fun ClassroomUpdateModel.toDb() =
+    ClassroomDbUpdate(this.id, this.name, this.description, this.maxGroups, this.maxGroupMembers, this.state,this.schoolYear)
 fun ClassroomDbRead.toOutput() = ClassroomOutputModel(this.id, this.name, this.description, this.schoolYear, this.state)
 
