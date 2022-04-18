@@ -36,4 +36,14 @@ object Uris {
             fun make(id: Int) = TEMPLATE.expand(mapOf("id" to id))
         }
     }
+
+    object Notes {
+        const val PATH = "/api/orgs/{orgId}/classrooms/{classroomId}/teams/{teamId}/notes"
+
+        object SingleNote {
+            const val PATH = "/{noteId}"
+            private val TEMPLATE = UriTemplate(PATH)
+            fun make(id: Int) = TEMPLATE.expand(mapOf("id" to id))
+        }
+    }
 }

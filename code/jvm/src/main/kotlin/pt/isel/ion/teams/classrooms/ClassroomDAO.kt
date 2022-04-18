@@ -5,7 +5,6 @@ import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
-import pt.isel.ion.teams.organizations.OrganizationDbRead
 
 interface ClassroomDAO {
 
@@ -15,7 +14,7 @@ interface ClassroomDAO {
     @SqlQuery("SELECT * FROM classrooms WHERE id=:id")
     fun getClassroom(@Bind("id") id: Int): ClassroomDbRead
 
-    @SqlUpdate("INSERT INTO classrooms(name, description, maxgroups, maxmemberspergroup, linkrepo, schoolyear, orgid, state) VALUES (:name, :description, :maxgroups, :maxmemberspergroup, :linkrepo, :schoolyear, :orgid, :state)")
+    @SqlUpdate("INSERT INTO classrooms (name, description, maxgroups, maxmemberspergroup, linkrepo, schoolyear, orgid, state) VALUES (:name, :description, :maxgroups, :maxmemberspergroup, :linkrepo, :schoolyear, :orgid, :state)")
     @GetGeneratedKeys
     fun createClassroom(@BindBean classroomDbWrite: ClassroomDbWrite): ClassroomDbRead
 
