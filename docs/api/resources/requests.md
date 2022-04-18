@@ -60,7 +60,7 @@ Represents a request to create a team, made by one student. Only available for t
 List all the Notes of a specific team.
 
 ```http
-GET api/orgs/{orgId}/classrooms/{classId}/requests
+GET api/orgs/{orgId}/classrooms/{classroomId}/requests
 ```
 
 ```text
@@ -120,7 +120,7 @@ Status:  200 OK
 This returns a single response.
 
 ```http
-GET api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}
+GET api/orgs/{orgId}/classrooms/{classroomId}/requests/{teamId}
 ```
 
 ```text
