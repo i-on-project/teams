@@ -17,7 +17,7 @@ class NotesController (val notesService: NotesService) {
     fun getAllNotesByTeam(@PathVariable teamId: Int): List<NotesOutputModel> =
         notesService.getAllNotesByTeam(teamId).map { it.toOutput() }
 
-    @GetMapping(Uris.Notes.SingleNote.PATH)
+    @GetMapping(Uris.Notes.Note.PATH)
     fun getNotes(@PathVariable id: Int): NotesOutputModel =
         notesService.getNote(id).toOutput()
 

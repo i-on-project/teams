@@ -2,7 +2,6 @@ package pt.isel.ion.teams.classrooms
 
 import org.springframework.web.bind.annotation.*
 import pt.isel.ion.teams.common.Uris
-import pt.isel.ion.teams.organizations.toOutput
 
 @RestController
 @RequestMapping(Uris.Classrooms.PATH)
@@ -12,7 +11,7 @@ class ClassroomController(val classroomService: ClassroomService) {
     fun getAllClassroomsByOrganization(@PathVariable orgId: Int): List<ClassroomOutputModel> =
         classroomService.getAllClassroomsByOrganization(orgId).map { it.toOutput() }
 
-    @GetMapping(Uris.Classrooms.SingleClassroom.PATH)
+    @GetMapping(Uris.Classrooms.Classroom.PATH)
     fun getClassroom(@PathVariable classroomId: Int): ClassroomOutputModel =
         classroomService.getClassroom(classroomId).toOutput()
 

@@ -13,7 +13,6 @@ class OrganizationService(val jdbi: Jdbi) {
     fun createOrganization(organization: OrganizationDbWrite) =
         jdbi.onDemand(OrganizationDAO::class.java).createOrganization(organization)
 
-
     fun updateOrganization(organization: OrganizationDbUpdate) =
         jdbi.onDemand(OrganizationDAO::class.java).updateOrganization(organization)
 

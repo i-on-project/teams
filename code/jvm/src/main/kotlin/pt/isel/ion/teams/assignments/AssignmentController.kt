@@ -17,7 +17,7 @@ class AssignmentController(val assignmentsService: AssignmentsService) {
     fun getAllAssignmenst(@PathVariable classId: Int): List<AssignmentOutputModel> =
         assignmentsService.getAllAssignments(classId).map { it.toOutput() }
 
-    @GetMapping(Uris.Assignments.SingleAssignment.PATH)
+    @GetMapping(Uris.Assignments.Assignment.PATH)
     fun getAssignment(@PathVariable assignmentId: Int): AssignmentOutputModel =
         assignmentsService.getAssignment(assignmentId).toOutput()
 
@@ -25,7 +25,7 @@ class AssignmentController(val assignmentsService: AssignmentsService) {
     fun createAssignment(@RequestBody assignmentInputModel: AssignmentInputModel) =
         assignmentsService.createAssignment(assignmentInputModel.toDb())
 
-    @PutMapping(Uris.Assignments.SingleAssignment.PATH)
+    @PutMapping(Uris.Assignments.Assignment.PATH)
     fun updateAssignment(@PathVariable id: Int, @RequestBody assignmentUpdateModel: AssignmentUpdateModel): Int =
         assignmentsService.updateAssignment(assignmentUpdateModel.toDb(id))
 }

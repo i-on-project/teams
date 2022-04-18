@@ -3,7 +3,7 @@ package pt.isel.ion.teams.organizations
 /**
  * For internal use only.
  */
-data class OrganizationDbRead (
+data class OrganizationDbRead(
     val id: Int,
     val name: String,
     val description: String

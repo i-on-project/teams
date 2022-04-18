@@ -1,16 +1,17 @@
 package pt.isel.ion.teams.repos
 
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping("/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos")
+@RequestMapping(Uris.Repos.PATH)
 class RepoController(val repoService: RepoService) {
 
     @GetMapping
     fun getAllReposByRTeam(@PathVariable teamId: Int): List<RepoOutputModel> =
         repoService.getAllReposByTeam(teamId).map { it.toOutput() }
 
-    @GetMapping("/{repoId}")
+    @GetMapping(Uris.Repos.Repo.PATH)
     fun getRepo(@PathVariable repoId: Int): RepoOutputModel =
         repoService.getRepo(repoId).toOutput()
 
@@ -19,7 +20,7 @@ class RepoController(val repoService: RepoService) {
     fun createRepo(@RequestBody repo: RepoInputModel) =
         repoService.createRepo(repo.toDb())
 
-    @PutMapping("/{repoId}")
+    @PutMapping(Uris.Repos.Repo.PATH)
     fun updateRepo(@PathVariable repoId: Int, @RequestBody repo: RepoUpdateModel): Int =
         repoService.updateRepo(repo.toDb(repoId))
 }

@@ -4,16 +4,17 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping("api/orgs/{orgId}/classrooms/{classroomId}/requests")
+@RequestMapping(Uris.Requests.PATH)
 class RequestsController(val requestsService: RequestsService) {
 
     @GetMapping
-    fun getAllRequestInClassroom(@PathVariable classId: Int): List<RequestsOutputModel> =
-        requestsService.getAllRequestsInClassroom(classId).map { it.toOutput() }
+    fun getAllRequestInClassroom(@PathVariable classroomId: Int): List<RequestsOutputModel> =
+        requestsService.getAllRequestsInClassroom(classroomId).map { it.toOutput() }
 
-    @GetMapping("/{teamId}")
+    @GetMapping(Uris.Requests.Request.PATH)
     fun getRequest(@PathVariable teamId: Int,@PathVariable classroomId: Int): RequestsOutputModel =
         requestsService.getRequest(teamId,classroomId).toOutput()
 

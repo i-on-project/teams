@@ -11,7 +11,7 @@ class OrganizationController(val organizationService: OrganizationService) {
     fun getAllOrganizations(): List<OrganizationOutputModel> =
         organizationService.getAllOrganizations().map { it.toOutput() }
 
-    @GetMapping(Uris.Organizations.SingleOrganization.PATH)
+    @GetMapping(Uris.Organizations.Organization.PATH)
     fun getOrganization(@PathVariable orgId: Int): OrganizationOutputModel =
         organizationService.getOrganization(orgId).toOutput()
 
@@ -20,7 +20,7 @@ class OrganizationController(val organizationService: OrganizationService) {
     = organizationService.createOrganization(organization.toDb())
 
 
-    @PutMapping(Uris.Organizations.SingleOrganization.PATH)
+    @PutMapping(Uris.Organizations.Organization.PATH)
     fun updateOrganization(@PathVariable orgId: Int, @RequestBody organization: OrganizationUpdateModel) =
         organizationService.updateOrganization(organization.toDb(orgId))
 }
