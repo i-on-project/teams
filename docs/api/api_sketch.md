@@ -145,7 +145,7 @@
     - State
     - Requests
     - Invite Link
-    - List of teams
+    - List of teams (not in the pending state)
     - List of students
     - List of assignments
     - List of requests
@@ -221,7 +221,7 @@
     - Remove delivery
     - Update assignment
 
-- Requests
+- Requests 
   - Content
     - List of teams in the 'pending' state
       - Can accept/decline a team
