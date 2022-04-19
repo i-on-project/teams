@@ -87,14 +87,13 @@
   - Content
     - Name
     - Assignment
-    - List of tags
   - Links
     - Home page
     - Logout
     - GitHub Repo URL
     - Team
     - Individual assignment
-    - List of Tags
+    - Tags GitHub
   - Actions
     - No actions
 

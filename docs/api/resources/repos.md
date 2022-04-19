@@ -205,7 +205,7 @@ Status:  200 OK
     },
     {
       "rel": ["tags"],
-      "href": "/api/orgs/123123/classrooms/1/teams/4/repos/88/tags"
+      "href": "https://github.com/i-on-project/teams/tags"
     },
     {
       "rel": ["assignment"],
