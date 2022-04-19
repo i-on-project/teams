@@ -2,6 +2,7 @@ package pt.isel.ion.teams.requests
 
 import org.jdbi.v3.core.Jdbi
 import org.springframework.stereotype.Component
+import pt.isel.ion.teams.teams.TeamsDAO
 
 @Component
 class RequestsService(val jdbi: Jdbi) {
@@ -13,8 +14,7 @@ class RequestsService(val jdbi: Jdbi) {
         jdbi.onDemand(RequestsDAO::class.java).getRequest(teamId, classroomId)
 
     fun acceptRequest(teamId: Int, classroomId: Int) = run {
-        //TODO: Update team state
-        // jdbi.onDemand(TeamsDAO::class.java).updateTeam(TeamDbUpdate())
+        //jdbi.onDemand(TeamsDAO::class.java).updateTeam(TeamDbUpdate())
 
         //TODO: create Repo on DB and GitHub
         // jdbi.onDemand(RepoDAO::class.java).createRepo(RepoDbWrite())

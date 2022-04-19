@@ -16,9 +16,8 @@ class OrganizationController(val organizationService: OrganizationService) {
         organizationService.getOrganization(orgId).toOutput()
 
     @PostMapping
-    fun createOrganization(@RequestBody organization: OrganizationInputModel)
-    = organizationService.createOrganization(organization.toDb())
-
+    fun createOrganization(@RequestBody organization: OrganizationInputModel) =
+        organizationService.createOrganization(organization.toDb())
 
     @PutMapping(Uris.Organizations.Organization.PATH)
     fun updateOrganization(@PathVariable orgId: Int, @RequestBody organization: OrganizationUpdateModel) =
