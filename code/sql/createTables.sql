@@ -37,7 +37,9 @@ CREATE TABLE TEACHER
     name   varchar(50),
     email  varchar,
     office varchar(20), --X.X.XX (e.g G.1.16)
+    cId int,
     PRIMARY KEY (number),
+    FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
     CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$') --TODO: not sure what it is (CHECK)
 );
 

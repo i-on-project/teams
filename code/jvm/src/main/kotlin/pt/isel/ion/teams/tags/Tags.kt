@@ -51,14 +51,13 @@ data class TagInputModel(
 data class TagUpdateModel(
     val name: String?,
     val date: Date?,
-    val delId: Int?,
-    val teamId: Int?
+    val delId: Int?
 )
 
 /**
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun TagInputModel.toDb() = TagDbWrite(this.name,this.date,this.delId,this.teamId)
-fun TagUpdateModel.toDb(id: Int) = TagDbUpdate(id,this.name,this.date,this.delId,this.teamId)
+fun TagInputModel.toDb(teamId: Int) = TagDbWrite(this.name,this.date,this.delId,teamId)
+fun TagUpdateModel.toDb(id: Int,teamId: Int) = TagDbUpdate(id,this.name,this.date,this.delId,teamId)
 fun TagDbRead.toOutput() = TagOutputModel(this.id, this.name,this.date,this.delId,this.teamId)

@@ -93,4 +93,29 @@ object Uris {
             fun make(id: Int) = TEMPLATE.expand(mapOf("id" to id))
         }
     }
+
+    object Tags {
+        const val PATH = "/api/orgs/{orgId}/classrooms/{classroomId}/teams/{teamId}/repos/{repoId}/tags"
+
+        object Tag{
+            const val PATH = "/api/orgs/{orgId}/classrooms/{classroomId}/teams/{teamId}/repos/{repoId}/tags/{tagId}"
+            private val TEMPLATE = UriTemplate(PATH)
+            fun make(id: Int) = TEMPLATE.expand(mapOf("id" to id))
+        }
+    }
+
+    object Account {
+        const val PATH = "/api/account"
+    }
+
+    object Teachers{
+        const val PATH = "/api/orgs/{orgId}/classrooms/{classroomId}/teachers"
+
+        object Teacher{
+            const val PATH = "{number}"
+            private val TEMPLATE = UriTemplate(PATH)
+            fun make(id: Int) = TEMPLATE.expand(mapOf("id" to id))
+        }
+    }
+
 }
