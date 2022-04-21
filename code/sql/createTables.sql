@@ -36,18 +36,29 @@ CREATE TABLE TEACHER
     number int unique,
     name   varchar(50),
     email  varchar,
-    office varchar(20), --X.X.XX (e.g G.1.16)
-    cId int,
+    office varchar(20),                                                                      --X.X.XX (e.g G.1.16)
+    cId    int,
     PRIMARY KEY (number),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
     CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$') --TODO: not sure what it is (CHECK)
 );
 
+CREATE VIEW TEACHERS
+            (
+             number,
+             name,
+             email,
+             office,
+             cId)
+AS
+SELECT number, name, email, office, cId
+FROM TEACHER;
+
 CREATE TABLE TEAMS
 (
     id    serial,
-    name varchar(50),
-    cId   int,                          --class id
+    name  varchar(50),
+    cId   int, --class id
     state varchar(50) DEFAULT 'pending',
     PRIMARY KEY (id),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
@@ -56,7 +67,7 @@ CREATE TABLE TEAMS
 
 CREATE TABLE NOTES
 (
-    id serial,
+    id          serial,
     tId         int, --team id
     date        timestamp,
     description varchar(200),
@@ -73,6 +84,16 @@ CREATE TABLE STUDENT
     PRIMARY KEY (number),
     FOREIGN KEY (tId) REFERENCES TEAMS (id)
 );
+
+CREATE VIEW STUDENTS
+            (
+             number,
+             name,
+             tId,
+             cId)
+AS
+SELECT number, name,tId, cId
+FROM STUDENT;
 
 CREATE TABLE ASSIGNMENTS
 (
@@ -107,7 +128,7 @@ CREATE TABLE DELIVERIES
 
 CREATE TABLE TAGS
 (
-    id serial,
+    id     serial,
     name   varchar(50),
     date   timestamp,
     delId  int, --delivery id
