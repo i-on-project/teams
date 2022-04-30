@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*
 import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping(Uris.Organizations.PATH)
+@RequestMapping(Uris.Organizations.MAIN_PATH)
 class OrganizationController(val organizationService: OrganizationService) {
 
     @GetMapping

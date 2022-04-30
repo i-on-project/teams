@@ -7,19 +7,28 @@ import org.jdbi.v3.sqlobject.kotlin.onDemand
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.springframework.stereotype.Component
+import pt.isel.daw.project.common.errors.sqlExceptionHandler
 
 @Component
 class StudentsService(val jdbi: Jdbi) {
 
     fun getAllStudentsByClassroom(classroomId: Int) =
-        jdbi.onDemand(StudentsDAO::class.java).getAllStudentsByClassroom(classroomId)
+        sqlExceptionHandler {
+            jdbi.onDemand(StudentsDAO::class.java).getAllStudentsByClassroom(classroomId)
+        }
 
     fun getAllStudentsByTeam(teamId: Int) =
-        jdbi.onDemand(StudentsDAO::class.java).getAllStudentsByTeam(teamId)
+        sqlExceptionHandler {
+            jdbi.onDemand(StudentsDAO::class.java).getAllStudentsByTeam(teamId)
+        }
 
     fun createStudent( student: StudentDbWrite) =
-        jdbi.onDemand(StudentsDAO::class.java).createStudent(student)
+        sqlExceptionHandler {
+            jdbi.onDemand(StudentsDAO::class.java).createStudent(student)
+        }
 
     fun updateStudent(student: StudentDbUpdate) =
-        jdbi.onDemand(StudentsDAO::class.java).updateStudent(student)
+        sqlExceptionHandler {
+            jdbi.onDemand(StudentsDAO::class.java).updateStudent(student)
+        }
 }
