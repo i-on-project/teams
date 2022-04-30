@@ -5,7 +5,7 @@ import pt.isel.ion.teams.common.Uris
 
 
 @RestController
-@RequestMapping(Uris.Students.PATH)
+@RequestMapping(Uris.Students.MAIN_PATH)
 class StudentsController(val studentsService: StudentsService) {
 
     @GetMapping(Uris.Students.FromClassroom.PATH)

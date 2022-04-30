@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*
 import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping(Uris.Tags.PATH)
+@RequestMapping(Uris.Tags.MAIN_PATH)
 class TagsController(val tagsService: TagsService) {
 
     @GetMapping
