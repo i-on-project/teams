@@ -149,9 +149,6 @@ Status:  200 OK
   "class": [
     "organization"
   ],
-  "rel": [
-    "item"
-  ],
   "properties": {
     "id": 123123,
     "name": "i-on-project",

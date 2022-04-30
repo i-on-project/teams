@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
+import pt.isel.ion.teams.common.Uris
 import java.net.URI
 
 const val APPLICATION_TYPE = "application"
@@ -13,7 +14,11 @@ const val SIREN_SUBTYPE = "vnd.siren+json"
 
 const val SIREN_MEDIA_TYPE = "${APPLICATION_TYPE}/${SIREN_SUBTYPE}"
 
-fun selfLink(uri: String) = SirenLink(rel = SirenRelations.SELF, href = URI(uri))
+fun selfLink(uri: URI) = SirenLink(rel = SirenRelations.SELF, href = uri)
+fun nextLink(uri: URI) = SirenLink(rel = SirenRelations.NEXT, href = uri)
+fun prevLink(uri: URI) = SirenLink(rel = SirenRelations.PREV, href = uri)
+fun homeLink() = SirenLink(rel = SirenRelations.HOME, href = URI(Uris.Home.PATH))
+fun logoutLink() = SirenLink(rel = SirenRelations.LOGOUT, href = URI(Uris.Logout.PATH))
 
 data class SirenLink(
     val rel: String,

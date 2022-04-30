@@ -3,6 +3,14 @@ package pt.isel.ion.teams.common
 import org.springframework.web.util.UriTemplate
 
 object Uris {
+    object Home {
+        const val PATH = "api/home"
+    }
+
+    object Logout {
+        const val PATH = "api/logout"
+    }
+
     object Organizations {
         const val MAIN_PATH = "api/orgs"
 
