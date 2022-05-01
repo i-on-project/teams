@@ -1,3 +1,6 @@
+DROP VIEW IF EXISTS students_view;
+DROP VIEW IF EXISTS teachers_view;
+
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS deliveries;
 DROP TABLE IF EXISTS repos;

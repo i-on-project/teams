@@ -8,15 +8,15 @@ CREATE TABLE ORGANIZATIONS
 
 CREATE TABLE CLASSROOMS
 (
-    id                 serial,
-    name               varchar(50)  NOT NULL,
-    description        varchar(200) NOT NULL,
-    maxGroups          int          NOT NULL,
-    maxMembersPerGroup int          NOT NULL,
-    linkRepo           varchar(50)  NOT NULL,
-    schoolYear         varchar      NOT NULL, -- (e.g. 2021/22)
-    orgId              int          NOT NULL, --organization id
-    state              varchar(50) DEFAULT 'active',
+    id                serial,
+    name              varchar(50)  NOT NULL,
+    description       varchar(200) NOT NULL,
+    maxTeams         int          NOT NULL,
+    maxMembersPerTeam int          NOT NULL,
+    linkRepo          varchar(50)  NOT NULL,
+    schoolYear        varchar      NOT NULL, -- (e.g. 2021/22)
+    orgId             int          NOT NULL, --organization id
+    state             varchar(50) DEFAULT 'active',
     PRIMARY KEY (id),
     FOREIGN KEY (orgId) REFERENCES ORGANIZATIONS (id),
     CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' ),
@@ -36,20 +36,12 @@ CREATE TABLE TEACHER
     number int unique  NOT NULL,
     name   varchar(50) NOT NULL,
     email  varchar     NOT NULL,
-    office varchar(20) NOT NULL,                                                             --X.X.XX (e.g G.1.16)
+    office varchar(20) NOT NULL, --X.X.XX (e.g G.1.16)
     cId    int,
     UNIQUE (number, cId),
     PRIMARY KEY (number),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
-    CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$') --TODO: not sure what it is (CHECK)
-);
-
-CREATE TABLE TEACHERS
-(
-    number int unique NOT NULL,
-    cId    int        NOT NULL,
-    PRIMARY KEY (number),
-    FOREIGN KEY (number, cId) REFERENCES TEACHER (number, cId)
+    CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
 );
 
 CREATE TABLE TEAMS
@@ -58,9 +50,21 @@ CREATE TABLE TEAMS
     name  varchar(50) NOT NULL,
     cId   int         NOT NULL, --class id
     state varchar(50) DEFAULT 'pending',
+    UNIQUE (id,cId),
     PRIMARY KEY (id),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
     CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' OR state = 'pending')
+);
+
+CREATE TABLE STUDENT
+(
+    number int         NOT NULL,
+    name   varchar(50) NOT NULL,
+    tId    int         NOT NULL, --team id
+    cId    int         NOT NULL, --class id
+    UNIQUE (number, tId, cId),
+    PRIMARY KEY (number),
+    FOREIGN KEY (tId,cId) REFERENCES TEAMS (id,cId)
 );
 
 CREATE TABLE NOTES
@@ -71,27 +75,6 @@ CREATE TABLE NOTES
     description varchar(200) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (tId) REFERENCES TEAMS (id)
-);
-
-CREATE TABLE STUDENT
-(
-    number int         NOT NULL,
-    name   varchar(50) NOT NULL,
-    tId    int         NOT NULL, --team id
-    cId    int         NOT NULL, --class id
-    PRIMARY KEY (number),
-    UNIQUE (number,tId,cId),
-    FOREIGN KEY (tId) REFERENCES TEAMS (id),
-    FOREIGN KEY (cId) REFERENCES CLASSROOMS (id)
-);
-
-CREATE TABLE STUDENTS
-(
-    number int NOT NULL,
-    tId    int NOT NULL,
-    cId    int NOT NULL,
-    PRIMARY KEY (number),
-    FOREIGN KEY (number,tId,cId) REFERENCES STUDENT (number,tId,cId)
 );
 
 CREATE TABLE ASSIGNMENTS
