@@ -30,6 +30,12 @@ data class OrganizationOutputModel(
     val description: String
 )
 
+data class OrganizationCompactOutputModel(
+    val id: Int,
+    val name: String,
+    val description: String
+)
+
 data class OrganizationInputModel(
     val name: String,
     val description: String

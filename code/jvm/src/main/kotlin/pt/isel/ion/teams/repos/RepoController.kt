@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*
 import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping(Uris.Repos.PATH)
+@RequestMapping(Uris.Repos.MAIN_PATH)
 class RepoController(val repoService: RepoService) {
 
     @GetMapping

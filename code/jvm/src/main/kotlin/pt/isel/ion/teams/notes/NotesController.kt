@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping(Uris.Notes.PATH)
+@RequestMapping(Uris.Notes.MAIN_PATH)
 class NotesController (val notesService: NotesService) {
 
     @GetMapping

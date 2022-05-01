@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping(Uris.Assignments.PATH)
+@RequestMapping(Uris.Assignments.MAIN_PATH)
 class AssignmentController(val assignmentsService: AssignmentsService) {
 
     @GetMapping

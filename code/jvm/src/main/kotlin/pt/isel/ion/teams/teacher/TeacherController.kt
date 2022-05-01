@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*
 import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping(Uris.Teachers.PATH)
+@RequestMapping(Uris.Teachers.MAIN_PATH)
 class TeacherController(val service: TeacherService) {
 
     @GetMapping()
