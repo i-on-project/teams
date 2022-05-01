@@ -14,17 +14,23 @@ const val SIREN_SUBTYPE = "vnd.siren+json"
 
 const val SIREN_MEDIA_TYPE = "${APPLICATION_TYPE}/${SIREN_SUBTYPE}"
 
+/**
+ * SirenLink model definition and common links definition
+ */
+data class SirenLink(
+    val rel: String,
+    val href: URI,
+)
+
 fun selfLink(uri: URI) = SirenLink(rel = SirenRelations.SELF, href = uri)
 fun nextLink(uri: URI) = SirenLink(rel = SirenRelations.NEXT, href = uri)
 fun prevLink(uri: URI) = SirenLink(rel = SirenRelations.PREV, href = uri)
 fun homeLink() = SirenLink(rel = SirenRelations.HOME, href = URI(Uris.Home.PATH))
 fun logoutLink() = SirenLink(rel = SirenRelations.LOGOUT, href = URI(Uris.Logout.PATH))
 
-data class SirenLink(
-    val rel: String,
-    val href: URI,
-)
-
+/**
+ * SirenAction model definition
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class SirenAction(
 
@@ -49,6 +55,9 @@ data class SirenAction(
     )
 }
 
+/**
+ * SirenEntity and SubEntities models definition
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class SirenEntity<T>(
     @JsonProperty("class") val clazz: List<String>? = null,

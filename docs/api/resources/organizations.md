@@ -178,9 +178,6 @@ Status:  200 OK
       ]
     }
   ],
-  "actions":  [
-    
-  ],
   "links": [
     {
       "rel": [
@@ -282,12 +279,6 @@ Status:  200 OK
       ]
     },
     {
-      "name": "delete-classroom",
-      "title": "Delete Classroom",
-      "method": "DELETE",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}"
-    },
-    {
       "name": "update-organization",
       "title": "Update Organization",
       "method": "PUT",
@@ -297,9 +288,6 @@ Status:  200 OK
         {"name": "name", "type": "string"},
         {"state": "state", "type":  "string"},
         {"name": "description", "type": "string"},
-        {"name": "schoolYear", "type": "string"},
-        {"name": "maxGroups", "type": "string"},
-        {"name": "maxGroupMembers", "type": "string"}
       ]
     }
   ],

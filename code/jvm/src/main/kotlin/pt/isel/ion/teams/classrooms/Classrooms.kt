@@ -45,7 +45,14 @@ data class ClassroomOutputModel(
     val description: String,
     val schoolYear: String,
     val state: String,
-    )
+)
+
+data class ClassroomCompactOutputModel(
+    val id: Int,
+    val name: String,
+    val description: String,
+    val schoolYear: String,
+)
 
 data class ClassroomInputModel(
     val name: String,
@@ -75,4 +82,5 @@ fun ClassroomInputModel.toDb(orgId: Int) =
 fun ClassroomUpdateModel.toDb() =
     ClassroomDbUpdate(this.id, this.name, this.description, this.maxGroups, this.maxGroupMembers, this.state,this.schoolYear)
 fun ClassroomDbRead.toOutput() = ClassroomOutputModel(this.id, this.name, this.description, this.schoolYear, this.state)
+fun ClassroomDbRead.toCompactOutput() = ClassroomCompactOutputModel(this.id, this.name, this.description, this.schoolYear)
 

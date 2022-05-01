@@ -8,17 +8,17 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
 interface OrganizationDAO {
 
-    @SqlQuery("SELECT * FROM organizations")
-    fun getAllOrganizations(): List<OrganizationDbRead>
+    @SqlQuery("SELECT * FROM organizations_view LIMIT :limit OFFSET :offset")
+    fun getAllOrganizations(@Bind("limit") limit: Int, @Bind("offset") offset: Int): List<OrganizationDbRead>
 
-    @SqlQuery("SELECT * FROM organizations WHERE id=:id")
+    @SqlQuery("SELECT * FROM organizations_view WHERE id=:id")
     fun getOrganization(@Bind("id") id: Int): OrganizationDbRead
 
-    @SqlUpdate("INSERT INTO organizations (name, description) VALUES (:name,:description)")
+    @SqlUpdate("INSERT INTO organizations_view (name, description) VALUES (:name,:description)")
     @GetGeneratedKeys
     fun createOrganization(@BindBean organization: OrganizationDbWrite): OrganizationDbRead
 
-    @SqlUpdate("UPDATE organizations SET name=:name, description=:description WHERE id=:id")
+    @SqlUpdate("UPDATE organizations_view SET name=:name, description=:description WHERE id=:id")
     @GetGeneratedKeys
     fun updateOrganization(@BindBean organization: OrganizationDbUpdate): Int
 

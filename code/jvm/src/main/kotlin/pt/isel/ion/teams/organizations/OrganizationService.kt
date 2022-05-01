@@ -7,9 +7,9 @@ import pt.isel.daw.project.common.errors.sqlExceptionHandler
 @Component
 class OrganizationService(val jdbi: Jdbi) {
 
-    fun getAllOrganizations() =
+    fun getAllOrganizations(pageSize: Int, pageIndex: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(OrganizationDAO::class.java).getAllOrganizations()
+            jdbi.onDemand(OrganizationDAO::class.java).getAllOrganizations(pageSize + 1, pageIndex)
         }
 
     fun getOrganization(id: Int) =
