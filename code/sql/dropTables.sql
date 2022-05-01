@@ -12,8 +12,13 @@ DROP VIEW IF EXISTS repos_view;
 DROP VIEW IF EXISTS deliveries_view;
 DROP VIEW IF EXISTS tags_view;
 
-DROP TRIGGER IF EXISTS check_team_members_counter on student;
 DROP TRIGGER IF EXISTS check_team_counter on teams;
+DROP TRIGGER IF EXISTS check_team_members_counter on student;
+DROP TRIGGER IF EXISTS cascade_delete_organizations on organizations;
+DROP TRIGGER IF EXISTS cascade_delete_classrooms on classrooms;
+DROP TRIGGER IF EXISTS cascade_delete_teams on teams;
+DROP TRIGGER IF EXISTS cascade_delete_assignments on assignments;
+DROP TRIGGER IF EXISTS cascade_delete_repos on repos;
 
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS deliveries;
