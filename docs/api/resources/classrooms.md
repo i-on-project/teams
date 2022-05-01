@@ -74,16 +74,17 @@ A classroom represents a classroom of a given course, it is also associated with
 
 ### Domain Specific
 
-* [Organizations](organizations.md#list-organizations)
-* [Classrooms](#list-classrooms)
-* [Assignments](assignments.md#list-assignments)
-* [Requests](requests.md#list-requests)
-* [Teams](teams.md#list-teams)
-* [Invite](invite.md#get-invite)
-* [Student](student.md#get-student)
+* [organizations](organizations.md#list-organizations)
+* [classrooms](#list-classrooms)
+* [assignments](assignments.md#list-assignments)
+* [requests](requests.md#list-requests)
+* [teams](teams.md#list-teams)
+* [invite](invite.md#get-invite)
+* [student](student.md#get-student)
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
 * home - Home page
+* logout - User log out
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
@@ -127,7 +128,6 @@ Status:  200 OK
       "properties": {
         "id": 9,
         "name": "LI61D",
-        "description": "Class for Web application development.",
         "state": "active",
         "schoolYear": "2021/22"
       },
@@ -153,6 +153,10 @@ Status:  200 OK
       "href": "/api/orgs/852/classrooms?page=1&limit=10"
     },
     {
+      "rel": ["home"],
+      "href": "/api"
+    },
+    {
       "rel": ["logout"],
       "href": "/api/logout"
     }
@@ -162,7 +166,7 @@ Status:  200 OK
 
 #### Get Classroom (Student)
 
-Student view of a Get Classroom request. This returns a single request. The user must be apart of the classroom to make such request.
+Student view of a Get Classroom request. This returns a single resource. The user must be apart of the classroom to make such request.
 
 ```http
 GET /api/orgs/{orgId}/classrooms/{classroomId}
@@ -181,20 +185,22 @@ Status:  200 OK
       "name": "LI61D",
       "description": "Class for Web application development.",
       "state": "active",
-      "schoolYear": "2021/22"
+      "schoolYear": "2021/22",
+      "maxMembersPerGroup": 3,
+      "maxGroups": 10
   },
   "entities": {
       "class": [ "team" ],
       "rel": [ "item" ],
       "properties": {
         "id": 123123,
-        "cId": 456,
+        "name": "team1",
         "state": "active"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/852/classrooms/123123/teams/456"
+          "href": "/api/orgs/852/classrooms/456/teams/123123"
         }
       ]
     },
@@ -216,10 +222,6 @@ Status:  200 OK
         "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
-        "rel": ["logout"],
-        "href": "/api/logout"
-    },
-    {
         "rel": ["organization"],
         "href": "/api/orgs/852"
     },
@@ -230,6 +232,10 @@ Status:  200 OK
     {
       "rel": ["team"],
       "href": "/api/orgs/123123/classrooms/1/teams/5"
+    },
+    {
+        "rel": ["logout"],
+        "href": "/api/logout"
     }
   ]
 }
@@ -256,7 +262,9 @@ Status:  200 OK
     "name": "LI61D",
     "state": "active",
     "description": "Class for Web application development.",
-    "schoolYear": "2021/22"
+    "schoolYear": "2021/22",
+    "maxMembersPerGroup": 3,
+    "maxGroups": 10
   },
   "entities": [
     {
@@ -264,7 +272,7 @@ Status:  200 OK
       "rel": [ "item" ],
       "properties": {
         "id": 123123,
-        "cId": 456,
+        "name": "team1",
         "state": "active"
       },
       "links": [
@@ -289,22 +297,10 @@ Status:  200 OK
       ]
     },
     {
-      "name": "delete-assignment",
-      "title": "Delete Assignment",
+      "name": "delete-classroom",
+      "title": "Delete Classroom",
       "method": "DELETE",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/assignments"
-    },
-    {
-      "name": "update-assignment",
-      "title": "Update Organization",
-      "method": "PUT",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/assignments",
-      "type": "application/json",
-      "field": [
-        {"name": "releaseDate", "type": "date"},
-        {"name": "cId", "type": "int"},
-        {"name": "description", "type": "string"}
-      ]
+      "href": "/api/orgs/{orgId}/classrooms/{classId}"
     },
     {
       "name": "update-classroom",
@@ -348,10 +344,6 @@ Status:  200 OK
       "href": "/api"
     },
     {
-      "rel": ["logout"],
-      "href": "/api/logout"
-    },
-    {
       "rel": ["organizations"],
       "href": "/api/orgs/123123"
     },
@@ -366,7 +358,11 @@ Status:  200 OK
     {
       "rel": ["students"],
       "href": "api/orgs/{orgId}/classrooms/{classId}/students"
-    }
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
+    },
   ]
 }
 ```
