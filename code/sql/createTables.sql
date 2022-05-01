@@ -38,6 +38,7 @@ CREATE TABLE TEACHER
     email  varchar     NOT NULL,
     office varchar(20) NOT NULL,                                                             --X.X.XX (e.g G.1.16)
     cId    int,
+    UNIQUE (number, cId),
     PRIMARY KEY (number),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
     CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$') --TODO: not sure what it is (CHECK)
@@ -48,7 +49,7 @@ CREATE TABLE TEACHERS
     number int unique NOT NULL,
     cId    int        NOT NULL,
     PRIMARY KEY (number),
-    FOREIGN KEY (cId) REFERENCES CLASSROOMS (id)
+    FOREIGN KEY (number, cId) REFERENCES TEACHER (number, cId)
 );
 
 CREATE TABLE TEAMS
@@ -66,7 +67,7 @@ CREATE TABLE NOTES
 (
     id          serial,
     tId         int          NOT NULL, --team id
-    date        timestamp    NOT NULL,
+    date        timestamp DEFAULT current_timestamp,
     description varchar(200) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (tId) REFERENCES TEAMS (id)
@@ -79,6 +80,7 @@ CREATE TABLE STUDENT
     tId    int         NOT NULL, --team id
     cId    int         NOT NULL, --class id
     PRIMARY KEY (number),
+    UNIQUE (number,tId,cId),
     FOREIGN KEY (tId) REFERENCES TEAMS (id),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id)
 );
@@ -89,8 +91,7 @@ CREATE TABLE STUDENTS
     tId    int NOT NULL,
     cId    int NOT NULL,
     PRIMARY KEY (number),
-    FOREIGN KEY (tId) REFERENCES TEAMS (id),
-    FOREIGN KEY (cId) REFERENCES CLASSROOMS (id)
+    FOREIGN KEY (number,tId,cId) REFERENCES STUDENT (number,tId,cId)
 );
 
 CREATE TABLE ASSIGNMENTS
@@ -128,11 +129,12 @@ CREATE TABLE TAGS
 (
     id     serial,
     name   varchar(50) NOT NULL,
-    date   timestamp   NOT NULL,
+    date   timestamp DEFAULT current_timestamp,
     delId  int         NOT NULL, --delivery id
-    teamId int         NOT NULL, --team id
+    repoId int         NOT NULL, --team id
     PRIMARY KEY (id),
-    FOREIGN KEY (delId) REFERENCES DELIVERIES (id)
+    FOREIGN KEY (delId) REFERENCES DELIVERIES (id),
+    FOREIGN KEY (repoId) REFERENCES REPOS (id)
 );
 
 
