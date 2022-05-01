@@ -1,10 +1,10 @@
 
-CREATE OR REPLACE FUNCTION check_team_members_fun() --on STUDENT
+CREATE OR REPLACE FUNCTION check_team_members_fun() --on STUDENTS
     RETURNS TRIGGER AS
 $check_team_members_fun$
 DECLARE
     members_counter int = (SELECT count(*)
-                           FROM student
+                           FROM students
                            WHERE tid = new.id);
 BEGIN
     --guarantees that max members per team is not exceed

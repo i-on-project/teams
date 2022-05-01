@@ -1,5 +1,8 @@
-DROP VIEW IF EXISTS students_view;
-DROP VIEW IF EXISTS teachers_view;
+--DROP VIEW IF EXISTS teachers_view;
+
+DROP TRIGGER IF EXISTS check_team_members_counter on student;
+DROP TRIGGER IF EXISTS check_team_counter on teams;
+
 
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS deliveries;
@@ -15,5 +18,5 @@ DROP TABLE IF EXISTS invite_links;
 DROP TABLE IF EXISTS classrooms;
 DROP TABLE IF EXISTS organizations;
 
-DROP FUNCTION IF EXISTS check_class_teams();
-DROP FUNCTION IF EXISTS check_team_members();
+DROP FUNCTION IF EXISTS check_class_teams_fun();
+DROP FUNCTION IF EXISTS check_team_members_fun();

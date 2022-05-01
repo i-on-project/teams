@@ -1,11 +1,11 @@
 --NOT TESTED
-CREATE TRIGGER team_members_counter
+CREATE TRIGGER check_team_members_counter
     AFTER INSERT OR UPDATE
-    ON student
+    ON students
     FOR EACH ROW
 EXECUTE PROCEDURE check_team_members_fun();
 
-CREATE TRIGGER team_counter
+CREATE TRIGGER check_team_counter
     AFTER INSERT
     ON teams
     FOR EACH ROW

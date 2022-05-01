@@ -37,11 +37,19 @@ CREATE TABLE TEACHER
     name   varchar(50) NOT NULL,
     email  varchar     NOT NULL,
     office varchar(20) NOT NULL, --X.X.XX (e.g G.1.16)
+    UNIQUE (number, name),
+    PRIMARY KEY (number),
+    CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
+);
+
+CREATE TABLE TEACHERS
+(
+    number int unique  NOT NULL,
+    name   varchar(50) NOT NULL,
     cId    int,
     UNIQUE (number, cId),
     PRIMARY KEY (number),
-    FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
-    CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
+    FOREIGN KEY (cId) REFERENCES CLASSROOMS (id)
 );
 
 CREATE TABLE TEAMS
@@ -60,10 +68,19 @@ CREATE TABLE STUDENT
 (
     number int         NOT NULL,
     name   varchar(50) NOT NULL,
+    UNIQUE (number,name),
+    PRIMARY KEY (number)
+);
+
+CREATE TABLE STUDENTS
+(
+    number int         NOT NULL,
+    name   varchar(50) NOT NULL,
     tId    int         NOT NULL, --team id
     cId    int         NOT NULL, --class id
     UNIQUE (number, tId, cId),
     PRIMARY KEY (number),
+    FOREIGN KEY (number,name) REFERENCES student (number,name),
     FOREIGN KEY (tId,cId) REFERENCES TEAMS (id,cId)
 );
 
