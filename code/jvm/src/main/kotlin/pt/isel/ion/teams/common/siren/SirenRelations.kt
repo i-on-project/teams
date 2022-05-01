@@ -12,8 +12,16 @@ object SirenRelations {
 
     //Outside references
     const val GITHUB = "github"
+    const val AVATAR = "avatar"
 
     //Collections
     const val CLASSROOMS = "classrooms"
     const val ORGANIZATIONS = "organizations"
+    const val ASSIGNMENTS = "assignments"
+    const val REQUESTS = "requests"
+    const val STUDENTS = "students"
+
+    //Individual resources
+    const val ORGANIZATION = "organization"
+    const val TEAM = "team"
 }

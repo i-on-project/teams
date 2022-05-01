@@ -74,7 +74,7 @@ A classroom represents a classroom of a given course, it is also associated with
 
 ### Domain Specific
 
-* [organizations](organizations.md#list-organizations)
+* [organization](organizations.md#get-organization-student)
 * [classrooms](#list-classrooms)
 * [assignments](assignments.md#list-assignments)
 * [requests](requests.md#list-requests)
@@ -153,6 +153,10 @@ Status:  200 OK
       "href": "/api/orgs/852/classrooms?page=1&limit=10"
     },
     {
+      "rel": ["organization"],
+      "href": "/api/orgs/852"
+    },
+    {
       "rel": ["home"],
       "href": "/api"
     },
@@ -179,7 +183,6 @@ Status:  200 OK
 ```json
 {
   "class": [ "classroom" ],
-  "rel": [ "item" ],
   "properties": {
       "id": 9,
       "name": "LI61D",
@@ -206,36 +209,36 @@ Status:  200 OK
     },
   "links": [
     {
-        "rel": ["self"],
-        "href": "/api/orgs/852/classrooms/123123"
+      "rel": ["self"],
+      "href": "/api/orgs/852/classrooms/123123"
     },
     {
-        "rel": ["home"],
-        "href": "/api"
+      "rel": ["home"],
+      "href": "/api"
     },
     {
-        "rel": ["github"],
-        "href": "https://github.com/i-on-project"
+      "rel": ["github"],
+      "href": "https://github.com/i-on-project"
     },
     {
-        "rel": ["avatar"],
-        "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+      "rel": ["avatar"],
+      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
-        "rel": ["organization"],
-        "href": "/api/orgs/852"
+      "rel": ["organization"],
+      "href": "/api/orgs/123123"
     },
     {
-        "rel": ["assignments"],
-        "href": "/api/orgs/123123/classrooms/1/assignments"
+      "rel": ["assignments"],
+      "href": "/api/orgs/123123/classrooms/1/assignments"
     },
     {
       "rel": ["team"],
       "href": "/api/orgs/123123/classrooms/1/teams/5"
     },
     {
-        "rel": ["logout"],
-        "href": "/api/logout"
+      "rel": ["logout"],
+      "href": "/api/logout"
     }
   ]
 }
@@ -292,7 +295,6 @@ Status:  200 OK
       "type": "application/json",
       "field": [
         {"name": "releaseDate", "type": "date"},
-        {"name": "cId", "type": "int"},
         {"name": "description", "type": "string"}
       ]
     },
@@ -313,8 +315,8 @@ Status:  200 OK
         {"name": "state", "type":  "string"},
         {"name": "description", "type": "string"},
         {"name": "schoolYear", "type": "string"},
-        {"name": "maxGroups", "type": "string"},
-        {"name": "maxGroupMembers", "type": "string"}
+        {"name": "maxGroups", "type": "number"},
+        {"name": "maxGroupMembers", "type": "number"}
       ]
     },
     {
@@ -322,8 +324,6 @@ Status:  200 OK
       "title": "Create Invite-Link",
       "method": "POST",
       "href": "/api/orgs/{orgId}/classrooms/{classId}/invite-link",
-      "type": "application/json",
-      "field": []
     }
   ],
   "links": [
@@ -344,7 +344,7 @@ Status:  200 OK
       "href": "/api"
     },
     {
-      "rel": ["organizations"],
+      "rel": ["organization"],
       "href": "/api/orgs/123123"
     },
     {

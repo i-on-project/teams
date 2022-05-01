@@ -112,7 +112,6 @@ object Uris {
                 PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
         }
 
-        //TODO ver isto
         object FromTeam {
             const val PATH = "/teams/{teamId}/students"
             private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)

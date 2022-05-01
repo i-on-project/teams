@@ -34,6 +34,12 @@ data class TeamsOutputModel(
     val state: String
 )
 
+data class TeamsCompactOutputModel(
+    val id: Int,
+    val name: String,
+    val state: String
+)
+
 data class TeamsInputModel(
     val name: String,
     val cid: Int,
@@ -53,3 +59,4 @@ data class TeamsUpdateModel(
 fun TeamsInputModel.toDb() = TeamsDbWrite(this.name,this.cid,this.state)
 fun TeamsUpdateModel.toDb(id: Int) = TeamsDbUpdate(id, this.name,this.cid,this.state)
 fun TeamsDbRead.toOutput() = TeamsOutputModel(this.id, this.name,this.cid,this.state)
+fun TeamsDbRead.toCompactOutput() = TeamsCompactOutputModel(this.id, this.name, this.state)
