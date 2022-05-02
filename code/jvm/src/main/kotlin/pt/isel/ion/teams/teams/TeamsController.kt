@@ -21,16 +21,16 @@ class TeamsController(
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int,
         @PathVariable orgId: Int,
-        @PathVariable classroomId: Int
+        @PathVariable classId: Int
     ) = ResponseEntity
         .ok()
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
             CollectionModel(pageIndex, pageSize)
                 .toTeamsSirenObject(
-                    teamsService.getAllTeamsOfClassroom(pageSize, pageIndex, classroomId).map { it.toCompactOutput() },
+                    teamsService.getAllTeamsOfClassroom(pageSize, pageIndex, classId).map { it.toCompactOutput() },
                     orgId,
-                    classroomId
+                    classId
                 )
         )
 
@@ -38,7 +38,7 @@ class TeamsController(
     @GetMapping(Uris.Teams.Team.PATH)
     fun getTeam(
         @PathVariable orgId: Int,
-        @PathVariable classroomId: Int,
+        @PathVariable classId: Int,
         @PathVariable teamId: Int
     ): ResponseEntity<Any> {
         val team = teamsService.getTeam(teamId).toOutput()
@@ -49,7 +49,7 @@ class TeamsController(
         return ResponseEntity
             .ok()
             .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-            .body(team.toTeacherSirenObject(repos, orgId, classroomId))
+            .body(team.toTeacherSirenObject(repos, orgId, classId))
     }
 
     @PostMapping
@@ -58,7 +58,7 @@ class TeamsController(
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
     ): ResponseEntity<Any> {
-        val createdTeam = teamsService.createTeam(team.toDb())
+        val createdTeam = teamsService.createTeam(team.toDb(classId))
 
         return ResponseEntity
             .created(Uris.Teams.Team.make(orgId, classId, createdTeam.id))
@@ -68,13 +68,13 @@ class TeamsController(
 
 
     @PutMapping(Uris.Teams.Team.PATH)
-    fun updateTeam(@PathVariable teamId: Int, @RequestBody team: TeamsUpdateModel) = ResponseEntity
+    fun updateTeam(@PathVariable classId: Int, @PathVariable teamId: Int, @RequestBody team: TeamsUpdateModel) = ResponseEntity
         .ok()
         .contentType(MediaType.APPLICATION_JSON)
-        .body(teamsService.updateTeam(team.toDb(teamId)).toOutput())
+        .body(teamsService.updateTeam(team.toDb(teamId,classId)).toOutput())
 
-    @DeleteMapping(Uris.Classrooms.Classroom.PATH)
-    fun deleteClassroom(@PathVariable teamId: Int): ResponseEntity<Any> {
+    @DeleteMapping(Uris.Teams.Team.PATH)
+    fun deleteTeam(@PathVariable teamId: Int): ResponseEntity<Any> {
         teamsService.deleteTeam(teamId)
 
         return ResponseEntity

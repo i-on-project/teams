@@ -11,11 +11,11 @@ import pt.isel.ion.teams.common.Uris
 class RequestsController(val requestsService: RequestsService) {
 
     @GetMapping
-    fun getAllRequestInClassroom(@PathVariable classroomId: Int): List<RequestsOutputModel> =
-        requestsService.getAllRequestsInClassroom(classroomId).map { it.toOutput() }
+    fun getAllRequestInClassroom(@PathVariable classId: Int): List<RequestsOutputModel> =
+        requestsService.getAllRequestsInClassroom(classId).map { it.toOutput() }
 
     @GetMapping(Uris.Requests.Request.PATH)
-    fun getRequest(@PathVariable teamId: Int,@PathVariable classroomId: Int): RequestsOutputModel =
-        requestsService.getRequest(teamId,classroomId).toOutput()
+    fun getRequest(@PathVariable teamId: Int,@PathVariable classId: Int): RequestsOutputModel =
+        requestsService.getRequest(teamId,classId).toOutput()
 
 }
