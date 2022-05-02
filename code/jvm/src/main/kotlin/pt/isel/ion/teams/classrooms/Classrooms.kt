@@ -68,7 +68,6 @@ data class ClassroomInputModel(
 )
 
 data class ClassroomUpdateModel(
-    val id: Int,
     val name: String?,
     val description: String?,
     val maxTeams: Int?,
@@ -91,8 +90,8 @@ fun ClassroomInputModel.toDb(orgId: Int) =
         this.schoolYear,
         orgId
     )
-fun ClassroomUpdateModel.toDb() =
-    ClassroomDbUpdate(this.id,
+fun ClassroomUpdateModel.toDb(id: Int) =
+    ClassroomDbUpdate(id,
         this.name,
         this.description,
         this.maxTeams,

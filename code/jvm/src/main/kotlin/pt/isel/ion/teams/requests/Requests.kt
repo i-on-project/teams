@@ -1,8 +1,5 @@
 package pt.isel.ion.teams.requests
 
-import java.time.ZoneId
-
-
 /**
  * For internal use only.
  */

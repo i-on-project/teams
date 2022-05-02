@@ -14,7 +14,7 @@ import pt.isel.ion.teams.teams.toCompactOutput
 class ClassroomController(
     val classroomService: ClassroomService,
     val teamsService: TeamsService
-    ) {
+) {
 
     @GetMapping
     fun getAllClassroomsByOrganization(
@@ -26,7 +26,8 @@ class ClassroomController(
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
             CollectionModel(pageIndex, pageSize).toClassroomSirenObject(
-                classroomService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId).map { it.toCompactOutput() },
+                classroomService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId)
+                    .map { it.toCompactOutput() },
                 orgId
             )
         )
@@ -34,10 +35,10 @@ class ClassroomController(
     @GetMapping(Uris.Classrooms.Classroom.PATH)
     fun getClassroom(
         @PathVariable orgId: Int,
-        @PathVariable classroomId: Int
+        @PathVariable classId: Int
     ): ResponseEntity<Any> {
-        val classroom = classroomService.getClassroom(classroomId).toOutput()
-        val teams = teamsService.getAllTeamsOfClassroom(classroomId)
+        val classroom = classroomService.getClassroom(classId).toOutput()
+        val teams = teamsService.getAllTeamsOfClassroom(10, 0, classId)
 
         //TODO Detect if user is student or teacher
 
@@ -65,15 +66,17 @@ class ClassroomController(
     }
 
     @PutMapping(Uris.Classrooms.Classroom.PATH)
-    fun updateClassroom(@RequestBody classroomUpdateModel: ClassroomUpdateModel) = ResponseEntity
+    fun updateClassroom(
+        @PathVariable classId: Int,
+        @RequestBody classroomUpdateModel: ClassroomUpdateModel
+    ) = ResponseEntity
         .ok()
         .contentType(MediaType.APPLICATION_JSON)
-        .body(classroomService.updateClassroom(classroomUpdateModel.toDb()).toOutput())
+        .body(classroomService.updateClassroom(classroomUpdateModel.toDb(classId)).toOutput())
 
     @DeleteMapping(Uris.Classrooms.Classroom.PATH)
-    fun deleteClassroom(@PathVariable classroomId: Int): ResponseEntity<Any> {
-        classroomService.deleteClassroom(classroomId)
-
+    fun deleteClassroom(@PathVariable classId: Int): ResponseEntity<Any> {
+        classroomService.deleteClassroom(classId)
         return ResponseEntity
             .ok()
             .body(null)

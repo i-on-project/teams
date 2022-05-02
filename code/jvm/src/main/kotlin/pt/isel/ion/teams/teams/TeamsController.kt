@@ -56,14 +56,14 @@ class TeamsController(
     fun createTeam(
         @RequestBody team: TeamsInputModel,
         @PathVariable orgId: Int,
-        @PathVariable classroomId: Int,
+        @PathVariable classId: Int,
     ): ResponseEntity<Any> {
-        val team = teamsService.createTeam(team.toDb())
+        val createdTeam = teamsService.createTeam(team.toDb())
 
         return ResponseEntity
-            .created(Uris.Teams.Team.make(orgId, classroomId, team.id))
+            .created(Uris.Teams.Team.make(orgId, classId, createdTeam.id))
             .contentType(MediaType.APPLICATION_JSON)
-            .body(team)
+            .body(createdTeam)
     }
 
 
