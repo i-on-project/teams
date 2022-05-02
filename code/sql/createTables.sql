@@ -10,11 +10,11 @@ CREATE TABLE ORGANIZATIONS
 CREATE TABLE CLASSROOMS
 (
     id                serial,
-    name              varchar(50)  NOT NULL,
-    description       varchar(200) NOT NULL,
+    name              varchar(100)  NOT NULL,
+    description       varchar NOT NULL,
     maxTeams          int          NOT NULL,
     maxMembersPerTeam int          NOT NULL,
-    linkRepo          varchar(50)  NOT NULL,
+    linkRepo          varchar  NOT NULL,
     schoolYear        varchar      NOT NULL, -- (e.g. 2021/22)
     orgId             int          NOT NULL, --organization id
     state             varchar(50) DEFAULT 'active',
@@ -97,7 +97,7 @@ CREATE TABLE NOTES
     id          serial,
     tId         int          NOT NULL, --team id
     date        timestamp DEFAULT current_timestamp,
-    description varchar(200) NOT NULL,
+    description varchar NOT NULL,
     deleted     bit(1)    DEFAULT B'0',
     PRIMARY KEY (id),
     FOREIGN KEY (tId) REFERENCES TEAMS (id)
@@ -108,7 +108,7 @@ CREATE TABLE ASSIGNMENTS
     id          serial,
     releaseDate timestamp    DEFAULT current_timestamp,
     cId         int          NOT NULL, --class id
-    description varchar(200) NOT NULL,
+    description varchar NOT NULL,
     deleted     bit(1) DEFAULT B'0',
     PRIMARY KEY (id),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id)
@@ -117,7 +117,7 @@ CREATE TABLE ASSIGNMENTS
 CREATE TABLE REPOS
 (
     id      serial,
-    url     varchar(50) unique NOT NULL,
+    url     varchar(200) unique NOT NULL,
     name    varchar(50)        NOT NULL,
     tId     int                NOT NULL, --team id
     assId   int                NOT NULL, --assignment id
@@ -131,6 +131,7 @@ CREATE TABLE DELIVERIES
 (
     id      serial,
     assId   int       NOT NULL, --assignment id
+    name varchar(20) NOT NULL,
     date    timestamp NOT NULL, --due date
     deleted bit(1) DEFAULT B'0',
     PRIMARY KEY (id),
