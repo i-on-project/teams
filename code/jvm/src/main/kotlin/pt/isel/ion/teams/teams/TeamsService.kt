@@ -7,9 +7,9 @@ import pt.isel.daw.project.common.errors.sqlExceptionHandler
 @Component
 class TeamsService(val jdbi: Jdbi) {
 
-    fun getAllTeamsOfClassroom(classroomId: Int) =
+    fun getAllTeamsOfClassroom(pageSize: Int, pageIndex: Int, classroomId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(TeamsDAO::class.java).getAllTeamsOfClassroom(classroomId)
+            jdbi.onDemand(TeamsDAO::class.java).getAllTeamsOfClassroom(pageSize + 1, pageIndex, classroomId)
         }
 
     fun getTeam(teamId: Int) =
@@ -26,4 +26,10 @@ class TeamsService(val jdbi: Jdbi) {
         sqlExceptionHandler {
             jdbi.onDemand(TeamsDAO::class.java).updateTeam(teamsDbUpdate)
         }
+
+    fun deleteTeam(teamId: Int) {
+        sqlExceptionHandler {
+            jdbi.onDemand(TeamsDAO::class.java).deleteTeam(teamId)
+        }
+    }
 }
