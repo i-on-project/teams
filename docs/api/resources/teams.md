@@ -1,6 +1,6 @@
 # Teams
 
-Represents a group of students. 
+Represents a group of students.
 
 ## Properties
 
@@ -49,11 +49,10 @@ Represents a group of students.
 
 ### Domain Specific
 
-* [Classrooms](./classrooms.md#list-classrooms)
-* [Repo for student](./repos.md#get-repo-student)
-* [Repo for teacher](./repos.md#get-repo-teacher)
-* [List assignments](./assignments.md#list-assignments)
-* [Note](./notes.md#get-note)
+* [classrooms](./classrooms.md#get-classroom-student)
+* [repo](./repos.md#get-repo-student)
+* [list assignments](./assignments.md#list-assignments)
+* [note](./notes.md#get-note)
 * github - GitHub Organization URI
 * avatar - GitHub Organization Avatar URI
 * logout
@@ -118,19 +117,23 @@ Status:  200 OK
       "href": "/api/orgs/852/classrooms/123123/teams?page=0&limit=10"
     },
     {
-    "rel": ["next"],
-    "href": "/api/orgs/852/classrooms/123123/teams?page=1&limit=10"
+      "rel": ["next"],
+      "href": "/api/orgs/852/classrooms/123123/teams?page=1&limit=10"
     },
     {
-    "rel": ["prev"],
-    "href": "/api/orgs/852/classrooms/123123/teams?page=1&limit=10"
+      "rel": ["prev"],
+      "href": "/api/orgs/852/classrooms/123123/teams?page=1&limit=10"
+    },
+    {
+      "rel": ["classroom"],
+      "href": "/api/orgs/852/classrooms/123123"
     },
     {
       "rel": ["home"],
       "href": "/api"
     },
     {
-    "rel": ["logout"],
+      "rel": ["logout"],
       "href": "/api/logout"
     }
   ]
@@ -140,7 +143,6 @@ Status:  200 OK
 #### Get Team (Student)
 
 This returns a single team item. The user must be apart of the team to make such request.
-
 
 ```http
 GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}
@@ -153,7 +155,6 @@ Status:  200 OK
 ```json
 {
   "class": ["team"],
-  "rel": ["item"],
   "properties": {
     "id": 234,
     "name": "li61d_g4",
@@ -186,33 +187,20 @@ Status:  200 OK
       "href": "/api"
     },
     {
-    "rel": ["github"],
-    "href": "https://github.com/i-on-project"
-    },
-    {
-    "rel": ["avatar"],
-    "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
-    },
-    {
-      "rel": ["logout"],
-      "href": "/api/logout"
-    },
-    {
-      "rel": ["classrooms"],
-      "href": "/api/orgs/123123/classrooms"
-    },
-    {
-      "rel": [ "repo" ],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342/repos/3"
+      "rel": ["classroom"],
+      "href": "/api/orgs/852/classrooms/123123"
     },
     {
       "rel": [ "assignments" ],
       "href": "/api/orgs/123123/classrooms/1/assignments"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
     }
   ]
 }
 ```
-
 
 #### Get Team (Teacher)
 
@@ -228,12 +216,7 @@ Status:  200 OK
 
 ```json
 {
-  "class": [
-    "team"
-  ],
-  "rel": [
-    "item"
-  ],
+  "class": [ "team" ],
   "properties": {
     "id": 234342,
     "name": "li61d_g4",
@@ -272,7 +255,6 @@ Status:  200 OK
     "field": [
       {"name": "name", "type": "string"},
       {"name": "state", "type": "string"},
-      {"name": "cId", "type": "number"}
     ]
     },
     {
@@ -282,23 +264,15 @@ Status:  200 OK
       "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}"
     },
     {
-    "name": "create-note",
-    "title": "Create note",
-    "method": "POST",
-    "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes",
-    "type": "application/json",
+      "name": "create-note",
+      "title": "Create note",
+      "method": "POST",
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes",
+      "type": "application/json",
       "field": [
         {"name": "name", "type": "string"},
-        {"name": "date", "type": "date"},
-        {"name": "tId", "type": "number"},
         {"name": "description", "type": "string"}
       ]
-    },
-    {
-      "name": "delete-note",
-      "title": "Delete Note",
-      "method": "DELETE",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes/{noteId}"
     }
   ],
   "links": [
@@ -311,21 +285,13 @@ Status:  200 OK
       "href": "/api"
     },
     {
-      "rel": ["github"],
-      "href": "https://github.com/i-on-project"
-    },
-    {
-      "rel": ["avatar"],
-      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
-    },
-    {
       "rel": ["logout"],
       "href": "/api/logout"
     },
     {
       "rel": ["classroom"],
-      "href": "/api/orgs/123123/classrooms/1"
-    }, 
+      "href": "/api/orgs/852/classrooms/123123"
+    },
     {
       "rel": ["notes"],
       "href": "/api/orgs/{orgId}/classrooms/1/teams/234342/notes"

@@ -34,8 +34,13 @@ data class RepoOutputModel(
     val id: Int,
     val url: String,
     val name: String,
-    val teamId: Int,
     val assignmentId: Int
+)
+
+data class RepoCompactOutputModel(
+    val id: Int,
+    val url: String,
+    val name: String,
 )
 
 data class RepoInputModel(
@@ -55,6 +60,7 @@ data class RepoUpdateModel(
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun RepoInputModel.toDb() = RepoDbWrite(this.name,this.url,this.teamId,this.assignmentId)
-fun RepoUpdateModel.toDb(id: Int) = RepoDbUpdate(id,this.name,this.teamId,this.assignmentId)
-fun RepoDbRead.toOutput() = RepoOutputModel(this.id,this.name,this.url,this.teamId,this.assignmentId)
+fun RepoInputModel.toDb() = RepoDbWrite(this.name, this.url, this.teamId, this.assignmentId)
+fun RepoUpdateModel.toDb(id: Int) = RepoDbUpdate(id, this.name, this.teamId, this.assignmentId)
+fun RepoDbRead.toOutput() = RepoOutputModel(this.id, this.name, this.url, this.assignmentId)
+fun RepoDbRead.toCompactOutput() = RepoCompactOutputModel(this.id, this.name, this.url)

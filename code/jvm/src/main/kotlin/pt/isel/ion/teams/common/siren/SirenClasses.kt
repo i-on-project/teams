@@ -5,4 +5,5 @@ object SirenClasses {
     const val ORGANIZATION = "organization"
     const val CLASSROOM = "classroom"
     const val TEAM = "team"
+    const val REPO = "repo"
 }
