@@ -64,7 +64,7 @@ fun TeamsOutputModel.toStudentSirenObject(
     )
 )
 
-fun TeamsOutputModel.toSTeacherSirenObject(
+fun TeamsOutputModel.toTeacherSirenObject(
     repoList: List<RepoCompactOutputModel>,
     orgId: Int,
     classroomId: Int

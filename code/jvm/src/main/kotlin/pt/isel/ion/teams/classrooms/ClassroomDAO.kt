@@ -9,14 +9,14 @@ import java.time.ZoneId
 
 interface ClassroomDAO {
 
-    @SqlQuery("SELECT * FROM classrooms WHERE orgid =: orgId LIMIT :limit OFFSET :offset")
+    @SqlQuery("SELECT * FROM classrooms_view WHERE orgid =: orgId LIMIT :limit OFFSET :offset")
     fun getAllClassroomsByOrganizationWithPaging(
         @Bind("limit") limit: Int,
         @Bind("offset") offset: Int,
         @Bind("orgId") orgId: Int
     ): List<ClassroomDbRead>
 
-    @SqlQuery("SELECT * FROM classrooms WHERE orgid =: orgId")
+    @SqlQuery("SELECT * FROM classrooms_view WHERE orgid =: orgId")
     fun getAllClassroomsByOrganization(
         @Bind("orgId") orgId: Int
     ): List<ClassroomDbRead>
