@@ -1,26 +1,16 @@
-# Notes
+# Deliveries
 
-Represents a comment or review of the teacher relative to a Team. Only available for the Teachers app.
+Represents an assignment delivery.
 
 ## Properties
 
 ### Domain specific
 
-- `id` - Unique and stable global identifier
-  - mandatory
-  - non editable
-  - type: number
-  - example: ``1``
 - ``date`` - Indicates date that the comment was made.
   - mandatory
   - editable
   - type: Date
   - possible values: ``2022-08-07``
-- ``description`` - Content of the comment.
-  - mandatory
-  - editable
-  - type: string
-  - example: ``This group as all requirement needed, but requirement 5 is not working.``
 
 ### Media-type [Siren](https://github.com/kevinswiber/siren)
 
@@ -39,12 +29,10 @@ Represents a comment or review of the teacher relative to a Team. Only available
 
 ### Domain Specific
 
-- [classroom](./classrooms.md#get-classroom-teacher)
-- [team](./teams.md#get-team-teacher)
+- [assignment](./assignments.md#get-assignment-student)
+- [delivery](./deliveries.md#get-delivery-teacher)
 - home
 - logout
-- github - GitHub Organization URI
-- avatar - GitHub Organization Avatar URI
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
@@ -61,12 +49,12 @@ Represents a comment or review of the teacher relative to a Team. Only available
 
 ### Success Responses
 
-#### List Notes
+#### Get Delivery (Students)
 
-List all the Notes of a specific team.
+This returns a single delivery.
 
 ```http
-GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes
+GET /api/orgs/{orgId}/classrooms/{classId}/assignments/{assId}/deliveries/{deliveryId}
 ```
 
 ```text
@@ -75,76 +63,9 @@ Status:  200 OK
 
 ```json
 {
-  "class": ["notes", "collection"],
+  "class": [ "delivery" ],
   "properties": {
-    "pageIndex": 0,
-    "pageSize": 1
-  },
-  "entities": [
-    {
-      "class": ["note"],
-      "rel": ["item"],
-      "properties": {
-        "id": 6,
-        "date": "2022-05-08",
-        "description": "Very good."
-      },
-      "links": [
-        {
-          "rel": ["self"],
-          "href": "/api/orgs/852/classroom/1/teams/123123/notes/6"
-        }
-      ]
-    }
-  ],
-  "links": [
-    {
-      "rel": ["self"],
-      "href": "/api/orgs/852/classroom/1/teams/123123/notes?page=0&limit=10"
-    },
-    {
-      "rel": ["next"],
-      "href": "/api/orgs/852/classroom/1/teams/123123/notes?page=1&limit=10"
-    },
-    {
-      "rel": ["prev"],
-      "href": "/api/orgs/852/classroom/1/teams/123123/notes?page=1&limit=10"
-    },
-    {
-      "rel": ["team"],
-      "href": "/api/orgs/852/classroom/1/teams/123123"
-    },
-    {
-      "rel": ["home"],
-      "href": "/api"
-    },
-    {
-      "rel": ["logout"],
-      "href": "/api/logout"
-    }
-  ]
-}
-```
-
-#### Get Note
-
-This returns a single response.
-
-```http
-GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes/{noteId}
-```
-
-```text
-Status:  200 OK
-```
-
-```json
-{
-  "class": ["notes"],
-  "properties": {
-    "id": 6,
-    "date": "2022-05-08",
-    "description": "Very good."
+    "date": "2022-05-08"
   },
   "links": [
     {
@@ -156,9 +77,66 @@ Status:  200 OK
       "href": "/api"
     },
     {
-      "rel": ["notes"],
-      "href": "/api/orgs/123123/classrooms/1/teams/1/notes"
+      "rel": ["deliveries"],
+      "href": "/api/orgs/852/classrooms/1/assignments/123123/deliveries"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
     }
+  ]
+}
+```
+
+#### Get Delivery (Teacher)
+
+This returns a single delivery.
+
+```http
+GET /api/orgs/{orgId}/classrooms/{classId}/assignments/{assId}/deliveries/{deliveryId}
+```
+
+```text
+Status:  200 OK
+```
+
+```json
+{
+  "class": [ "delivery" ],
+  "properties": {
+    "date": "2022-05-08"
+  },
+  "actions": [
+    {
+      "name": "update-delivery",
+      "title": "Update Delivery",
+      "method": "PUT",
+      "href": "/api/orgs/{orgId}/class/{classId}/assignments/{assignmentId}/deliveries/{deliveryid}",
+      "type": "application/json",
+      "field": [
+        {"name": "date", "type": "string"},
+      ]
+    },
+    {
+    "name": "delete-delivery",
+    "title": "Delete Delivery",
+    "method": "DELETE",
+    "href": "/api/orgs/{orgId}/class/{classId}/assignments{assignmentId}/deliveries/{deliveryId}"
+    },
+  ],
+  "links": [
+    {
+      "rel": ["self"],
+      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+    },
+    {
+      "rel": ["home"],
+      "href": "/api"
+    },
+    {
+      "rel": ["deliveries"],
+      "href": "/api/orgs/852/classrooms/1/assignments/123123/deliveries"
+    },
     {
       "rel": ["logout"],
       "href": "/api/logout"

@@ -1,6 +1,6 @@
-# Notes
+# Tags
 
-Represents a comment or review of the teacher relative to a Team. Only available for the Teachers app.
+Represents a tag created in one of the teams repos. This information is only available for the teacher, students are advised to follow and manage tags directly on the Github repository.
 
 ## Properties
 
@@ -16,11 +16,11 @@ Represents a comment or review of the teacher relative to a Team. Only available
   - editable
   - type: Date
   - possible values: ``2022-08-07``
-- ``description`` - Content of the comment.
+- ``name`` - Name of the tag.
   - mandatory
   - editable
   - type: string
-  - example: ``This group as all requirement needed, but requirement 5 is not working.``
+  - example: ``v0.0.0``
 
 ### Media-type [Siren](https://github.com/kevinswiber/siren)
 
@@ -39,12 +39,11 @@ Represents a comment or review of the teacher relative to a Team. Only available
 
 ### Domain Specific
 
-- [classroom](./classrooms.md#get-classroom-teacher)
-- [team](./teams.md#get-team-teacher)
+- [repo](./repos.md#get-repo-teacher)
+- [delivery](./deliveries.md#get-delivery-teacher)
+- [tags](#tags)
 - home
 - logout
-- github - GitHub Organization URI
-- avatar - GitHub Organization Avatar URI
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
@@ -61,12 +60,12 @@ Represents a comment or review of the teacher relative to a Team. Only available
 
 ### Success Responses
 
-#### List Notes
+#### List Tags
 
-List all the Notes of a specific team.
+List all the Tags of a specific repo.
 
 ```http
-GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes
+GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}/tags
 ```
 
 ```text
@@ -75,63 +74,63 @@ Status:  200 OK
 
 ```json
 {
-  "class": ["notes", "collection"],
+  "class": [ "tag", "collection" ],
   "properties": {
     "pageIndex": 0,
     "pageSize": 1
   },
   "entities": [
     {
-      "class": ["note"],
-      "rel": ["item"],
+      "class": [ "tag" ],
+      "rel": [ "item" ],
       "properties": {
         "id": 6,
         "date": "2022-05-08",
-        "description": "Very good."
+        "name": "v0.0.0"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/852/classroom/1/teams/123123/notes/6"
+          "href": "/api/orgs/852/team/123123/repos/6/tags/1"
         }
       ]
     }
   ],
   "links": [
     {
-      "rel": ["self"],
-      "href": "/api/orgs/852/classroom/1/teams/123123/notes?page=0&limit=10"
+        "rel": ["self"],
+        "href": "/api/orgs/852/classrooms/1/team/123123/repos/1/tags"
     },
     {
-      "rel": ["next"],
-      "href": "/api/orgs/852/classroom/1/teams/123123/notes?page=1&limit=10"
+        "rel": ["next"],
+        "href": "/api/orgs/852/classrooms/1/team/123123/repos/1/tags?page=0&limit=10"
     },
     {
-      "rel": ["prev"],
-      "href": "/api/orgs/852/classroom/1/teams/123123/notes?page=1&limit=10"
+        "rel": ["prev"],
+        "href": "/api/orgs/852/classrooms/1/team/123123/repos/1/tags?page=0&limit=10"
     },
     {
-      "rel": ["team"],
-      "href": "/api/orgs/852/classroom/1/teams/123123"
+        "rel": ["home"],
+        "href": "/api"
     },
     {
-      "rel": ["home"],
-      "href": "/api"
+        "rel": ["repo"],
+        "href": "/api/orgs/852/team/123123/repos/6"
     },
     {
-      "rel": ["logout"],
-      "href": "/api/logout"
+        "rel": ["logout"],
+        "href": "/api/logout"
     }
   ]
 }
 ```
 
-#### Get Note
+#### Get Tag
 
-This returns a single response.
+This returns a single tag, request only available for teachers.
 
 ```http
-GET /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes/{noteId}
+GET /api/orgs/{orgId}/classrooms/{classroomId}/teams/{teamId}/notes/{noteId}
 ```
 
 ```text
@@ -140,11 +139,11 @@ Status:  200 OK
 
 ```json
 {
-  "class": ["notes"],
+  "class": [ "tag" ],
   "properties": {
     "id": 6,
     "date": "2022-05-08",
-    "description": "Very good."
+    "name": "v0.0.0"
   },
   "links": [
     {
@@ -156,9 +155,9 @@ Status:  200 OK
       "href": "/api"
     },
     {
-      "rel": ["notes"],
-      "href": "/api/orgs/123123/classrooms/1/teams/1/notes"
-    }
+      "rel": ["tags"],
+      "href": "/api/orgs/852/classrooms/1/team/123123/repos/1/tags"
+    },
     {
       "rel": ["logout"],
       "href": "/api/logout"

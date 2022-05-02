@@ -6,57 +6,57 @@ Represents a task and is description.
 
 ### Domain specific
 
-* `id` - Unique and stable global identifier
-    * mandatory
-    * non editable
-    * type: number
-    * example: ``1``
-* ``realeaseDate`` - Date of release.
-    * mandatory
-    * editable
-    * type: string
-    * possible values: ``2025/07/05``
-* `description` - Content of the assignment.
-    * non mandatory
-    * editable
-    * type: string
-    * example: `Make a WebApp for video editing.`
+- `id` - Unique and stable global identifier
+  - mandatory
+  - non editable
+  - type: number
+  - example: ``1``
+- ``realeaseDate`` - Date of release.
+  - mandatory
+  - editable
+  - type: string
+  - possible values: ``2025/07/05``
+- `description` - Content of the assignment.
+  - non mandatory
+  - editable
+  - type: string
+  - example: `Make a WebApp for video editing.`
 
 ### Media-type [Siren](https://github.com/kevinswiber/siren)
 
-* `class`
-* `properties`
-* `entities`
-* `links`
-* `actions`
-
+- `class`
+- `properties`
+- `entities`
+- `links`
+- `actions`
+  
 ### Standard
 
-* `item`
-* `rel`
+- `item`
+- `rel`
 
 ## Link Relations
 
 ### Domain Specific
 
-* [Classrooms for student](./classrooms.md#get-classroom-student)
-* [Classrooms for teacher](./classrooms.md#get-classroom-teacher)
-* logout
-* home - Home page
-* github - GitHub Organization URI
-* avatar - GitHub Organization Avatar URI
+- [Classrooms for student](./classrooms.md#get-classroom-student)
+- [Classrooms for teacher](./classrooms.md#get-classroom-teacher)
+- logout
+- home - Home page
+- github - GitHub Organization URI
+- avatar - GitHub Organization Avatar URI
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
-* [self](https://www.iana.org/go/rfc4287)
-* [next](https://html.spec.whatwg.org/multipage/links.html#link-type-next)
-* [prev](https://html.spec.whatwg.org/multipage/links.html#link-type-prev)
+- [self](https://www.iana.org/go/rfc4287)
+- [next](https://html.spec.whatwg.org/multipage/links.html#link-type-next)
+- [prev](https://html.spec.whatwg.org/multipage/links.html#link-type-prev)
 
 ## Actions
 
-* [List Assignments](#list-assignments)
-* [Get Assignment - Student](#get-assignment-student)
-* [Get Assignment - Teacher](#get-assignment-teacher)
+- [List Assignments](#list-assignments)
+- [Get Assignment - Student](#get-assignment-student)
+- [Get Assignment - Teacher](#get-assignment-teacher)
 
 ---
 
@@ -187,7 +187,6 @@ Status:  200 OK
   ]
 }
 ```
-
 
 #### Get Assignment (Teacher)
 
@@ -355,4 +354,3 @@ Status: 409 Conflict
   "detail": "There is a conflict with the request because the resource already exists."
 }
 ```
-
