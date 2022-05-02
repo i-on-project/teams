@@ -20,6 +20,8 @@ interface OrganizationDAO {
 
     @SqlUpdate("UPDATE organizations_view SET name=:name, description=:description WHERE id=:id")
     @GetGeneratedKeys
-    fun updateOrganization(@BindBean organization: OrganizationDbUpdate): Int
+    fun updateOrganization(@BindBean organization: OrganizationDbUpdate): OrganizationDbRead
 
+    @SqlUpdate("UPDATE organizations SET deleted = B'1' WHERE id =: id")
+    fun deleteOrganization(@Bind("id") orgId: Int)
 }

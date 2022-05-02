@@ -8,7 +8,7 @@ import pt.isel.ion.teams.common.Uris
 class TeamsController(val teamsService: TeamsService) {
 
     @GetMapping
-    fun getAllTeamsOfOrganization(@PathVariable teamId: Int) = teamsService.getAllTeamsOfOrganization(teamId)
+    fun getAllTeamsOfOrganization(@PathVariable teamId: Int) = teamsService.getAllTeamsOfClassroom(teamId)
 
     @GetMapping(Uris.Teams.Team.PATH)
     fun getTeam(@PathVariable teamId: Int) = teamsService.getTeam(teamId)

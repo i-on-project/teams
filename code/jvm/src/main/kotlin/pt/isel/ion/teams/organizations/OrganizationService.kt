@@ -26,4 +26,9 @@ class OrganizationService(val jdbi: Jdbi) {
         sqlExceptionHandler {
             jdbi.onDemand(OrganizationDAO::class.java).updateOrganization(organization)
         }
+
+    fun deleteOrganization(id: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(OrganizationDAO::class.java).deleteOrganization(id)
+        }
 }

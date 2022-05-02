@@ -7,8 +7,8 @@ data class ClassroomDbRead (
     val id: Int,
     val name: String,
     val description: String,
-    val maxGroups: Int,
-    val maxGroupMembers: Int,
+    val maxTeams: Int,
+    val maxMembersPerTeam: Int,
     val repoURI: String,
     val schoolYear: String,
     val orgId: Int,
@@ -20,8 +20,8 @@ data class ClassroomDbRead (
 data class ClassroomDbWrite(
     val name: String,
     val description: String,
-    val maxGroups: Int,
-    val maxGroupMembers: Int,
+    val maxTeams: Int,
+    val maxMembersPerTeam: Int,
     val repoURI: String,
     val schoolYear: String,
     val orgId: Int,
@@ -31,8 +31,8 @@ data class ClassroomDbUpdate(
     val id: Int,
     val name: String?,
     val description: String?,
-    val maxGroups: Int?,
-    val maxGroupMembers: Int?,
+    val maxTeams: Int?,
+    val maxMembersPerTeam: Int?,
     val state: String?,
     val schoolYear: String?,
 )
@@ -61,8 +61,8 @@ data class ClassroomCompactOutputModel(
 data class ClassroomInputModel(
     val name: String,
     val description: String,
-    val maxGroups: Int,
-    val maxGroupMembers: Int,
+    val maxTeams: Int,
+    val maxMembersPerTeam: Int,
     val repoURI: String,
     val schoolYear: String,
 )
@@ -71,8 +71,8 @@ data class ClassroomUpdateModel(
     val id: Int,
     val name: String?,
     val description: String?,
-    val maxGroups: Int?,
-    val maxGroupMembers: Int?,
+    val maxTeams: Int?,
+    val maxMembersPerTeam: Int?,
     val state: String?,
     val schoolYear: String?,
 )
@@ -85,8 +85,8 @@ fun ClassroomInputModel.toDb(orgId: Int) =
     ClassroomDbWrite(
         this.name,
         this.description,
-        this.maxGroups,
-        this.maxGroupMembers,
+        this.maxTeams,
+        this.maxMembersPerTeam,
         this.repoURI,
         this.schoolYear,
         orgId
@@ -95,8 +95,8 @@ fun ClassroomUpdateModel.toDb() =
     ClassroomDbUpdate(this.id,
         this.name,
         this.description,
-        this.maxGroups,
-        this.maxGroupMembers,
+        this.maxTeams,
+        this.maxMembersPerTeam,
         this.state,
         this.schoolYear
     )

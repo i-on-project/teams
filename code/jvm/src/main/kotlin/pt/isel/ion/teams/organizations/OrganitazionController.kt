@@ -45,7 +45,7 @@ class OrganizationController(
 
     @PostMapping
     fun createOrganization(@RequestBody organization: OrganizationInputModel): ResponseEntity<Any> {
-        val org = organizationService.createOrganization(organization.toDb())
+        val org = organizationService.createOrganization(organization.toDb()).toOutput()
 
         return ResponseEntity
             .created(Uris.Organizations.Organization.make(org.id))
@@ -58,5 +58,14 @@ class OrganizationController(
         ResponseEntity
             .ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(organizationService.updateOrganization(organization.toDb(orgId)))
+            .body(organizationService.updateOrganization(organization.toDb(orgId)).toOutput())
+
+    @DeleteMapping(Uris.Organizations.Organization.PATH)
+    fun deleteProject(@PathVariable("orgId") id: Int): ResponseEntity<Any> {
+        organizationService.deleteOrganization(id)
+
+        return ResponseEntity
+            .ok()
+            .body(null)
+    }
 }

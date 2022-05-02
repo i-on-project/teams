@@ -65,7 +65,7 @@ fun ClassroomOutputModel.toStudentSirenObject(
     )
 )
 
-fun ClassroomOutputModel.toStudentSirenObject(
+fun ClassroomOutputModel.toTeacherSirenObject(
     teamsList: List<TeamsCompactOutputModel>,
     orgId: Int,
 ) = SirenEntity(

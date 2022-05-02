@@ -7,9 +7,16 @@ import pt.isel.daw.project.common.errors.sqlExceptionHandler
 @Component
 class ClassroomService(val jdbi: Jdbi) {
 
+    fun getAllClassroomsByOrganizationWithPaging(pageSize: Int, pageIndex: Int, orgId: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(ClassroomDAO::class.java)
+                .getAllClassroomsByOrganizationWithPaging(pageSize + 1, pageIndex, orgId)
+        }
+
     fun getAllClassroomsByOrganization(orgId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(ClassroomDAO::class.java).getAllClassroomsByOrganization(orgId)
+            jdbi.onDemand(ClassroomDAO::class.java)
+                .getAllClassroomsByOrganization(orgId)
         }
 
     fun getClassroom(id: Int) =
@@ -25,5 +32,10 @@ class ClassroomService(val jdbi: Jdbi) {
     fun updateClassroom(classroomDbUpdate: ClassroomDbUpdate) =
         sqlExceptionHandler {
             jdbi.onDemand(ClassroomDAO::class.java).updateClassroom(classroomDbUpdate)
+        }
+
+    fun deleteClassroom(id: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(ClassroomDAO::class.java).deleteClassroom(id)
         }
 }
