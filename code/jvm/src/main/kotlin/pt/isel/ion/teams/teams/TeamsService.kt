@@ -9,7 +9,9 @@ class TeamsService(val jdbi: Jdbi) {
 
     fun getAllTeamsOfClassroom(pageSize: Int, pageIndex: Int, classroomId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(TeamsDAO::class.java).getAllTeamsOfClassroom(pageSize + 1, pageIndex, classroomId)
+            jdbi
+                .onDemand(TeamsDAO::class.java)
+                .getAllTeamsOfClassroom(pageSize + 1, pageIndex * pageSize, classroomId)
         }
 
     fun getTeam(teamId: Int) =

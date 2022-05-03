@@ -9,8 +9,9 @@ class ClassroomService(val jdbi: Jdbi) {
 
     fun getAllClassroomsByOrganizationWithPaging(pageSize: Int, pageIndex: Int, orgId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(ClassroomDAO::class.java)
-                .getAllClassroomsByOrganizationWithPaging(pageSize + 1, pageIndex, orgId)
+            jdbi
+                .onDemand(ClassroomDAO::class.java)
+                .getAllClassroomsByOrganizationWithPaging(pageSize + 1, pageIndex * pageSize, orgId)
         }
 
     fun getAllClassroomsByOrganization(orgId: Int) =

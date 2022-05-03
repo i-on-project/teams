@@ -9,14 +9,27 @@ import pt.isel.ion.teams.organizations.OrganizationDbRead
 
 interface TagsDAO {
 
-    @SqlQuery("SELECT * FROM tags WHERE teamid=:teamId")
-    fun getAllTags(@Bind("teamId") teamId: Int): List<TagDbRead>
+    @SqlQuery("SELECT * FROM tags_view WHERE repoid = :repoId LIMIT :limit OFFSET :offset")
+    fun getAllTags(
+        @Bind("repoId") repoId: Int,
+        @Bind("limit") limit: Int,
+        @Bind("offset") offset: Int,
+    ): List<TagDbRead>
 
-    @SqlUpdate("INSERT INTO tags (name,date,delId,teamId) VALUES (:name,:date,:delId,:teamId)")
-    @GetGeneratedKeys
-    fun createTag(@BindBean tag: TagDbWrite): OrganizationDbRead
+    @SqlQuery("SELECT * FROM tags_view WHERE repoid = :repoId AND id = :id")
+    fun getTag(
+        @Bind("repoId") repoId: Int,
+        @Bind("id") id: Int
+    ): TagDbRead
 
-    @SqlUpdate("UPDATE tags SET name=:name,date=:date,delId=:delId,teamId=:teamId WHERE id=:id")
+    @SqlUpdate("INSERT INTO tags (name, date, delId, repoid) VALUES (:name, :date, :delId, :repoId)")
     @GetGeneratedKeys
-    fun updateTag(@BindBean tag: TagDbUpdate): Int
+    fun createTag(@BindBean tag: TagDbWrite): TagDbRead
+
+    @SqlUpdate("UPDATE tags SET name = coalesce(:name, name), date = coalesce(:date, date), delId = coalesce(:delId, delid), repoid = coalesce(:repoId, repoid) WHERE id = :id")
+    @GetGeneratedKeys
+    fun updateTag(@BindBean tag: TagDbUpdate): TagDbRead
+
+    @SqlUpdate("UPDATE tags SET deleted = B'1' WHERE id =: id")
+    fun deleteTeam(@Bind("id") tagId: Int)
 }

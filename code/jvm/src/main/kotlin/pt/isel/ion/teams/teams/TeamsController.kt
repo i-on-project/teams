@@ -68,10 +68,14 @@ class TeamsController(
 
 
     @PutMapping(Uris.Teams.Team.PATH)
-    fun updateTeam(@PathVariable classId: Int, @PathVariable teamId: Int, @RequestBody team: TeamsUpdateModel) = ResponseEntity
+    fun updateTeam(
+        @PathVariable classId: Int,
+        @PathVariable teamId: Int,
+        @RequestBody team: TeamsUpdateModel
+    ) = ResponseEntity
         .ok()
         .contentType(MediaType.APPLICATION_JSON)
-        .body(teamsService.updateTeam(team.toDb(teamId,classId)).toOutput())
+        .body(teamsService.updateTeam(team.toDb(teamId)).toOutput())
 
     @DeleteMapping(Uris.Teams.Team.PATH)
     fun deleteTeam(@PathVariable teamId: Int): ResponseEntity<Any> {

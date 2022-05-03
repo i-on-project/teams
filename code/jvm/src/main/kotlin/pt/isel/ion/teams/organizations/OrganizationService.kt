@@ -9,7 +9,9 @@ class OrganizationService(val jdbi: Jdbi) {
 
     fun getAllOrganizations(pageSize: Int, pageIndex: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(OrganizationDAO::class.java).getAllOrganizations(pageSize + 1, pageIndex)
+            jdbi
+                .onDemand(OrganizationDAO::class.java)
+                .getAllOrganizations(pageSize + 1, pageIndex * pageSize)
         }
 
     fun getOrganization(id: Int) =

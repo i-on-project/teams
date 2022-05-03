@@ -21,9 +21,12 @@ object SirenRelations {
     const val REQUESTS = "requests"
     const val STUDENTS = "students"
     const val NOTES = "notes"
+    const val TAGS = "tags"
+    const val DELIVERY = "delivery"
 
     //Individual resources
     const val ORGANIZATION = "organization"
     const val CLASSROOM = "classroom"
     const val TEAM = "team"
+    const val REPO = "repo"
 }

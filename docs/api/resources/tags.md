@@ -41,7 +41,8 @@ Represents a tag created in one of the teams repos. This information is only ava
 
 - [repo](./repos.md#get-repo-teacher)
 - [delivery](./deliveries.md#get-delivery-teacher)
-- [tags](#tags)
+- [tags](#list-tags)
+- [tag](#get-tag)
 - home
 - logout
 
@@ -157,6 +158,10 @@ Status:  200 OK
     {
       "rel": ["tags"],
       "href": "/api/orgs/852/classrooms/1/team/123123/repos/1/tags"
+    },
+    {
+      "rel": ["delivery"],
+      "href": "/api/orgs/852/classrooms/1/assignment/1/delivery/1"
     },
     {
       "rel": ["logout"],
