@@ -13,7 +13,11 @@ package pt.isel.ion.teams.students
 
     data class StudentDbWrite(
         val number: Int,
-        val name: String,
+        val name: String
+    )
+
+    data class StudentAssociationDbWrite(
+        val number: Int,
         val tId: Int,
         val cId: Int
     )
@@ -38,7 +42,11 @@ package pt.isel.ion.teams.students
 
     data class StudentInputModel(
         val number: Int,
-        val name: String,
+        val name: String
+    )
+
+    data class StudentAssociationInputModel(
+        val number: Int,
         val tId: Int,
         val cId: Int
     )
@@ -53,6 +61,7 @@ package pt.isel.ion.teams.students
      * Functions to transition from external to internal, or vice-versa.
      */
 
-    fun StudentInputModel.toDb() = StudentDbWrite(this.number, this.name, this.tId, this.cId)
+    fun StudentInputModel.toDb() = StudentDbWrite(this.number, this.name)
+    fun StudentAssociationInputModel.toDb() = StudentAssociationInputModel(this.number, tId,cId)
     fun StudentUpdateModel.toDb(number: Int) = StudentDbUpdate(number, this.name, this.tId, this.cId)
     fun StudentDbRead.toOutput() = StudentOutputModel(this.number, this.name, this.tId, this.cId)

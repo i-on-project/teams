@@ -20,7 +20,6 @@ class StudentsController(val studentsService: StudentsService) {
     fun createStudent(@RequestBody student: StudentInputModel) =
         studentsService.createStudent(student.toDb())
 
-
     @PutMapping(Uris.Students.Student.PATH)
     fun updateStudent(@PathVariable number: Int, @RequestBody student: StudentUpdateModel) =
         studentsService.updateStudent(student.toDb(number))

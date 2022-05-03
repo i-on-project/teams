@@ -29,6 +29,6 @@ class StudentsService(val jdbi: Jdbi) {
 
     fun updateStudent(student: StudentDbUpdate) =
         sqlExceptionHandler {
-            jdbi.onDemand(StudentsDAO::class.java).updateStudent(student)
+            //TODO: jdbi.onDemand(StudentsDAO::class.java).updateStudent(student)
         }
 }

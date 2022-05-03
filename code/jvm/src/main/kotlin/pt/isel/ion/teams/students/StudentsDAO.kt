@@ -15,15 +15,15 @@ interface StudentsDAO {
     fun getAllStudentsByTeam(@Bind("teamsId") teamsId: Int): List<StudentDbRead>
 
     @SqlUpdate("INSERT INTO students (number, tid, cid)  VALUES (:number, :tid, :cid)")
-    @GetGeneratedKeys
-    fun associateStudent(@BindBean student: StudentDbWrite)
 
-    @SqlUpdate("INSERT INTO students (number, name, tid, cid)  VALUES (:number, :name, :tid, :cid)")
-    @GetGeneratedKeys
-    fun createStudent(@BindBean student: StudentDbWrite): StudentDbRead
+    fun associateStudentToTeam(@BindBean student: StudentAssociationDbWrite)
 
-    @SqlUpdate("UPDATE students SET name=:name, tid=:tid, cid=:cid WHERE number=:number")
-    @GetGeneratedKeys
-    fun updateStudent(@BindBean student: StudentDbUpdate): Int
+    @SqlUpdate("INSERT INTO student (number, name)  VALUES (:number, :name)")
+    fun createStudent(@BindBean student: StudentDbWrite)
 
+    @SqlUpdate("UPDATE students SET tid=COALESCE(:tid,tid), cid=COALESCE(:cid,cid) WHERE number=:number")
+    fun updateStudentTeam(@BindBean student: StudentDbUpdate)
+
+    @SqlUpdate("UPDATE student SET name=COALESCE(:name,name) WHERE number=:number")
+    fun updateStudentName(@BindBean student: StudentDbUpdate)
 }
