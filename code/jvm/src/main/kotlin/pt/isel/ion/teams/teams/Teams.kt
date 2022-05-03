@@ -19,7 +19,6 @@ data class TeamsDbWrite(
 data class TeamsDbUpdate(
     val id: Int,
     val name: String?,
-    val cid: Int?,
     val state: String?
 )
 
@@ -42,7 +41,6 @@ data class TeamsCompactOutputModel(
 
 data class TeamsInputModel(
     val name: String,
-    val cid: Int,
     val state: String
 )
 
@@ -55,7 +53,7 @@ data class TeamsUpdateModel(
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun TeamsInputModel.toDb(cId: Int) = TeamsDbWrite(this.name,cId,this.state)
-fun TeamsUpdateModel.toDb(id: Int,cId: Int) = TeamsDbUpdate(id, this.name,cId,this.state)
-fun TeamsDbRead.toOutput() = TeamsOutputModel(this.id, this.name,this.cid,this.state)
+fun TeamsInputModel.toDb(cId: Int) = TeamsDbWrite(this.name, cId, this.state)
+fun TeamsUpdateModel.toDb(id: Int) = TeamsDbUpdate(id, this.name, this.state)
+fun TeamsDbRead.toOutput() = TeamsOutputModel(this.id, this.name, this.cid, this.state)
 fun TeamsDbRead.toCompactOutput() = TeamsCompactOutputModel(this.id, this.name, this.state)

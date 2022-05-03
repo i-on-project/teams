@@ -23,7 +23,7 @@ interface TeamsDAO {
     @GetGeneratedKeys
     fun createTeam(@BindBean teamsDbWrite: TeamsDbWrite): TeamsDbRead
 
-    @SqlUpdate("UPDATE teams SET name=:name,cid=:cid ,state=:state WHERE id=:id")
+    @SqlUpdate("UPDATE teams SET name = coalesce(:name, name), state = coalesce(:state, state) WHERE id=:id")
     @GetGeneratedKeys
     fun updateTeam(@BindBean teamsDbUpdate: TeamsDbUpdate): TeamsDbRead
 

@@ -14,11 +14,11 @@ interface OrganizationDAO {
     @SqlQuery("SELECT * FROM organizations_view WHERE id=:id")
     fun getOrganization(@Bind("id") id: Int): OrganizationDbRead
 
-    @SqlUpdate("INSERT INTO organizations_view (name, description) VALUES (:name,:description)")
+    @SqlUpdate("INSERT INTO organizations (name, description) VALUES (:name,:description)")
     @GetGeneratedKeys
     fun createOrganization(@BindBean organization: OrganizationDbWrite): OrganizationDbRead
 
-    @SqlUpdate("UPDATE organizations_view SET name=:name, description=:description WHERE id=:id")
+    @SqlUpdate("UPDATE organizations SET name = coalesce(:name, name), description = coalesce(:description, description) WHERE id=:id")
     @GetGeneratedKeys
     fun updateOrganization(@BindBean organization: OrganizationDbUpdate): OrganizationDbRead
 
