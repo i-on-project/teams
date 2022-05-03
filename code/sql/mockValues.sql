@@ -14,9 +14,9 @@ INSERT INTO teacher (number, name, email, office)
 VALUES (86951, 'Humberto Silva', 'humberto.silva@isel.pt', 'F.0.5'),
        (85462, 'Gilberto Silva', 'gilberto.silva@isel.pt', 'F.0.6');
 
-INSERT INTO teachers (number, name, cid)
-VALUES (86951, 'Humberto Silva', 1),
-       (85462, 'Gilberto Silva', 2);
+INSERT INTO teachers (number, cid)
+VALUES (86951, 1),
+       (85462, 2);
 
 INSERT INTO invite_links (link, cid)
 VALUES ('api/orgs/1/classrooms/1/invite-link', 1),
@@ -30,9 +30,9 @@ INSERT INTO teams (name, cid)
 VALUES ('li4xd-g1', 1),
        ('li5xd-g1', 2);
 
-INSERT INTO students (number, name, tid, cid)
-VALUES (80000, 'Julinho Silva', 1, 1),
-       (90000, 'Juliano Silva', 2, 2);
+INSERT INTO students (number, tid, cid)
+VALUES (80000, 1, 1),
+       (90000, 2, 2);
 
 INSERT INTO assignments (cid, description)
 VALUES (1, 'Make application yes yes.'),
