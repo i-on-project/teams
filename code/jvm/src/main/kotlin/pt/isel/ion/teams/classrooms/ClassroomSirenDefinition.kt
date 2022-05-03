@@ -28,9 +28,12 @@ fun CollectionModel.toClassroomSirenObject(
         },
         links = listOfNotNull(
             selfLink(Uris.Classrooms.make(orgId)),
-            if (classroomList.size > pageSize) nextLink(Uris.Classrooms.makePage(pageIndex + 1, pageSize))
+            if (classroomList.size > pageSize)
+                nextLink(Uris.Classrooms.makePage(pageIndex + 1, pageSize, orgId))
             else null,
-            if (pageIndex > 0) prevLink(Uris.Classrooms.makePage(pageIndex - 1, pageSize)) else null,
+            if (pageIndex > 0)
+                prevLink(Uris.Classrooms.makePage(pageIndex - 1, pageSize, orgId))
+            else null,
             SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
             homeLink(),
             logoutLink(),

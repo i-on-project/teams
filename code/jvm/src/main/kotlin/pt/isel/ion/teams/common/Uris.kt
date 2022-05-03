@@ -33,8 +33,8 @@ object Uris {
 
         private const val PAGE_PATH = "${MAIN_PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
-        fun makePage(pageIndex: Int, pageSize: Int) =
-            PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
+        fun makePage(pageIndex: Int, pageSize: Int, orgId: Int) =
+            PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize, "orgId" to orgId))
 
         object Classroom {
             const val PATH = "/{classId}"
@@ -50,8 +50,10 @@ object Uris {
 
         private const val PAGE_PATH = "${MAIN_PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
-        fun makePage(pageIndex: Int, pageSize: Int) =
-            PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
+        fun makePage(pageIndex: Int, pageSize: Int, orgId: Int, classId: Int) =
+            PAGE_TEMPLATE.expand(
+                mapOf("pageIndex" to pageIndex, "pageSize" to pageSize, "orgId" to orgId, "classId" to classId)
+            )
 
         object Team {
             const val PATH = "/{teamId}"
@@ -69,8 +71,16 @@ object Uris {
 
         private const val PAGE_PATH = "${MAIN_PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
-        fun makePage(pageIndex: Int, pageSize: Int) =
-            PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
+        fun makePage(pageIndex: Int, pageSize: Int, orgId: Int, classId: Int, teamId: Int) =
+            PAGE_TEMPLATE.expand(
+                mapOf(
+                    "pageIndex" to pageIndex,
+                    "pageSize" to pageSize,
+                    "orgId" to orgId,
+                    "classId" to classId,
+                    "teamId" to teamId
+                )
+            )
 
         object Repo {
             const val PATH = "/{repoId}"
@@ -87,8 +97,10 @@ object Uris {
 
         private const val PAGE_PATH = "$MAIN_PATH?pageIndex={pageIndex}&pageSize={pageSize}"
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
-        fun makePage(pageIndex: Int, pageSize: Int) =
-            PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
+        fun makePage(pageIndex: Int, pageSize: Int, orgId: Int, classId: Int) =
+            PAGE_TEMPLATE.expand(
+                mapOf("pageIndex" to pageIndex, "pageSize" to pageSize, "orgId" to orgId, "classId" to classId)
+            )
 
         object Assignment {
             const val PATH = "/{assignmentId}"
@@ -108,8 +120,10 @@ object Uris {
 
             private const val PAGE_PATH = "${PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
             private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
-            fun makePage(pageIndex: Int, pageSize: Int) =
-                PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
+            fun makePage(pageIndex: Int, pageSize: Int, orgId: Int, classId: Int) =
+                PAGE_TEMPLATE.expand(
+                    mapOf("pageIndex" to pageIndex, "pageSize" to pageSize, "orgId" to orgId, "classId" to classId)
+                )
         }
 
         object FromTeam {
@@ -120,8 +134,14 @@ object Uris {
 
             private const val PAGE_PATH = "${PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
             private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
-            fun makePage(pageIndex: Int, pageSize: Int) =
-                PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
+            fun makePage(pageIndex: Int, pageSize: Int, orgId: Int, classId: Int, teamId: Int) =
+                PAGE_TEMPLATE.expand(
+                    mapOf("pageIndex" to pageIndex,
+                        "pageSize" to pageSize,
+                        "orgId" to orgId,
+                        "classId" to classId,
+                        "teamId" to teamId)
+                )
         }
 
         object Student {
@@ -140,8 +160,14 @@ object Uris {
 
         private const val PAGE_PATH = "${MAIN_PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
-        fun makePage(pageIndex: Int, pageSize: Int) =
-            PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
+        fun makePage(pageIndex: Int, pageSize: Int, orgId: Int, classId: Int, teamId: Int) =
+            PAGE_TEMPLATE.expand(
+                mapOf("pageIndex" to pageIndex,
+                    "pageSize" to pageSize,
+                    "orgId" to orgId,
+                    "classId" to classId,
+                    "teamId" to teamId)
+            )
 
         object Note {
             const val PATH = "/{noteId}"
@@ -159,8 +185,10 @@ object Uris {
 
         private const val PAGE_PATH = "${MAIN_PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
-        fun makePage(pageIndex: Int, pageSize: Int) =
-            PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
+        fun makePage(pageIndex: Int, pageSize: Int, orgId: Int, classId: Int) =
+            PAGE_TEMPLATE.expand(
+                mapOf("pageIndex" to pageIndex, "pageSize" to pageSize, "orgId" to orgId, "classId" to classId)
+            )
 
         object Request {
             const val PATH = "/{teamId}"
@@ -178,8 +206,17 @@ object Uris {
 
         private const val PAGE_PATH = "${MAIN_PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
-        fun makePage(pageIndex: Int, pageSize: Int) =
-            PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
+        fun makePage(pageIndex: Int, pageSize: Int, orgId: Int, classId: Int, teamId: Int, repoId: Int) =
+            PAGE_TEMPLATE.expand(
+                mapOf(
+                    "pageIndex" to pageIndex,
+                    "pageSize" to pageSize,
+                    "orgId" to orgId,
+                    "classId" to classId,
+                    "teamId" to teamId,
+                    "repoId" to repoId
+                )
+            )
 
         object Tag{
             const val PATH = "/{tagId}"
@@ -209,8 +246,10 @@ object Uris {
 
         private const val PAGE_PATH = "${MAIN_PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
-        fun makePage(pageIndex: Int, pageSize: Int) =
-            PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
+        fun makePage(pageIndex: Int, pageSize: Int, orgId: Int, classId: Int) =
+            PAGE_TEMPLATE.expand(
+                mapOf("pageIndex" to pageIndex, "pageSize" to pageSize, "orgId" to orgId, "classId" to classId)
+            )
 
         object Teacher{
             const val PATH = "/{number}"
