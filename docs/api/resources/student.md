@@ -48,13 +48,14 @@ Represents a student
 
 ## Actions
 
-* [List Students](#list-students)
+* [List Students - Classroom](#list-students-classroom)
+* [List Students - Team](#list-students-team)
 
 ---
 
 ### Success Responses
 
-#### List Requests
+#### List Students Classroom
 
 List all the students of a classroom.
 
@@ -81,7 +82,12 @@ Status:  200 OK
         "number": "82264",
         "name": "Xhang-Chi"
       },
-      "links": []
+      "links": [
+        {
+          "rel": ["self"],
+          "href": "api/orgs/3/classrooms/4/students/82264"
+        },
+      ]
     }
   ],
   "links": [
@@ -112,6 +118,75 @@ Status:  200 OK
   ]
 }
 ```
+
+#### List Students team
+
+List all the students of a team.
+
+```http
+GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/students
+```
+
+```text
+Status:  200 OK
+```
+
+```json
+{
+  "class": [ "students", "collection" ],
+  "properties": {
+    "pageIndex": 0,
+    "pageSize": 1
+  },
+  "entities": [
+    {
+      "class": [ "students" ],
+      "rel": [ "item" ],
+      "properties": {
+        "number": "82264",
+        "name": "Xhang-Chi"
+      },
+      "links": [
+        {
+      "rel": ["self"],
+      "href": "api/orgs/3/classrooms/4/teams/5/students/82264"
+    },
+      ]
+    }
+  ],
+  "links": [
+    {
+      "rel": ["self"],
+      "href": "api/orgs/3/classrooms/4/teams/5/students/requests?page=0&limit=10"
+    },
+    {
+      "rel": ["next"],
+      "href": "api/orgs/3/classrooms/4/teams/5/students/requests?page=1&limit=10"
+    },
+    {
+      "rel": ["prev"],
+      "href": "api/orgs/3/classrooms/4/teams/5/students?page=1&limit=10"
+    },
+    {
+      "rel": ["home"],
+      "href": "/api"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
+    },
+    {
+      "rel": ["classroom"],
+      "href": "api/orgs/3/classrooms/4"
+    },
+    {
+      "rel": ["team"],
+      "href": "api/orgs/3/classrooms/4/team/5"
+    }
+  ]
+}
+```
+
 
 ### Error Responses
 

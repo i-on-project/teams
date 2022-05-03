@@ -12,23 +12,39 @@ import pt.isel.daw.project.common.errors.sqlExceptionHandler
 @Component
 class StudentsService(val jdbi: Jdbi) {
 
-    fun getAllStudentsByClassroom(classroomId: Int) =
+    fun getAllStudentsByClassroom(pageSize: Int, pageIndex: Int, classroomId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(StudentsDAO::class.java).getAllStudentsByClassroom(classroomId)
+            jdbi.onDemand(StudentsDAO::class.java)
+                .getAllStudentsByClassroom( classroomId,pageSize + 1, pageIndex * pageSize)
         }
 
-    fun getAllStudentsByTeam(teamId: Int) =
+    fun getAllStudentsByTeam(teamId: Int,pageSize: Int, pageIndex: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(StudentsDAO::class.java).getAllStudentsByTeam(teamId)
+            jdbi.onDemand(StudentsDAO::class.java).getAllStudentsByTeam(teamId,pageSize + 1, pageIndex * pageSize)
         }
 
-    fun createStudent( student: StudentDbWrite) =
+    fun createStudent(student: StudentDbWrite) =
         sqlExceptionHandler {
             jdbi.onDemand(StudentsDAO::class.java).createStudent(student)
         }
 
     fun updateStudent(student: StudentDbUpdate) =
         sqlExceptionHandler {
-            //TODO: jdbi.onDemand(StudentsDAO::class.java).updateStudent(student)
+            if (student.name == null)
+                jdbi.onDemand(StudentsDAO::class.java).updateStudentTeam(student)
+            else
+                jdbi.onDemand(StudentsDAO::class.java).updateStudentName(student)
         }
+
+    fun associateStudentToTeam(student: StudentAssociationDbWrite) =
+        sqlExceptionHandler {
+            jdbi.onDemand(StudentsDAO::class.java).associateStudentToTeam(student)
+        }
+
+    fun dissociateStudentFromTeam(number: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(StudentsDAO::class.java).dissociateStudentFromTeam(number)
+        }
+
+
 }
