@@ -62,6 +62,7 @@ CREATE TABLE TEAMS
     cId     int         NOT NULL, --class id
     state   varchar(50) DEFAULT 'pending',
     deleted bit(1)      DEFAULT B'0',
+    UNIQUE (name, cId),
     UNIQUE (id, cId),
     PRIMARY KEY (id),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
