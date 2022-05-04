@@ -84,19 +84,19 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "teachers", "collection" ],
+  "class": [ "teacher", "collection" ],
   "properties": {
     "pageIndex": 0,
     "pageSize": 1
   },
   "entities": [
     {
-      "class": [ "teachers" ],
+      "class": [ "teacher" ],
       "rel": [ "item" ],
       "properties": {
         "number": "82264",
         "name": "Xhang-Chi",
-        "emais": "xhang_chi@university.pt",
+        "email": "xhang_chi@university.pt",
         "office": "G.2.8.8",
         "cId": "4"
       },
@@ -132,6 +132,10 @@ Status:  200 OK
     {
       "rel": ["classroom"],
       "href": "api/orgs/3/classrooms/4"
+    },
+    {
+      "rel": ["organization"],
+      "href": "/api/orgs/123123"
     }
   ]
 }
@@ -151,45 +155,33 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "teacher" ],
+  "class": ["teacher"],
   "properties": {
         "number": "82264",
         "name": "Xhang-Chi",
-        "emais": "xhang_chi@university.pt",
+        "email": "xhang_chi@university.pt",
         "office": "G.2.8.8",
         "cId": "4"
   },
   "entities": {
-      "class": [ "team" ],
+      "class": [ "classroom" ],
       "rel": [ "item" ],
       "properties": {
-        "id": 12,
-        "name": "team1",
+       "id": 123,
+        "name": "AVE",
         "state": "active"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/852/classrooms/456/teams/123"
+          "href": "/api/orgs/852/classrooms/123"
         }
       ]
     },
-    "actions": [
-      {
-        "name": "update-student",
-        "title": "Update Student",
-        "method": "PUT",
-        "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/123/students/977",
-        "type": "application/json",
-        "field": [
-          {"name": "name", "type": "string"}
-        ]
-      }
-    ],
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/852/classrooms/456/teams/123/students/977"
+      "href": "/api/orgs/852/classrooms/456/teams/123/teachers/977"
     },
     {
       "rel": ["home"],
@@ -212,7 +204,7 @@ Status:  200 OK
 Teacher view of a Get Teacher request.
 
 ```http
-GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/students{number}
+GET api/orgs/{orgId}/classrooms/{classId}/teachers/{number}
 ```
 
 ```text
@@ -221,23 +213,26 @@ Status:  200 OK
 
 ```json
 {
-  "class": [ "student" ],
+  "class": [ "teacher" ],
   "properties": {
-      "number": 977,
-      "name": "Julio Lourenço"
+      "number": "82264",
+        "name": "Xhang-Chi",
+        "email": "xhang_chi@university.pt",
+        "office": "G.2.8.8",
+        "cId": "4"
   },
   "entities": {
-      "class": [ "team" ],
+      "class": [ "classroom" ],
       "rel": [ "item" ],
       "properties": {
-        "id": 123,
-        "name": "team1",
+       "id": 123,
+        "name": "AVE",
         "state": "active"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/852/classrooms/456/teams/123"
+          "href": "/api/orgs/852/classrooms/123"
         }
       ]
     },
@@ -246,11 +241,12 @@ Status:  200 OK
         "name": "update-teacher",
         "title": "Update Teacher",
         "method": "PUT",
-        "href": "/api/orgs/852/classrooms/{456/teachers/977",
+        "href": "/api/orgs/852/classrooms/123/teams/123/teachers/977",
         "type": "application/json",
         "field": [
-          {"name": "name", "type": "string"},
-          {"name": "tId", "type": "number"},
+          {"name": "name", "type": "number"},
+          {"name": "email", "type": "string"},
+          {"name": "office", "type": "string"},
           {"name": "cId", "type": "number"}
         ]
       }
@@ -258,7 +254,7 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/852/classrooms/456/teams/123/students/977"
+      "href": "/api/orgs/852/classrooms/456/teams/123/teachers/977"
     },
     {
       "rel": ["home"],

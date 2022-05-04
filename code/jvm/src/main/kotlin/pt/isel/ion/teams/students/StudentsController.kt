@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.*
 import pt.isel.daw.project.common.siren.CollectionModel
 import pt.isel.daw.project.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.teams.TeamsService
+import pt.isel.ion.teams.teams.toCompactOutput
 
 
 @RestController
 @RequestMapping(Uris.Students.MAIN_PATH)
-class StudentsController(val studentsService: StudentsService) {
+class StudentsController(val studentsService: StudentsService, val teamsService: TeamsService) {
 
     @GetMapping(Uris.Students.FromClassroom.PATH)
     fun getAllStudentsByClassroom(
@@ -56,7 +58,7 @@ class StudentsController(val studentsService: StudentsService) {
         .body(
             studentsService.getStudent(number).toOutput()
                 .toStudentSirenObject(
-                    studentsService.getAllStudentsByClassroom(10,0, classId).map { it.toCompactOutput() },
+                    teamsService.getAllTeamsOfClassroom(10, 0, classId).map { it.toCompactOutput() },
                     classId,
                     orgId
                 )

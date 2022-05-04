@@ -117,6 +117,7 @@ object Uris {
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
         fun makePage(pageIndex: Int, pageSize: Int, orgId: Int) =
             PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize, "orgId" to orgId))
+        fun make(orgId: Int) = PAGE_TEMPLATE.expand(mapOf("orgId" to orgId))
 
         object FromClassroom {
             const val PATH = "/students"

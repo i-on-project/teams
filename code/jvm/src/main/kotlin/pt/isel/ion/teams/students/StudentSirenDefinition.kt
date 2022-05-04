@@ -4,6 +4,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
 import pt.isel.daw.project.common.siren.*
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.teams.TeamsCompactOutputModel
 
 
 fun CollectionModel.toStudentSirenObject(
@@ -27,14 +28,14 @@ fun CollectionModel.toStudentSirenObject(
             )
         },
         links = listOfNotNull(
-            selfLink(Uris.Classrooms.make(orgId)),
+            selfLink(Uris.Students.make(orgId)),
             if (studentList.size > pageSize)
                 nextLink(Uris.Students.makePage(pageIndex + 1, pageSize, orgId))
             else null,
             if (pageIndex > 0)
                 prevLink(Uris.Students.makePage(pageIndex - 1, pageSize, orgId))
             else null,
-            SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
+            SirenLink(SirenRelations.CLASSROOMS, Uris.Classrooms.Classroom.make(orgId, cId)),
             homeLink(),
             logoutLink(),
         )
@@ -43,18 +44,18 @@ fun CollectionModel.toStudentSirenObject(
 
 
 fun StudentOutputModel.toTeacherSirenObject(
-    studentsList: List<StudentCompactOutputModel>,
+    teamsList: List<TeamsCompactOutputModel>,
     classId: Int,
     orgId: Int
 ) = SirenEntity(
     properties = this,
     clazz = listOf(SirenClasses.STUDENT),
-    entities = studentsList.map {
+    entities = teamsList.map {
         EmbeddedEntity(
             properties = it,
             clazz = listOf(SirenClasses.TEAM),
             rel = listOf(SirenRelations.ITEM),
-            links = listOf(selfLink(Uris.Students.Student.make(orgId, classId, number)))
+            links = listOf(selfLink(Uris.Teams.Team.make(orgId, classId, it.id)))
         )
     },
     actions = listOf(
@@ -62,7 +63,7 @@ fun StudentOutputModel.toTeacherSirenObject(
             name = "update-student",
             title = "Update Student",
             method = HttpMethod.PUT,
-            href = Uris.Students.Student.make(orgId,classId,number),
+            href = Uris.Students.Student.make(orgId, classId, number),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
                 SirenAction.Field(name = "name", type = "string"),
@@ -72,27 +73,27 @@ fun StudentOutputModel.toTeacherSirenObject(
         )
     ),
     links = listOf(
-        selfLink(Uris.Students.Student.make(orgId,classId,number)),
+        selfLink(Uris.Students.Student.make(orgId, classId, number)),
         homeLink(),
-        SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
+        SirenLink(SirenRelations.CLASSROOMS, Uris.Classrooms.Classroom.make(orgId, classId)),
         logoutLink()
     )
 )
 
 
 fun StudentOutputModel.toStudentSirenObject(
-    studentsList: List<StudentCompactOutputModel>,
+    teamList: List<TeamsCompactOutputModel>,
     classId: Int,
     orgId: Int
 ) = SirenEntity(
     properties = this,
     clazz = listOf(SirenClasses.STUDENT),
-    entities = studentsList.map {
+    entities = teamList.map {
         EmbeddedEntity(
             properties = it,
             clazz = listOf(SirenClasses.TEAM),
             rel = listOf(SirenRelations.ITEM),
-            links = listOf(selfLink(Uris.Students.Student.make(orgId, classId, number)))
+            links = listOf(selfLink(Uris.Teams.Team.make(orgId, classId, it.id)))
         )
     },
     actions = listOf(
@@ -100,7 +101,7 @@ fun StudentOutputModel.toStudentSirenObject(
             name = "update-student",
             title = "Update Student",
             method = HttpMethod.PUT,
-            href = Uris.Students.Student.make(orgId,classId,number),
+            href = Uris.Students.Student.make(orgId, classId, number),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
                 SirenAction.Field(name = "name", type = "string")
@@ -108,8 +109,8 @@ fun StudentOutputModel.toStudentSirenObject(
         )
     ),
     links = listOf(
-        selfLink(Uris.Students.Student.make(orgId,classId,number)),
-        SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
+        selfLink(Uris.Students.Student.make(orgId, classId, number)),
+        SirenLink(SirenRelations.CLASSROOMS, Uris.Classrooms.Classroom.make(orgId, classId)),
         homeLink(),
         logoutLink()
     )
