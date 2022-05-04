@@ -16,11 +16,6 @@ Represents a task and is description.
   - editable
   - type: string
   - possible values: ``2025/07/05``
-- `description` - Content of the assignment.
-  - non mandatory
-  - editable
-  - type: string
-  - example: `Make a WebApp for video editing.`
 
 ### Media-type [Siren](https://github.com/kevinswiber/siren)
 
@@ -88,7 +83,6 @@ Status:  200 OK
       "properties": {
         "id": 123123,
         "releaseDate": "2028/05/04",
-        "description": "Hello world."
       },
       "links": [
         {
@@ -139,29 +133,39 @@ Status:  200 OK
 ```json
 {
   "class": ["assignment"],
-  "rel": ["item"],
   "properties": {
     "id": 123123,
     "releaseDate": "2028/05/04",
-    "description": "Hello world."
   },
   "entities": [
     {
-      "class": ["classroom"],
+      "class": ["delivery"],
       "rel": ["item"],
       "properties": {
         "id": 9,
-        "name": "LI61D",
-        "state": "active",
-        "schoolYear": "2021/22"
+        "name": "phase 1",
+        "date": "23/03/2022"
       },
       "links": [
         {
           "rel": ["self"],
           "href": "/api/orgs/123123/classrooms/9"
-        }
+        },
       ]
     }
+  ],
+  "actions": [
+      {
+        "name": "create-assignment",
+        "title": "Create Assignment",
+        "method": "POST",
+        "href": "/api/orgs/{orgId}/classrooms/{classroomId}/assignments",
+        "type": "application/json",
+        "field": [
+          {"name": "releaseDate", "type": "date"},
+          {"name": "description", "type": "string"}
+        ]
+      }
   ],
   "links": [
     {
@@ -173,12 +177,8 @@ Status:  200 OK
       "href": "/api"
     },
     {
-      "rel": ["github"],
-      "href": "https://github.com/i-on-project"
-    },
-    {
-      "rel": ["avatar"],
-      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+      "rel": ["classroom"],
+      "href": "/api/orgs/123123/classrooms/1"
     },
     {
       "rel": ["logout"],
@@ -203,11 +203,9 @@ Status:  200 OK
 ```json
 {
   "class": ["assignment"],
-  "rel": ["item"],
   "properties": {
     "id": 123123,
     "releaseDate": "2028/05/04",
-    "description": "Hello world."
   },
   "entities": [
     {
@@ -229,19 +227,6 @@ Status:  200 OK
   ],
   "actions": [
     {
-      "name": "create-assignment",
-      "title": "Create Assignment",
-      "method": "POST",
-      "href": "/api/orgs/{orgId}/class/{classId}/assignments",
-      "type": "application/json",
-      "field": [
-        {"name": "id", "type": "number"},
-        {"name": "releaseDate", "type": "string"},
-        {"name": "cId", "type": "number"},
-        {"name": "description", "type": "string"}
-      ]
-    },
-    {
       "name": "update-assignment",
       "title": "Update Assignment",
       "method": "PUT",
@@ -252,13 +237,13 @@ Status:  200 OK
         {"name": "cId", "type": "number"},
         {"name": "description", "type": "string"}
       ]
-    }
+    },
     {
     "name": "delete-assignment",
     "title": "Delete Assignment",
     "method": "DELETE",
     "href": "/api/orgs/{orgId}/class/{classId}/assignments{assignmentId}"
-    },
+    }
   ],
   "links": [
     {

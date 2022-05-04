@@ -15,22 +15,16 @@ interface DeliveriesDAO {
         @Bind("assId") assId: Int,
     ): DeliveryDbRead
 
-    @SqlQuery("SELECT * FROM deliveries_view WHERE id = :id AND assid = :assId")
-    fun getDeliveryFromAssignment(
-        @Bind("id") deliveryId: Int,
-        @Bind("assId") assId: Int,
-    ): DeliveryDbRead
-
     @SqlQuery("SELECT * FROM deliveries_view WHERE id = :id")
     fun getDelivery(
         @Bind("id") deliveryId: Int,
     ): DeliveryDbRead
 
-    @SqlUpdate("INSERT INTO deliveries (assid, date) VALUES (:assId, :date)")
+    @SqlUpdate("INSERT INTO deliveries (name,assid, date) VALUES (name,:assId, :date)")
     @GetGeneratedKeys
     fun createDelivery(@BindBean delivery: DeliveryDbWrite): DeliveryDbRead
 
-    @SqlUpdate("UPDATE deliveries SET  date = coalesce(:date, date) WHERE id = :id")
+    @SqlUpdate("UPDATE deliveries SET  date = coalesce(:date, date),name = coalesce(:name, name) WHERE id = :id")
     @GetGeneratedKeys
     fun updateDelivery(@BindBean delivery: DeliveryDbUpdate): DeliveryDbRead
 

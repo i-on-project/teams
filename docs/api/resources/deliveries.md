@@ -42,8 +42,7 @@ Represents an assignment delivery.
 
 ## Actions
 
-- [List Notes](#list-notes)
-- [Get Note](#get-note)
+- [Get delivery](#get-delivery)
 
 ---
 

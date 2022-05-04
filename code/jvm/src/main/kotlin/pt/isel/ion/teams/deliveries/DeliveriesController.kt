@@ -19,7 +19,7 @@ class DeliveriesController(
         @PathVariable assId: Int,
         @PathVariable deliveryId: Int,
     ): ResponseEntity<Any> {
-        val team = deliveriesService.getDeliveryFromAssignment(deliveryId, assId).toOutput()
+        val team = deliveriesService.getDelivery(deliveryId).toOutput()
 
         //TODO Detect if user is student or teacher
 

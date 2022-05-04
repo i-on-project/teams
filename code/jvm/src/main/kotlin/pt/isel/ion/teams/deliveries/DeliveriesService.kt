@@ -14,11 +14,6 @@ class DeliveriesService(val jdbi: Jdbi) {
                 .getAllDeliveriesByAssignment(pageSize + 1, pageIndex * pageSize, assId)
         }
 
-    fun getDeliveryFromAssignment(deliveryId: Int, assId: Int) =
-        sqlExceptionHandler {
-            jdbi.onDemand(DeliveriesDAO::class.java).getDeliveryFromAssignment(deliveryId, assId)
-        }
-
     fun getDelivery(deliveryId: Int) =
         sqlExceptionHandler {
             jdbi.onDemand(DeliveriesDAO::class.java).getDelivery(deliveryId)

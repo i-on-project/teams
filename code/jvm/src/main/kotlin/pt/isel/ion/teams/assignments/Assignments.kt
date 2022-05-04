@@ -8,8 +8,8 @@ import java.sql.Timestamp
 data class AssignmentDbRead (
     val id: Int,
     val releaseDate: Timestamp,
-    val classId: Int,
     val description: String,
+    val classId: Int,
 )
 
 data class AssignmentDbWrite(
@@ -22,6 +22,7 @@ data class AssignmentDbUpdate(
     val id: Int,
     val releaseDate: Timestamp?,
     val description: String?,
+    val classId: Int?
 )
 
 /**
@@ -37,23 +38,23 @@ data class AssignmentOutputModel(
 
 data class AssignmentInputModel(
     val releaseDate: Timestamp,
-    val classId: Int,
-    val description: String,
+    val description: String
 )
 
 data class AssignmentUpdateModel(
     val id: Int,
     val releaseDate: Timestamp?,
     val description: String?,
+    val classId: Int?
 )
 
 /**
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun AssignmentInputModel.toDb() =
-    AssignmentDbWrite(this.releaseDate,this.classId,this.description)
+fun AssignmentInputModel.toDb(classId: Int) =
+    AssignmentDbWrite(this.releaseDate,classId,this.description)
 fun AssignmentUpdateModel.toDb(id: Int) =
-    AssignmentDbUpdate(id,this.releaseDate,this.description)
+    AssignmentDbUpdate(id,this.releaseDate,this.description,this.classId)
 fun AssignmentDbRead.toOutput() = AssignmentOutputModel(this.id,this.releaseDate,this.classId,this.description)
 
