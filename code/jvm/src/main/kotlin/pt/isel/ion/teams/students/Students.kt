@@ -36,8 +36,7 @@ data class StudentDbUpdate(
 data class StudentOutputModel(
     val number: Int,
     val name: String,
-    val tId: Int,
-    val cId: Int
+    val tId: Int
 )
 
 data class StudentCompactOutputModel(
@@ -69,5 +68,5 @@ data class StudentUpdateModel(
 fun StudentInputModel.toDb() = StudentDbWrite(this.number, this.name)
 fun StudentAssociationInputModel.toDb(number: Int) = StudentAssociationDbWrite(number, this.tId, this.cId)
 fun StudentUpdateModel.toDb(number: Int) = StudentDbUpdate(number, this.name, this.tId, this.cId)
-fun StudentDbRead.toOutput() = StudentOutputModel(this.number, this.name, this.tId, this.cId)
+fun StudentDbRead.toOutput() = StudentOutputModel(this.number, this.name, this.tId)
 fun StudentDbRead.toCompactOutput() =StudentCompactOutputModel(this.number,this.name)

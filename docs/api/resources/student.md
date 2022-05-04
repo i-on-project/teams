@@ -50,6 +50,7 @@ Represents a student
 
 * [List Students - Classroom](#list-students-classroom)
 * [List Students - Team](#list-students-team)
+* [Get Students](#list-students-team)
 
 ---
 
@@ -182,6 +183,141 @@ Status:  200 OK
     {
       "rel": ["team"],
       "href": "api/orgs/3/classrooms/4/team/5"
+    }
+  ]
+}
+```
+#### Get Student
+
+Student view of a Get Student request.
+
+```http
+GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/students{number}
+```
+
+```text
+Status:  200 OK
+```
+
+```json
+{
+  "class": [ "student" ],
+  "properties": {
+      "number": 977,
+      "name": "Julio Lourenço"
+  },
+  "entities": {
+      "class": [ "team" ],
+      "rel": [ "item" ],
+      "properties": {
+        "id": 12,
+        "name": "team1",
+        "state": "active"
+      },
+      "links": [
+        {
+          "rel": ["self"],
+          "href": "/api/orgs/852/classrooms/456/teams/123"
+        }
+      ]
+    },
+    "actions": [
+      {
+        "name": "update-student",
+        "title": "Update Student",
+        "method": "PUT",
+        "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/123/students/977",
+        "type": "application/json",
+        "field": [
+          {"name": "name", "type": "string"}
+        ]
+      }
+    ],
+  "links": [
+    {
+      "rel": ["self"],
+      "href": "/api/orgs/852/classrooms/456/teams/123/students/977"
+    },
+    {
+      "rel": ["home"],
+      "href": "/api"
+    },
+    {
+      "rel": ["organization"],
+      "href": "/api/orgs/123123"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
+    }
+  ]
+}
+```
+
+#### Get Student
+
+Teacher view of a Get Student request.
+
+```http
+GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/students{number}
+```
+
+```text
+Status:  200 OK
+```
+
+```json
+{
+  "class": [ "student" ],
+  "properties": {
+      "number": 977,
+      "name": "Julio Lourenço"
+  },
+  "entities": {
+      "class": [ "team" ],
+      "rel": [ "item" ],
+      "properties": {
+        "id": 123,
+        "name": "team1",
+        "state": "active"
+      },
+      "links": [
+        {
+          "rel": ["self"],
+          "href": "/api/orgs/852/classrooms/456/teams/123"
+        }
+      ]
+    },
+    "actions": [
+      {
+        "name": "update-student",
+        "title": "Update Student",
+        "method": "PUT",
+        "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/123/students/977",
+        "type": "application/json",
+        "field": [
+          {"name": "name", "type": "string"},
+          {"name": "tId", "type": "number"},
+          {"name": "cId", "type": "number"}
+        ]
+      }
+    ],
+  "links": [
+    {
+      "rel": ["self"],
+      "href": "/api/orgs/852/classrooms/456/teams/123/students/977"
+    },
+    {
+      "rel": ["home"],
+      "href": "/api"
+    },
+    {
+      "rel": ["organization"],
+      "href": "/api/orgs/123123"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
     }
   ]
 }

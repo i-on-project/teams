@@ -157,6 +157,7 @@ object Uris {
             fun make(orgId: Int, classId: Int, number: Int) =
                 TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "number" to number))
         }
+
     }
 
     object Notes {

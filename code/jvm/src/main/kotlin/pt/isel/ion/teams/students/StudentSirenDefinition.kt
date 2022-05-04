@@ -1,7 +1,12 @@
 package pt.isel.ion.teams.students
 
+import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
 import pt.isel.daw.project.common.siren.*
+import pt.isel.ion.teams.classrooms.ClassroomOutputModel
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.teams.TeamsCompactOutputModel
+import java.net.URI
 
 
 fun CollectionModel.toStudentSirenObject(
@@ -38,3 +43,41 @@ fun CollectionModel.toStudentSirenObject(
         )
     )
 }
+
+
+fun StudentOutputModel.toStudentSirenObject(
+    teamsList: List<StudentCompactOutputModel>,
+    classId: Int,
+    orgId: Int
+) = SirenEntity(
+    properties = this,
+    clazz = listOf(SirenClasses.STUDENT),
+    entities = teamsList.map {
+        EmbeddedEntity(
+            properties = it,
+            clazz = listOf(SirenClasses.TEAM),
+            rel = listOf(SirenRelations.ITEM),
+            links = listOf(selfLink(Uris.Students.Student.make(orgId, classId, number)))
+        )
+    },
+    actions = listOf(
+        SirenAction(
+            name = "update-student",
+            title = "Update Student",
+            method = HttpMethod.PUT,
+            href = Uris.Students.Student.make(orgId,classId,number),
+            type = MediaType.APPLICATION_JSON,
+            fields = listOf(
+                SirenAction.Field(name = "name", type = "string"),
+                SirenAction.Field(name = "tId", type = "number"),
+                SirenAction.Field(name = "cId", type = "number")
+            )
+        )
+    ),
+    links = listOf(
+        selfLink(Uris.Students.Student.make(orgId,classId,number)),
+        homeLink(),
+        SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
+        logoutLink()
+    )
+)

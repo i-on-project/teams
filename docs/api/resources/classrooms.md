@@ -233,10 +233,6 @@ Status:  200 OK
       "href": "/api/orgs/123123/classrooms/1/assignments"
     },
     {
-      "rel": ["team"],
-      "href": "/api/orgs/123123/classrooms/1/teams/5"
-    },
-    {
       "rel": ["logout"],
       "href": "/api/logout"
     }

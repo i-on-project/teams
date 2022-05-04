@@ -21,6 +21,9 @@ interface StudentsDAO {
         @Bind("offset") offset: Int
     ): List<StudentDbRead>
 
+    @SqlQuery("SELECT * FROM students_view WHERE number=:number")
+    fun getStudent(@Bind("number") number: Int): StudentDbRead
+
     @SqlUpdate("INSERT INTO student (number, name)  VALUES (:number, :name)")
     fun createStudent(@BindBean student: StudentDbWrite)
 

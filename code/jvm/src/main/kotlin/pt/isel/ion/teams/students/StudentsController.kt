@@ -5,8 +5,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import pt.isel.daw.project.common.siren.CollectionModel
 import pt.isel.daw.project.common.siren.SIREN_MEDIA_TYPE
-import pt.isel.ion.teams.classrooms.toClassroomSirenObject
-import pt.isel.ion.teams.classrooms.toCompactOutput
 import pt.isel.ion.teams.common.Uris
 
 
@@ -51,6 +49,19 @@ class StudentsController(val studentsService: StudentsService) {
             )
         )
 
+    @GetMapping(Uris.Students.Student.PATH)
+    fun getStudent(@PathVariable number: Int, @PathVariable classId: Int, @PathVariable orgId: Int) = ResponseEntity
+        .ok()
+        .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+        .body(
+            studentsService.getStudent(number).toOutput()
+                .toStudentSirenObject(
+                    studentsService.getAllStudentsByClassroom(10,0, classId).map { it.toCompactOutput() },
+                    classId,
+                    orgId
+                )
+        )
+
     @PostMapping(Uris.Students.FromClassroom.PATH)
     fun createStudent(@RequestBody student: StudentInputModel) =
         studentsService.createStudent(student.toDb())
@@ -58,13 +69,4 @@ class StudentsController(val studentsService: StudentsService) {
     @PutMapping(Uris.Students.Student.PATH)
     fun updateStudent(@PathVariable number: Int, @RequestBody student: StudentUpdateModel) =
         studentsService.updateStudent(student.toDb(number))
-
-    @PutMapping(Uris.Students.Student.PATH)
-    fun associateStudentToTeam(@PathVariable number: Int, student: StudentAssociationInputModel) =
-        studentsService.associateStudentToTeam(student.toDb(number))
-
-    @PutMapping(Uris.Students.Student.PATH)
-    fun dissociateStudentFromTeam(@PathVariable number: Int) = studentsService.dissociateStudentFromTeam(number)
-
-
 }
