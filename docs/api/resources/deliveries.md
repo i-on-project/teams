@@ -6,6 +6,11 @@ Represents an assignment delivery.
 
 ### Domain specific
 
+- ``name`` - Name of the delivery.  
+  - mandatory
+  - editable
+  - type: string
+  - possible values: ``Phase 1.``
 - ``date`` - Indicates date that the comment was made.
   - mandatory
   - editable
@@ -48,6 +53,78 @@ Represents an assignment delivery.
 
 ### Success Responses
 
+#### List Deliveries
+
+List all the deliveries.
+
+```http
+GET /api/orgs/{orgId}}/classrooms/{classId}/assignments/{assignments}/deliveries
+```
+
+```text
+Status:  200 OK
+```
+
+```json
+{
+  "class": [ "delivery", "collection" ],
+  "properties": {
+    "pageIndex": 0,
+    "pageSize": 1
+  },
+  "entities": [
+    {
+      "class": [ "delivery" ],
+      "rel": [ "item" ],
+      "properties": {
+        "name":"phase1",
+        "date": "2022-05-08"
+      },
+      "links": [
+        {
+          "rel": ["self"],
+          "href": "/api/orgs/5}/classrooms/6/assignments/66/deliveries/7"
+        },
+      ]
+    }
+  ],
+  "links": [
+    {
+      "rel": ["self"],
+      "href": "api/orgs/3/classrooms/4/teachers?page=0&limit=10"
+    },
+    {
+      "rel": ["next"],
+      "href": "api/orgs/3/classrooms/4/teachers?page=1&limit=10"
+    },
+    {
+      "rel": ["prev"],
+      "href": "api/orgs/3/classrooms/4/teachers?page=1&limit=10"
+    },
+    {
+      "rel": ["home"],
+      "href": "/api"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
+    },
+    {
+      "rel": ["classroom"],
+      "href": "api/orgs/3/classrooms/4"
+    },
+    {
+      "rel": ["organization"],
+      "href": "/api/orgs/123123"
+    },
+    {
+      "rel": ["assignments"],
+      "href": "/api/orgs/5}/classrooms/6/assignments"
+    }
+  ]
+}
+```
+
 #### Get Delivery (Students)
 
 This returns a single delivery.
@@ -64,12 +141,13 @@ Status:  200 OK
 {
   "class": [ "delivery" ],
   "properties": {
+    "name":"phase1",
     "date": "2022-05-08"
   },
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "href": "/api/orgs/123123/classrooms/1/assignments/23/delivery/3"
     },
     {
       "rel": ["home"],
@@ -103,6 +181,7 @@ Status:  200 OK
 {
   "class": [ "delivery" ],
   "properties": {
+    "name":"phase1",
     "date": "2022-05-08"
   },
   "entities": [
@@ -127,7 +206,7 @@ Status:  200 OK
       "name": "update-delivery",
       "title": "Update Delivery",
       "method": "PUT",
-      "href": "/api/orgs/{orgId}/class/{classId}/assignments/{assignmentId}/deliveries/{deliveryid}",
+      "href": "/api/orgs/{orgId}/class/{classId}/assignments/{assignmentId}/deliveries/{deliveryId}",
       "type": "application/json",
       "field": [
         {"name": "date", "type": "string"},
@@ -143,7 +222,7 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "href": "/api/orgs/123123/classrooms/1/assignments/23/delivery/3"
     },
     {
       "rel": ["home"],
