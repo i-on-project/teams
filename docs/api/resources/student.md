@@ -1,6 +1,6 @@
 # Student
 
-Represents a student
+Represents a student.
 
 ## Properties
 
@@ -48,8 +48,6 @@ Represents a student
 * [Classroom](./classrooms.md#get-classroom-teacher)
 * Home page
 * logout
-* github - GitHub Organization URI
-* avatar - GitHub Organization Avatar URI
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
@@ -61,7 +59,8 @@ Represents a student
 
 * [List Students - Classroom](#list-students-classroom)
 * [List Students - Team](#list-students-team)
-* [Get Students](#list-students-team)
+* [Get Students - Student](#get-student-for-student)
+* [Get Students - Teacher](#get-student-for-teacher)
 
 ---
 
@@ -105,11 +104,11 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "api/orgs/3/classrooms/4/students/requests?page=0&limit=10"
+      "href": "api/orgs/3/classrooms/4/students?page=0&limit=10"
     },
     {
       "rel": ["next"],
-      "href": "api/orgs/3/classrooms/4/students/requests?page=1&limit=10"
+      "href": "api/orgs/3/classrooms/4/students?page=1&limit=10"
     },
     {
       "rel": ["prev"],
@@ -169,11 +168,11 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "api/orgs/3/classrooms/4/teams/5/students/requests?page=0&limit=10"
+      "href": "api/orgs/3/classrooms/4/teams/5/students?page=0&limit=10"
     },
     {
       "rel": ["next"],
-      "href": "api/orgs/3/classrooms/4/teams/5/students/requests?page=1&limit=10"
+      "href": "api/orgs/3/classrooms/4/teams/5/students?page=1&limit=10"
     },
     {
       "rel": ["prev"],
@@ -198,7 +197,7 @@ Status:  200 OK
   ]
 }
 ```
-#### Get Student
+#### Get Student - Student
 
 Student view of a Get Student request.
 
@@ -265,12 +264,12 @@ Status:  200 OK
 }
 ```
 
-#### Get Student
+#### Get Student - Teacher
 
 Teacher view of a Get Student request.
 
 ```http
-GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/students{number}
+GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/students/{number}
 ```
 
 ```text

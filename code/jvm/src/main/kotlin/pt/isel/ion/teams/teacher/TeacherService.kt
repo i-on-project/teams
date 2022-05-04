@@ -7,9 +7,9 @@ import pt.isel.daw.project.common.errors.sqlExceptionHandler
 @Component
 class TeacherService(val jdbi: Jdbi) {
 
-    fun getTeachers(classroomId: Int) =
+    fun getTeachers(classId: Int, pageSize: Int, pageIndex: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(TeacherDAO::class.java).getTeachers(classroomId)
+            jdbi.onDemand(TeacherDAO::class.java).getTeachers(pageSize + 1, pageIndex * pageSize,classId)
         }
 
     fun getTeacher(number: Int) =
@@ -24,6 +24,9 @@ class TeacherService(val jdbi: Jdbi) {
 
     fun updateTeacher(teacher: TeacherDbUpdate) =
         sqlExceptionHandler {
-            jdbi.onDemand(TeacherDAO::class.java).updateTeacher(teacher)
+            if (teacher.cId == null)
+                jdbi.onDemand(TeacherDAO::class.java).updateTeacherInfo(teacher)
+            else
+                jdbi.onDemand(TeacherDAO::class.java).updateTeacherClass(teacher)
         }
 }

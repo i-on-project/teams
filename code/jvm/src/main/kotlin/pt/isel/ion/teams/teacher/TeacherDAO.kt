@@ -8,17 +8,25 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
 interface TeacherDAO {
 
-    @SqlQuery("SELECT * FROM teacher WHERE cId=:classroomId")
-    fun getTeachers(@Bind("classroomId") classroomId: Int): List<TeacherDbRead>
+    @SqlQuery("SELECT * FROM teachers_view WHERE cid=:classroomId LIMIT :limit OFFSET :offset")
+    fun getTeachers(
+        @Bind("limit") limit: Int,
+        @Bind("offset") offset: Int,
+        @Bind("classroomId") classroomId: Int
+    ): List<TeacherDbRead>
 
-    @SqlQuery("SELECT * FROM teacher WHERE number=:number")
-    fun getTeacher(@Bind("number")number: Int): TeacherDbRead
+    @SqlQuery("SELECT * FROM teachers_view WHERE number=:number")
+    fun getTeacher(@Bind("number") number: Int): TeacherDbRead
 
     @SqlUpdate("INSERT INTO teacher (number,name,email,office) VALUES (:number,:name,:email,:office)")
     @GetGeneratedKeys
     fun createTeacher(@BindBean teacher: TeacherDbWrite): TeacherDbRead
 
-    @SqlUpdate("UPDATE teacher SET name=:name,email=:email,office=:office WHERE number=:number")
+    @SqlUpdate("UPDATE teacher SET name=COALESCE(:name,name),email=COALESCE(:email,email),office=COALESCE(:office,office) WHERE number=:number")
     @GetGeneratedKeys
-    fun updateTeacher(@BindBean teacher: TeacherDbUpdate): Int
+    fun updateTeacherInfo(@BindBean teacher: TeacherDbUpdate): TeacherDbRead
+
+    @SqlUpdate("UPDATE teachers SET cid=COALESCE(:cid,cid) WHERE number=:number")
+    @GetGeneratedKeys
+    fun updateTeacherClass(@BindBean teacher: TeacherDbUpdate): TeacherDbRead
 }

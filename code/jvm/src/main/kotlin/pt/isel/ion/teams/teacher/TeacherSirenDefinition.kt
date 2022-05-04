@@ -1,4 +1,4 @@
-package pt.isel.ion.teams.students
+package pt.isel.ion.teams.teacher
 
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
@@ -6,12 +6,12 @@ import pt.isel.daw.project.common.siren.*
 import pt.isel.ion.teams.common.Uris
 
 
-fun CollectionModel.toStudentSirenObject(
-    studentList: List<StudentCompactOutputModel>,
+fun CollectionModel.toTeachersSirenObject(
+    teacherList: List<TeacherCompactOutputModel>,
     orgId: Int,
     cId: Int
 ): SirenEntity<CollectionModel> {
-    val list = if (studentList.size > this.pageSize) studentList.subList(0, this.pageSize) else studentList
+    val list = if (teacherList.size > this.pageSize) teacherList.subList(0, this.pageSize) else teacherList
     val pageSize = this.pageSize
     this.pageSize = list.size
 
@@ -28,7 +28,7 @@ fun CollectionModel.toStudentSirenObject(
         },
         links = listOfNotNull(
             selfLink(Uris.Classrooms.make(orgId)),
-            if (studentList.size > pageSize)
+            if (teacherList.size > pageSize)
                 nextLink(Uris.Students.makePage(pageIndex + 1, pageSize, orgId))
             else null,
             if (pageIndex > 0)
@@ -42,14 +42,14 @@ fun CollectionModel.toStudentSirenObject(
 }
 
 
-fun StudentOutputModel.toTeacherSirenObject(
-    studentsList: List<StudentCompactOutputModel>,
+fun TeacherOutputModel.toTeacherSirenObject(
+    teacherList: List<TeacherCompactOutputModel>,
     classId: Int,
     orgId: Int
 ) = SirenEntity(
     properties = this,
     clazz = listOf(SirenClasses.STUDENT),
-    entities = studentsList.map {
+    entities = teacherList.map {
         EmbeddedEntity(
             properties = it,
             clazz = listOf(SirenClasses.TEAM),
@@ -80,14 +80,14 @@ fun StudentOutputModel.toTeacherSirenObject(
 )
 
 
-fun StudentOutputModel.toStudentSirenObject(
-    studentsList: List<StudentCompactOutputModel>,
+fun TeacherOutputModel.toStudentSirenObject(
+    teacherList: List<TeacherCompactOutputModel>,
     classId: Int,
     orgId: Int
 ) = SirenEntity(
     properties = this,
     clazz = listOf(SirenClasses.STUDENT),
-    entities = studentsList.map {
+    entities = teacherList.map {
         EmbeddedEntity(
             properties = it,
             clazz = listOf(SirenClasses.TEAM),

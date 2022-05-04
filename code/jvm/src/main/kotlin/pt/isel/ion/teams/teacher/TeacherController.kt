@@ -1,15 +1,53 @@
 package pt.isel.ion.teams.teacher
 
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.daw.project.common.siren.CollectionModel
+import pt.isel.daw.project.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.students.toCompactOutput
 
 @RestController
 @RequestMapping(Uris.Teachers.MAIN_PATH)
 class TeacherController(val service: TeacherService) {
 
     @GetMapping()
-    fun getTeachers(@PathVariable classroomId: Int) = service.getTeachers(classroomId)
+    fun getTeachers(
+        @PathVariable orgId: Int,
+        @PathVariable classId: Int,
+        @RequestParam(defaultValue = "0") pageIndex: Int,
+        @RequestParam(defaultValue = "10") pageSize: Int,
+    ) = ResponseEntity
+        .ok()
+        .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+        .body(
+            CollectionModel(pageIndex, pageSize).toTeachersSirenObject(
+                service.getTeachers(classId, pageSize, pageIndex)
+                    .map { it.toCompactOutput() },
+                orgId,
+                classId
+            )
+        )
 
     @GetMapping(Uris.Teachers.Teacher.PATH)
-    fun getTeacher(@PathVariable number: Int) = service.getTeacher(number)
+    fun getTeacher(@PathVariable number: Int, @PathVariable classId: Int, @PathVariable orgId: Int) = ResponseEntity
+        .ok()
+        .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+        .body(
+            service.getTeacher(number).toOutput(classId)
+                .toStudentSirenObject(
+                    service.getTeachers(classId, 10, 0)
+                        .map { it.toCompactOutput() },
+                    classId,
+                    orgId
+                )
+        )
+
+    @PostMapping
+    fun createTeacher(@RequestBody teacher: TeacherInputModel) = service.createTeacher(teacher.toDb())
+
+    @PutMapping(Uris.Teachers.Teacher.PATH)
+    fun updateTeacher(@PathVariable number: Int, @RequestBody teacher: TeacherUpdateModel) =
+        service.updateTeacher(teacher.toDb(number))
 }

@@ -33,9 +33,11 @@ interface StudentsDAO {
     @SqlUpdate("UPDATE student SET name=COALESCE(:name,name) WHERE number=:number")
     fun updateStudentName(@BindBean student: StudentDbUpdate)
 
+    //For internal use only
     @SqlUpdate("INSERT INTO students (number, tid, cid)  VALUES (:number, :tid, :cid)")
     fun associateStudentToTeam(@BindBean student: StudentAssociationDbWrite)
 
+    //For internal use only
     @SqlUpdate("UPDATE students SET deleted=B'0' WHERE number=:number")
     fun dissociateStudentFromTeam(@Bind number: Int)
 }
