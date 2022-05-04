@@ -5,7 +5,6 @@ import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
-import pt.isel.ion.teams.organizations.OrganizationDbRead
 
 interface TagsDAO {
 
@@ -31,5 +30,5 @@ interface TagsDAO {
     fun updateTag(@BindBean tag: TagDbUpdate): TagDbRead
 
     @SqlUpdate("UPDATE tags SET deleted = B'1' WHERE id =: id")
-    fun deleteTeam(@Bind("id") tagId: Int)
+    fun deleteTag(@Bind("id") tagId: Int)
 }

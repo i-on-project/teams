@@ -29,6 +29,6 @@ class TagsService(val jdbi: Jdbi) {
 
     fun deleteTag(tagId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(TagsDAO::class.java).deleteTeam(tagId)
+            jdbi.onDemand(TagsDAO::class.java).deleteTag(tagId)
         }
 }

@@ -118,10 +118,10 @@ Status:  200 OK
       ]
     },
     {
-    "name": "delete-delivery",
-    "title": "Delete Delivery",
-    "method": "DELETE",
-    "href": "/api/orgs/{orgId}/class/{classId}/assignments{assignmentId}/deliveries/{deliveryId}"
+      "name": "delete-delivery",
+      "title": "Delete Delivery",
+      "method": "DELETE",
+      "href": "/api/orgs/{orgId}/class/{classId}/assignments{assignmentId}/deliveries/{deliveryId}"
     },
   ],
   "links": [

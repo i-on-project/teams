@@ -1,4 +1,39 @@
 package pt.isel.ion.teams.deliveries
 
+import org.jdbi.v3.sqlobject.customizer.Bind
+import org.jdbi.v3.sqlobject.customizer.BindBean
+import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
+import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.jdbi.v3.sqlobject.statement.SqlUpdate
+
 interface DeliveriesDAO {
+
+    @SqlQuery("SELECT * FROM deliveries_view WHERE assid = :assId LIMIT :limit OFFSET :offset")
+    fun getAllDeliveriesByAssignment(
+        @Bind("limit") limit: Int,
+        @Bind("offset") offset: Int,
+        @Bind("assId") assId: Int,
+    ): DeliveryDbRead
+
+    @SqlQuery("SELECT * FROM deliveries_view WHERE id = :id AND assid = :assId")
+    fun getDeliveryFromAssignment(
+        @Bind("id") deliveryId: Int,
+        @Bind("assId") assId: Int,
+    ): DeliveryDbRead
+
+    @SqlQuery("SELECT * FROM deliveries_view WHERE id = :id")
+    fun getDelivery(
+        @Bind("id") deliveryId: Int,
+    ): DeliveryDbRead
+
+    @SqlUpdate("INSERT INTO deliveries (assid, date) VALUES (:assId, :date)")
+    @GetGeneratedKeys
+    fun createDelivery(@BindBean delivery: DeliveryDbWrite): DeliveryDbRead
+
+    @SqlUpdate("UPDATE deliveries SET  date = coalesce(:date, date) WHERE id = :id")
+    @GetGeneratedKeys
+    fun updateDelivery(@BindBean delivery: DeliveryDbUpdate): DeliveryDbRead
+
+    @SqlUpdate("UPDATE deliveries SET deleted = B'1' WHERE id =: id")
+    fun deleteDelivery(@Bind("id") deliveryId: Int)
 }
