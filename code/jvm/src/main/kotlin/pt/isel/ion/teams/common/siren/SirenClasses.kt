@@ -8,4 +8,5 @@ object SirenClasses {
     const val TEAM = "team"
     const val REPO = "repo"
     const val TAG = "tag"
+    const val NOTE = "note"
 }

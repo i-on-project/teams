@@ -7,9 +7,11 @@ import pt.isel.daw.project.common.errors.sqlExceptionHandler
 @Component
 class NotesService(val jdbi: Jdbi) {
 
-    fun getAllNotesByTeam(teamId: Int) =
+    fun getAllNotesByTeam(pageSize: Int, pageIndex: Int, teamId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(NotesDAO::class.java).getAllNotes(teamId)
+            jdbi
+                .onDemand(NotesDAO::class.java)
+                .getAllNotesFromTeam(pageSize + 1, pageIndex * pageSize, teamId)
         }
 
     fun getNote(id: Int) =
@@ -25,5 +27,10 @@ class NotesService(val jdbi: Jdbi) {
     fun updateNote(notesDbUpdate: NotesDbUpdate) =
         sqlExceptionHandler {
             jdbi.onDemand(NotesDAO::class.java).updateNote(notesDbUpdate)
+        }
+
+    fun deleteNote(noteId: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(NotesDAO::class.java).deleteNote(noteId)
         }
 }

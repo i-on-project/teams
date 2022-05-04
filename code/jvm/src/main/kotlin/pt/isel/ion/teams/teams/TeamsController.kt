@@ -66,7 +66,6 @@ class TeamsController(
             .body(createdTeam)
     }
 
-
     @PutMapping(Uris.Teams.Team.PATH)
     fun updateTeam(
         @PathVariable classId: Int,

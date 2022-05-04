@@ -25,6 +25,11 @@ data class NotesOutputModel(
     val description: String,
 )
 
+data class NotesCompactOutputModel(
+    val id: Int,
+    val date: Timestamp,
+)
+
 data class NotesInputModel(
     val description: String
 )
@@ -36,3 +41,4 @@ data class NotesUpdateModel(
 fun NotesInputModel.toDb(teamId: Int) = NotesDbWrite(teamId, this.description)
 fun NotesUpdateModel.toDb(id: Int) = NotesDbUpdate(id, this.description)
 fun NotesDbRead.toOutput() = NotesOutputModel(this.id, this.date, this.description)
+fun NotesDbRead.toCompactOutput() = NotesCompactOutputModel(this.id, this.date)

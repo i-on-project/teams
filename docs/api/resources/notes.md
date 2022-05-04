@@ -86,8 +86,7 @@ Status:  200 OK
       "rel": ["item"],
       "properties": {
         "id": 6,
-        "date": "2022-05-08",
-        "description": "Very good."
+        "date": "2022-05-08"
       },
       "links": [
         {
@@ -100,7 +99,7 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/852/classroom/1/teams/123123/notes?page=0&limit=10"
+      "href": "/api/orgs/852/classroom/1/teams/123123/notes"
     },
     {
       "rel": ["next"],
