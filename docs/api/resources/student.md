@@ -16,6 +16,17 @@ Represents a student
     - editable
     - type: Date
     - possible values: ``Jumberto Silva``
+- `tId` - Team id.
+    - mandatory
+    - non editable
+    - type: number
+    - example: ``8``
+- ``cId`` - Class id.
+    - mandatory
+    - editable
+    - type: Date
+    - possible values: ``5``
+
 
 ### Media-type [Siren](https://github.com/kevinswiber/siren)
 
