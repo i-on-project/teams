@@ -7,68 +7,66 @@ Represents a GitHub repository, as the solution for an assignment.
 ### Domain specific
 
 - `id` - Unique and stable global identifier
-    - mandatory
-    - non editable
-    - type: number
-    - example: ``1``
+  - mandatory
+  - non editable
+  - type: number
+  - example: ``1``
 - ``name`` - Indicates the name.
   - mandatory
   - editable
   - type: string
   - possible values: ``leic_daw_g4``
-- ``url`` - URL to the GitHub repository
+- ``githubUri`` - URL to the GitHub repository
   - mandatory
   - editable
   - type: string
   - example: ``https://github.com/i-on-project/teams``
 - ``tId`` - Identifies the Team that this repo belongs
-    - mandatory
-    - editable
-    - type: number
-    - example: ``2``
+  - mandatory
+  - editable
+  - type: number
+  - example: ``2``
 - ``assId`` - Identifies the Assignment that this repo is working on
   - mandatory
   - editable
   - type: number
   - example: ``4``
 
-
 ### Media-type [Siren](https://github.com/kevinswiber/siren)
 
-* `class`
-* `properties`
-* `entities`
-* `links`
-* `actions`
+- `class`
+- `properties`
+- `entities`
+- `links`
+- `actions`
 
 ### Standard
 
-* `item`
-* `rel`
+- `item`
+- `rel`
 
 ## Link Relations
 
 ### Domain Specific
 
-* [Team - Student](./teams.md#get-team-student)
-* [Team - Teacher](./teams.md#get-team-teacher)
-* Tags
-* home - Home page
-* logout
-* github - GitHub Organization URI
-* avatar - GitHub Organization Avatar URI
+- [team](./teams.md#get-team-student)
+- tags
+- home - Home page
+- logout
+- github - GitHub Organization URI
+- avatar - GitHub Organization Avatar URI
 
 ### Standard - [IANA](https://www.iana.org/assignments/link-relations/link-relations.xhtml)
 
-* [self](https://www.iana.org/go/rfc4287)
-* [next](https://html.spec.whatwg.org/multipage/links.html#link-type-next)
-* [prev](https://html.spec.whatwg.org/multipage/links.html#link-type-prev)
+- [self](https://www.iana.org/go/rfc4287)
+- [next](https://html.spec.whatwg.org/multipage/links.html#link-type-next)
+- [prev](https://html.spec.whatwg.org/multipage/links.html#link-type-prev)
 
 ## Actions
 
-* [List Repos](#list-repos)
-* [Get Repo - Student](#get-repo-student)
-* [Get Repo - Teacher](#get-repo-teacher)
+- [List Repos](#list-repos)
+- [Get Repo - Student](#get-repo-student)
+- [Get Repo - Teacher](#get-repo-teacher)
 
 ---
 
@@ -99,7 +97,7 @@ Status:  200 OK
       "rel": [ "item" ],
       "properties": {
         "id": 88,
-        "url": "https://github.com/i-on-project/teams",
+        "githubUri": "https://github.com/i-on-project/teams",
         "name": "li61d_g4_repo"
       },
       "links": [
@@ -113,7 +111,7 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/852/classrooms/123123/teams/4/repos?page=0&limit=10"
+      "href": "/api/orgs/852/classrooms/123123/teams/4/repos"
     },
     {
     "rel": ["next"],
@@ -122,6 +120,10 @@ Status:  200 OK
     {
     "rel": ["prev"],
     "href": "/api/orgs/852/classrooms/123123/teams/4/repos?page=1&limit=10"
+    },
+    {
+    "rel": ["team"],
+    "href": "/api/orgs/852/classrooms/123123/teams/4"
     },
     {
       "rel": ["home"],
@@ -149,43 +151,16 @@ Status:  200 OK
 
 ```json
 {
-  "class": [
-    "repo"
-  ],
-  "rel": [
-    "item"
-  ],
+  "class": ["repo"],
   "properties": {
     "id": 88,
     "url": "https://github.com/i-on-project/teams",
     "name": "li61d_g4_repo"
   },
-  "entities": [
-    {
-      "class": [
-        "team"
-      ],
-      "rel": [
-        "item"
-      ],
-      "properties": {
-        "id": 85,
-        "name": "li61d_g4",
-        "state": "active"
-      },
-      "links": [
-        {
-          "rel": ["self"],
-
-          "href": "/api/orgs/852/classrooms/123123/teams/85"
-        }
-      ]
-    }
-  ],
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "href": "/api/orgs/123123/classrooms/1/teams/1/repos/234342"
     },
     {
       "rel": ["home"],
@@ -196,20 +171,20 @@ Status:  200 OK
       "href": "https://github.com/i-on-project"
     },
     {
-      "rel": ["avatar"],
-      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+      "rel": ["repos"],
+      "href": "/api/orgs/123123/classrooms/1/teams/1/repos/5"
     },
     {
-      "rel": ["logout"],
-      "href": "/api/logout"
-    },
-    {
-      "rel": ["tags"],
-      "href": "https://github.com/i-on-project/teams/tags"
+      "rel": ["team"],
+      "href": "/api/orgs/123123/classrooms/1/teams/5"
     },
     {
       "rel": ["assignment"],
       "href": "/api/orgs/123123/classrooms/1/assignments/5"
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
     }
   ]
 }
@@ -229,12 +204,8 @@ Status:  200 OK
 
 ```json
 {
-  "class": [
-    "repo"
-  ],
-  "rel": [
-    "item"
-  ],
+  "class": ["repo"],
+  "rel": ["item"],
   "properties": {
     "id": 88,
     "url": "https://github.com/i-on-project/teams",
@@ -242,12 +213,8 @@ Status:  200 OK
   },
   "entities": [
     {
-      "class": [
-        "tags"
-      ],
-      "rel": [
-        "item"
-      ],
+      "class": ["tags"],
+      "rel": ["item"],
       "properties": {
         "id": 123123,
         "name": "li61d_g4",
@@ -256,7 +223,6 @@ Status:  200 OK
       "links": [
         {
           "rel": ["self"],
-
           "href": "/api/orgs/852/classrooms/123123/teams/123123"
         }
       ]
@@ -294,25 +260,29 @@ Status:  200 OK
       "href": "/api"
     },
     {
-      "rel": ["logout"],
-      "href": "/api/logout"
-    },
-    {
     "rel": ["github"],
     "href": "https://github.com/i-on-project"
-    },
-    {
-    "rel": ["avatar"],
-    "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
       "rel": ["tags"],
       "href": "/api/orgs/123123/classrooms/1/teams/4/repos/88/tags"
     },
     {
+      "rel": ["repos"],
+      "href": "/api/orgs/123123/classrooms/1/teams/1/repos/5"
+    },
+    {
+      "rel": ["team"],
+      "href": "/api/orgs/123123/classrooms/1/teams/5"
+    },
+    {
       "rel": ["assignment"],
       "href": "/api/orgs/123123/classrooms/1/assignments/5"
-    }
+    },
+    {
+      "rel": ["logout"],
+      "href": "/api/logout"
+    },
   ]
 }
 ```

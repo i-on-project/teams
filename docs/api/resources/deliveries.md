@@ -106,6 +106,23 @@ Status:  200 OK
   "properties": {
     "date": "2022-05-08"
   },
+  "entities": [
+    {
+      "class": ["tags"],
+      "rel": ["item"],
+      "properties": {
+        "id": 123123,
+        "name": "li61d_g4",
+        "state": "active"
+      },
+      "links": [
+        {
+          "rel": ["self"],
+          "href": "/api/orgs/852/classrooms/123123/teams/123123"
+        }
+      ]
+    }
+  ],
   "actions": [
     {
       "name": "update-delivery",
