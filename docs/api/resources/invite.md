@@ -16,6 +16,7 @@ Represents an invitation to a classroom. Only available for teacher.
 * `class`
 * `properties`
 * `entities`
+* 
 * `links`
 * `actions`
 
@@ -53,7 +54,7 @@ Represents an invitation to a classroom. Only available for teacher.
 This returns a single response.
 
 ```http
-GET api/orgs/{orgId}/classrooms/{classId}/invite-link
+GET api/orgs/{orgId}/classrooms/{classId}/invite-link/{code}
 ```
 
 ```text
@@ -110,19 +111,11 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/123123/classrooms/9/invite-link"
+      "href": "/api/orgs/123123/classrooms/9/invite-link/89435y345h"
     },
     {
       "rel": ["home"],
       "href": "/api"
-    },
-    {
-      "rel": ["github"],
-      "href": "https://github.com/i-on-project"
-    },
-    {
-      "rel": ["avatar"],
-      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
       "rel": ["logout"],

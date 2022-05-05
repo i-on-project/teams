@@ -18,9 +18,9 @@ INSERT INTO teachers (number, cid)
 VALUES (86951, 1),
        (85462, 2);
 
-INSERT INTO invite_links (link, cid)
-VALUES ('api/orgs/1/classrooms/1/invite-link', 1),
-       ('api/orgs/2/classrooms/2/invite-link', 2);
+INSERT INTO invite_links (code, cid)
+VALUES ('asdasdadas342', 1),
+       ('dasdfaf231', 2);
 
 INSERT INTO student (number, name)
 VALUES (80000, 'Julinho Silva'),

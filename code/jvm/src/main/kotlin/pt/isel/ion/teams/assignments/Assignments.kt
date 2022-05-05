@@ -5,7 +5,7 @@ import java.sql.Timestamp
 /**
  * For internal use only.
  */
-data class AssignmentDbRead (
+data class AssignmentDbRead(
     val id: Int,
     val releaseDate: Timestamp,
     val description: String,
@@ -13,7 +13,7 @@ data class AssignmentDbRead (
 )
 
 data class AssignmentDbWrite(
-    val releaseDate: Timestamp,
+    val releaseDate: Timestamp?,
     val classId: Int,
     val description: String,
 )
@@ -42,7 +42,7 @@ data class AssignmentCompactOutputModel(
 )
 
 data class AssignmentInputModel(
-    val releaseDate: Timestamp,
+    val releaseDate: Timestamp?,
     val description: String
 )
 
@@ -57,9 +57,10 @@ data class AssignmentUpdateModel(
  */
 
 fun AssignmentInputModel.toDb(classId: Int) =
-    AssignmentDbWrite(this.releaseDate,classId,this.description)
-fun AssignmentUpdateModel.toDb(id: Int) =
-    AssignmentDbUpdate(id,this.releaseDate,this.description,this.classId)
-fun AssignmentDbRead.toOutput() = AssignmentOutputModel(this.id,this.releaseDate,this.classId,this.description)
-fun AssignmentDbRead.toCompactOutput() = AssignmentCompactOutputModel(this.id,this.releaseDate)
+    AssignmentDbWrite(this.releaseDate, classId, this.description)
 
+fun AssignmentUpdateModel.toDb(id: Int) =
+    AssignmentDbUpdate(id, this.releaseDate, this.description, this.classId)
+
+fun AssignmentDbRead.toOutput() = AssignmentOutputModel(this.id, this.releaseDate, this.classId, this.description)
+fun AssignmentDbRead.toCompactOutput() = AssignmentCompactOutputModel(this.id, this.releaseDate)

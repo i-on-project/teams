@@ -13,7 +13,7 @@ data class TeamsDbRead (
 data class TeamsDbWrite(
     val name: String,
     val cid: Int,
-    val state: String
+    val state: String?
 )
 
 data class TeamsDbUpdate(
@@ -41,7 +41,7 @@ data class TeamsCompactOutputModel(
 
 data class TeamsInputModel(
     val name: String,
-    val state: String
+    val state: String?
 )
 
 data class TeamsUpdateModel(

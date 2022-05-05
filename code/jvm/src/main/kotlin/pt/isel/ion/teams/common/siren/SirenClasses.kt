@@ -4,6 +4,7 @@ object SirenClasses {
     const val COLLECTION = "collection"
     const val ORGANIZATION = "organization"
     const val CLASSROOM = "classroom"
+    const val INVITE_LINK = "invite-link"
     const val STUDENT = "student"
     const val TEACHER = "teacher"
     const val TEAM = "team"

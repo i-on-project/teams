@@ -27,10 +27,11 @@ CREATE TABLE CLASSROOMS
 
 CREATE TABLE INVITE_LINKS
 (
-    link    varchar NOT NULL,
+    code    varchar NOT NULL,
     cId     int     NOT NULL, --classroom id
     deleted bit(1) DEFAULT B'0',
-    PRIMARY KEY (link),
+    UNIQUE (code,cId),
+    PRIMARY KEY (code),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id)
 );
 

@@ -17,7 +17,7 @@ FROM classrooms
 WHERE deleted = B'0';
 
 CREATE VIEW INVITE_LINKS_VIEW (link, cId) AS
-SELECT link, cId
+SELECT code, cId
 FROM invite_links
 WHERE deleted = B'0';
 
