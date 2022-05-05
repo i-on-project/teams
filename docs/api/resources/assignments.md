@@ -96,7 +96,7 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/852/classrooms/123123/assignments?page=0&limit=10"
+      "href": "/api/orgs/852/classrooms/123123/assignments"
     },
     {
     "rel": ["next"],
@@ -105,6 +105,14 @@ Status:  200 OK
     {
     "rel": ["prev"],
     "href": "/api/orgs/852/classrooms/123123/assignments?page=1&limit=10"
+    },
+    {
+      "rel": ["organization"],
+      "href": "/api/orgs/123123"
+    },
+    {
+      "rel": ["classroom"],
+      "href": "api/orgs/3/classrooms/4"
     },
     {
       "rel": ["home"],
@@ -153,20 +161,7 @@ Status:  200 OK
         },
       ]
     }
-  ],
-  "actions": [
-      {
-        "name": "create-assignment",
-        "title": "Create Assignment",
-        "method": "POST",
-        "href": "/api/orgs/{orgId}/classrooms/{classroomId}/assignments",
-        "type": "application/json",
-        "field": [
-          {"name": "releaseDate", "type": "date"},
-          {"name": "description", "type": "string"}
-        ]
-      }
-  ],
+  ]
   "links": [
     {
       "rel": ["self"],
@@ -179,6 +174,10 @@ Status:  200 OK
     {
       "rel": ["classroom"],
       "href": "/api/orgs/123123/classrooms/1"
+    },
+    {
+      "rel": ["assignments"],
+      "href": "/api/orgs/123123/classrooms/1/assignments"
     },
     {
       "rel": ["logout"],
@@ -209,19 +208,18 @@ Status:  200 OK
   },
   "entities": [
     {
-      "class": ["classroom"],
+      "class": ["delivery"],
       "rel": ["item"],
       "properties": {
         "id": 9,
-        "name": "LI61D",
-        "state": "active",
-        "schoolYear": "2021/22"
+        "name": "phase 1",
+        "date": "23/03/2022"
       },
       "links": [
         {
           "rel": ["self"],
           "href": "/api/orgs/123123/classrooms/9"
-        }
+        },
       ]
     }
   ],
@@ -242,7 +240,7 @@ Status:  200 OK
     "name": "delete-assignment",
     "title": "Delete Assignment",
     "method": "DELETE",
-    "href": "/api/orgs/{orgId}/class/{classId}/assignments{assignmentId}"
+    "href": "/api/orgs/{orgId}/class/{classId}/assignments/{assignmentId}"
     }
   ],
   "links": [
@@ -255,12 +253,12 @@ Status:  200 OK
       "href": "/api"
     },
     {
-      "rel": ["github"],
-      "href": "https://github.com/i-on-project"
+      "rel": ["classroom"],
+      "href": "/api/orgs/123123/classrooms/1"
     },
     {
-      "rel": ["avatar"],
-      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+      "rel": ["assignments"],
+      "href": "/api/orgs/123123/classrooms/1/assignments"
     },
     {
       "rel": ["logout"],

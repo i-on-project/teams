@@ -36,13 +36,17 @@ data class AssignmentOutputModel(
     val description: String,
 )
 
+data class AssignmentCompactOutputModel(
+    val id: Int,
+    val releaseDate: Timestamp
+)
+
 data class AssignmentInputModel(
     val releaseDate: Timestamp,
     val description: String
 )
 
 data class AssignmentUpdateModel(
-    val id: Int,
     val releaseDate: Timestamp?,
     val description: String?,
     val classId: Int?
@@ -57,4 +61,5 @@ fun AssignmentInputModel.toDb(classId: Int) =
 fun AssignmentUpdateModel.toDb(id: Int) =
     AssignmentDbUpdate(id,this.releaseDate,this.description,this.classId)
 fun AssignmentDbRead.toOutput() = AssignmentOutputModel(this.id,this.releaseDate,this.classId,this.description)
+fun AssignmentDbRead.toCompactOutput() = AssignmentCompactOutputModel(this.id,this.releaseDate)
 

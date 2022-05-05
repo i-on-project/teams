@@ -6,6 +6,11 @@ Represents an assignment delivery.
 
 ### Domain specific
 
+- ``id`` - Id of the delivery.  
+  - mandatory
+  - editable
+  - type: number
+  - possible values: ``3``
 - ``name`` - Name of the delivery.  
   - mandatory
   - editable
@@ -77,6 +82,7 @@ Status:  200 OK
       "class": [ "delivery" ],
       "rel": [ "item" ],
       "properties": {
+        "id": "7",
         "name":"phase1",
         "date": "2022-05-08"
       },
@@ -110,12 +116,12 @@ Status:  200 OK
       "href": "/api/logout"
     },
     {
-      "rel": ["classroom"],
-      "href": "api/orgs/3/classrooms/4"
-    },
-    {
       "rel": ["organization"],
       "href": "/api/orgs/123123"
+    },
+    {
+      "rel": ["classroom"],
+      "href": "api/orgs/3/classrooms/4"
     },
     {
       "rel": ["assignments"],
@@ -141,6 +147,7 @@ Status:  200 OK
 {
   "class": [ "delivery" ],
   "properties": {
+    "id": "7",
     "name":"phase1",
     "date": "2022-05-08"
   },
@@ -181,6 +188,7 @@ Status:  200 OK
 {
   "class": [ "delivery" ],
   "properties": {
+    "id": "7",
     "name":"phase1",
     "date": "2022-05-08"
   },
