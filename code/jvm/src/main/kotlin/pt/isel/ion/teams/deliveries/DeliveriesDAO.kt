@@ -13,7 +13,7 @@ interface DeliveriesDAO {
         @Bind("limit") limit: Int,
         @Bind("offset") offset: Int,
         @Bind("assId") assId: Int,
-    ): DeliveryDbRead
+    ): List<DeliveryDbRead>
 
     @SqlQuery("SELECT * FROM deliveries_view WHERE id = :id")
     fun getDelivery(

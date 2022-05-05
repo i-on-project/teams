@@ -3,6 +3,7 @@ package pt.isel.ion.teams.deliveries
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.daw.project.common.siren.CollectionModel
 import pt.isel.daw.project.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
 
@@ -11,6 +12,28 @@ import pt.isel.ion.teams.common.Uris
 class DeliveriesController(
     val deliveriesService: DeliveriesService
 ) {
+
+    @GetMapping
+    fun getAllDeliveriesOfAssignment(
+        @PathVariable orgId: Int,
+        @PathVariable classId: Int,
+        @PathVariable assId: Int,
+        @RequestParam(defaultValue = "0") pageIndex: Int,
+        @RequestParam(defaultValue = "10") pageSize: Int
+    ) {
+        ResponseEntity
+            .ok()
+            .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+            .body(
+                CollectionModel(pageIndex, pageSize).toDeliveriesSirenObject(
+                    deliveriesService.getAllDeliveriesOfAssignment(pageSize, pageIndex, assId)
+                        .map { it.toCompactOutput() },
+                    orgId,
+                    classId,
+                    assId
+                )
+            )
+    }
 
     @GetMapping(Uris.Deliveries.Delivery.PATH)
     fun getDelivery(

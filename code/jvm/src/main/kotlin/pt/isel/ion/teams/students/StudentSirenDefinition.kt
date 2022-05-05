@@ -35,7 +35,7 @@ fun CollectionModel.toStudentSirenObject(
             if (pageIndex > 0)
                 prevLink(Uris.Students.makePage(pageIndex - 1, pageSize, orgId))
             else null,
-            SirenLink(SirenRelations.CLASSROOMS, Uris.Classrooms.Classroom.make(orgId, cId)),
+            SirenLink(SirenRelations.CLASSROOM, Uris.Classrooms.Classroom.make(orgId, cId)),
             homeLink(),
             logoutLink(),
         )

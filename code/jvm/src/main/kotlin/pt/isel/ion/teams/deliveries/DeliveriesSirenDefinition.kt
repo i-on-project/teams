@@ -5,6 +5,45 @@ import org.springframework.http.MediaType
 import pt.isel.daw.project.common.siren.*
 import pt.isel.ion.teams.common.Uris
 
+
+fun CollectionModel.toDeliveriesSirenObject(
+    deliveryList: List<DeliveryCompactOutputModel>,
+    orgId: Int,
+    classId: Int,
+    assId: Int
+): SirenEntity<CollectionModel> {
+    val list = if (deliveryList.size > this.pageSize) deliveryList.subList(0, this.pageSize) else deliveryList
+    val pageSize = this.pageSize
+    this.pageSize = list.size
+
+    return SirenEntity(
+        properties = this,
+        clazz = listOf(SirenClasses.COLLECTION, SirenClasses.DELIVERY),
+        entities = list.map {
+            EmbeddedEntity(
+                properties = it,
+                clazz = listOf(SirenClasses.DELIVERY),
+                rel = listOf(SirenRelations.ITEM),
+                links = listOf(selfLink(Uris.Deliveries.Delivery.make(orgId, classId, assId, it.id)))
+            )
+        },
+        links = listOfNotNull(
+            selfLink(Uris.Deliveries.make(orgId, classId, assId)),
+            if (deliveryList.size > pageSize)
+                nextLink(Uris.Deliveries.makePage(pageIndex + 1, pageSize, orgId, classId, assId))
+            else null,
+            if (pageIndex > 0)
+                prevLink(Uris.Deliveries.makePage(pageIndex - 1, pageSize, orgId, classId, assId))
+            else null,
+            SirenLink(SirenRelations.ORGANIZATIONS, Uris.Organizations.make()),
+            SirenLink(SirenRelations.CLASSROOMS, Uris.Classrooms.make(orgId)),
+            SirenLink(SirenRelations.DELIVERIES, Uris.Deliveries.make(orgId, classId, assId)),
+            homeLink(),
+            logoutLink(),
+        )
+    )
+}
+
 fun DeliveryOutputModel.toStudentSirenObject(
     orgId: Int,
     classId: Int,

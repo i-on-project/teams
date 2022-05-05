@@ -104,7 +104,7 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "api/orgs/3/classrooms/4/students?page=0&limit=10"
+      "href": "api/orgs/3/classrooms/4/students"
     },
     {
       "rel": ["next"],

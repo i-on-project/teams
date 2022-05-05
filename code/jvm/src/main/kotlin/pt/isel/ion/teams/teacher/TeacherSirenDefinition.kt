@@ -10,7 +10,7 @@ import pt.isel.ion.teams.common.Uris
 fun CollectionModel.toTeachersSirenObject(
     teacherList: List<TeacherCompactOutputModel>,
     orgId: Int,
-    cId: Int
+    classId: Int
 ): SirenEntity<CollectionModel> {
     val list = if (teacherList.size > this.pageSize) teacherList.subList(0, this.pageSize) else teacherList
     val pageSize = this.pageSize
@@ -24,16 +24,16 @@ fun CollectionModel.toTeachersSirenObject(
                 properties = it,
                 clazz = listOf(SirenClasses.TEACHER),
                 rel = listOf(SirenRelations.ITEM),
-                links = listOf(selfLink(Uris.Teachers.Teacher.make(orgId, cId, it.number)))
+                links = listOf(selfLink(Uris.Teachers.Teacher.make(orgId, classId, it.number)))
             )
         },
         links = listOfNotNull(
-            selfLink(Uris.Teachers.make(orgId,cId)),
+            selfLink(Uris.Teachers.make(orgId, classId)),
             if (teacherList.size > pageSize)
-                nextLink(Uris.Students.makePage(pageIndex + 1, pageSize, orgId))
+                nextLink(Uris.Teachers.makePage(pageIndex + 1, pageSize, orgId, classId))
             else null,
             if (pageIndex > 0)
-                prevLink(Uris.Students.makePage(pageIndex - 1, pageSize, orgId))
+                prevLink(Uris.Teachers.makePage(pageIndex - 1, pageSize, orgId, classId))
             else null,
             SirenLink(SirenRelations.CLASSROOMS, Uris.Classrooms.make(orgId)),
             homeLink(),
@@ -63,7 +63,7 @@ fun TeacherOutputModel.toTeacherSirenObject(
             name = "update-student",
             title = "Update Student",
             method = HttpMethod.PUT,
-            href = Uris.Teachers.Teacher.make(orgId,classId,number),
+            href = Uris.Teachers.Teacher.make(orgId, classId, number),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
                 SirenAction.Field(name = "name", type = "string"),
@@ -74,7 +74,7 @@ fun TeacherOutputModel.toTeacherSirenObject(
         )
     ),
     links = listOf(
-        selfLink(Uris.Teachers.Teacher.make(orgId,classId,number)),
+        selfLink(Uris.Teachers.Teacher.make(orgId, classId, number)),
         SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
         homeLink(),
         logoutLink()
@@ -98,7 +98,7 @@ fun TeacherOutputModel.toStudentSirenObject(
         )
     },
     links = listOf(
-        selfLink(Uris.Teachers.Teacher.make(orgId,classId,number)),
+        selfLink(Uris.Teachers.Teacher.make(orgId, classId, number)),
         SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
         homeLink(),
         logoutLink()

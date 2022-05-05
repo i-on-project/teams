@@ -13,6 +13,8 @@ object Uris {
 
     object Organizations {
         const val MAIN_PATH = "api/orgs"
+        private val TEMPLATE = UriTemplate(MAIN_PATH)
+        fun make() = TEMPLATE.expand()
 
         private const val PAGE_PATH = "${MAIN_PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)

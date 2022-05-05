@@ -91,15 +91,15 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "api/orgs/3/classrooms/4/teachers?page=0&limit=10"
+      "href": "api/orgs/3/classrooms/4/assignments/66/deliveries"
     },
     {
       "rel": ["next"],
-      "href": "api/orgs/3/classrooms/4/teachers?page=1&limit=10"
+      "href": "api/orgs/3/classrooms/4/assignments/66/deliveries?page=1&limit=10"
     },
     {
       "rel": ["prev"],
-      "href": "api/orgs/3/classrooms/4/teachers?page=1&limit=10"
+      "href": "api/orgs/3/classrooms/4/assignments/66/deliveries?page=1&limit=10"
     },
     {
       "rel": ["home"],
