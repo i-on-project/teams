@@ -28,6 +28,9 @@ Users will be authorized via ``OAuth App`` (GitHub), using [Web Application Flow
 - Response A - Contains the ``code``, that is temporary and will expire after 10 minutes, and ``state`` initially passed in the first request.
 - Response B - returns the Access Token. We can specify the format we want (e.g. application/json)
 
+- Student Scopes - lists the scopes your token has authorized
+  - ``read:user``- Grants access to read a user's profile data.
+  - ``write:repo_hook`` - Grants read, write, and ping access to hooks in public or private repositories.
 
 ### Device Flow
 
@@ -36,6 +39,11 @@ Users will be authorized via ``OAuth App`` (GitHub), using [Web Application Flow
 - Response A - returns the Device code. We can specify the format we want (e.g. application/json)
 - Response B - returns the Access Token. We can specify the format we want (e.g. application/json)
 
+- Teacher Scopes - lists the scopes your token has authorized
+  - ``read:user``- Grants access to read a user's profile data.
+  - ``admin:org`` - Fully manage the organization and its teams, projects, and memberships.
+  - ``write:org`` - Read and write access to organization membership, organization projects, and team membership.
+  - ``repo`` - 	Grants full access to repositories, including private repositories.
 ___
 ## Information needed to store in DB
 #### Student - Web Flow
@@ -44,9 +52,6 @@ ___
 - ``code``
 - Access Token (encrypted)
   - expiration_date
-- Scopes - lists the scopes your token has authorized
-  - ``read:user``- Grants access to read a user's profile data.
-  - ``write:repo_hook`` - Grants read, write, and ping access to hooks in public or private repositories.
 
 
 #### Teacher - Device Flow
@@ -54,12 +59,6 @@ ___
 - ``client_secret`` (encrypted)
 - ``code``
 - For the teacher both access token and device code are stored locally
-- Scopes - lists the scopes your token has authorized
-  - ``read:user``- Grants access to read a user's profile data.
-  - ``admin:org`` - Fully manage the organization and its teams, projects, and memberships.
-  - ``write:org`` - Read and write access to organization membership, organization projects, and team membership.
-  - ``repo`` - 	Grants full access to repositories, including private repositories.
-
 _____
 ## GitHub documentation
 
