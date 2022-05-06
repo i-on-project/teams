@@ -58,14 +58,22 @@ SELECT id, assId, date
 FROM deliveries
 WHERE deleted = B'0';
 
-CREATE VIEW DELIVERIES_WITH_TEAM_VIEW (tagName, teamName, delId, date) AS
-SELECT tg.name, t.name, d.id, d.date
+CREATE VIEW DELIVERIES_WITH_TEAM_VIEW (teamName, delId, date, assid) AS
+SELECT t.name, d.id, d.date, d.assid
 FROM deliveries d
          JOIN tags tg on d.id = tg.delid
          JOIN repos r on r.id = tg.repoid
          JOIN teams t on t.id = r.tid
 WHERE d.deleted = B'0'
   AND tg.deleted = B'0';
+
+CREATE VIEW TAGS_WITH_REPO_AND_TEAM (id, name, date, repoId, teamId, delId) AS
+    SELECT t.id, t.name, t.date, r.id, tm.id, d.id
+FROM tags t
+    JOIN repos r on r.id = t.repoid
+    JOIN teams tm on r.tid = tm.id
+    JOIN deliveries d on t.delid = d.id
+WHERE t.deleted = B'0' AND d.deleted = B'0';
 
 CREATE VIEW TAGS_VIEW (id, name, date, delId, repoId) AS
 SELECT id, name, date, delId, repoId

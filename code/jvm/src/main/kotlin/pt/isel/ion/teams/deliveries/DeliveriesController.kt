@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.*
 import pt.isel.daw.project.common.siren.CollectionModel
 import pt.isel.daw.project.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.tags.TagsService
 
 @RestController
 @RequestMapping(Uris.Deliveries.MAIN_PATH)
 class DeliveriesController(
-    val deliveriesService: DeliveriesService
+    val deliveriesService: DeliveriesService,
+    val tagsService: TagsService
 ) {
 
     @GetMapping
@@ -43,13 +45,14 @@ class DeliveriesController(
         @PathVariable deliveryId: Int,
     ): ResponseEntity<Any> {
         val team = deliveriesService.getDelivery(deliveryId).toOutput()
+        val tags = tagsService.getAllTagsWithRepoAndView(deliveryId)
 
         //TODO Detect if user is student or teacher
 
         return ResponseEntity
             .ok()
             .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-            .body(team.toTeacherSirenObject(orgId, classId, assId))
+            .body(team.toTeacherSirenObject(tags, orgId, classId, assId))
     }
 
     @PostMapping

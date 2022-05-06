@@ -5,6 +5,7 @@ import org.springframework.http.MediaType
 import pt.isel.daw.project.common.siren.*
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.tags.TagDbRead
+import pt.isel.ion.teams.tags.TagWithTeamRepoDbRead
 import pt.isel.ion.teams.tags.toOutput
 
 
@@ -61,14 +62,11 @@ fun DeliveryOutputModel.toStudentSirenObject(
 )
 
 fun DeliveryOutputModel.toTeacherSirenObject(
-    tags: List<TagDbRead>,
+    tags: List<TagWithTeamRepoDbRead>,
     orgId: Int,
     classId: Int,
     assId: Int,
 ): SirenEntity<DeliveryOutputModel> {
-    val repoId: Int
-    if (tags.isNotEmpty()) repoId = tags.first().repoId
-    val tagList = tags.map { it.toOutput() }
 
     return SirenEntity(
         properties = this,
@@ -95,7 +93,7 @@ fun DeliveryOutputModel.toTeacherSirenObject(
                 properties = it,
                 clazz = listOf(SirenClasses.TAG),
                 rel = listOf(SirenRelations.ITEM),
-                links = listOf()
+                links = listOf(selfLink(Uris.Tags.Tag.make(orgId, classId, it.teamId, it.repoId, it.id)))
             )
         },
         links = listOf(

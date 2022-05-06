@@ -14,6 +14,15 @@ data class TagDbRead(
     val repoId: Int
 )
 
+data class TagWithTeamRepoDbRead(
+    val id: Int,
+    val name: String,
+    val date: Date,
+    val repoId: Int,
+    val teamId: Int,
+    val delId: Int
+)
+
 data class TagDbWrite(
     val name: String,
     val date: Date,

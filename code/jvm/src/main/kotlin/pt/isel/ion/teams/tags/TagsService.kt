@@ -18,6 +18,11 @@ class TagsService(val jdbi: Jdbi) {
             jdbi.onDemand(TagsDAO::class.java).getAllTags(repoId)
         }
 
+    fun getAllTagsWithRepoAndView(delId: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(TagsDAO::class.java).getAllTagsWithRepoAndView(delId)
+        }
+
     fun getTag(repoId: Int, tagId: Int) =
         sqlExceptionHandler {
             jdbi.onDemand(TagsDAO::class.java).getTag(repoId, tagId)
