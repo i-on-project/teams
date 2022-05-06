@@ -4,6 +4,8 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
 import pt.isel.daw.project.common.siren.*
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.tags.TagDbRead
+import pt.isel.ion.teams.tags.toOutput
 
 
 fun CollectionModel.toDeliveriesSirenObject(
@@ -59,33 +61,48 @@ fun DeliveryOutputModel.toStudentSirenObject(
 )
 
 fun DeliveryOutputModel.toTeacherSirenObject(
+    tags: List<TagDbRead>,
     orgId: Int,
     classId: Int,
     assId: Int,
-) = SirenEntity(
-    properties = this,
-    actions = listOf(
-        SirenAction(
-            name = "update-delivery",
-            title = "Update Delivery",
-            method = HttpMethod.PUT,
-            href = Uris.Deliveries.Delivery.make(orgId, classId, assId, id),
-            type = MediaType.APPLICATION_JSON,
-            fields = listOf(
-                SirenAction.Field(name = "date", type = "string"),
+): SirenEntity<DeliveryOutputModel> {
+    val repoId: Int
+    if (tags.isNotEmpty()) repoId = tags.first().repoId
+    val tagList = tags.map { it.toOutput() }
+
+    return SirenEntity(
+        properties = this,
+        actions = listOf(
+            SirenAction(
+                name = "update-delivery",
+                title = "Update Delivery",
+                method = HttpMethod.PUT,
+                href = Uris.Deliveries.Delivery.make(orgId, classId, assId, id),
+                type = MediaType.APPLICATION_JSON,
+                fields = listOf(
+                    SirenAction.Field(name = "date", type = "string"),
+                )
+            ),
+            SirenAction(
+                name = "delete-delivery",
+                title = "Delete Delivery",
+                method = HttpMethod.DELETE,
+                href = Uris.Deliveries.Delivery.make(orgId, classId, assId, id)
+            ),
+        ),
+        entities = tags.map {
+            EmbeddedEntity(
+                properties = it,
+                clazz = listOf(SirenClasses.TAG),
+                rel = listOf(SirenRelations.ITEM),
+                links = listOf()
             )
-        ),
-        SirenAction(
-            name = "delete-delivery",
-            title = "Delete Delivery",
-            method = HttpMethod.DELETE,
-            href = Uris.Deliveries.Delivery.make(orgId, classId, assId, id)
-        ),
-    ),
-    links = listOf(
-        selfLink(Uris.Deliveries.Delivery.make(orgId, classId, assId, id)),
-        homeLink(),
-        SirenLink(SirenRelations.DELIVERIES, Uris.Deliveries.make(orgId, classId, assId)),
-        logoutLink()
+        },
+        links = listOf(
+            selfLink(Uris.Deliveries.Delivery.make(orgId, classId, assId, id)),
+            homeLink(),
+            SirenLink(SirenRelations.DELIVERIES, Uris.Deliveries.make(orgId, classId, assId)),
+            logoutLink()
+        )
     )
-)
+}

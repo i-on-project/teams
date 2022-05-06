@@ -73,7 +73,7 @@ class RepoController(
     }
 
     @PutMapping(Uris.Repos.Repo.PATH)
-    fun updateTeam(
+    fun updateRepo(
         @RequestBody repo: RepoUpdateModel,
         @PathVariable repoId: Int
     ) = ResponseEntity
@@ -82,7 +82,7 @@ class RepoController(
         .body(repoService.updateRepo(repo.toDb(repoId)).toOutput())
 
     @DeleteMapping(Uris.Repos.Repo.PATH)
-    fun deleteTeam(@PathVariable repoId: Int): ResponseEntity<Any> {
+    fun deleteRepo(@PathVariable repoId: Int): ResponseEntity<Any> {
         repoService.deleteRepo(repoId)
 
         return ResponseEntity
