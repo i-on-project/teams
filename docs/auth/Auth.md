@@ -1,21 +1,29 @@
 # Authentication 
 
-## Authorizing Users
+The image below represents a simpler version of the authentication, showing all the components involved.
 
-Users will be authorized via ``OAuth App`` (GitHub), using [Web Application Flow](#web-application-flow) for the student and [Device flow](#device-flow) for the teacher. 
-### OAuth App vs GitHub App
+<div style="text-align:center"><img src="./Auth_scheme.png" /></div>
+
+____
+
+## OAuth App vs GitHub App
 
 | | OAuth App | GitHub App |
 |---|---|---|
 |Teacher and Student|Acts on behalf of an authenticated GitHub user.|Uses user identity to act.|
-|Teacher and Student| Doesn't need installation on ClassRoom. | Needs installation on Classroom.|
+|Teacher and Student| Doesn't require installation of the app on GitHub ClassRoom. | Requires installation of the app on GitHub ClassRoom.|
 |Teacher| Can delete an OAuth access token to remove access. | Needs permissions to uninstall an remove access to repo. |
 |Teacher | Requires the user to have administrator privileges to execute certain actions. | No need for administrator privileges, because App is installed on Classroom|
+____
 
+## Authorizing Users
+
+Users will be authorized via ``OAuth App`` (GitHub), using [Web Application Flow](#web-application-flow) for the student and [Device flow](#device-flow) for the teacher.
 
 ### Web Application Flow
 
-![](Authorizing_OAuth_Web.png)
+
+<div style="text-align:center"><img src="./Authorizing_OAuth_Web.png" /></div>
 
 - Response A - Contains the ``code``, that is temporary and will expire after 10 minutes, and ``state`` initially passed in the first request.
 - Response B - returns the Access Token. We can specify the format we want (e.g. application/json)
@@ -23,7 +31,7 @@ Users will be authorized via ``OAuth App`` (GitHub), using [Web Application Flow
 
 ### Device Flow
 
-![](Authorizing_OAuth_Device.png)
+<div style="text-align:center"><img src="./Authorizing_OAuth_Device.png" /></div>
 
 - Response A - returns the Device code. We can specify the format we want (e.g. application/json)
 - Response B - returns the Access Token. We can specify the format we want (e.g. application/json)
