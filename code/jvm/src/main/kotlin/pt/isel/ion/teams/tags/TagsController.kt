@@ -28,7 +28,7 @@ class TagsController(
         .ok()
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(CollectionModel(pageIndex, pageSize).toTagSirenObject(
-            tagsService.getAllTags(teamId, pageIndex, pageSize).map { it.toCompactOutput() },
+            tagsService.getAllTagsWithPaging(teamId, pageIndex, pageSize).map { it.toCompactOutput() },
             orgId,
             classId,
             teamId,

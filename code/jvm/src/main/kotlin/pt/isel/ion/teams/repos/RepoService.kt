@@ -7,9 +7,18 @@ import pt.isel.daw.project.common.errors.sqlExceptionHandler
 @Component
 class RepoService(val jdbi: Jdbi) {
 
+    fun getAllReposByTeamWithPaging(pageSize: Int, pageIndex: Int, teamId: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(RepoDAO::class.java).getAllReposByTeamWithPaging(
+                pageSize + 1,
+                pageIndex * pageSize,
+                teamId
+            )
+        }
+
     fun getAllReposByTeam(teamId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(RepoDAO::class.java).getAllReposByRTeam(teamId)
+            jdbi.onDemand(RepoDAO::class.java).getAllReposByTeam(teamId)
         }
 
     fun getRepo(id: Int) =
@@ -25,5 +34,10 @@ class RepoService(val jdbi: Jdbi) {
     fun updateRepo(repoDbUpdate: RepoDbUpdate) =
         sqlExceptionHandler {
             jdbi.onDemand(RepoDAO::class.java).updateRepo(repoDbUpdate)
+        }
+
+    fun deleteRepo(repoId: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(RepoDAO::class.java).deleteRepo(repoId)
         }
 }

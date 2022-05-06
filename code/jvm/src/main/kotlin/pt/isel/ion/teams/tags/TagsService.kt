@@ -7,9 +7,15 @@ import pt.isel.daw.project.common.errors.sqlExceptionHandler
 @Component
 class TagsService(val jdbi: Jdbi) {
 
-    fun getAllTags(repoId: Int, pageSize: Int, pageIndex: Int) =
+    fun getAllTagsWithPaging(repoId: Int, pageSize: Int, pageIndex: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(TagsDAO::class.java).getAllTags(repoId, pageSize + 1, pageIndex * pageSize)
+            jdbi.onDemand(TagsDAO::class.java)
+                .getAllTagsWithPaging(repoId, pageSize + 1, pageIndex * pageSize)
+        }
+
+    fun getAllTags(repoId: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(TagsDAO::class.java).getAllTags(repoId)
         }
 
     fun getTag(repoId: Int, tagId: Int) =

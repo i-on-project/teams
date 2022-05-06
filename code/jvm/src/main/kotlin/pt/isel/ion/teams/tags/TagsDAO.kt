@@ -9,11 +9,14 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 interface TagsDAO {
 
     @SqlQuery("SELECT * FROM tags_view WHERE repoid = :repoId LIMIT :limit OFFSET :offset")
-    fun getAllTags(
+    fun getAllTagsWithPaging(
         @Bind("repoId") repoId: Int,
         @Bind("limit") limit: Int,
         @Bind("offset") offset: Int,
     ): List<TagDbRead>
+
+    @SqlQuery("SELECT * FROM tags_view WHERE repoid = :repoId")
+    fun getAllTags(@Bind("repoId") repoId: Int): List<TagDbRead>
 
     @SqlQuery("SELECT * FROM tags_view WHERE repoid = :repoId AND id = :id")
     fun getTag(

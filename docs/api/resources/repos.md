@@ -205,7 +205,6 @@ Status:  200 OK
 ```json
 {
   "class": ["repo"],
-  "rel": ["item"],
   "properties": {
     "id": 88,
     "url": "https://github.com/i-on-project/teams",
@@ -236,7 +235,6 @@ Status:  200 OK
       "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}/repos/{repoID}",
       "type": "application/json",
       "field": [
-        {"name": "id", "type": "int"},
         {"name": "name", "type": "string"},
         {"name": "url", "type": "string"},
         {"name": "assId", "type": "number"}
