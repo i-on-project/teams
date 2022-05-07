@@ -18,7 +18,7 @@ ____
 
 ## Authorizing Users
 
-Users will be authorized via ``OAuth App`` (GitHub), using [Web Application Flow](#web-application-flow) for the student and [Device flow](#device-flow) for the teacher.
+Users will be authorized via ``OAuth App`` (GitHub), using [Web Application Flow](#web-application-flow).
 
 ### Web Application Flow
 
@@ -28,18 +28,15 @@ Users will be authorized via ``OAuth App`` (GitHub), using [Web Application Flow
 - Response A - Contains the ``code``, that is temporary and will expire after 10 minutes, and ``state`` initially passed in the first request.
 - Response B - returns the Access Token. We can specify the format we want (e.g. application/json)
 
-- Student Scopes - lists the scopes your token has authorized
+### Scopes
+
+  When setting up an OAuth App on GitHub, requested scopes are displayed to the user on the authorization form.
+
+- Student scopes:
   - ``read:user``- Grants access to read a user's profile data.
   - ``write:repo_hook`` - Grants read, write, and ping access to hooks in public or private repositories.
 
-### Device Flow
-
-<div style="text-align:center"><img src="./Authorizing_OAuth_Device.png" /></div>
-
-- Response A - returns the Device code. We can specify the format we want (e.g. application/json)
-- Response B - returns the Access Token. We can specify the format we want (e.g. application/json)
-
-- Teacher Scopes - lists the scopes your token has authorized
+- Teacher scopes
   - ``read:user``- Grants access to read a user's profile data.
   - ``admin:org`` - Fully manage the organization and its teams, projects, and memberships.
   - ``write:org`` - Read and write access to organization membership, organization projects, and team membership.
@@ -58,7 +55,7 @@ ___
 - ``client_ID``
 - ``client_secret`` (encrypted)
 - ``code``
-- For the teacher both access token and device code are stored locally
+- For the teacher both ``access`` token are stored locally
 _____
 ## GitHub documentation
 
