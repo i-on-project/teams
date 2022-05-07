@@ -14,7 +14,7 @@ interface AssignmentsDAO {
     @SqlQuery("SELECT cid,releasedate,description FROM assignments WHERE id=:id")
     fun getAssignment(@Bind("id") id: Int): AssignmentDbRead
 
-    @SqlUpdate("INSERT INTO assignments (releasedate, cid, description) VALUES (:releasedate,:cid,:description)")
+    @SqlUpdate("INSERT INTO assignments (releasedate, cid, description) VALUES (:releasedate,:cid,:description) ON CONFLICT ")
     @GetGeneratedKeys
     fun createAssignment(@BindBean assignment: AssignmentDbWrite): AssignmentDbRead
 

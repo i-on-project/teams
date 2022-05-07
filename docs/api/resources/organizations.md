@@ -103,7 +103,15 @@ Status:  200 OK
         {
           "rel": ["self"],
           "href": "/api/orgs/123"
-        }
+        },
+        {
+          "rel": ["github"],
+          "href": "https://github.com/i-on-project"
+        },
+        {
+          "rel": ["avatar"],
+          "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+        },
       ]
     }
   ],
@@ -170,9 +178,7 @@ Status:  200 OK
       },
       "links": [
         {
-          "rel": [
-            "self"
-          ],
+          "rel": ["self"],
           "href": "/api/orgs/123123/class/1"
         }
       ]
@@ -180,27 +186,19 @@ Status:  200 OK
   ],
   "links": [
     {
-      "rel": [
-        "self"
-      ],
+      "rel": ["self"],
       "href": "/api/orgs/123123"
     },
     {
-      "rel": [
-        "home"
-      ],
+      "rel": ["home"],
       "href": "/api"
     },
     {
-      "rel": [
-        "github"
-      ],
+      "rel": ["github"],
       "href": "https://github.com/i-on-project"
     },
     {
-      "rel": [
-        "avatar"
-      ],
+      "rel": ["avatar"],
       "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {

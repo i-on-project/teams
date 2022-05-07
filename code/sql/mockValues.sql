@@ -2,9 +2,9 @@
   All the data here presented is fake. Only for tests.
  */
 
-INSERT INTO organizations (name, description)
-VALUES ('AVE', 'Ambientes Virtuais de Execução.'),
-       ('PC', 'Programação comcurrente.');
+INSERT INTO organizations (name, description,githuburi,avataruri)
+VALUES ('AVE', 'Ambientes Virtuais de Execução.','example','example'),
+       ('PC', 'Programação comcurrente.','example','example');
 
 INSERT INTO classrooms (name, description, maxteams, maxmembersperteam, linkrepo, schoolyear, orgid)
 VALUES ('li4xd', 'Turma x 4 ano.', 3, 2, 'https://github.com/isel-leic-ave/lae-2021-22-sem2-i4xd', '2021/22', 1),

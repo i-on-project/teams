@@ -82,8 +82,8 @@ class TagsController(
         .contentType(MediaType.APPLICATION_JSON)
         .body(tagsService.updateTag(tag.toDb(tagId, repoId)).toOutput())
 
-    @DeleteMapping(Uris.Teams.Team.PATH)
-    fun deleteTeam(@PathVariable tagId: Int): ResponseEntity<Any> {
+    @DeleteMapping(Uris.Tags.Tag.PATH)
+    fun deleteTag(@PathVariable tagId: Int): ResponseEntity<Any> {
         tagsService.deleteTag(tagId)
 
         return ResponseEntity

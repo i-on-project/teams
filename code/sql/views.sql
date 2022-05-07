@@ -1,5 +1,5 @@
-CREATE VIEW ORGANIZATIONS_VIEW (id, name, description) AS
-SELECT id, name, description
+CREATE VIEW ORGANIZATIONS_VIEW (id, name, description,githubUri,avatarUri) AS
+SELECT id, name, description,githuburi,avataruri
 FROM organizations
 WHERE deleted = B'0';
 

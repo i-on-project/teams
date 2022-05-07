@@ -17,11 +17,13 @@ fun CollectionModel.toOrganizationsSirenObject(orgsList: List<OrganizationOutput
         clazz = listOf(SirenClasses.COLLECTION, SirenClasses.ORGANIZATION),
         entities = list.map {
             EmbeddedEntity(
-                properties = it,
+                properties = listOf(it.id,it.name, it.description),
                 rel = listOf(SirenRelations.ITEM),
                 clazz = listOf(SirenClasses.ORGANIZATION),
                 links = listOf(
-                    selfLink(Uris.Organizations.Organization.make(it.id))
+                    selfLink(Uris.Organizations.Organization.make(it.id)),
+                    SirenLink(SirenRelations.GITHUB, URI(it.githubUri)),
+                    SirenLink(SirenRelations.AVATAR, URI(it.avatarUri)),
                 )
             )
         },

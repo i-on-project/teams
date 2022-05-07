@@ -1,8 +1,10 @@
 CREATE TABLE ORGANIZATIONS
 (
     id          serial,
-    name        varchar(50),
-    description varchar(200),
+    name        varchar(50) UNIQUE,
+    description varchar(200) NOT NULL,
+    githubUri varchar NOT NULL,
+    avatarUri varchar NOT NULL,
     deleted     bit(1) DEFAULT B'0',
     PRIMARY KEY (id)
 );
