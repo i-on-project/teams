@@ -33,7 +33,9 @@ interface ClassroomDAO {
     @GetGeneratedKeys
     fun createClassroom(@BindBean classroomDbWrite: ClassroomDbWrite): ClassroomDbRead
 
-    @SqlUpdate("UPDATE classrooms SET name = coalesce(:name, name), description = coalesce(:description, description), maxteams = coalesce(:maxTeams, maxteams), maxmembersperteam = coalesce(:maxMembersPerTeam, maxmembersperteam), state = coalesce(:state, state), schoolyear = coalesce(:schoolYear, schoolyear) WHERE id = :id")
+    @SqlUpdate("UPDATE classrooms SET name = coalesce(:name, name), description = coalesce(:description, description), " +
+            "maxteams = coalesce(:maxTeams, maxteams), maxmembersperteam = coalesce(:maxMembersPerTeam, maxmembersperteam), " +
+            "state = coalesce(:state, state), schoolyear = coalesce(:schoolYear, schoolyear) WHERE id = :id")
     @GetGeneratedKeys
     fun updateClassroom(@BindBean classroomUpdateModel: ClassroomDbUpdate): ClassroomDbRead
 

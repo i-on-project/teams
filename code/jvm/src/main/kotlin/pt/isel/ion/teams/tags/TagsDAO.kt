@@ -27,11 +27,11 @@ interface TagsDAO {
         @Bind("id") id: Int
     ): TagDbRead
 
-    @SqlUpdate("INSERT INTO tags (name, date, delId, repoid) VALUES (:name, :date, :delId, :repoId)")
+    @SqlUpdate("INSERT INTO tags (name, delId, repoid) VALUES (:name, :delId, :repoId)")
     @GetGeneratedKeys
     fun createTag(@BindBean tag: TagDbWrite): TagDbRead
 
-    @SqlUpdate("UPDATE tags SET name = coalesce(:name, name), date = coalesce(:date, date), delId = coalesce(:delId, delid), repoid = coalesce(:repoId, repoid) WHERE id = :id")
+    @SqlUpdate("UPDATE tags SET name = coalesce(:name, name), delId = coalesce(:delId, delid), repoid = coalesce(:repoId, repoid) WHERE id = :id")
     @GetGeneratedKeys
     fun updateTag(@BindBean tag: TagDbUpdate): TagDbRead
 

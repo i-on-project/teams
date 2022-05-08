@@ -102,7 +102,7 @@ fun RepoOutputModel.toTeacherSirenObject(
     links = listOf(
         selfLink(Uris.Repos.Repo.make(orgId, classId, teamId, id)),
         homeLink(),
-        SirenLink(SirenRelations.GITHUB, URI(url)),
+        SirenLink(SirenRelations.GITHUB, URI(this.url)),
         SirenLink(SirenRelations.TAGS, Uris.Tags.make(orgId, classId, teamId, id)),
         SirenLink(SirenRelations.REPOS, Uris.Repos.make(orgId, classId, teamId)),
         SirenLink(SirenRelations.TEAM, Uris.Teams.Team.make(orgId, classId, teamId)),

@@ -9,7 +9,7 @@ import java.util.Date
 data class TagDbRead(
     val id: Int,
     val name: String,
-    val date: Date,
+    val date: String,
     val delId: Int,
     val repoId: Int
 )
@@ -17,7 +17,7 @@ data class TagDbRead(
 data class TagWithTeamRepoDbRead(
     val id: Int,
     val name: String,
-    val date: Date,
+    val date: String,
     val repoId: Int,
     val teamId: Int,
     val delId: Int
@@ -25,7 +25,6 @@ data class TagWithTeamRepoDbRead(
 
 data class TagDbWrite(
     val name: String,
-    val date: Date,
     val delId: Int,
     val repoId: Int
 )
@@ -33,7 +32,6 @@ data class TagDbWrite(
 data class TagDbUpdate(
     val id: Int,
     val name: String?,
-    val date: Date?,
     val delId: Int?,
     val repoId: Int?
 )
@@ -45,25 +43,23 @@ data class TagDbUpdate(
 data class TagOutputModel(
     val id: Int,
     val name: String,
-    val date: Date,
+    val date: String,
 )
 
 data class TagCompactOutputModel(
     val id: Int,
     val name: String,
-    val date: Date,
+    val date: String,
 )
 
 data class TagInputModel(
     val name: String,
-    val date: Date,
     val delId: Int,
     val repoId: Int
 )
 
 data class TagUpdateModel(
     val name: String?,
-    val date: Date?,
     val delId: Int?
 )
 
@@ -71,7 +67,7 @@ data class TagUpdateModel(
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun TagInputModel.toDb(repoId: Int) = TagDbWrite(this.name, this.date, this.delId, repoId)
-fun TagUpdateModel.toDb(id: Int,repoId: Int) = TagDbUpdate(id, this.name, this.date, this.delId, repoId)
+fun TagInputModel.toDb(repoId: Int) = TagDbWrite(this.name, this.delId, repoId)
+fun TagUpdateModel.toDb(id: Int,repoId: Int) = TagDbUpdate(id, this.name, this.delId, repoId)
 fun TagDbRead.toOutput() = TagOutputModel(this.id, this.name, this.date)
 fun TagDbRead.toCompactOutput() = TagCompactOutputModel(this.id, this.name, this.date)

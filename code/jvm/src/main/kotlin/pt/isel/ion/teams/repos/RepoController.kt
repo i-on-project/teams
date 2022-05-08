@@ -46,15 +46,14 @@ class RepoController(
         @PathVariable repoId: Int
     ): ResponseEntity<Any> {
         val repo = repoService.getRepo(repoId)
-        val assId = repo.assId
         val tags = tagsService.getAllTags(repoId).map { it.toCompactOutput() }
 
-        //TODO Detect if user is student or teacher
+        //TODO: Detect if user is student or teacher
 
         return ResponseEntity
             .ok()
             .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-            .body(repo.toOutput().toTeacherSirenObject(tags, orgId, classId, teamId, assId))
+            .body(repo.toOutput().toTeacherSirenObject(tags, orgId, classId, teamId, repo.assId))
     }
 
     @PostMapping
@@ -64,7 +63,7 @@ class RepoController(
         @PathVariable classId: Int,
         @PathVariable teamId: Int,
     ): ResponseEntity<Any> {
-        val createdRepo = repoService.createRepo(repo.toDb())
+        val createdRepo = repoService.createRepo(repo.toDb(teamId))
 
         return ResponseEntity
             .created(Uris.Repos.Repo.make(orgId, classId, teamId, createdRepo.id))

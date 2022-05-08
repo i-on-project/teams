@@ -23,14 +23,14 @@ interface RepoDAO {
     @SqlQuery("SELECT * FROM repos_view WHERE id=:id")
     fun getRepo(@Bind("id") id: Int): RepoDbRead
 
-    @SqlUpdate("INSERT INTO repos (name, url, tid, assid) VALUES (:name, :url, :tid, :assid)")
+    @SqlUpdate("INSERT INTO repos (name, url, tid, assid) VALUES (:name, :url, :tId, :assId) ON CONFLICT (url) DO UPDATE SET deleted=B'0', name=:name, tId=:tId, assid=:assId")
     @GetGeneratedKeys
-    fun createRepo(@BindBean repoDbWrite: RepoDbWrite): RepoDbRead
+    fun createRepo(@BindBean repo: RepoDbWrite): RepoDbRead
 
-    @SqlUpdate("UPDATE repos SET name = coalesce(:name, name), assid = coalesce(:assId, assid), url = coalesce(:url, url) WHERE id=:id")
+    @SqlUpdate("UPDATE repos SET name = coalesce(:name, name), assid = coalesce(:assId, assid) WHERE id=:id")
     @GetGeneratedKeys
     fun updateRepo(@BindBean repo: RepoDbUpdate): RepoDbRead
 
-    @SqlUpdate("UPDATE repos SET deleted = B'1' WHERE id =: id")
+    @SqlUpdate("UPDATE repos SET deleted = B'1' WHERE id = :id")
     fun deleteRepo(@Bind("id") repoId: Int)
 }
