@@ -26,8 +26,7 @@ class ClassroomController(
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
             CollectionModel(pageIndex, pageSize).toClassroomSirenObject(
-                classroomService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId)
-                    .map { it.toCompactOutput() },
+                classroomService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId).map{ it.toOutput()},
                 orgId
             )
         )

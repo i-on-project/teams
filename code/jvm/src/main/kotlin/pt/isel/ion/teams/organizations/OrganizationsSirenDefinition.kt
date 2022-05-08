@@ -17,7 +17,7 @@ fun CollectionModel.toOrganizationsSirenObject(orgsList: List<OrganizationOutput
         clazz = listOf(SirenClasses.COLLECTION, SirenClasses.ORGANIZATION),
         entities = list.map {
             EmbeddedEntity(
-                properties = listOf(it.id,it.name, it.description),
+                properties = it.toCompactOutput(),
                 rel = listOf(SirenRelations.ITEM),
                 clazz = listOf(SirenClasses.ORGANIZATION),
                 links = listOf(

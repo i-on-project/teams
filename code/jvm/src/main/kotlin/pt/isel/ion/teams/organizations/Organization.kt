@@ -13,7 +13,9 @@ data class OrganizationDbRead(
 
 data class OrganizationDbWrite(
     val name: String,
-    val description: String
+    val description: String,
+    val githubUri: String,
+    val avatarUri: String,
 )
 
 data class OrganizationDbUpdate(
@@ -54,8 +56,14 @@ data class OrganizationUpdateModel(
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun OrganizationInputModel.toDb() = OrganizationDbWrite(this.name, this.description)
+fun OrganizationInputModel.toDb(githubUri: String, avatarUri: String) =
+    OrganizationDbWrite(this.name, this.description, githubUri, avatarUri)
+
 fun OrganizationUpdateModel.toDb(id: Int) = OrganizationDbUpdate(id, this.name, this.description)
+
+fun OrganizationOutputModel.toCompactOutput() = OrganizationCompactOutputModel(this.id, this.name, this.description)
+
+fun OrganizationDbRead.toCompactOutput() = OrganizationCompactOutputModel(this.id, this.name, this.description)
+
 fun OrganizationDbRead.toOutput() =
     OrganizationOutputModel(this.id, this.name, this.description, this.githubUri, this.avatarUri)
-fun OrganizationDbRead.toCompactOutput() = OrganizationCompactOutputModel(this.id, this.name, this.description)

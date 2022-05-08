@@ -48,12 +48,6 @@ BEGIN
             UPDATE classrooms SET deleted = B'1' WHERE orgid = new.id;
         END;
     END IF;
-
-    IF (old.state != new.state) THEN
-        BEGIN
-            UPDATE classrooms SET state = new.state WHERE orgid = new.id;
-        END;
-    END IF;
     RETURN new;
 END
 $cascade_delete_organizations_fun$

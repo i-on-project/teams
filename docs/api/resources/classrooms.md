@@ -135,7 +135,15 @@ Status:  200 OK
         {
           "rel": ["self"],
           "href": "/api/orgs/852/classrooms/123123/teams/456"
-        }
+        },
+        {
+          "rel": ["github"],
+          "href": "https://github.com/i-on-project"
+        },
+        {
+          "rel": ["avatar"],
+          "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
+        },
       ]
     }
   ],

@@ -1,18 +1,11 @@
-CREATE VIEW ORGANIZATIONS_VIEW (id, name, description,githubUri,avatarUri) AS
-SELECT id, name, description,githuburi,avataruri
+CREATE VIEW ORGANIZATIONS_VIEW (id, name, description, githubUri, avatarUri) AS
+SELECT id, name, description, githuburi, avataruri
 FROM organizations
 WHERE deleted = B'0';
 
-CREATE VIEW CLASSROOMS_VIEW (id, name, description, maxTeams, maxMembersPerTeam, linkRepo, schoolYear, orgId, state) AS
-SELECT id,
-       name,
-       description,
-       maxTeams,
-       maxMembersPerTeam,
-       linkRepo,
-       schoolYear,
-       orgId,
-       state
+CREATE VIEW CLASSROOMS_VIEW
+      ( id, name, description, maxTeams, maxMembersPerTeam, repoURI, schoolYear, orgId, state, githubURI, avatarURI)       AS
+SELECT id, name, description, maxteams, maxmembersperteam, repouri, schoolyear, orgid, state, githuburi, avataruri
 FROM classrooms
 WHERE deleted = B'0';
 
@@ -68,12 +61,13 @@ WHERE d.deleted = B'0'
   AND tg.deleted = B'0';
 
 CREATE VIEW TAGS_WITH_REPO_AND_TEAM (id, name, date, repoId, teamId, delId) AS
-    SELECT t.id, t.name, t.date, r.id, tm.id, d.id
+SELECT t.id, t.name, t.date, r.id, tm.id, d.id
 FROM tags t
-    JOIN repos r on r.id = t.repoid
-    JOIN teams tm on r.tid = tm.id
-    JOIN deliveries d on t.delid = d.id
-WHERE t.deleted = B'0' AND d.deleted = B'0';
+         JOIN repos r on r.id = t.repoid
+         JOIN teams tm on r.tid = tm.id
+         JOIN deliveries d on t.delid = d.id
+WHERE t.deleted = B'0'
+  AND d.deleted = B'0';
 
 CREATE VIEW TAGS_VIEW (id, name, date, delId, repoId) AS
 SELECT id, name, date, delId, repoId

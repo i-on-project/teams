@@ -45,7 +45,8 @@ class OrganizationController(
 
     @PostMapping
     fun createOrganization(@RequestBody organization: OrganizationInputModel): ResponseEntity<Any> {
-        val org = organizationService.createOrganization(organization.toDb()).toOutput()
+        //TODO retrieve real githubURI and avatarURI
+        val org = organizationService.createOrganization(organization.toDb("example","example")).toOutput()
 
         return ResponseEntity
             .created(Uris.Organizations.Organization.make(org.id))

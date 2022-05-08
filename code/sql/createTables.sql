@@ -1,12 +1,13 @@
 CREATE TABLE ORGANIZATIONS
 (
     id          serial,
-    name        varchar(50) UNIQUE,
+    name        varchar(50),
     description varchar(200) NOT NULL,
     githubUri varchar NOT NULL,
     avatarUri varchar NOT NULL,
     deleted     bit(1) DEFAULT B'0',
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE(name,githubUri,avatarUri)
 );
 
 CREATE TABLE CLASSROOMS
@@ -16,13 +17,16 @@ CREATE TABLE CLASSROOMS
     description       varchar NOT NULL,
     maxTeams          int          NOT NULL,
     maxMembersPerTeam int          NOT NULL,
-    linkRepo          varchar  NOT NULL,
+    repoURI          varchar  NOT NULL UNIQUE,
     schoolYear        varchar      NOT NULL, -- (e.g. 2021/22)
     orgId             int          NOT NULL, --organization id
     state             varchar(50) DEFAULT 'active',
+    githubUri varchar NOT NULL,
+    avatarUri varchar NOT NULL,
     deleted           bit(1)      DEFAULT B'0',
     PRIMARY KEY (id),
     FOREIGN KEY (orgId) REFERENCES ORGANIZATIONS (id),
+    UNIQUE (githubUri,avatarUri),
     CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' ),
     CONSTRAINT schoolYear_check CHECK ( schoolYear ~* '[0-9][0-9][0-9][0-9]/[0-9][0-9]')
 );

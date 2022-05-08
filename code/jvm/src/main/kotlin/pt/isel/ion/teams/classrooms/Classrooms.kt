@@ -14,7 +14,7 @@ data class ClassroomDbRead (
     val orgId: Int,
     val state: String,
     val githubUri: String,
-    val githubAvatar: String
+    val avatarUri: String
 )
 
 data class ClassroomDbWrite(
@@ -25,6 +25,8 @@ data class ClassroomDbWrite(
     val repoURI: String,
     val schoolYear: String,
     val orgId: Int,
+    val githubUri: String,
+    val avatarUri: String
 )
 
 data class ClassroomDbUpdate(
@@ -48,7 +50,7 @@ data class ClassroomOutputModel(
     val schoolYear: String,
     val state: String,
     val githubUri: String,
-    val githubAvatar: String
+    val avatarUri: String
 )
 
 data class ClassroomCompactOutputModel(
@@ -65,6 +67,8 @@ data class ClassroomInputModel(
     val maxMembersPerTeam: Int,
     val repoURI: String,
     val schoolYear: String,
+    val githubUri: String,
+    val avatarUri: String
 )
 
 data class ClassroomUpdateModel(
@@ -88,7 +92,10 @@ fun ClassroomInputModel.toDb(orgId: Int) =
         this.maxMembersPerTeam,
         this.repoURI,
         this.schoolYear,
-        orgId
+        orgId,
+        this.githubUri,
+        this.avatarUri
+
     )
 fun ClassroomUpdateModel.toDb(id: Int) =
     ClassroomDbUpdate(id,
@@ -106,8 +113,12 @@ fun ClassroomDbRead.toOutput() =
         this.schoolYear,
         this.state,
         this.githubUri,
-        this.githubAvatar
+        this.avatarUri
     )
+
 fun ClassroomDbRead.toCompactOutput() =
+    ClassroomCompactOutputModel(this.id, this.name, this.description, this.schoolYear)
+
+fun ClassroomOutputModel.toCompactOutput() =
     ClassroomCompactOutputModel(this.id, this.name, this.description, this.schoolYear)
 
