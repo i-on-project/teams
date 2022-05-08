@@ -86,7 +86,7 @@ object Uris {
 
         object Repo {
             const val PATH = "/{repoId}"
-            private val TEMPLATE = UriTemplate(PATH)
+            private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
             fun make(orgId: Int, classId: Int, teamId: Int, id: Int) =
                 TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "teamId" to teamId, "repoId" to id))
         }

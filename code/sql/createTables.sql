@@ -70,7 +70,7 @@ CREATE TABLE TEAMS
     state   varchar(50) DEFAULT 'pending',
     deleted bit(1)      DEFAULT B'0',
     UNIQUE (name, cId),
-    UNIQUE (id, cId),
+    UNIQUE (id, cId), --used in foreign keys
     PRIMARY KEY (id),
     FOREIGN KEY (cId) REFERENCES CLASSROOMS (id),
     CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' OR state = 'pending')

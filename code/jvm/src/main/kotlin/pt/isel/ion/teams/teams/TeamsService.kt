@@ -14,9 +14,9 @@ class TeamsService(val jdbi: Jdbi) {
                 .getAllTeamsOfClassroom(pageSize + 1, pageIndex * pageSize, classroomId)
         }
 
-    fun getTeam(teamId: Int) =
+    fun getTeam(teamId: Int, classId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(TeamsDAO::class.java).getTeam(teamId)
+            jdbi.onDemand(TeamsDAO::class.java).getTeam(teamId,classId)
         }
 
     fun createTeam(teamsDbWrite: TeamsDbWrite) =

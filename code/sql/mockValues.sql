@@ -47,3 +47,6 @@ INSERT INTO deliveries (assid, name, date)
 VALUES (1, 'phase 1', now()),
        (2, 'phase 0', now());
 
+INSERT INTO repos (url, name, tid, assid)
+VALUES ('https://github.com/example1/team1','Grupo 1',1,1)
+

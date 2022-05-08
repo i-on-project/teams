@@ -41,7 +41,7 @@ class TeamsController(
         @PathVariable classId: Int,
         @PathVariable teamId: Int
     ): ResponseEntity<Any> {
-        val team = teamsService.getTeam(teamId).toOutput()
+        val team = teamsService.getTeam(teamId,classId).toOutput()
         val repos = reposService.getAllReposByTeam(teamId).map { it.toCompactOutput() }
 
         //TODO Detect if user is student or teacher
