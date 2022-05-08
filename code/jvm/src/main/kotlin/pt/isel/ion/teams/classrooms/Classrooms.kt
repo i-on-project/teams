@@ -3,7 +3,7 @@ package pt.isel.ion.teams.classrooms
 /**
  * For internal use only.
  */
-data class ClassroomDbRead (
+data class ClassroomDbRead(
     val id: Int,
     val name: String,
     val description: String,
@@ -13,8 +13,8 @@ data class ClassroomDbRead (
     val schoolYear: String,
     val orgId: Int,
     val state: String,
-    val githubUri: String,
-    val avatarUri: String
+    val githubURI: String,
+    val avatarURI: String
 )
 
 data class ClassroomDbWrite(
@@ -25,8 +25,8 @@ data class ClassroomDbWrite(
     val repoURI: String,
     val schoolYear: String,
     val orgId: Int,
-    val githubUri: String,
-    val avatarUri: String
+    val githubURI: String,
+    val avatarURI: String
 )
 
 data class ClassroomDbUpdate(
@@ -49,8 +49,8 @@ data class ClassroomOutputModel(
     val description: String,
     val schoolYear: String,
     val state: String,
-    val githubUri: String,
-    val avatarUri: String
+    val githubURI: String,
+    val avatarURI: String
 )
 
 data class ClassroomCompactOutputModel(
@@ -67,8 +67,6 @@ data class ClassroomInputModel(
     val maxMembersPerTeam: Int,
     val repoURI: String,
     val schoolYear: String,
-    val githubUri: String,
-    val avatarUri: String
 )
 
 data class ClassroomUpdateModel(
@@ -84,7 +82,7 @@ data class ClassroomUpdateModel(
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun ClassroomInputModel.toDb(orgId: Int) =
+fun ClassroomInputModel.toDb(orgId: Int, githubUri: String, avatarUri: String) =
     ClassroomDbWrite(
         this.name,
         this.description,
@@ -93,12 +91,13 @@ fun ClassroomInputModel.toDb(orgId: Int) =
         this.repoURI,
         this.schoolYear,
         orgId,
-        this.githubUri,
-        this.avatarUri
-
+        githubUri,
+        avatarUri
     )
+
 fun ClassroomUpdateModel.toDb(id: Int) =
-    ClassroomDbUpdate(id,
+    ClassroomDbUpdate(
+        id,
         this.name,
         this.description,
         this.maxTeams,
@@ -106,14 +105,16 @@ fun ClassroomUpdateModel.toDb(id: Int) =
         this.state,
         this.schoolYear
     )
+
 fun ClassroomDbRead.toOutput() =
-    ClassroomOutputModel(this.id,
+    ClassroomOutputModel(
+        this.id,
         this.name,
         this.description,
         this.schoolYear,
         this.state,
-        this.githubUri,
-        this.avatarUri
+        this.githubURI,
+        this.avatarURI
     )
 
 fun ClassroomDbRead.toCompactOutput() =

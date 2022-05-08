@@ -25,8 +25,8 @@ fun CollectionModel.toClassroomSirenObject(
                 rel = listOf(SirenRelations.ITEM),
                 links = listOf(
                     selfLink(Uris.Classrooms.Classroom.make(orgId, it.id)),
-                    SirenLink(SirenRelations.GITHUB,URI(it.githubUri)),
-                    SirenLink(SirenRelations.AVATAR,URI(it.avatarUri))
+                    SirenLink(SirenRelations.GITHUB,URI(it.githubURI)),
+                    SirenLink(SirenRelations.AVATAR,URI(it.avatarURI))
                 )
             )
         },
@@ -50,7 +50,7 @@ fun ClassroomOutputModel.toStudentSirenObject(
     orgId: Int,
     teamId: Int
 ) = SirenEntity(
-    properties = this,
+    properties = this.toCompactOutput(),
     clazz = listOf(SirenClasses.CLASSROOM),
     entities = teamsList.map {
         EmbeddedEntity(
@@ -63,8 +63,8 @@ fun ClassroomOutputModel.toStudentSirenObject(
     links = listOf(
         selfLink(Uris.Classrooms.make(orgId)),
         homeLink(),
-        SirenLink(SirenRelations.GITHUB, URI(this.githubUri)),
-        SirenLink(SirenRelations.AVATAR, URI(this.avatarUri)),
+        SirenLink(SirenRelations.GITHUB, URI(this.githubURI)),
+        SirenLink(SirenRelations.AVATAR, URI(this.avatarURI)),
         SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
         SirenLink(SirenRelations.ASSIGNMENTS, Uris.Assignments.make(orgId, id)),
         SirenLink(SirenRelations.TEAM, Uris.Teams.Team.make(orgId, id, teamId)),
@@ -76,7 +76,7 @@ fun ClassroomOutputModel.toTeacherSirenObject(
     teamsList: List<TeamsCompactOutputModel>,
     orgId: Int,
 ) = SirenEntity(
-    properties = this,
+    properties = this.toCompactOutput(),
     clazz = listOf(SirenClasses.CLASSROOM),
     entities = teamsList.map {
         EmbeddedEntity(
@@ -129,8 +129,8 @@ fun ClassroomOutputModel.toTeacherSirenObject(
     links = listOf(
         selfLink(Uris.Classrooms.make(orgId)),
         homeLink(),
-        SirenLink(SirenRelations.GITHUB, URI(this.githubUri)),
-        SirenLink(SirenRelations.AVATAR, URI(this.avatarUri)),
+        SirenLink(SirenRelations.GITHUB, URI(this.githubURI)),
+        SirenLink(SirenRelations.AVATAR, URI(this.avatarURI)),
         SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
         SirenLink(SirenRelations.ASSIGNMENTS, Uris.Assignments.make(orgId, id)),
         SirenLink(SirenRelations.REQUESTS, Uris.Requests.make(orgId, id)),

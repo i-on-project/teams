@@ -26,7 +26,7 @@ CREATE TABLE CLASSROOMS
     deleted           bit(1)      DEFAULT B'0',
     PRIMARY KEY (id),
     FOREIGN KEY (orgId) REFERENCES ORGANIZATIONS (id),
-    UNIQUE (githubUri,avatarUri),
+    UNIQUE (repoURI,githubUri,avatarUri),
     CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' ),
     CONSTRAINT schoolYear_check CHECK ( schoolYear ~* '[0-9][0-9][0-9][0-9]/[0-9][0-9]')
 );
