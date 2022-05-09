@@ -1,6 +1,5 @@
 package pt.isel.ion.teams.tags
 
-import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -27,20 +26,22 @@ class TagsController(
     ) = ResponseEntity
         .ok()
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-        .body(CollectionModel(pageIndex, pageSize).toTagSirenObject(
-            tagsService.getAllTagsWithPaging(teamId, pageIndex, pageSize).map { it.toCompactOutput() },
-            orgId,
-            classId,
-            teamId,
-            repoId
-        ))
+        .body(
+            CollectionModel(pageIndex, pageSize).toTagSirenObject(
+                tagsService.getAllTagsWithPaging(teamId, pageSize, pageIndex).map { it.toCompactOutput() },
+                orgId,
+                classId,
+                teamId,
+                repoId
+            )
+        )
 
     @GetMapping(Uris.Tags.Tag.PATH)
     fun getTag(
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
-        @PathVariable repoId: Int,
         @PathVariable teamId: Int,
+        @PathVariable repoId: Int,
         @PathVariable tagId: Int
     ): ResponseEntity<Any> {
         val tag = tagsService.getTag(repoId, tagId)
@@ -62,7 +63,7 @@ class TagsController(
         @PathVariable classId: Int,
         @PathVariable repoId: Int,
         @PathVariable teamId: Int,
-        ): ResponseEntity<Any> {
+    ): ResponseEntity<Any> {
         val createdTag = tagsService.createTag(tag.toDb(repoId)).toOutput()
 
         return ResponseEntity
@@ -75,12 +76,11 @@ class TagsController(
     @GetGeneratedKeys
     fun updateTag(
         @PathVariable tagId: Int,
-        @PathVariable repoId: Int,
-        @BindBean tag: TagUpdateModel
+        @RequestBody tag: TagUpdateModel
     ) = ResponseEntity
         .ok()
         .contentType(MediaType.APPLICATION_JSON)
-        .body(tagsService.updateTag(tag.toDb(tagId, repoId)).toOutput())
+        .body(tagsService.updateTag(tag.toDb(tagId)).toOutput())
 
     @DeleteMapping(Uris.Tags.Tag.PATH)
     fun deleteTag(@PathVariable tagId: Int): ResponseEntity<Any> {

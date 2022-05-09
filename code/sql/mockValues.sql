@@ -45,8 +45,13 @@ VALUES (1, 'Make application yes yes.'),
 
 INSERT INTO deliveries (assid, name, date)
 VALUES (1, 'phase 1', now()),
+       (1, 'phase 2', now()),
        (2, 'phase 0', now());
 
 INSERT INTO repos (url, name, tid, assid)
-VALUES ('https://github.com/example1/team1','Grupo 1',1,1)
+VALUES ('https://github.com/example1/team1','Grupo 1',1,1);
+
+INSERT INTO tags (name, delid, repoid)
+VALUES ('phase 1',1,1),
+       ('phase 2',2,1);
 

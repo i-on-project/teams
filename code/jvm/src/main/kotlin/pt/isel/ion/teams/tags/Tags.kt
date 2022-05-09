@@ -32,8 +32,7 @@ data class TagDbWrite(
 data class TagDbUpdate(
     val id: Int,
     val name: String?,
-    val delId: Int?,
-    val repoId: Int?
+    val delId: Int?
 )
 
 /**
@@ -54,8 +53,7 @@ data class TagCompactOutputModel(
 
 data class TagInputModel(
     val name: String,
-    val delId: Int,
-    val repoId: Int
+    val delId: Int
 )
 
 data class TagUpdateModel(
@@ -68,6 +66,6 @@ data class TagUpdateModel(
  */
 
 fun TagInputModel.toDb(repoId: Int) = TagDbWrite(this.name, this.delId, repoId)
-fun TagUpdateModel.toDb(id: Int,repoId: Int) = TagDbUpdate(id, this.name, this.delId, repoId)
+fun TagUpdateModel.toDb(id: Int) = TagDbUpdate(id, this.name, this.delId)
 fun TagDbRead.toOutput() = TagOutputModel(this.id, this.name, this.date)
 fun TagDbRead.toCompactOutput() = TagCompactOutputModel(this.id, this.name, this.date)

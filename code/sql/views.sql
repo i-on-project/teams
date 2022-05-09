@@ -46,8 +46,8 @@ SELECT id, url, name, tId, assId
 FROM repos
 WHERE deleted = B'0';
 
-CREATE VIEW DELIVERIES_VIEW (id, assId, date) AS
-SELECT id, assId, date
+CREATE VIEW DELIVERIES_VIEW (id, assId,name, date) AS
+SELECT id, assId,name, date
 FROM deliveries
 WHERE deleted = B'0';
 

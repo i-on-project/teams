@@ -31,10 +31,10 @@ interface TagsDAO {
     @GetGeneratedKeys
     fun createTag(@BindBean tag: TagDbWrite): TagDbRead
 
-    @SqlUpdate("UPDATE tags SET name = coalesce(:name, name), delId = coalesce(:delId, delid), repoid = coalesce(:repoId, repoid) WHERE id = :id")
+    @SqlUpdate("UPDATE tags SET name = coalesce(:name, name), delId = coalesce(:delId, delid) WHERE id = :id")
     @GetGeneratedKeys
     fun updateTag(@BindBean tag: TagDbUpdate): TagDbRead
 
-    @SqlUpdate("UPDATE tags SET deleted = B'1' WHERE id =: id")
+    @SqlUpdate("UPDATE tags SET deleted = B'1' WHERE id = :id")
     fun deleteTag(@Bind("id") tagId: Int)
 }

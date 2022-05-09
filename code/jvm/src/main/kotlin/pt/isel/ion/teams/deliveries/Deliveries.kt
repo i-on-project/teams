@@ -1,7 +1,5 @@
 package pt.isel.ion.teams.deliveries
 
-import java.util.*
-
 /**
  * For internal use only.
  */
@@ -9,19 +7,19 @@ data class DeliveryDbRead(
     val id: Int,
     val assId: Int,
     val name: String,
-    val date: Date,
+    val date: String
 )
 
 data class DeliveryDbWrite(
     val assId: Int,
     val name: String,
-    val date: Date
+    val date: String
 )
 
 data class DeliveryDbUpdate(
     val id: Int,
     val name: String?,
-    val date: Date?
+    val date: String?
 )
 
 /**
@@ -31,24 +29,24 @@ data class DeliveryDbUpdate(
 data class DeliveryOutputModel(
     val id: Int,
     val name: String,
-    val date: Date
+    val date: String
 )
 
 data class DeliveryCompactOutputModel(
     val id: Int,
     val name: String,
-    val date: Date
+    val date: String
 )
 
 data class DeliveryInputModel(
     val assId: Int,
     val name: String,
-    val date: Date
+    val date: String
 )
 
 data class DeliveryUpdateModel(
     val name: String?,
-    val date: Date?
+    val date: String?
 )
 
 /**
