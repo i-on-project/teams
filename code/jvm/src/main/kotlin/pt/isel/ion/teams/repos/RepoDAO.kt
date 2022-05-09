@@ -23,7 +23,7 @@ interface RepoDAO {
     @SqlQuery("SELECT * FROM repos_view WHERE id=:id")
     fun getRepo(@Bind("id") id: Int): RepoDbRead
 
-    @SqlUpdate("INSERT INTO repos (name, url, tid, assid) VALUES (:name, :url, :tId, :assId) ON CONFLICT (url) DO UPDATE SET deleted=B'0', name=:name, tId=:tId, assid=:assId")
+    @SqlUpdate("INSERT INTO repos (name, url, tid, assid) VALUES (:name, :url, :tid, :assId) ON CONFLICT (url) DO UPDATE SET deleted=B'0', name=:name, tId=:tid, assid=:assId")
     @GetGeneratedKeys
     fun createRepo(@BindBean repo: RepoDbWrite): RepoDbRead
 

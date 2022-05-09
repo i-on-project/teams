@@ -15,7 +15,7 @@ data class RepoDbRead (
 data class RepoDbWrite(
     val url: String,
     val name: String,
-    val tId: Int,
+    val tid: Int,
     val assId: Int
 )
 
