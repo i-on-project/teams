@@ -303,9 +303,22 @@ object Uris {
     }
 
     object InviteLinks {
-        const val MAIN_PATH = "/api/orgs/{orgId}/classrooms/{classId}/invite-link"
+        const val MAIN_PATH = "/api/orgs/{orgId}/classrooms/{classId}/invite-links"
         private val TEMPLATE = UriTemplate(MAIN_PATH)
         fun make(orgId: Int, classId: Int) = TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId))
+
+        private const val PAGE_PATH = "${MAIN_PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
+
+        private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
+        fun makePage(pageIndex: Int, pageSize: Int, orgId: Int, classId: Int) =
+            PAGE_TEMPLATE.expand(
+                mapOf(
+                    "pageIndex" to pageIndex,
+                    "pageSize" to pageSize,
+                    "orgId" to orgId,
+                    "classId" to classId
+                )
+            )
 
         object InviteLink {
             const val PATH = "{code}"
@@ -313,8 +326,5 @@ object Uris {
             fun make(orgId: Int, classId: Int, code: String) =
                 TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "code" to code))
         }
-
-
     }
-
 }

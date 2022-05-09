@@ -8,9 +8,14 @@ import java.util.UUID
 @Component
 class InviteLinksService(val jdbi: Jdbi) {
 
-    fun getInviteLink(cId: Int) =
+    fun getAllInviteLinks(pageSize: Int, pageIndex: Int, cId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(InviteLinksDAO::class.java).getInviteLink(cId)
+            jdbi.onDemand(InviteLinksDAO::class.java).getAlInviteLinks(cId)
+        }
+
+    fun getInviteLink(cId: Int,code: String) =
+        sqlExceptionHandler {
+            jdbi.onDemand(InviteLinksDAO::class.java).getInviteLink(cId,code)
         }
 
     fun createInviteLink(cId: Int) =
@@ -19,8 +24,8 @@ class InviteLinksService(val jdbi: Jdbi) {
             jdbi.onDemand(InviteLinksDAO::class.java).createInviteLink(code, cId)
         }
 
-    fun deleteInviteLink(cId: Int) =
+    fun deleteInviteLink(cId: Int, code: String) =
         sqlExceptionHandler {
-            jdbi.onDemand(InviteLinksDAO::class.java).deleteInviteLink(cId)
+            jdbi.onDemand(InviteLinksDAO::class.java).deleteInviteLink(cId, code)
         }
 }

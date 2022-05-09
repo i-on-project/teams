@@ -9,7 +9,7 @@ SELECT id, name, description, maxteams, maxmembersperteam, repouri, schoolyear, 
 FROM classrooms
 WHERE deleted = B'0';
 
-CREATE VIEW INVITE_LINKS_VIEW (link, cId) AS
+CREATE VIEW INVITE_LINKS_VIEW (code, cId) AS
 SELECT code, cId
 FROM invite_links
 WHERE deleted = B'0';

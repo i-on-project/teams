@@ -327,7 +327,7 @@ Status:  200 OK
       "name": "create-invite-link",
       "title": "Create Invite-Link",
       "method": "POST",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/invite-link",
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/invite-links",
     }
   ],
   "links": [
@@ -350,6 +350,10 @@ Status:  200 OK
     {
       "rel": ["organization"],
       "href": "/api/orgs/123123"
+    },
+    {
+      "rel": ["invite-links"],
+      "href": "/api/orgs/123123/classrooms/1/invite-links"
     },
     {
       "rel": ["assignment"],

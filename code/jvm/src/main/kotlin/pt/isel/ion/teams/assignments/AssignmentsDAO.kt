@@ -22,4 +22,6 @@ interface AssignmentsDAO {
     @GetGeneratedKeys
     fun updateAssignment(@BindBean assignment: AssignmentDbUpdate): Int
 
+    @SqlUpdate("UPDATE assignments SET deleted=B'0' WHERE id=:assId")
+    fun deleteAssignment(@Bind("assId") assId: Int)
 }

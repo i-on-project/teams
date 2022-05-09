@@ -26,6 +26,6 @@ interface NotesDAO {
     @GetGeneratedKeys
     fun updateNote(@BindBean organization: NotesDbUpdate): NotesDbRead
 
-    @SqlUpdate("UPDATE notes SET deleted = B'1' WHERE id =: id")
+    @SqlUpdate("UPDATE notes SET deleted = B'1' WHERE id = :id")
     fun deleteNote(@Bind("id") noteId: Int)
 }

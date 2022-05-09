@@ -49,12 +49,12 @@ Represents an invitation to a classroom. Only available for teacher.
 
 ### Success Responses
 
-#### Get Link
+#### Get Link - Student
 
-This returns a single response.
+This returns a single response. Available for Student.
 
 ```http
-GET api/orgs/{orgId}/classrooms/{classId}/invite-link/{code}
+GET api/orgs/{orgId}/classrooms/{classId}/invite-links/{code}
 ```
 
 ```text
@@ -120,6 +120,79 @@ Status:  200 OK
     {
       "rel": ["logout"],
       "href": "/api/logout"
+    }
+  ]
+}
+```
+
+#### List Links - Teacher
+
+This returns a single response. Available for teacher.
+
+```http
+GET api/orgs/{orgId}/classrooms/{classId}/invite-links
+```
+
+```text
+Status:  200 OK
+```
+
+```json
+{
+  "class": [ "invite-link", "collection" ],
+  "properties": {
+    "pageIndex": 0,
+    "pageSize": 1
+  },
+  "entities": [
+    {
+      "class": [ "invite-link" ],
+      "rel": [ "item" ],
+      "properties": {
+        "id": 6,
+        "date": "2022-05-08",
+        "name": "v0.0.0"
+      },
+      "links": [
+        {
+          "rel": ["self"],
+          "href": "/api/orgs/852/team/123123/repos/6/tags/1"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "delete-invite-link",
+      "title": "delete Invite-Link",
+      "method": "DELETE",
+      "href": "api/orgs/{orgId}/classrooms/{classId}/invite-links/{code}"
+    }
+  ],
+  "links": [
+    {
+        "rel": ["self"],
+        "href": "/api/orgs/852/classrooms/1/invite-links"
+    },
+    {
+        "rel": ["next"],
+        "href": "/api/orgs/852/classrooms/1/invite-links?page=0&limit=10"
+    },
+    {
+        "rel": ["prev"],
+        "href": "/api/orgs/852/classrooms/1/invite-links?page=0&limit=10"
+    },
+    {
+        "rel": ["home"],
+        "href": "/api"
+    },
+    {
+        "rel": ["classroom"],
+        "href": "/api/orgs/852/classrooms/1"
+    },
+    {
+        "rel": ["logout"],
+        "href": "/api/logout"
     }
   ]
 }

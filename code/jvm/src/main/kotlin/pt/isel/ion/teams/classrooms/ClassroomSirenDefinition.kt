@@ -123,7 +123,7 @@ fun ClassroomOutputModel.toTeacherSirenObject(
             name = "create-invite-link",
             title = "Create Invite-Link",
             method = HttpMethod.POST,
-            href = Uris.Classrooms.Classroom.make(orgId, id), //TODO ALTERAR O LINK PARA O CERTO
+            href = Uris.InviteLinks.make(orgId, id),
         ),
     ),
     links = listOf(
@@ -134,6 +134,7 @@ fun ClassroomOutputModel.toTeacherSirenObject(
         SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
         SirenLink(SirenRelations.ASSIGNMENTS, Uris.Assignments.make(orgId, id)),
         SirenLink(SirenRelations.REQUESTS, Uris.Requests.make(orgId, id)),
+        SirenLink(SirenRelations.INVITE_LINKS, Uris.InviteLinks.make(orgId, id)),
         SirenLink(SirenRelations.STUDENTS, Uris.Students.FromClassroom.make(orgId, id)),
         logoutLink()
     )

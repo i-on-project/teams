@@ -24,8 +24,8 @@ VALUES (86951, 1),
        (85462, 2);
 
 INSERT INTO invite_links (code, cid)
-VALUES ('asdasdadas342', 1),
-       ('dasdfaf231', 2);
+VALUES ('8b171ab5-2f09-4272-a607-f8fd68eeca31', 1),
+       ('426822c5-76e1-4cbb-bd92-b2a3dc4a261b', 2);
 
 INSERT INTO student (number, name)
 VALUES (80000, 'Julinho Silva'),

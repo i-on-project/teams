@@ -3,6 +3,7 @@ package pt.isel.ion.teams.inviteLinks
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.daw.project.common.siren.CollectionModel
 import pt.isel.daw.project.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
 
@@ -10,17 +11,36 @@ import pt.isel.ion.teams.common.Uris
 @RequestMapping(Uris.InviteLinks.MAIN_PATH)
 class InviteLinksController(val service: InviteLinksService) {
 
+    @GetMapping
+    fun getAllInviteLinks(
+        @RequestParam(defaultValue = "0") pageIndex: Int,
+        @RequestParam(defaultValue = "10") pageSize: Int,
+        @PathVariable orgId: Int,
+        @PathVariable classId: Int,
+    ): ResponseEntity<Any> =
+        ResponseEntity
+            .ok()
+            .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+            .body(
+                CollectionModel(pageIndex, pageSize).toInviteLinksSirenObject(
+                    service.getAllInviteLinks(pageSize, pageIndex, classId).map { it.toOutput() },
+                    orgId,
+                    classId
+                )
+            )
+
     @GetMapping(Uris.InviteLinks.InviteLink.PATH)
     fun getInviteLink(
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
+        @PathVariable code: String,
     ): ResponseEntity<Any> {
-        val invite_link = service.getInviteLink(classId).toOutput()
+        val inviteLink = service.getInviteLink(classId, code).toOutput()
 
         return ResponseEntity
             .ok()
             .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-            .body(invite_link.toSirenObject(orgId, classId))
+            .body(inviteLink.toSirenObject(orgId, classId))
     }
 
     @PostMapping
@@ -36,9 +56,13 @@ class InviteLinksController(val service: InviteLinksService) {
             .body(invite)
     }
 
-    @DeleteMapping
-    fun deleteInviteLink(@PathVariable classId: Int) {
-        service.deleteInviteLink(classId)
+    @DeleteMapping(Uris.InviteLinks.InviteLink.PATH)
+    fun deleteInviteLink(@PathVariable classId: Int,@PathVariable code: String): ResponseEntity<Any> {
+        service.deleteInviteLink(classId, code)
+
+        return ResponseEntity
+            .ok()
+            .body(null)
     }
 
 }

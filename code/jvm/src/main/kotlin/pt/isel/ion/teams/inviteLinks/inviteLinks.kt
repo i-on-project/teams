@@ -5,17 +5,17 @@ package pt.isel.ion.teams.inviteLinks
  */
 data class InviteLinksDbRead(
     val code: String,
-    val classId: Int
+    val cId: Int
 )
 
 data class InviteLinksDbWrite(
     val code: String,
-    val classId: Int
+    val cId: Int
 )
 
 data class InviteLinksDbUpdate(
     val code: String,
-    val classId: Int
+    val cId: Int
 )
 
 /**
@@ -24,22 +24,22 @@ data class InviteLinksDbUpdate(
 
 data class InviteLinksOutputModel(
     val code: String,
-    val classId: Int
+    val cId: Int
 )
 
 data class InviteLinksCompactOutputModel(
     val code: String,
-    val classId: Int
+    val cId: Int
 )
 
 data class InviteLinksInputModel(
     val code: String,
-    val classId: Int
+    val cId: Int
 )
 
 data class InviteLinksUpdateModel(
     val code: String,
-    val classId: Int
+    val cId: Int
 )
 
 /**
@@ -47,8 +47,8 @@ data class InviteLinksUpdateModel(
  */
 
 fun InviteLinksInputModel.toDb() =
-    InviteLinksDbWrite(this.code, this.classId)
+    InviteLinksDbWrite(this.code, this.cId)
 fun InviteLinksUpdateModel.toDb() =
-    InviteLinksDbUpdate(this.code, this.classId)
-fun InviteLinksDbRead.toOutput() = InviteLinksOutputModel(this.code, this.classId)
-fun InviteLinksDbRead.toCompactOutput() = InviteLinksCompactOutputModel(this.code, this.classId)
+    InviteLinksDbUpdate(this.code, this.cId)
+fun InviteLinksDbRead.toOutput() = InviteLinksOutputModel(this.code, this.cId)
+fun InviteLinksDbRead.toCompactOutput() = InviteLinksCompactOutputModel(this.code, this.cId)

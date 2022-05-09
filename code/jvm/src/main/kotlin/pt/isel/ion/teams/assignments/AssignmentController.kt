@@ -67,4 +67,16 @@ class AssignmentController(val assignmentsService: AssignmentsService, val deliv
         @RequestBody assignmentUpdateModel: AssignmentUpdateModel
     ): Int =
         assignmentsService.updateAssignment(assignmentUpdateModel.toDb(assignmentId))
+
+    @DeleteMapping(Uris.Assignments.Assignment.PATH)
+    fun deleteAssignment(
+        @PathVariable assignmentId: Int
+    ): ResponseEntity<Any> {
+        assignmentsService.deleteAssignment(assignmentId)
+
+        return ResponseEntity
+            .ok()
+            .body(null)
+    }
+
 }

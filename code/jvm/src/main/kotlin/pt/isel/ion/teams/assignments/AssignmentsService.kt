@@ -14,18 +14,23 @@ class AssignmentsService(val jdbi: Jdbi) {
             jdbi.onDemand(AssignmentsDAO::class.java).getAllAssignments(classId)
         }
 
-    fun getAssignment(@Bind("id") id: Int) =
+    fun getAssignment(id: Int) =
         sqlExceptionHandler {
             jdbi.onDemand(AssignmentsDAO::class.java).getAssignment(id)
         }
 
-    fun createAssignment(@BindBean assignment: AssignmentDbWrite) =
+    fun createAssignment(assignment: AssignmentDbWrite) =
         sqlExceptionHandler {
             jdbi.onDemand(AssignmentsDAO::class.java).createAssignment(assignment)
         }
 
-    fun updateAssignment(@BindBean assignment: AssignmentDbUpdate) =
+    fun updateAssignment(assignment: AssignmentDbUpdate) =
         sqlExceptionHandler {
             jdbi.onDemand(AssignmentsDAO::class.java).updateAssignment(assignment)
+        }
+
+    fun deleteAssignment(id: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(AssignmentsDAO::class.java).deleteAssignment(id)
         }
 }

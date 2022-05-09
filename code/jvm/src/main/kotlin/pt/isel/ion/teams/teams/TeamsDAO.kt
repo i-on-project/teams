@@ -9,7 +9,7 @@ import pt.isel.ion.teams.common.Uris
 
 interface TeamsDAO {
 
-    @SqlQuery("SELECT * FROM teams_view WHERE cid=:classroomId LIMIT :limit OFFSET :offset")
+    @SqlQuery("SELECT * FROM teams_view WHERE cid=:classroomId AND state!='pending' LIMIT :limit OFFSET :offset")
     fun getAllTeamsOfClassroom(
         @Bind("limit") limit: Int,
         @Bind("offset") offset: Int,

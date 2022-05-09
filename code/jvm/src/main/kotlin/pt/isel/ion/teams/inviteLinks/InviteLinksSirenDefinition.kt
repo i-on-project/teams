@@ -5,6 +5,44 @@ import org.springframework.http.MediaType
 import pt.isel.daw.project.common.siren.*
 import pt.isel.ion.teams.common.Uris
 
+
+fun CollectionModel.toInviteLinksSirenObject(
+    listOfLinks: List<InviteLinksOutputModel>,
+    orgId: Int,
+    classId: Int
+): SirenEntity<CollectionModel> {
+    val list = if (listOfLinks.size > this.pageSize) listOfLinks.subList(0, this.pageSize) else listOfLinks
+    val pageSize = this.pageSize
+    this.pageSize = list.size
+
+    return SirenEntity(
+        properties = this,
+        clazz = listOf(SirenClasses.COLLECTION, SirenClasses.INVITE_LINK),
+        entities = list.map {
+            EmbeddedEntity(
+                properties = it,
+                clazz = listOf(SirenClasses.INVITE_LINK),
+                rel = listOf(SirenRelations.ITEM),
+                links = listOf(
+                    selfLink(Uris.InviteLinks.InviteLink.make(orgId, it.cId, it.code)),
+                )
+            )
+        },
+        links = listOfNotNull(
+            selfLink(Uris.Classrooms.make(orgId)),
+            if (list.size > pageSize)
+                nextLink(Uris.InviteLinks.makePage(pageIndex + 1, pageSize, orgId, classId))
+            else null,
+            if (pageIndex > 0)
+                prevLink(Uris.InviteLinks.makePage(pageIndex - 1, pageSize, orgId, classId))
+            else null,
+            SirenLink(SirenRelations.CLASSROOM, Uris.Classrooms.Classroom.make(orgId, classId)),
+            homeLink(),
+            logoutLink(),
+        )
+    )
+}
+
 fun InviteLinksOutputModel.toSirenObject(
     classId: Int,
     orgId: Int
@@ -24,7 +62,7 @@ fun InviteLinksOutputModel.toSirenObject(
         )
     ),
     links = listOf(
-        selfLink(Uris.InviteLinks.InviteLink.make(orgId, classId,code)),
+        selfLink(Uris.InviteLinks.InviteLink.make(orgId, classId, code)),
         homeLink(),
         logoutLink(),
         //TODO: signup()

@@ -24,6 +24,7 @@ object SirenRelations {
     const val TAGS = "tags"
     const val DELIVERIES = "deliveries"
     const val REPOS = "repos"
+    const val INVITE_LINKS = "invite-links"
 
     //Individual resources
     const val ORGANIZATION = "organization"
