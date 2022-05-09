@@ -20,7 +20,7 @@ interface DeliveriesDAO {
         @Bind("id") deliveryId: Int,
     ): DeliveryDbRead
 
-    @SqlUpdate("INSERT INTO deliveries (name,assid, date) VALUES (name,:assId, :date)")
+    @SqlUpdate("INSERT INTO deliveries (name,assid, date) VALUES (:name,:assId, :date)")
     @GetGeneratedKeys
     fun createDelivery(@BindBean delivery: DeliveryDbWrite): DeliveryDbRead
 
@@ -28,6 +28,6 @@ interface DeliveriesDAO {
     @GetGeneratedKeys
     fun updateDelivery(@BindBean delivery: DeliveryDbUpdate): DeliveryDbRead
 
-    @SqlUpdate("UPDATE deliveries SET deleted = B'1' WHERE id =: id")
+    @SqlUpdate("UPDATE deliveries SET deleted = B'1' WHERE id = :id")
     fun deleteDelivery(@Bind("id") deliveryId: Int)
 }

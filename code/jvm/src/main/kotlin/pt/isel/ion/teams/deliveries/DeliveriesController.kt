@@ -22,8 +22,7 @@ class DeliveriesController(
         @PathVariable assId: Int,
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int
-    ) {
-        ResponseEntity
+    ) = ResponseEntity
             .ok()
             .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
             .body(
@@ -35,7 +34,7 @@ class DeliveriesController(
                     assId
                 )
             )
-    }
+
 
     @GetMapping(Uris.Deliveries.Delivery.PATH)
     fun getDelivery(
