@@ -3,9 +3,10 @@ package pt.isel.ion.teams.deliveries
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import pt.isel.daw.project.common.siren.CollectionModel
-import pt.isel.daw.project.common.siren.SIREN_MEDIA_TYPE
+import pt.isel.ion.teams.common.siren.CollectionModel
+import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.common.errors.InvalidDateFormatException
 import pt.isel.ion.teams.tags.TagsService
 
 @RestController
@@ -61,12 +62,16 @@ class DeliveriesController(
         @PathVariable classId: Int,
         @PathVariable assId: Int,
     ): ResponseEntity<Any> {
-        val createdDelivery = deliveriesService.createDelivery(delivery.toDb(classId))
+        try {
+            val createdDelivery = deliveriesService.createDelivery(delivery.toDb(classId))
 
-        return ResponseEntity
-            .created(Uris.Deliveries.Delivery.make(orgId, classId, assId, createdDelivery.id))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(createdDelivery)
+            return ResponseEntity
+                .created(Uris.Deliveries.Delivery.make(orgId, classId, assId, createdDelivery.id))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(createdDelivery)
+        } catch (e: IllegalArgumentException) {
+            throw InvalidDateFormatException()
+        }
     }
 
 
