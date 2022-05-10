@@ -2,10 +2,9 @@ package pt.isel.ion.teams.assignments
 
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
-import pt.isel.daw.project.common.siren.*
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.common.siren.*
 import pt.isel.ion.teams.deliveries.DeliveryCompactOutputModel
-import pt.isel.ion.teams.deliveries.DeliveryOutputModel
 
 
 fun CollectionModel.toAssignmentsSirenObject(

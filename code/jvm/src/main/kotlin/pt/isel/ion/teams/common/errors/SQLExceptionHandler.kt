@@ -1,4 +1,4 @@
-package pt.isel.daw.project.common.errors
+package pt.isel.ion.teams.common.errors
 
 import org.jdbi.v3.core.JdbiException
 import java.sql.SQLException

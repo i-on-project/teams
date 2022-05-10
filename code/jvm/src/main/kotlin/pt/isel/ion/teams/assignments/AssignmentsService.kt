@@ -1,10 +1,8 @@
 package pt.isel.ion.teams.assignments
 
 import org.jdbi.v3.core.Jdbi
-import org.jdbi.v3.sqlobject.customizer.Bind
-import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.springframework.stereotype.Component
-import pt.isel.daw.project.common.errors.sqlExceptionHandler
+import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 
 @Component
 class AssignmentsService(val jdbi: Jdbi) {

@@ -3,9 +3,8 @@ package pt.isel.ion.teams.assignments
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import pt.isel.daw.project.common.siren.CollectionModel
-import pt.isel.daw.project.common.siren.SIREN_MEDIA_TYPE
-import pt.isel.daw.project.common.siren.SirenEntity
+import pt.isel.ion.teams.common.siren.CollectionModel
+import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.deliveries.DeliveriesService
 import pt.isel.ion.teams.deliveries.toCompactOutput

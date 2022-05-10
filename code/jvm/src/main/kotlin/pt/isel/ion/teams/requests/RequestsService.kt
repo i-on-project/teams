@@ -2,8 +2,7 @@ package pt.isel.ion.teams.requests
 
 import org.jdbi.v3.core.Jdbi
 import org.springframework.stereotype.Component
-import pt.isel.daw.project.common.errors.sqlExceptionHandler
-import pt.isel.ion.teams.teams.TeamsDAO
+import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 
 @Component
 class RequestsService(val jdbi: Jdbi) {

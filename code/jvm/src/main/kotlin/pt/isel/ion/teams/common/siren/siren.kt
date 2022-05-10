@@ -1,4 +1,4 @@
-package pt.isel.daw.project.common.siren
+package pt.isel.ion.teams.common.siren
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -12,7 +12,7 @@ import java.net.URI
 const val APPLICATION_TYPE = "application"
 const val SIREN_SUBTYPE = "vnd.siren+json"
 
-const val SIREN_MEDIA_TYPE = "${APPLICATION_TYPE}/${SIREN_SUBTYPE}"
+const val SIREN_MEDIA_TYPE = "$APPLICATION_TYPE/$SIREN_SUBTYPE"
 
 /**
  * SirenLink model definition and common links definition

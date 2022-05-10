@@ -2,11 +2,9 @@ package pt.isel.ion.teams.deliveries
 
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
-import pt.isel.daw.project.common.siren.*
 import pt.isel.ion.teams.common.Uris
-import pt.isel.ion.teams.tags.TagDbRead
+import pt.isel.ion.teams.common.siren.*
 import pt.isel.ion.teams.tags.TagWithTeamRepoDbRead
-import pt.isel.ion.teams.tags.toOutput
 
 
 fun CollectionModel.toDeliveriesSirenObject(

@@ -1,4 +1,4 @@
-package pt.isel.daw.project.common.errors
+package pt.isel.ion.teams.common.errors
 
 import org.springframework.http.MediaType
 import java.net.URI

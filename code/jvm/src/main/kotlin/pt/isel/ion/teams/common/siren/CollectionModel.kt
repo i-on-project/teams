@@ -1,4 +1,4 @@
-package pt.isel.daw.project.common.siren
+package pt.isel.ion.teams.common.siren
 
 data class CollectionModel(
     val pageIndex: Int,

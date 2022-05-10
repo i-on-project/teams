@@ -1,7 +1,7 @@
 package pt.isel.ion.teams.notes
 
-import pt.isel.daw.project.common.siren.*
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.common.siren.*
 
 fun CollectionModel.toNotesSirenObject(
     notesList: List<NotesCompactOutputModel>,

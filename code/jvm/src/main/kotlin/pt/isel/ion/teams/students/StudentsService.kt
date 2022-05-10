@@ -1,13 +1,8 @@
 package pt.isel.ion.teams.students
 
 import org.jdbi.v3.core.Jdbi
-import org.jdbi.v3.sqlobject.customizer.Bind
-import org.jdbi.v3.sqlobject.customizer.BindBean
-import org.jdbi.v3.sqlobject.kotlin.onDemand
-import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
-import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.springframework.stereotype.Component
-import pt.isel.daw.project.common.errors.sqlExceptionHandler
+import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 
 @Component
 class StudentsService(val jdbi: Jdbi) {

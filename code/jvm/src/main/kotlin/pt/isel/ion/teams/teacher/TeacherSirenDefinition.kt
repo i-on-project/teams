@@ -2,9 +2,9 @@ package pt.isel.ion.teams.teacher
 
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
-import pt.isel.daw.project.common.siren.*
 import pt.isel.ion.teams.classrooms.ClassroomCompactOutputModel
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.common.siren.*
 
 
 fun CollectionModel.toTeachersSirenObject(
