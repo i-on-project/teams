@@ -1,4 +1,4 @@
-package pt.isel.daw.project.common.errors
+package pt.isel.ion.teams.common.errors
 
 import java.net.URI
 
@@ -9,11 +9,20 @@ open class BaseException(
     open val detail: String?,
 ): Exception()
 
-class DbConnectionException : BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
-    "Internal Server Error",
-    500,
-    "The connection with the database failed for an unknown reason"
+/******************** 400 ********************/
+
+class InvalidDateFormatException: BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md"),
+    "Bad Request",
+    400,
+    "The date you inserted is in an invalid format, must be <yyyy-mm-dd hh:mm:ss>"
+)
+
+class EmptyDbReturnException: BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    "Resource Not Found",
+    404,
+    "The database resource you tried to access was not found or does not exist"
 )
 
 class ResourceAlreadyExistsException : BaseException(
@@ -21,6 +30,15 @@ class ResourceAlreadyExistsException : BaseException(
     "Conflict",
     409,
     "The resource you are trying to create already exists and thus cannot be created"
+)
+
+/******************** 500 ********************/
+
+class DbConnectionException : BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
+    "Internal Server Error",
+    500,
+    "The connection with the database failed for an unknown reason"
 )
 
 class DbTableNonExistentException : BaseException(
@@ -37,25 +55,11 @@ class UnknownDbException : BaseException(
     "AN unknown database error has occured and the request cannot be completed"
 )
 
-class EmptyDbReturnException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
-    "Resource Not Found",
-    404,
-    "The database resource you tried to access was not found or does not exist"
-)
-
 class SQLSyntaxErrorException: BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
     "Internal Server Error",
     500,
     "The SQL syntax of the query you tried to perform is incorrect"
-)
-
-class StateTransitionNotAllowed: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md"),
-    "Bad Request",
-    400,
-    "The state transition you tried to perform is not allowed"
 )
 
 class DbForeignKeyViolation: BaseException(
