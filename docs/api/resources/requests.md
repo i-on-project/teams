@@ -157,7 +157,7 @@ Status:  200 OK
           "rel": [
             "self"
           ],
-          "href": "/api/orgs/123123/classrooms/1/teams/9"
+          "href": "/api/orgs/123123/classrooms/1/requests/9"
         }
       ]
     }
@@ -167,30 +167,28 @@ Status:  200 OK
       "name": "accept-request",
       "title": "Accept Request",
       "method": "PUT",
-      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}",
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}",
       "field": [
         {"name": "name", "type": "string"},
         {"name": "url", "type": "string"},
         {"name": "assId", "type": "number"}
       ]
+    },
+    {
+      "name": "decline-request",
+      "title": "Decline Request",
+      "method": "Delete",
+      "href": "/api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}"
     }
   ],
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "href": "/api/orgs/123123/classrooms/1/requests/234342"
     },
     {
       "rel": ["home"],
       "href": "/api"
-    },
-    {
-      "rel": ["github"],
-      "href": "https://github.com/i-on-project"
-    },
-    {
-      "rel": ["avatar"],
-      "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
     },
     {
       "rel": ["logout"],
