@@ -27,6 +27,19 @@ fun CollectionModel.toOrganizationsSirenObject(orgsList: List<OrganizationOutput
                 )
             )
         },
+        actions = listOf(
+            SirenAction(
+                name = "create-organization",
+                title = "Create Organization",
+                method = HttpMethod.POST,
+                href = Uris.Organizations.make(),
+                type = MediaType.APPLICATION_JSON,
+                fields = listOf(
+                    SirenAction.Field(name = "name", type = "string"),
+                    SirenAction.Field(name = "description", type = "string"),
+                )
+            )
+        ),
         links = listOfNotNull(
             selfLink(URI(Uris.Organizations.MAIN_PATH)),
             if (orgsList.size > pageSize) nextLink(Uris.Organizations.makePage(pageIndex + 1, pageSize))
@@ -96,6 +109,12 @@ fun OrganizationOutputModel.toTeacherSirenObject(classroomList: List<ClassroomCo
                 SirenAction.Field(name = "state", type = "string"),
                 SirenAction.Field(name = "description", type = "string"),
             )
+        ),
+        SirenAction(
+            name = "delete-organization",
+            title = "Delete Organization",
+            method = HttpMethod.DELETE,
+            href = Uris.Organizations.Organization.make(id),
         ),
     ),
     links = listOf(

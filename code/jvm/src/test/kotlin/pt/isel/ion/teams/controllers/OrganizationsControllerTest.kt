@@ -53,7 +53,8 @@ class OrganizationsControllerTest {
                 jsonPath("$.entities[0].links") { isArray() }
 
                 //Actions
-                jsonPath("$.actions") { doesNotExist() }
+                jsonPath("$.actions") { isArray() }
+                jsonPath("$.actions[0].name") { value("create-organization") }
 
                 //Links
                 jsonPath("$.links") { isArray() }
@@ -98,6 +99,7 @@ class OrganizationsControllerTest {
                 jsonPath("$.actions") { isArray() }
                 jsonPath("$.actions[0].name") { value("create-classroom") }
                 jsonPath("$.actions[1].name") { value("update-organization") }
+                jsonPath("$.actions[2].name") { value("delete-organization") }
 
                 //Links
                 jsonPath("$.links") { isArray() }

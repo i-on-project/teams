@@ -73,7 +73,7 @@ An organization represents a [GitHub Organization](https://docs.github.com/en/or
 
 #### List Organizations
 
-List all the organizations that the user has access to.
+List all the organizations that the user has access to, only accessible to teachers.
 
 ```http
 GET /api/orgs
@@ -112,6 +112,19 @@ Status:  200 OK
           "rel": ["avatar"],
           "href": "https://avatars.githubusercontent.com/u/59561360?s=200&v=4"
         },
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "create-organization",
+      "title": "Create Organization",
+      "method": "POST",
+      "href": "/api/orgs/",
+      "type": "application/json",
+      "field": [
+        {"name": "name", "type": "string"}
+        {"name": "description", "type": "string"},
       ]
     }
   ],
@@ -287,6 +300,12 @@ Status:  200 OK
         {"state": "state", "type":  "string"},
         {"name": "description", "type": "string"},
       ]
+    },
+    {
+      "name": "delete-organization",
+      "title": "Delete Organization",
+      "method": "DELETE",
+      "href": "/api/orgs/{orgId}",
     }
   ],
   "links": [
