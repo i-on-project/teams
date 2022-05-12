@@ -6,12 +6,12 @@ Represents a request to create a team, made by one student. Only available for t
 
 ### Domain specific
 
-- `link` - Invite link for the creation.
+- `cid` - Indicates the class witch the team belongs.
     - mandatory
     - non editable
     - type: number
-    - example: ``api/orgs/3/classrooms/4/invite-link``
-- ``teamId`` - Indicates the team that is pending.
+    - example: ``2``
+- ``tid`` - Indicates the team that is pending.
     - mandatory
     - editable
     - type: Date
@@ -79,13 +79,14 @@ Status:  200 OK
       "class": [ "request" ],
       "rel": [ "item" ],
       "properties": {
-        "link": "api/orgs/3/classrooms/4/invite_link",
-        "teamId": "5"
+        "tid": 5,
+        "teamName": "grupo n",
+        "cid": 2
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "api/orgs/3/classrooms/4/requests/{teamId}"
+          "href": "api/orgs/3/classrooms/4/requests/5"
         }
       ]
     }
@@ -96,12 +97,16 @@ Status:  200 OK
       "href": "api/orgs/3/classrooms/4/requests?page=0&limit=10"
     },
     {
-    "rel": ["next"],
-    "href": "api/orgs/3/classrooms/4/requests?page=1&limit=10"
+      "rel": ["next"],
+      "href": "api/orgs/3/classrooms/4/requests?page=1&limit=10"
     },
     {
-    "rel": ["prev"],
-    "href": "api/orgs/3/classrooms/4/requests?page=1&limit=10"
+      "rel": ["prev"],
+      "href": "api/orgs/3/classrooms/4/requests?page=1&limit=10"
+    },
+    {
+      "rel": ["classroom"],
+      "href": "api/orgs/3/classrooms/4"
     },
     {
       "rel": ["home"],
@@ -163,23 +168,18 @@ Status:  200 OK
     }
   ],
   "actions": [
-    {
-      "name": "accept-request",
-      "title": "Accept Request",
-      "method": "PUT",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}",
-      "field": [
-        {"name": "name", "type": "string"},
-        {"name": "url", "type": "string"},
-        {"name": "assId", "type": "number"}
-      ]
-    },
-    {
-      "name": "decline-request",
-      "title": "Decline Request",
-      "method": "Delete",
-      "href": "/api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}"
-    }
+        {
+          "name": "accept-request",
+          "title": "Accept Request",
+          "method": "PUT",
+          "href": "/api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}"
+        },
+        {
+          "name": "decline-request",
+          "title": "Decline Request",
+          "method": "Delete",
+          "href": "/api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}"
+        }
   ],
   "links": [
     {

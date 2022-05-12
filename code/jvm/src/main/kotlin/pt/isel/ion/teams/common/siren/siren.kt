@@ -75,7 +75,7 @@ data class EmbeddedEntity<T>(
     @JsonProperty("class") val clazz: List<String>? = null,
     val properties: T? =null,
     val entities: List<SubEntity>? = null,
-    val actions: SirenAction? = null,
+    val actions: List<SirenAction>? = null,
     val links: List<SirenLink>? = null,
     val title: String? = null
 ) : SubEntity()

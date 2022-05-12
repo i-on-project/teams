@@ -4,6 +4,7 @@ DROP VIEW IF EXISTS invite_links_view;
 DROP VIEW IF EXISTS teachers_view;
 DROP VIEW IF EXISTS teacher_view;
 DROP VIEW IF EXISTS teams_view;
+DROP VIEW IF EXISTS requests_view;
 DROP VIEW IF EXISTS students_view;
 DROP VIEW IF EXISTS student_view;
 DROP VIEW IF EXISTS notes_view;

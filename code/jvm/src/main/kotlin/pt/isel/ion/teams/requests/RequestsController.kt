@@ -1,28 +1,35 @@
 package pt.isel.ion.teams.requests
 
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.common.siren.CollectionModel
+import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 
 @RestController
 @RequestMapping(Uris.Requests.MAIN_PATH)
 class RequestsController(val requestsService: RequestsService) {
 
     @GetMapping
-    fun getAllRequestInClassroom(@PathVariable classId: Int): List<RequestsOutputModel> =
-        requestsService.getAllRequestsInClassroom(classId).map { it.toOutput() } //TODO: siren
-
-    @GetMapping(Uris.Requests.Request.PATH)
-    fun getRequest(@PathVariable teamId: Int,@PathVariable classId: Int): RequestsOutputModel =
-        requestsService.getRequest(teamId,classId).toOutput() //TODO: siren
+    fun getAllRequestInClassroom(
+        @RequestParam(defaultValue = "0") pageIndex: Int,
+        @RequestParam(defaultValue = "10") pageSize: Int,
+        @PathVariable classId: Int,
+        @PathVariable orgId: Int
+    ) = ResponseEntity
+        .ok()
+        .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+        .body(
+            CollectionModel(pageIndex, pageSize).toRequestSirenObject(
+                requestsService.getAllRequestsInClassroom(pageIndex, pageSize, classId).map { it.toOutput() },
+                classId,
+                orgId
+            )
+        )
 
     @PutMapping(Uris.Requests.Request.PATH)
-    fun acceptRequest(@PathVariable teamId: Int,@PathVariable classId: Int): ResponseEntity<Any> {
+    fun acceptRequest(@PathVariable teamId: Int, @PathVariable classId: Int): ResponseEntity<Any> {
         requestsService.acceptRequest(teamId, classId)
 
         return ResponseEntity
@@ -31,7 +38,7 @@ class RequestsController(val requestsService: RequestsService) {
     }
 
     @DeleteMapping(Uris.Requests.Request.PATH)
-    fun declineRequest(@PathVariable teamId: Int,@PathVariable classId: Int): ResponseEntity<Any> {
+    fun declineRequest(@PathVariable teamId: Int, @PathVariable classId: Int): ResponseEntity<Any> {
         requestsService.declineRequest(teamId, classId)
 
         return ResponseEntity

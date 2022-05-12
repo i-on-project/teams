@@ -4,8 +4,19 @@ FROM organizations
 WHERE deleted = B'0';
 
 CREATE VIEW CLASSROOMS_VIEW
-      ( id, name, description, maxTeams, maxMembersPerTeam, repoURI, schoolYear, orgId, state, githubURI, avatarURI)       AS
-SELECT id, name, description, maxteams, maxmembersperteam, repouri, schoolyear, orgid, state, githuburi, avataruri
+            (id, name, description, maxTeams, maxMembersPerTeam, repoURI, schoolYear, orgId, state, githubURI,
+             avatarURI) AS
+SELECT id,
+       name,
+       description,
+       maxteams,
+       maxmembersperteam,
+       repouri,
+       schoolyear,
+       orgid,
+       state,
+       githuburi,
+       avataruri
 FROM classrooms
 WHERE deleted = B'0';
 
@@ -24,6 +35,12 @@ CREATE VIEW TEAMS_VIEW (id, name, cId, state) AS
 SELECT id, name, cid, state
 FROM teams
 WHERE deleted = B'0';
+
+CREATE VIEW REQUESTS_VIEW (tid,teamName, cid)AS
+SELECT id,name, cId
+FROM teams
+WHERE state = 'pending'
+  AND deleted = B'0';
 
 CREATE VIEW STUDENTS_VIEW (number, name, tId, cId) AS
 SELECT st.number, st.name, sts.tId, sts.cId
@@ -46,8 +63,8 @@ SELECT id, url, name, tId, assId
 FROM repos
 WHERE deleted = B'0';
 
-CREATE VIEW DELIVERIES_VIEW (id, assId,name, date) AS
-SELECT id, assId,name, date
+CREATE VIEW DELIVERIES_VIEW (id, assId, name, date) AS
+SELECT id, assId, name, date
 FROM deliveries
 WHERE deleted = B'0';
 
