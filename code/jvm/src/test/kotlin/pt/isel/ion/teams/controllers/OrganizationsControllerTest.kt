@@ -1,27 +1,18 @@
 package pt.isel.ion.teams.controllers
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.web.client.TestRestTemplate
-import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.get
-import org.springframework.test.web.servlet.post
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
-import org.springframework.web.servlet.function.RequestPredicates.contentType
-import pt.isel.ion.teams.common.Uris
+import org.springframework.test.web.servlet.*
 import pt.isel.ion.teams.common.errors.ProblemJsonModel
 import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_SUBTYPE
-import java.awt.PageAttributes
-import javax.management.Query.value
+import pt.isel.ion.teams.organizations.OrganizationOutputModel
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -30,6 +21,8 @@ class OrganizationsControllerTest {
     // We need to use field injection because construction is done by JUnit and not Spring context
     @Autowired
     private lateinit var client: MockMvc
+
+    private var mapper = jacksonObjectMapper()
 
     @Test
     fun `getAllOrganizationsTest`() {
@@ -119,19 +112,57 @@ class OrganizationsControllerTest {
     }
 
     @Test
-    fun `postDeleteOrganization`() {
+    fun `postUpdateDeleteOrganization`() {
         assertNotNull(client)
 
         //First we post a new resource
-        client
-            .post("/api/orgs"){
+        var result = client
+            .post("/api/orgs") {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
                 content = "{\"name\" : \"testOrg1\",\"description\" : \"testDescription1\"}"
             }
             .andExpect {
                 status { isCreated() }
-                content().string("Hello from the greeting service")
+                content { contentType(MediaType.APPLICATION_JSON) }
+
+                //Assert POST response body
+                jsonPath("$.id") { isNumber() }
+                jsonPath("$.name") { value("testOrg1") }
+                jsonPath("$.description") { value("testDescription1") }
+                jsonPath("$.githubUri") { isString() }
+                jsonPath("$.avatarUri") { isString() }
+            }
+            .andReturn()
+
+        //Retrieving information from response to make update and delete
+        val string: String = result.response.contentAsString
+        val createdOrg: OrganizationOutputModel = mapper.readValue(string, OrganizationOutputModel::class.java)
+
+        //Second we update the resource created
+        client
+            .put("/api/orgs/${createdOrg.id}") {
+                accept = MediaType.APPLICATION_JSON
+                contentType = MediaType.APPLICATION_JSON
+                content = "{\"name\" : \"testUpdgtedOrg\",\"description\" : \"testUpdatedDescription\"}"
+            }
+            .andExpect {
+                status { isOk() }
+                content { contentType(MediaType.APPLICATION_JSON) }
+
+                //Assert POST response body
+                jsonPath("$.id") { isNumber() }
+                jsonPath("$.name") { value("testUpdgtedOrg") }
+                jsonPath("$.description") { value("testUpdatedDescription") }
+                jsonPath("$.githubUri") { isString() }
+                jsonPath("$.avatarUri") { isString() }
+            }
+
+        //Third we try to delete what we just posted
+        client
+            .delete("/api/orgs/${createdOrg.id}")
+            .andExpect {
+                status { isOk() }
             }
     }
 }
