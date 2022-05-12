@@ -162,17 +162,16 @@ Status:  200 OK
   },
   "entities": [
     {
-      "class": ["repo"],
+      "class": ["student"],
       "rel": ["item"],
       "properties": {
-        "id": 88,
-        "url": "https://github.com/i-on-project/teams",
-        "name": "li61d_g4_repo"
+        "number": "82264",
+        "name": "Xhang-Chi"
       },
       "links": [
         {
           "rel": ["self"],
-          "href": "/api/orgs/123123/classrooms/1/teams/234/repo/88"
+          "href": "api/orgs/123123/classrooms/1/students/82264"
         }
       ]
     }
@@ -189,6 +188,10 @@ Status:  200 OK
     {
       "rel": ["classroom"],
       "href": "/api/orgs/852/classrooms/123123"
+    },
+    {
+      "rel": ["repos"],
+      "href": "/api/orgs/123123/classrooms/1/teams/234/repos/88"
     },
     {
       "rel": [ "assignments" ],
@@ -224,23 +227,16 @@ Status:  200 OK
   },
   "entities": [
     {
-      "class": [
-        "repo"
-      ],
-      "rel": [
-        "item"
-      ],
+      "class": ["student"],
+      "rel": ["item"],
       "properties": {
-        "id": 1,
-        "url": "https://github.com/example",
-        "name": "assignment1"
+        "number": "82264",
+        "name": "Xhang-Chi"
       },
       "links": [
         {
-          "rel": [
-            "self"
-          ],
-          "href": "/api/orgs/123123/classrooms/1/teams/234342/repo/1"
+          "rel": ["self"],
+          "href": "api/orgs/123123/classrooms/1/students/82264"
         }
       ]
     }
@@ -291,6 +287,10 @@ Status:  200 OK
     {
       "rel": ["classroom"],
       "href": "/api/orgs/852/classrooms/123123"
+    },
+    {
+      "rel": ["repos"],
+      "href": "/api/orgs/123123/classrooms/1/teams/234/repos/88"
     },
     {
       "rel": ["notes"],

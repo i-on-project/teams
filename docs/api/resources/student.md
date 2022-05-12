@@ -87,7 +87,7 @@ Status:  200 OK
   },
   "entities": [
     {
-      "class": [ "students" ],
+      "class": [ "student" ],
       "rel": [ "item" ],
       "properties": {
         "number": "82264",
