@@ -57,6 +57,9 @@ class OrganizationsControllerTest {
 
                 //Links
                 jsonPath("$.links") { isArray() }
+                jsonPath("$.links[0].rel") { value("self") }
+                jsonPath("$.links[1].rel") { value("home") }
+                jsonPath("$.links[2].rel") { value("logout") }
             }
     }
 
@@ -93,9 +96,17 @@ class OrganizationsControllerTest {
 
                 //Actions
                 jsonPath("$.actions") { isArray() }
+                jsonPath("$.actions[0].name") { value("create-classroom") }
+                jsonPath("$.actions[1].name") { value("update-organization") }
 
                 //Links
                 jsonPath("$.links") { isArray() }
+                jsonPath("$.links[0].rel") { value("self") }
+                jsonPath("$.links[1].rel") { value("home") }
+                jsonPath("$.links[2].rel") { value("github") }
+                jsonPath("$.links[3].rel") { value("logout") }
+                jsonPath("$.links[4].rel") { value("classrooms") }
+                jsonPath("$.links[5].rel") { value("organizations") }
             }
     }
 
