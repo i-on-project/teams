@@ -18,7 +18,6 @@ import pt.isel.ion.teams.organizations.OrganizationOutputModel
 @AutoConfigureMockMvc
 class OrganizationsControllerTest {
 
-    // We need to use field injection because construction is done by JUnit and not Spring context
     @Autowired
     private lateinit var client: MockMvc
 
@@ -45,12 +44,14 @@ class OrganizationsControllerTest {
                 jsonPath("$.properties.pageSize") { isNumber() }
 
                 //Entities
+                jsonPath("$.entities") { isArray() }
                 jsonPath("$.entities[0].rel") { value("item") }
                 jsonPath("$.entities[0].class") { value("organization") }
                 jsonPath("$.entities[0].properties.id") { isNumber() }
                 jsonPath("$.entities[0].properties.name") { isString() }
                 jsonPath("$.entities[0].properties.description") { isString() }
                 jsonPath("$.entities[0].links") { isArray() }
+                jsonPath("$.entities[0].links[0].rel") { value("self") }
 
                 //Actions
                 jsonPath("$.actions") { isArray() }
@@ -87,6 +88,7 @@ class OrganizationsControllerTest {
                 jsonPath("$.properties.avatarUri") { isString() }
 
                 //Entities
+                jsonPath("$.entities") { isArray() }
                 jsonPath("$.entities[0].rel") { value("item") }
                 jsonPath("$.entities[0].class") { value("classroom") }
                 jsonPath("$.entities[0].properties.id") { isNumber() }
@@ -94,6 +96,7 @@ class OrganizationsControllerTest {
                 jsonPath("$.entities[0].properties.description") { isString() }
                 jsonPath("$.entities[0].properties.schoolYear") { isString() }
                 jsonPath("$.entities[0].links") { isArray() }
+                jsonPath("$.entities[0].links[0].rel") { value("self") }
 
                 //Actions
                 jsonPath("$.actions") { isArray() }
@@ -157,7 +160,7 @@ class OrganizationsControllerTest {
             .put("/api/orgs/${createdOrg.id}") {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
-                content = "{\"name\" : \"testUpdgtedOrg\",\"description\" : \"testUpdatedDescription\"}"
+                content = "{\"name\" : \"testUpdatedOrg${createdOrg.id}\",\"description\" : \"testUpdatedDescription\"}"
             }
             .andExpect {
                 status { isOk() }
@@ -165,7 +168,7 @@ class OrganizationsControllerTest {
 
                 //Assert POST response body
                 jsonPath("$.id") { isNumber() }
-                jsonPath("$.name") { value("testUpdgtedOrg") }
+                jsonPath("$.name") { value("testUpdatedOrg${createdOrg.id}") }
                 jsonPath("$.description") { value("testUpdatedDescription") }
                 jsonPath("$.githubUri") { isString() }
                 jsonPath("$.avatarUri") { isString() }
