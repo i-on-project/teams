@@ -3,9 +3,10 @@ package pt.isel.ion.teams.assignments
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.common.errors.InvalidDateFormatException
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
-import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.deliveries.DeliveriesService
 import pt.isel.ion.teams.deliveries.toCompactOutput
 
@@ -25,7 +26,7 @@ class AssignmentController(val assignmentsService: AssignmentsService, val deliv
             .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
             .body(
                 CollectionModel(pageIndex, pageSize).toAssignmentsSirenObject(
-                    assignmentsService.getAllAssignments(classId).map { it.toCompactOutput() },
+                    assignmentsService.getAllAssignments(pageIndex, pageSize, classId).map { it.toCompactOutput() },
                     orgId,
                     classId
                 )
@@ -57,15 +58,38 @@ class AssignmentController(val assignmentsService: AssignmentsService, val deliv
     }
 
     @PostMapping
-    fun createAssignment(@PathVariable classId: Int, @RequestBody assignmentInputModel: AssignmentInputModel) =
-        assignmentsService.createAssignment(assignmentInputModel.toDb(classId))
+    fun createAssignment(
+        @PathVariable orgId: Int,
+        @PathVariable classId: Int,
+        @RequestBody assignmentInputModel: AssignmentInputModel
+    ): ResponseEntity<Any> {
+        try {
+            val ass = assignmentsService.createAssignment(assignmentInputModel.toDb(classId))
+
+            return ResponseEntity
+                .created(Uris.Assignments.Assignment.make(orgId, classId, ass.id))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(
+                    ass
+                )
+        } catch (e: IllegalArgumentException) {
+            throw InvalidDateFormatException()
+        }
+    }
 
     @PutMapping(Uris.Assignments.Assignment.PATH)
     fun updateAssignment(
         @PathVariable assignmentId: Int,
         @RequestBody assignmentUpdateModel: AssignmentUpdateModel
-    ): Int =
-        assignmentsService.updateAssignment(assignmentUpdateModel.toDb(assignmentId))
+    ) =
+        try {
+            ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(assignmentsService.updateAssignment(assignmentUpdateModel.toDb(assignmentId)).toOutput())
+        } catch (e: IllegalArgumentException) {
+            throw InvalidDateFormatException()
+        }
 
     @DeleteMapping(Uris.Assignments.Assignment.PATH)
     fun deleteAssignment(

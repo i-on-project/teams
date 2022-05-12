@@ -12,6 +12,7 @@ ____
 |---|---|---|
 |Teacher and Student|Acts on behalf of an authenticated GitHub user.|Uses user identity to act.|
 |Teacher and Student| Doesn't require installation of the app on GitHub ClassRoom. | Requires installation of the app on GitHub ClassRoom.|
+|Teacher and Student| Only one authorization callback URL. | Multiple authorization callback URLs.|
 |Teacher| Can delete an OAuth access token to remove access. | Needs permissions to uninstall an remove access to repo. |
 |Teacher | Requires the user to have administrator privileges to execute certain actions. | No need for administrator privileges, because App is installed on Classroom|
 ____

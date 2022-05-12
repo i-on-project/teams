@@ -8,20 +8,24 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
 interface AssignmentsDAO {
 
-    @SqlQuery("SELECT id,releasedate,description FROM assignments WHERE cid=:classId")
-    fun getAllAssignments(@Bind("classId") classId: Int): List<AssignmentDbRead>
+    @SqlQuery("SELECT * FROM assignments_view WHERE cid=:classId")
+    fun getAllAssignments(
+        @Bind("limit") limit: Int,
+        @Bind("offset") offset: Int,
+        @Bind("classId") classId: Int
+    ): List<AssignmentDbRead>
 
-    @SqlQuery("SELECT cid,releasedate,description FROM assignments WHERE id=:id")
+    @SqlQuery("SELECT * FROM assignments_view WHERE id=:id")
     fun getAssignment(@Bind("id") id: Int): AssignmentDbRead
 
-    @SqlUpdate("INSERT INTO assignments (releasedate, cid, description) VALUES (:releasedate,:cid,:description) ON CONFLICT ")
+    @SqlUpdate("INSERT INTO assignments (releasedate, cid, description) VALUES (:releaseDate,:cid,:description)")
     @GetGeneratedKeys
     fun createAssignment(@BindBean assignment: AssignmentDbWrite): AssignmentDbRead
 
-    @SqlUpdate("UPDATE assignments SET releasedate = COALESCE(:releasedate,releasedate), description = COALESCE(:description,description), cid = COALESCE(:cid,cid) WHERE id=:id")
+    @SqlUpdate("UPDATE assignments SET releasedate = COALESCE(:releaseDate,releasedate), description = COALESCE(:description,description), cid = COALESCE(:cid,cid) WHERE id=:id")
     @GetGeneratedKeys
-    fun updateAssignment(@BindBean assignment: AssignmentDbUpdate): Int
+    fun updateAssignment(@BindBean assignment: AssignmentDbUpdate): AssignmentDbRead
 
-    @SqlUpdate("UPDATE assignments SET deleted=B'0' WHERE id=:assId")
+    @SqlUpdate("UPDATE assignments SET deleted=B'1' WHERE id=:assId")
     fun deleteAssignment(@Bind("assId") assId: Int)
 }

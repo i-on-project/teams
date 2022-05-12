@@ -7,14 +7,14 @@ import java.sql.Timestamp
  */
 data class AssignmentDbRead(
     val id: Int,
-    val releaseDate: Timestamp,
+    val releaseDate: String,
     val description: String,
-    val classId: Int,
+    val cid: Int,
 )
 
 data class AssignmentDbWrite(
     val releaseDate: Timestamp?,
-    val classId: Int,
+    val cid: Int,
     val description: String,
 )
 
@@ -22,7 +22,7 @@ data class AssignmentDbUpdate(
     val id: Int,
     val releaseDate: Timestamp?,
     val description: String?,
-    val classId: Int?
+    val cid: Int?
 )
 
 /**
@@ -31,25 +31,25 @@ data class AssignmentDbUpdate(
 
 data class AssignmentOutputModel(
     val id: Int,
-    val releaseDate: Timestamp,
-    val classId: Int,
+    val releaseDate: String,
+    val cid: Int,
     val description: String,
 )
 
 data class AssignmentCompactOutputModel(
     val id: Int,
-    val releaseDate: Timestamp
+    val releaseDate: String
 )
 
 data class AssignmentInputModel(
-    val releaseDate: Timestamp?,
+    val releaseDate: String?,
     val description: String
 )
 
 data class AssignmentUpdateModel(
-    val releaseDate: Timestamp?,
+    val releaseDate: String?,
     val description: String?,
-    val classId: Int?
+    val cid: Int?
 )
 
 /**
@@ -57,10 +57,10 @@ data class AssignmentUpdateModel(
  */
 
 fun AssignmentInputModel.toDb(classId: Int) =
-    AssignmentDbWrite(this.releaseDate, classId, this.description)
+    AssignmentDbWrite(Timestamp.valueOf(this.releaseDate), classId, this.description)
 
 fun AssignmentUpdateModel.toDb(id: Int) =
-    AssignmentDbUpdate(id, this.releaseDate, this.description, this.classId)
+    AssignmentDbUpdate(id, Timestamp.valueOf(this.releaseDate), this.description, this.cid)
 
-fun AssignmentDbRead.toOutput() = AssignmentOutputModel(this.id, this.releaseDate, this.classId, this.description)
+fun AssignmentDbRead.toOutput() = AssignmentOutputModel(this.id, this.releaseDate, this.cid, this.description)
 fun AssignmentDbRead.toCompactOutput() = AssignmentCompactOutputModel(this.id, this.releaseDate)

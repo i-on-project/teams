@@ -7,9 +7,10 @@ import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 @Component
 class AssignmentsService(val jdbi: Jdbi) {
 
-    fun getAllAssignments(classId: Int) =
+    fun getAllAssignments(pageIndex: Int, pageSize: Int, classId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(AssignmentsDAO::class.java).getAllAssignments(classId)
+            jdbi.onDemand(AssignmentsDAO::class.java)
+                .getAllAssignments(pageSize + 1, pageIndex * pageSize, classId)
         }
 
     fun getAssignment(id: Int) =
