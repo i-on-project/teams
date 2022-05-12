@@ -29,15 +29,22 @@ VALUES ('8b171ab5-2f09-4272-a607-f8fd68eeca31', 1),
 
 INSERT INTO student (number, name)
 VALUES (80000, 'Julinho Silva'),
-       (90000, 'Juliano Silva');
+       (90000, 'Juliano Silva'),
+       (10000, 'João Silva');
 
+-- Insert teams with state pending
 INSERT INTO teams (name, cid)
 VALUES ('li4xd-g1', 1),
        ('li5xd-g1', 2);
 
+-- Insert teams with state active
+INSERT INTO teams (name, cid, state)
+VALUES ('li4xd-g2', 1, 'active');
+
 INSERT INTO students (number, tid, cid)
 VALUES (80000, 1, 1),
-       (90000, 2, 2);
+       (90000, 2, 2),
+       (10000, 3, 1);
 
 INSERT INTO assignments (cid, description)
 VALUES (1, 'Make application yes yes.'),
