@@ -49,9 +49,13 @@ VALUES (1, 'phase 1', now()),
        (2, 'phase 0', now());
 
 INSERT INTO repos (url, name, tid, assid)
-VALUES ('https://github.com/example1/team1','Grupo 1',1,1);
+VALUES ('https://github.com/example1/team1', 'Grupo 1', 1, 1);
 
 INSERT INTO tags (name, delid, repoid)
-VALUES ('phase 1',1,1),
-       ('phase 2',2,1);
+VALUES ('phase 1', 1, 1),
+       ('phase 2', 2, 1);
+
+INSERT INTO notes (tid, description)
+VALUES (1, 'Does not meet all requirements.'),
+       (2, 'Does meet all requirements.');
 

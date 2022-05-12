@@ -1,33 +1,31 @@
 package pt.isel.ion.teams.notes
 
-import java.sql.Timestamp
-
 data class NotesDbRead(
     val id: Int,
-    val teamId: Int,
-    val date: Timestamp,
+    val tid: Int,
+    val date: String,
     val description: String,
 )
 
 data class NotesDbWrite(
-    val teamId: Int,
+    val tid: Int,
     val description: String,
 )
 
 data class NotesDbUpdate(
     val id: Int,
-    val description: String?,
+    val description: String,
 )
 
 data class NotesOutputModel(
     val id: Int,
-    val date: Timestamp,
+    val date: String,
     val description: String,
 )
 
 data class NotesCompactOutputModel(
     val id: Int,
-    val date: Timestamp,
+    val date: String,
 )
 
 data class NotesInputModel(
@@ -35,7 +33,7 @@ data class NotesInputModel(
 )
 
 data class NotesUpdateModel(
-    val description: String?
+    val description: String
 )
 
 fun NotesInputModel.toDb(teamId: Int) = NotesDbWrite(teamId, this.description)

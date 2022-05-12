@@ -18,7 +18,7 @@ interface NotesDAO {
     @SqlQuery("SELECT * FROM notes_view WHERE id = :id")
     fun getNote(@Bind("id") id: Int): NotesDbRead
 
-    @SqlUpdate("INSERT INTO notes (tid, description) VALUES (:teamId,:description)")
+    @SqlUpdate("INSERT INTO notes (tid, description) VALUES (:tid,:description)")
     @GetGeneratedKeys
     fun createNote(@BindBean organization: NotesDbWrite): NotesDbRead
 
