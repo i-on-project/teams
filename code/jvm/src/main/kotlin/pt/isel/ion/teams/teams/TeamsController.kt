@@ -3,17 +3,16 @@ package pt.isel.ion.teams.teams
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
-import pt.isel.ion.teams.common.Uris
-import pt.isel.ion.teams.repos.RepoService
-import pt.isel.ion.teams.repos.toCompactOutput
+import pt.isel.ion.teams.students.StudentsService
+import pt.isel.ion.teams.students.toCompactOutput
 
 @RestController
 @RequestMapping(Uris.Teams.MAIN_PATH)
 class TeamsController(
-    val teamsService: TeamsService,
-    val reposService: RepoService
+    val teamsService: TeamsService, val studentsService: StudentsService
 ) {
 
     @GetMapping
@@ -22,12 +21,8 @@ class TeamsController(
         @RequestParam(defaultValue = "10") pageSize: Int,
         @PathVariable orgId: Int,
         @PathVariable classId: Int
-    ) = ResponseEntity
-        .ok()
-        .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-        .body(
-            CollectionModel(pageIndex, pageSize)
-                .toTeamsSirenObject(
+    ) = ResponseEntity.ok().contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE)).body(
+            CollectionModel(pageIndex, pageSize).toTeamsSirenObject(
                     teamsService.getAllTeamsOfClassroom(pageSize, pageIndex, classId).map { it.toCompactOutput() },
                     orgId,
                     classId
@@ -37,19 +32,15 @@ class TeamsController(
 
     @GetMapping(Uris.Teams.Team.PATH)
     fun getTeam(
-        @PathVariable orgId: Int,
-        @PathVariable classId: Int,
-        @PathVariable teamId: Int
+        @PathVariable orgId: Int, @PathVariable classId: Int, @PathVariable teamId: Int
     ): ResponseEntity<Any> {
-        val team = teamsService.getTeam(teamId,classId).toOutput()
-        val repos = reposService.getAllReposByTeam(teamId).map { it.toCompactOutput() }
+        val team = teamsService.getTeam(teamId, classId).toOutput()
+        val students = studentsService.getAllStudentsByTeam(teamId, 10, 0).map { it.toCompactOutput() }
 
         //TODO Detect if user is student or teacher
 
-        return ResponseEntity
-            .ok()
-            .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-            .body(team.toTeacherSirenObject(repos, orgId, classId))
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+            .body(team.toTeacherSirenObject(students, orgId, classId))
     }
 
     @PostMapping
@@ -60,28 +51,20 @@ class TeamsController(
     ): ResponseEntity<Any> {
         val createdTeam = teamsService.createTeam(team.toDb(classId))
 
-        return ResponseEntity
-            .created(Uris.Teams.Team.make(orgId, classId, createdTeam.id))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(createdTeam)
+        return ResponseEntity.created(Uris.Teams.Team.make(orgId, classId, createdTeam.id))
+            .contentType(MediaType.APPLICATION_JSON).body(createdTeam)
     }
 
     @PutMapping(Uris.Teams.Team.PATH)
     fun updateTeam(
-        @PathVariable classId: Int,
-        @PathVariable teamId: Int,
-        @RequestBody team: TeamsUpdateModel
-    ) = ResponseEntity
-        .ok()
-        .contentType(MediaType.APPLICATION_JSON)
+        @PathVariable classId: Int, @PathVariable teamId: Int, @RequestBody team: TeamsUpdateModel
+    ) = ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
         .body(teamsService.updateTeam(team.toDb(teamId)).toOutput())
 
     @DeleteMapping(Uris.Teams.Team.PATH)
     fun deleteTeam(@PathVariable teamId: Int): ResponseEntity<Any> {
         teamsService.deleteTeam(teamId)
 
-        return ResponseEntity
-            .ok()
-            .body(null)
+        return ResponseEntity.ok().body(null)
     }
 }
