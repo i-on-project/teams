@@ -14,9 +14,9 @@ interface StudentsDAO {
         @Bind("offset") offset: Int
     ): List<StudentDbRead>
 
-    @SqlQuery("SELECT * FROM students_view WHERE tid=:teamsId")
+    @SqlQuery("SELECT * FROM students_view WHERE tid=:teamId LIMIT :limit OFFSET :offset")
     fun getAllStudentsByTeam(
-        @Bind("teamsId") teamsId: Int,
+        @Bind("teamId") teamId: Int,
         @Bind("limit") limit: Int,
         @Bind("offset") offset: Int
     ): List<StudentDbRead>

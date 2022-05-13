@@ -7,8 +7,8 @@ package pt.isel.ion.teams.students
 data class StudentDbRead(
     val number: Int,
     val name: String,
-    val tId: Int,
-    val cId: Int
+    val tid: Int,
+    val cid: Int
 )
 
 data class StudentDbWrite(
@@ -18,15 +18,15 @@ data class StudentDbWrite(
 
 data class StudentAssociationDbWrite(
     val number: Int,
-    val tId: Int,
-    val cId: Int
+    val tid: Int,
+    val cid: Int
 )
 
 data class StudentDbUpdate(
     val number: Int,
     val name: String?,
-    val tId: Int?,
-    val cId: Int?
+    val tid: Int?,
+    val cid: Int?
 )
 
 /**
@@ -36,7 +36,7 @@ data class StudentDbUpdate(
 data class StudentOutputModel(
     val number: Int,
     val name: String,
-    val tId: Int
+    val tid: Int
 )
 
 data class StudentCompactOutputModel(
@@ -51,14 +51,14 @@ data class StudentInputModel(
 
 data class StudentAssociationInputModel(
     val number: Int,
-    val cId: Int,
-    val tId: Int
+    val cid: Int,
+    val tid: Int
 )
 
 data class StudentUpdateModel(
     val name: String?,
-    val tId: Int?,
-    val cId: Int?
+    val tid: Int?,
+    val cid: Int?
 )
 
 /**
@@ -66,7 +66,7 @@ data class StudentUpdateModel(
  */
 
 fun StudentInputModel.toDb() = StudentDbWrite(this.number, this.name)
-fun StudentAssociationInputModel.toDb(number: Int) = StudentAssociationDbWrite(number, this.tId, this.cId)
-fun StudentUpdateModel.toDb(number: Int) = StudentDbUpdate(number, this.name, this.tId, this.cId)
-fun StudentDbRead.toOutput() = StudentOutputModel(this.number, this.name, this.tId)
+fun StudentAssociationInputModel.toDb(number: Int) = StudentAssociationDbWrite(number, this.tid, this.cid)
+fun StudentUpdateModel.toDb(number: Int) = StudentDbUpdate(number, this.name, this.tid, this.cid)
+fun StudentDbRead.toOutput() = StudentOutputModel(this.number, this.name, this.tid)
 fun StudentDbRead.toCompactOutput() =StudentCompactOutputModel(this.number,this.name)

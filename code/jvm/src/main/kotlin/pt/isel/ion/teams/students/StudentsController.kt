@@ -44,7 +44,7 @@ class StudentsController(val studentsService: StudentsService, val teamsService:
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
             CollectionModel(pageIndex, pageSize).toStudentSirenObject(
-                studentsService.getAllStudentsByTeam(pageSize, pageIndex, teamId)
+                studentsService.getAllStudentsByTeam(teamId, pageSize, pageIndex)
                     .map { it.toCompactOutput() },
                 orgId,
                 classId
