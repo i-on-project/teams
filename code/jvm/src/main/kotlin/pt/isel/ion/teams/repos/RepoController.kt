@@ -63,7 +63,7 @@ class RepoController(
         @PathVariable classId: Int,
         @PathVariable teamId: Int,
     ): ResponseEntity<Any> {
-        val createdRepo = repoService.createRepo(repo.toDb(teamId))
+        val createdRepo = repoService.createRepo(repo.toDb(teamId)).toOutput()
 
         return ResponseEntity
             .created(Uris.Repos.Repo.make(orgId, classId, teamId, createdRepo.id))

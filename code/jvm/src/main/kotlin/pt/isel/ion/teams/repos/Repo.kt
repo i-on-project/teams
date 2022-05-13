@@ -34,7 +34,7 @@ data class RepoOutputModel(
     val id: Int,
     val url: String,
     val name: String,
-    val tId: Int,
+    val tid: Int,
     val assId: Int
 )
 
