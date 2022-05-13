@@ -31,9 +31,9 @@ class StudentsService(val jdbi: Jdbi) {
     fun updateStudent(student: StudentDbUpdate) =
         sqlExceptionHandler {
             if (student.name == null)
-                jdbi.onDemand(StudentsDAO::class.java).updateStudentTeam(student)
+                jdbi.onDemand(StudentsDAO::class.java).updateStudentTeam(student).toOutput()
             else
-                jdbi.onDemand(StudentsDAO::class.java).updateStudentName(student)
+                jdbi.onDemand(StudentsDAO::class.java).updateStudentName(student).toOutput()
         }
 
 }

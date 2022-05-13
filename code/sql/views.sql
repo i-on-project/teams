@@ -5,7 +5,8 @@ WHERE deleted = B'0';
 
 CREATE VIEW CLASSROOMS_VIEW
             (id, name, description, maxTeams, maxMembersPerTeam, repoURI, schoolYear, orgId, state, githubURI,
-             avatarURI) AS
+             avatarURI)
+AS
 SELECT id,
        name,
        description,
@@ -36,16 +37,16 @@ SELECT id, name, cid, state
 FROM teams
 WHERE deleted = B'0';
 
-CREATE VIEW REQUESTS_VIEW (tid,teamName, cid)AS
-SELECT id,name, cId
+CREATE VIEW REQUESTS_VIEW (tid, teamName, cid) AS
+SELECT id, name, cId
 FROM teams
 WHERE state = 'pending'
   AND deleted = B'0';
 
 CREATE VIEW STUDENTS_VIEW (number, name, tId, cId) AS
-SELECT st.number, st.name, sts.tId, sts.cId
-FROM students sts
-         JOIN student st ON sts.number = st.number
+SELECT sts.number, st.name, sts.tId, sts.cId
+FROM student st
+         JOIN students sts ON sts.number = st.number
 WHERE sts.deleted = B'0';
 
 CREATE VIEW NOTES_VIEW (id, tId, date, description) AS

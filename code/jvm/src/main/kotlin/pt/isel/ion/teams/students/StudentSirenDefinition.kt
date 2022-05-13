@@ -43,7 +43,7 @@ fun CollectionModel.toStudentSirenObject(
 }
 
 
-fun StudentOutputModel.toTeacherSirenObject(
+fun CompleteStudentOutputModel.toTeacherSirenObject(
     teamsList: List<TeamsCompactOutputModel>,
     classId: Int,
     orgId: Int
@@ -81,7 +81,7 @@ fun StudentOutputModel.toTeacherSirenObject(
 )
 
 
-fun StudentOutputModel.toStudentSirenObject(
+fun CompleteStudentOutputModel.toStudentSirenObject(
     teamList: List<TeamsCompactOutputModel>,
     classId: Int,
     orgId: Int

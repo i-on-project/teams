@@ -3,12 +3,11 @@ package pt.isel.ion.teams.students
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
-import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.teams.TeamsService
 import pt.isel.ion.teams.teams.toCompactOutput
-
 
 @RestController
 @RequestMapping(Uris.Students.MAIN_PATH)
@@ -65,10 +64,27 @@ class StudentsController(val studentsService: StudentsService, val teamsService:
         )
 
     @PostMapping(Uris.Students.FromClassroom.PATH)
-    fun createStudent(@RequestBody student: StudentInputModel) =
-        studentsService.createStudent(student.toDb())
+    fun createStudent(
+        @PathVariable orgId: Int,
+        @PathVariable classId: Int,
+        @RequestBody student: StudentInputModel
+    ): ResponseEntity<Any> {
+        val std = studentsService.createStudent(student.toDb()).toOutput()
+
+        return ResponseEntity
+            .created(Uris.Students.Student.make(orgId, classId, std.number))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(
+                std
+            )
+    }
 
     @PutMapping(Uris.Students.Student.PATH)
     fun updateStudent(@PathVariable number: Int, @RequestBody student: StudentUpdateModel) =
-        studentsService.updateStudent(student.toDb(number))
+        ResponseEntity
+            .ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(studentsService.updateStudent(student.toDb(number)))
+
 }
+
