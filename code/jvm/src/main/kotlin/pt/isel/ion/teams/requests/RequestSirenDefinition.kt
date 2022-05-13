@@ -17,7 +17,7 @@ fun CollectionModel.toRequestSirenObject(
 
     return SirenEntity(
         properties = this,
-        clazz = listOf(SirenClasses.COLLECTION, SirenClasses.TEAM),
+        clazz = listOf(SirenClasses.COLLECTION, SirenClasses.REQUEST),
         entities = list.map {
             EmbeddedEntity(
                 properties = it.toCompactOutput(),
