@@ -21,6 +21,7 @@ class OrganizationsControllerTest {
     @Autowired
     private lateinit var client: MockMvc
 
+    private var resourceURI = "/api/orgs/"
     private var mapper = jacksonObjectMapper()
 
     @Test
@@ -28,7 +29,7 @@ class OrganizationsControllerTest {
         assertNotNull(client)
 
         client
-            .get("/api/orgs") {
+            .get(resourceURI) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
             }
             .andExpect {
@@ -70,7 +71,7 @@ class OrganizationsControllerTest {
         assertNotNull(client)
 
         client
-            .get("/api/orgs/1") {
+            .get("$resourceURI/1") {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
             }
             .andExpect {
@@ -120,7 +121,7 @@ class OrganizationsControllerTest {
         assertNotNull(client)
 
         client
-            .get("/api/orgs/1000")
+            .get("$resourceURI/1000")
             .andExpect {
                 status { isNotFound() }
                 content { contentType(ProblemJsonModel.MEDIA_TYPE) }
@@ -133,7 +134,7 @@ class OrganizationsControllerTest {
 
         //First we post a new resource
         var result = client
-            .post("/api/orgs") {
+            .post(resourceURI) {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
                 content = "{\"name\" : \"testOrg1\",\"description\" : \"testDescription1\"}"
@@ -157,7 +158,7 @@ class OrganizationsControllerTest {
 
         //Second we update the resource created
         client
-            .put("/api/orgs/${createdOrg.id}") {
+            .put("$resourceURI/${createdOrg.id}") {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
                 content = "{\"name\" : \"testUpdatedOrg${createdOrg.id}\",\"description\" : \"testUpdatedDescription\"}"
@@ -176,7 +177,7 @@ class OrganizationsControllerTest {
 
         //Third we try to delete what we just posted
         client
-            .delete("/api/orgs/${createdOrg.id}")
+            .delete("$resourceURI/${createdOrg.id}")
             .andExpect {
                 status { isOk() }
             }
