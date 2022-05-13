@@ -24,7 +24,7 @@ data class InviteLinksDbUpdate(
 
 data class InviteLinksOutputModel(
     val code: String,
-    val cId: Int
+    val cid: Int
 )
 
 data class InviteLinksCompactOutputModel(

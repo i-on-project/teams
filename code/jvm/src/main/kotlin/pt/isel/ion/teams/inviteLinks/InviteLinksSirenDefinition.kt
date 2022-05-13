@@ -24,7 +24,7 @@ fun CollectionModel.toInviteLinksSirenObject(
                 clazz = listOf(SirenClasses.INVITE_LINK),
                 rel = listOf(SirenRelations.ITEM),
                 links = listOf(
-                    selfLink(Uris.InviteLinks.InviteLink.make(orgId, it.cId, it.code)),
+                    selfLink(Uris.InviteLinks.InviteLink.make(orgId, it.cid, it.code)),
                 )
             )
         },

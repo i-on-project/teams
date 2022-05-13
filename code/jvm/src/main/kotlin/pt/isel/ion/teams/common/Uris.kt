@@ -329,7 +329,7 @@ object Uris {
             )
 
         object InviteLink {
-            const val PATH = "{code}"
+            const val PATH = "/{code}"
             private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
             fun make(orgId: Int, classId: Int, code: String) =
                 TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "code" to code))

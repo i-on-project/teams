@@ -14,7 +14,6 @@ import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_SUBTYPE
 import pt.isel.ion.teams.deliveries.DeliveryOutputModel
-import pt.isel.ion.teams.organizations.OrganizationOutputModel
 
 @SpringBootTest
 @AutoConfigureMockMvc

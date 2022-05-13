@@ -67,7 +67,7 @@ class OrganizationsControllerTests {
     }
 
     @Test
-    fun `getOrganization`() {
+    fun `getOrganizationTest`() {
         assertNotNull(client)
 
         client
@@ -117,7 +117,7 @@ class OrganizationsControllerTests {
     }
 
     @Test
-    fun `getOrganizationNotFound`() {
+    fun `getOrganizationNotFoundTest`() {
         assertNotNull(client)
 
         client
@@ -129,7 +129,7 @@ class OrganizationsControllerTests {
     }
 
     @Test
-    fun `postUpdateDeleteOrganization`() {
+    fun `postUpdateDeleteOrganizationTest`() {
         assertNotNull(client)
 
         //First we post a new resource

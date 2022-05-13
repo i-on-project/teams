@@ -67,7 +67,7 @@ class AssignmentsControllerTests {
     }
 
     @Test
-    fun `getAssignment`() {
+    fun `getAssignmentTest`() {
         assertNotNull(client)
 
         client
@@ -113,7 +113,7 @@ class AssignmentsControllerTests {
     }
 
     @Test
-    fun `getAssignmentNotFound`() {
+    fun `getAssignmentNotFoundTest`() {
         assertNotNull(client)
 
         client
@@ -125,7 +125,7 @@ class AssignmentsControllerTests {
     }
 
     @Test
-    fun `postUpdateDeleteAssignment`() {
+    fun `postUpdateDeleteAssignmentTest`() {
         assertNotNull(client)
 
         //First we post a new resource

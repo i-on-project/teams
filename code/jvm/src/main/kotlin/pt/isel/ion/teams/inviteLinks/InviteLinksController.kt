@@ -48,7 +48,7 @@ class InviteLinksController(val service: InviteLinksService) {
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
     ): ResponseEntity<Any> {
-        val invite = service.createInviteLink(classId)
+        val invite = service.createInviteLink(classId).toOutput()
 
         return ResponseEntity
             .created(Uris.InviteLinks.InviteLink.make(orgId, classId, invite.code))

@@ -69,7 +69,7 @@ class ClassroomsControllerTests {
     }
 
     @Test
-    fun `getClassroom`() {
+    fun `getClassroomTest`() {
         assertNotNull(client)
 
         client
@@ -122,7 +122,7 @@ class ClassroomsControllerTests {
     }
 
     @Test
-    fun `getClassroomNotFound`() {
+    fun `getClassroomNotFoundTest`() {
         assertNotNull(client)
 
         client
@@ -134,7 +134,7 @@ class ClassroomsControllerTests {
     }
 
     @Test
-    fun `postUpdateDeleteClassroom`() {
+    fun `postUpdateDeleteClassroomTest`() {
         assertNotNull(client)
 
         //First we post a new resource
