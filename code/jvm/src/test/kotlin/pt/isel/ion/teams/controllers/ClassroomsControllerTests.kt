@@ -8,29 +8,28 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.*
-import pt.isel.ion.teams.assignments.AssignmentOutputModel
+import pt.isel.ion.teams.classrooms.ClassroomOutputModel
+import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.errors.ProblemJsonModel
 import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_SUBTYPE
-import pt.isel.ion.teams.organizations.OrganizationOutputModel
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AssignmentsControllerTest {
+class ClassroomsControllerTests {
 
     @Autowired
     private lateinit var client: MockMvc
 
-    private var resourceURI = "/api/orgs/1/classrooms/1/assignments"
     private var mapper = jacksonObjectMapper()
 
     @Test
-    fun `getAllAssignmentsTest`() {
+    fun `getAllClassroomsTest`() {
         assertNotNull(client)
 
         client
-            .get(resourceURI) {
+            .get(Uris.Classrooms.make(1)) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
             }
             .andExpect {
@@ -39,7 +38,7 @@ class AssignmentsControllerTest {
 
                 //Class
                 jsonPath("$.class[0]") { value("collection") }
-                jsonPath("$.class[1]") { value("assignment") }
+                jsonPath("$.class[1]") { value("classroom") }
 
                 //Properties
                 jsonPath("$.properties.pageIndex") { isNumber() }
@@ -48,11 +47,14 @@ class AssignmentsControllerTest {
                 //Entities
                 jsonPath("$.entities") { isArray() }
                 jsonPath("$.entities[0].rel") { value("item") }
-                jsonPath("$.entities[0].class") { value("assignment") }
+                jsonPath("$.entities[0].class") { value("classroom") }
                 jsonPath("$.entities[0].properties.id") { isNumber() }
-                jsonPath("$.entities[0].properties.releaseDate") { isString() }
+                jsonPath("$.entities[0].properties.name") { isString() }
+                jsonPath("$.entities[0].properties.description") { isString() }
+                jsonPath("$.entities[0].properties.schoolYear") { isString() }
                 jsonPath("$.entities[0].links") { isArray() }
                 jsonPath("$.entities[0].links[0].rel") { value("self") }
+
 
                 //Actions
                 jsonPath("$.actions") { doesNotExist() }
@@ -60,19 +62,18 @@ class AssignmentsControllerTest {
                 //Links
                 jsonPath("$.links") { isArray() }
                 jsonPath("$.links[0].rel") { value("self") }
-                jsonPath("$.links[1].rel") { value("organizations") }
-                jsonPath("$.links[2].rel") { value("classrooms") }
-                jsonPath("$.links[3].rel") { value("home") }
-                jsonPath("$.links[4].rel") { value("logout") }
+                jsonPath("$.links[1].rel") { value("organization") }
+                jsonPath("$.links[2].rel") { value("home") }
+                jsonPath("$.links[3].rel") { value("logout") }
             }
     }
 
     @Test
-    fun `getAssignment`() {
+    fun `getClassroom`() {
         assertNotNull(client)
 
         client
-            .get("$resourceURI/1") {
+            .get(Uris.Classrooms.Classroom.make(1,1)) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
             }
             .andExpect {
@@ -80,45 +81,52 @@ class AssignmentsControllerTest {
                 content { contentType(SIREN_MEDIA_TYPE) }
 
                 //Class
-                jsonPath("$.class[0]") { value("assignment") }
+                jsonPath("$.class[0]") { value("classroom") }
 
                 //Properties
                 jsonPath("$.properties.id") { isNumber() }
-                jsonPath("$.properties.releaseDate") { isString() }
-                jsonPath("$.properties.cid") { isNumber() }
+                jsonPath("$.properties.name") { isString() }
                 jsonPath("$.properties.description") { isString() }
+                jsonPath("$.properties.schoolYear") { isString() }
 
                 //Entities
                 jsonPath("$.entities") { isArray() }
                 jsonPath("$.entities[0].rel") { value("item") }
-                jsonPath("$.entities[0].class") { value("delivery") }
+                jsonPath("$.entities[0].class") { value("team") }
                 jsonPath("$.entities[0].properties.id") { isNumber() }
                 jsonPath("$.entities[0].properties.name") { isString() }
-                jsonPath("$.entities[0].properties.date") { isString() }
+                jsonPath("$.entities[0].properties.state") { isString() }
                 jsonPath("$.entities[0].links") { isArray() }
                 jsonPath("$.entities[0].links[0].rel") { value("self") }
 
                 //Actions
                 jsonPath("$.actions") { isArray() }
-                jsonPath("$.actions[0].name") { value("update-assignment") }
-                jsonPath("$.actions[1].name") { value("delete-assignment") }
+                jsonPath("$.actions[0].name") { value("create-assignment") }
+                jsonPath("$.actions[1].name") { value("delete-classroom") }
+                jsonPath("$.actions[2].name") { value("update-classroom") }
+                jsonPath("$.actions[3].name") { value("create-invite-link") }
 
                 //Links
                 jsonPath("$.links") { isArray() }
                 jsonPath("$.links[0].rel") { value("self") }
-                jsonPath("$.links[1].rel") { value("classrooms") }
-                jsonPath("$.links[2].rel") { value("assignments") }
-                jsonPath("$.links[3].rel") { value("home") }
-                jsonPath("$.links[4].rel") { value("logout") }
+                jsonPath("$.links[1].rel") { value("home") }
+                jsonPath("$.links[2].rel") { value("github") }
+                jsonPath("$.links[3].rel") { value("avatar") }
+                jsonPath("$.links[4].rel") { value("organization") }
+                jsonPath("$.links[5].rel") { value("assignments") }
+                jsonPath("$.links[6].rel") { value("requests") }
+                jsonPath("$.links[7].rel") { value("invite-links") }
+                jsonPath("$.links[8].rel") { value("students") }
+                jsonPath("$.links[9].rel") { value("logout") }
             }
     }
 
     @Test
-    fun `getAssignmentNotFound`() {
+    fun `getClassroomNotFound`() {
         assertNotNull(client)
 
         client
-            .get("$resourceURI/1000")
+            .get(Uris.Classrooms.Classroom.make(1,1000))
             .andExpect {
                 status { isNotFound() }
                 content { contentType(ProblemJsonModel.MEDIA_TYPE) }
@@ -126,16 +134,20 @@ class AssignmentsControllerTest {
     }
 
     @Test
-    fun `postUpdateDeleteAssignment`() {
+    fun `postUpdateDeleteClassroom`() {
         assertNotNull(client)
 
         //First we post a new resource
         var result = client
-            .post(resourceURI) {
+            .post(Uris.Classrooms.make(1)) {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
-                content = "{\"releaseDate\": \"2022-06-06 14:00:00\"," +
-                        "    \"description\": \"Develop an app for android with the folowing requirements: .....\"}"
+                content = "{\"name\" : \"testClass\"," +
+                        "    \"description\" : \"testDescription\"," +
+                        "    \"maxTeams\": 3," +
+                        "    \"maxMembersPerTeam\": 4," +
+                        "    \"repoURI\": \"repoURIexample\"," +
+                        "    \"schoolYear\": \"2021/22\"}"
             }
             .andExpect {
                 status { isCreated() }
@@ -143,25 +155,29 @@ class AssignmentsControllerTest {
 
                 //Assert POST response body
                 jsonPath("$.id") { isNumber() }
-                jsonPath("$.releaseDate") { value("2022-06-06 14:00:00") }
-                jsonPath("$.description") {
-                    value("Develop an app for android with the folowing requirements: .....")
-                }
-                jsonPath("$.cid") { isNumber() }
+                jsonPath("$.name") { value("testClass") }
+                jsonPath("$.description") { value("testDescription") }
+                jsonPath("$.state") { value("active") }
+                jsonPath("$.schoolYear") { value("2021/22") }
+                jsonPath("$.githubURI") { isString() }
+                jsonPath("$.schoolYear") { isString() }
             }
             .andReturn()
 
         //Retrieving information from response to make update and delete
         val string: String = result.response.contentAsString
-        val createdAssignment: AssignmentOutputModel = mapper.readValue(string, AssignmentOutputModel::class.java)
+        val createdClass: ClassroomOutputModel = mapper.readValue(string, ClassroomOutputModel::class.java)
 
         //Second we update the resource created
         client
-            .put("$resourceURI/${createdAssignment.id}") {
+            .put(Uris.Classrooms.Classroom.make(1,createdClass.id)) {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
-                content = "{\"releaseDate\": \"2022-02-22 22:22:22\"," +
-                        "    \"description\": \"Test updated description\"}"
+                content = "{\"name\" : \"testUpdatedOrg${createdClass.id}\"," +
+                        "    \"description\" : \"testUpdatedDescription\"," +
+                        "    \"maxTeams\": 3," +
+                        "    \"maxMembersPerTeam\": 4," +
+                        "    \"schoolYear\": \"2021/22\"}"
             }
             .andExpect {
                 status { isOk() }
@@ -169,14 +185,17 @@ class AssignmentsControllerTest {
 
                 //Assert POST response body
                 jsonPath("$.id") { isNumber() }
-                jsonPath("$.releaseDate") { value("2022-02-22 22:22:22") }
-                jsonPath("$.description") { value("Test updated description") }
-                jsonPath("$.cid") { isNumber() }
+                jsonPath("$.name") { value("testUpdatedOrg${createdClass.id}") }
+                jsonPath("$.description") { value("testUpdatedDescription") }
+                jsonPath("$.state") { value("active") }
+                jsonPath("$.schoolYear") { value("2021/22") }
+                jsonPath("$.githubURI") { isString() }
+                jsonPath("$.schoolYear") { isString() }
             }
 
         //Third we try to delete what we just posted
         client
-            .delete("$resourceURI/${createdAssignment.id}")
+            .delete(Uris.Classrooms.Classroom.make(1,createdClass.id))
             .andExpect {
                 status { isOk() }
             }

@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.*
+import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.errors.ProblemJsonModel
 import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
@@ -16,12 +17,11 @@ import pt.isel.ion.teams.organizations.OrganizationOutputModel
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class OrganizationsControllerTest {
+class OrganizationsControllerTests {
 
     @Autowired
     private lateinit var client: MockMvc
 
-    private var resourceURI = "/api/orgs/"
     private var mapper = jacksonObjectMapper()
 
     @Test
@@ -29,7 +29,7 @@ class OrganizationsControllerTest {
         assertNotNull(client)
 
         client
-            .get(resourceURI) {
+            .get(Uris.Organizations.make()) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
             }
             .andExpect {
@@ -71,7 +71,7 @@ class OrganizationsControllerTest {
         assertNotNull(client)
 
         client
-            .get("$resourceURI/1") {
+            .get(Uris.Organizations.Organization.make(1)) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
             }
             .andExpect {
@@ -121,7 +121,7 @@ class OrganizationsControllerTest {
         assertNotNull(client)
 
         client
-            .get("$resourceURI/1000")
+            .get(Uris.Organizations.Organization.make(1000))
             .andExpect {
                 status { isNotFound() }
                 content { contentType(ProblemJsonModel.MEDIA_TYPE) }
@@ -134,7 +134,7 @@ class OrganizationsControllerTest {
 
         //First we post a new resource
         var result = client
-            .post(resourceURI) {
+            .post(Uris.Organizations.make()) {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
                 content = "{\"name\" : \"testOrg1\",\"description\" : \"testDescription1\"}"
@@ -158,7 +158,7 @@ class OrganizationsControllerTest {
 
         //Second we update the resource created
         client
-            .put("$resourceURI/${createdOrg.id}") {
+            .put(Uris.Organizations.Organization.make(createdOrg.id)) {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
                 content = "{\"name\" : \"testUpdatedOrg${createdOrg.id}\",\"description\" : \"testUpdatedDescription\"}"
@@ -177,7 +177,7 @@ class OrganizationsControllerTest {
 
         //Third we try to delete what we just posted
         client
-            .delete("$resourceURI/${createdOrg.id}")
+            .delete(Uris.Organizations.Organization.make(createdOrg.id))
             .andExpect {
                 status { isOk() }
             }

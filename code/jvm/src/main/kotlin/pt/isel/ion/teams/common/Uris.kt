@@ -4,15 +4,15 @@ import org.springframework.web.util.UriTemplate
 
 object Uris {
     object Home {
-        const val PATH = "api/home"
+        const val PATH = "/api/home"
     }
 
     object Logout {
-        const val PATH = "api/logout"
+        const val PATH = "/api/logout"
     }
 
     object Organizations {
-        const val MAIN_PATH = "api/orgs"
+        const val MAIN_PATH = "/api/orgs"
         private val TEMPLATE = UriTemplate(MAIN_PATH)
         fun make() = TEMPLATE.expand()
 
