@@ -1,5 +1,7 @@
 package pt.isel.ion.teams.notes
 
+import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 
@@ -45,6 +47,25 @@ fun NotesOutputModel.toSirenObject(
     teamId: Int
 ) = SirenEntity(
     properties = this,
+    clazz = listOf(SirenClasses.NOTE),
+    actions = listOf(
+        SirenAction(
+            name = "update-note",
+            title = "Update Note",
+            method = HttpMethod.PUT,
+            href = Uris.Notes.Note.make(orgId, classId, teamId, id),
+            type = MediaType.APPLICATION_JSON,
+            fields = listOf(
+                SirenAction.Field(name = "description", type = "string"),
+            )
+        ),
+        SirenAction(
+            name = "delete-note",
+            title = "Delete Note",
+            method = HttpMethod.PUT,
+            href = Uris.Notes.Note.make(orgId, classId, teamId, id),
+        ),
+    ),
     links = listOf(
         selfLink(Uris.Notes.Note.make(orgId, classId, teamId, id)),
         homeLink(),

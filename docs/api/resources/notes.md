@@ -75,7 +75,7 @@ Status:  200 OK
 
 ```json
 {
-  "class": ["notes", "collection"],
+  "class": ["note", "collection"],
   "properties": {
     "pageIndex": 0,
     "pageSize": 1
@@ -139,16 +139,34 @@ Status:  200 OK
 
 ```json
 {
-  "class": ["notes"],
+  "class": ["note"],
   "properties": {
     "id": 6,
     "date": "2022-05-08",
     "description": "Very good."
   },
+  "actions": [
+    {
+      "name": "update-note",
+      "title": "Update Note",
+      "method": "PUT",
+      "href": "/api/orgs/123123/classrooms/1/teams/1/notes/{notesId}",
+      "type": "application/json",
+      "field": [
+        {"name": "description", "type": "string"}
+      ]
+    },
+    {
+    "name": "delete-note",
+    "title": "Delete Note",
+    "method": "DELETE",
+    "href": "/api/orgs/123123/classrooms/1/teams/1/notes/{notesId}"
+    }
+  ],
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/123123/classrooms/1/teams/234342"
+      "href": "/api/orgs/123123/classrooms/1/teams/1/notes/1"
     },
     {
       "rel": ["home"],

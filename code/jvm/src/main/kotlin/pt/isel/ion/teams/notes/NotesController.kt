@@ -56,7 +56,7 @@ class NotesController(val notesService: NotesService) {
         @PathVariable classId: Int,
         @PathVariable teamId: Int,
     ): ResponseEntity<Any> {
-        val createdNote = notesService.createNote(note.toDb(teamId))
+        val createdNote = notesService.createNote(note.toDb(teamId)).toOutput()
 
         return ResponseEntity
             .created(Uris.Notes.Note.make(orgId, classId, teamId, createdNote.id))
