@@ -1,16 +1,26 @@
 package pt.isel.ion.teams.teacher
 
-import java.util.*
-
 
 /**
  * For internal use only.
  */
-data class TeacherDbRead(
+data class CompleteTeacherDbRead(
     val number: Int,
     val name: String,
     val email: String,
     val office: String,
+    val cId: Int
+)
+
+data class TeacherInfoDbRead(
+    val number: Int,
+    val name: String,
+    val email: String,
+    val office: String
+)
+
+data class SimpleTeacherDbRead(
+    val number: Int,
     val cId: Int
 )
 
@@ -34,11 +44,16 @@ data class TeacherDbUpdate(
  * For external use only.
  */
 
-data class TeacherOutputModel(
+data class CompleteTeacherOutputModel(
     val number: Int,
     val name: String,
     val email: String,
     val office: String,
+    val cId: Int
+)
+
+data class SimpleTeacherOutputModel(
+    val number: Int,
     val cId: Int
 )
 
@@ -53,8 +68,7 @@ data class TeacherInputModel(
     val number: Int,
     val name: String,
     val email: String,
-    val office: String,
-    val cId: Int
+    val office: String
 )
 
 data class TeacherUpdateModel(
@@ -67,7 +81,9 @@ data class TeacherUpdateModel(
 /**
  * Functions to transition from external to internal, or vice-versa.
  */
-fun TeacherInputModel.toDb() = TeacherDbWrite(this.number,this.name,this.email,this.office,this.cId)
+fun TeacherInputModel.toDb(cId: Int) = TeacherDbWrite(this.number,this.name,this.email,this.office,cId)
 fun TeacherUpdateModel.toDb(number: Int) = TeacherDbUpdate(number,this.name,this.email,this.office, this.cId)
-fun TeacherDbRead.toOutput(cId: Int) = TeacherOutputModel(this.number,this.name,this.email,this.office,cId)
-fun TeacherDbRead.toCompactOutput() = TeacherCompactOutputModel(this.number,this.name,this.email,this.office)
+fun CompleteTeacherDbRead.toOutput() = CompleteTeacherOutputModel(this.number,this.name,this.email,this.office,this.cId)
+fun SimpleTeacherDbRead.toOutput() = SimpleTeacherOutputModel(this.number, this.cId)
+fun TeacherInfoDbRead.toOutput() = TeacherCompactOutputModel(this.number,this.name,this.email,this.office)
+fun CompleteTeacherDbRead.toCompactOutput() = TeacherCompactOutputModel(this.number,this.name,this.email,this.office)

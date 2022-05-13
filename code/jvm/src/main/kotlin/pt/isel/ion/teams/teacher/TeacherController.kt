@@ -13,7 +13,7 @@ import pt.isel.ion.teams.common.Uris
 @RequestMapping(Uris.Teachers.MAIN_PATH)
 class TeacherController(val service: TeacherService, val classService: ClassroomService) {
 
-    @GetMapping()
+    @GetMapping
     fun getTeachers(
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
@@ -36,7 +36,7 @@ class TeacherController(val service: TeacherService, val classService: Classroom
         .ok()
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
-            service.getTeacher(number).toOutput(classId)
+            service.getTeacher(number).toOutput()
                 .toStudentSirenObject(
                     classService.getAllClassroomsByOrganization(orgId).map { it.toCompactOutput() },
                     classId,
@@ -45,9 +45,26 @@ class TeacherController(val service: TeacherService, val classService: Classroom
         )
 
     @PostMapping
-    fun createTeacher(@RequestBody teacher: TeacherInputModel) = service.createTeacher(teacher.toDb())
+    fun createTeacher(
+        @PathVariable orgId: Int,
+        @PathVariable classId: Int,
+        @RequestBody teacher: TeacherInputModel
+    ): ResponseEntity<Any> {
+        val tch = service.createTeacher(teacher.toDb(classId)).toOutput()
+
+        return ResponseEntity
+            .created(Uris.Students.Student.make(orgId, classId, tch.number))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(
+                tch
+            )
+    }
 
     @PutMapping(Uris.Teachers.Teacher.PATH)
     fun updateTeacher(@PathVariable number: Int, @RequestBody teacher: TeacherUpdateModel) =
-        service.updateTeacher(teacher.toDb(number))
+        ResponseEntity
+            .ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(service.updateTeacher(teacher.toDb(number)))
+
 }

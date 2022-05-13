@@ -43,7 +43,7 @@ fun CollectionModel.toTeachersSirenObject(
 }
 
 
-fun TeacherOutputModel.toTeacherSirenObject(
+fun CompleteTeacherOutputModel.toTeacherSirenObject(
     classroomsList: List<ClassroomCompactOutputModel>,
     classId: Int,
     orgId: Int
@@ -82,7 +82,7 @@ fun TeacherOutputModel.toTeacherSirenObject(
 )
 
 
-fun TeacherOutputModel.toStudentSirenObject(
+fun CompleteTeacherOutputModel.toStudentSirenObject(
     classroomsList: List<ClassroomCompactOutputModel>,
     classId: Int,
     orgId: Int
