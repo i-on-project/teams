@@ -51,6 +51,7 @@ fun DeliveryOutputModel.toStudentSirenObject(
     assId: Int,
 ) = SirenEntity(
     properties = this,
+    clazz = listOf(SirenClasses.DELIVERY),
     links = listOf(
         selfLink(Uris.Deliveries.Delivery.make(orgId, classId, assId, id)),
         homeLink(),
@@ -68,6 +69,7 @@ fun DeliveryOutputModel.toTeacherSirenObject(
 
     return SirenEntity(
         properties = this,
+        clazz = listOf(SirenClasses.DELIVERY),
         actions = listOf(
             SirenAction(
                 name = "update-delivery",

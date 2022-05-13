@@ -63,7 +63,7 @@ class DeliveriesController(
         @PathVariable assId: Int,
     ): ResponseEntity<Any> {
         try {
-            val createdDelivery = deliveriesService.createDelivery(delivery.toDb(classId))
+            val createdDelivery = deliveriesService.createDelivery(delivery.toDb(classId)).toOutput()
 
             return ResponseEntity
                 .created(Uris.Deliveries.Delivery.make(orgId, classId, assId, createdDelivery.id))
