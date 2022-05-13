@@ -50,6 +50,7 @@ fun AssignmentOutputModel.toStudentSirenObject(
     classId: Int
 ) = SirenEntity(
     properties = this,
+    clazz = listOf(SirenClasses.ASSIGNMENT),
     entities = deliveriesList.map {
         EmbeddedEntity(
             properties = it,
@@ -73,6 +74,7 @@ fun AssignmentOutputModel.toTeacherSirenObject(
     classId: Int
 ) = SirenEntity(
     properties = this,
+    clazz = listOf(SirenClasses.ASSIGNMENT),
     entities = deliveriesList.map {
         EmbeddedEntity(
             properties = it,
