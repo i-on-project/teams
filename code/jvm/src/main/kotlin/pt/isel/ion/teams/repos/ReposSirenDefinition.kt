@@ -97,7 +97,19 @@ fun RepoOutputModel.toTeacherSirenObject(
             title = "Delete Repo",
             method = HttpMethod.DELETE,
             href = Uris.Repos.Repo.make(orgId, classId, teamId, id),
-        )
+        ),
+        SirenAction(
+            name = "create-tag",
+            title = "Create Tag",
+            method = HttpMethod.POST,
+            href = Uris.Tags.make(orgId, classId, teamId, id),
+            type = MediaType.APPLICATION_JSON,
+            fields = listOf(
+                SirenAction.Field(name = "name", type = "string"),
+                SirenAction.Field(name = "url", type = "string"),
+                SirenAction.Field(name = "assId", type = "number"),
+            )
+        ),
     ),
     links = listOf(
         selfLink(Uris.Repos.Repo.make(orgId, classId, teamId, id)),

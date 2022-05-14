@@ -146,6 +146,14 @@ Status:  200 OK
     "date": "2022-05-08",
     "name": "v0.0.0"
   },
+  "actions": [
+    {
+      "name": "delete-tag",
+      "title": "Delete Tag",
+      "method": "DELETE",
+      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}/repos/{repoId}/tags/{tagId}"
+    },
+  ],
   "links": [
     {
       "rel": ["self"],

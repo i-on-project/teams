@@ -1,5 +1,7 @@
 package pt.isel.ion.teams.tags
 
+import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 import pt.isel.ion.teams.deliveries.DeliveryDbRead
@@ -50,6 +52,14 @@ fun TagOutputModel.toSirenObject(
 ) = SirenEntity(
     properties = this,
     clazz = listOf(SirenClasses.TAG),
+    actions = listOf(
+        SirenAction(
+            name = "delete-tag",
+            title = "Delete tag",
+            method = HttpMethod.DELETE,
+            href = Uris.Tags.Tag.make(orgId, classId, teamId, repoId, id)
+        ),
+    ),
     links = listOf(
         selfLink(Uris.Tags.Tag.make(orgId, classId, teamId, repoId, id)),
         homeLink(),

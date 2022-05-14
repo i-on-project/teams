@@ -102,6 +102,7 @@ class ReposControllerTests {
                 jsonPath("$.actions") { isArray() }
                 jsonPath("$.actions[0].name") { value("update-repo") }
                 jsonPath("$.actions[1].name") { value("delete-repo") }
+                jsonPath("$.actions[2].name") { value("create-tag") }
 
                 //Links
                 jsonPath("$.links") { isArray() }

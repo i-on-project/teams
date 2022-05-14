@@ -238,7 +238,6 @@ Status:  200 OK
         {"name": "name", "type": "string"},
         {"name": "url", "type": "string"},
         {"name": "assId", "type": "number"}
-        
       ]
     },
     {
@@ -246,7 +245,18 @@ Status:  200 OK
       "title": "Delete Repo",
       "method": "DELETE",
       "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}/repos/{repoId}"
-    }
+    },
+    {
+      "name": "create-tag",
+      "title": "Create Tag",
+      "method": "POST",
+      "href": "/api/orgs/{orgId}/class/{classId}/teams/{teamId}/repos/{repoID}/tags/{tagId}",
+      "type": "application/json",
+      "field": [
+        {"name": "name", "type": "string"},
+        {"name": "delId", "type": "number"},
+      ]
+    },
   ],
   "links": [
     {
