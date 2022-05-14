@@ -26,7 +26,7 @@ class InviteLinksControllerTests {
     private var mapper = jacksonObjectMapper()
 
     @Test
-    fun `getAllInviteLinksTest`() {
+    fun getAllInviteLinksTest() {
         assertNotNull(client)
 
         client
@@ -67,7 +67,7 @@ class InviteLinksControllerTests {
     }
 
     @Test
-    fun `getInviteLinkTest`() {
+    fun getInviteLinkTest() {
         assertNotNull(client)
 
         client
@@ -101,7 +101,7 @@ class InviteLinksControllerTests {
     }
 
     @Test
-    fun `getOrganizationNotFoundTest`() {
+    fun getOrganizationNotFoundTest() {
         assertNotNull(client)
 
         client
@@ -113,7 +113,7 @@ class InviteLinksControllerTests {
     }
 
     @Test
-    fun `postUpdateDeleteOrganizationTest`() {
+    fun postUpdateDeleteOrganizationTest() {
         assertNotNull(client)
 
         //First we post a new resource

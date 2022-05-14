@@ -25,7 +25,7 @@ class ReposControllerTests {
     private var mapper = jacksonObjectMapper()
 
     @Test
-    fun `getAllReposTest`() {
+    fun getAllReposTest() {
         assertNotNull(client)
 
         client
@@ -67,7 +67,7 @@ class ReposControllerTests {
     }
 
     @Test
-    fun `getRepoTest`() {
+    fun getRepoTest() {
         assertNotNull(client)
 
         client
@@ -117,7 +117,7 @@ class ReposControllerTests {
     }
 
     @Test
-    fun `getRepoNotFoundTest`() {
+    fun getRepoNotFoundTest() {
         assertNotNull(client)
 
         client
@@ -129,11 +129,11 @@ class ReposControllerTests {
     }
 
     @Test
-    fun `postUpdateDeleteRepoTest`() {
+    fun postUpdateDeleteRepoTest() {
         assertNotNull(client)
 
         //First we post a new resource
-        var result = client
+        val result = client
             .post(Uris.Repos.make(1,1,1)) {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON

@@ -25,7 +25,7 @@ class AssignmentsControllerTests {
     private var mapper = jacksonObjectMapper()
 
     @Test
-    fun `getAllAssignmentsTest`() {
+    fun getAllAssignmentsTest() {
         assertNotNull(client)
 
         client
@@ -67,7 +67,7 @@ class AssignmentsControllerTests {
     }
 
     @Test
-    fun `getAssignmentTest`() {
+    fun getAssignmentTest() {
         assertNotNull(client)
 
         client
@@ -113,7 +113,7 @@ class AssignmentsControllerTests {
     }
 
     @Test
-    fun `getAssignmentNotFoundTest`() {
+    fun getAssignmentNotFoundTest() {
         assertNotNull(client)
 
         client
@@ -125,7 +125,7 @@ class AssignmentsControllerTests {
     }
 
     @Test
-    fun `postUpdateDeleteAssignmentTest`() {
+    fun postUpdateDeleteAssignmentTest() {
         assertNotNull(client)
 
         //First we post a new resource
