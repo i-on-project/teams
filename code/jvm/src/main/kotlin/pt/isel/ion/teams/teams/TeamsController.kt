@@ -49,7 +49,7 @@ class TeamsController(
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
     ): ResponseEntity<Any> {
-        val createdTeam = teamsService.createTeam(team.toDb(classId))
+        val createdTeam = teamsService.createTeam(team.toDb(classId)).toOutput()
 
         return ResponseEntity.created(Uris.Teams.Team.make(orgId, classId, createdTeam.id))
             .contentType(MediaType.APPLICATION_JSON).body(createdTeam)
