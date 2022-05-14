@@ -5,15 +5,15 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
-import pt.isel.ion.teams.classrooms.ClassroomService
+import pt.isel.ion.teams.classrooms.ClassroomsService
 import pt.isel.ion.teams.classrooms.toCompactOutput
 import pt.isel.ion.teams.common.Uris
 
 @RestController
 @RequestMapping(Uris.Organizations.MAIN_PATH)
 class OrganizationController(
-    val organizationService: OrganizationService,
-    val classroomService: ClassroomService
+    val organizationsService: OrganizationsService,
+    val classroomsService: ClassroomsService
 ) {
 
     @GetMapping
@@ -26,14 +26,14 @@ class OrganizationController(
         .body(
             CollectionModel(pageIndex, pageSize)
                 .toOrganizationsSirenObject(
-                    organizationService.getAllOrganizations(pageSize, pageIndex).map { it.toOutput() }
+                    organizationsService.getAllOrganizations(pageSize, pageIndex).map { it.toOutput() }
                 )
         )
 
     @GetMapping(Uris.Organizations.Organization.PATH)
     fun getOrganization(@PathVariable orgId: Int): ResponseEntity<Any> {
-        val org = organizationService.getOrganization(orgId).toOutput()
-        val classrooms = classroomService.getAllClassroomsByOrganization(orgId)
+        val org = organizationsService.getOrganization(orgId).toOutput()
+        val classrooms = classroomsService.getAllClassroomsByOrganization(orgId)
 
         //TODO Detect if user is student or teacher
 
@@ -46,7 +46,7 @@ class OrganizationController(
     @PostMapping
     fun createOrganization(@RequestBody organization: OrganizationInputModel): ResponseEntity<Any> {
         //TODO retrieve real githubURI and avatarURI
-        val org = organizationService.createOrganization(organization.toDb("example","example")).toOutput()
+        val org = organizationsService.createOrganization(organization.toDb("example","example")).toOutput()
 
         return ResponseEntity
             .created(Uris.Organizations.Organization.make(org.id))
@@ -59,11 +59,11 @@ class OrganizationController(
         ResponseEntity
             .ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(organizationService.updateOrganization(organization.toDb(orgId)).toOutput())
+            .body(organizationsService.updateOrganization(organization.toDb(orgId)).toOutput())
 
     @DeleteMapping(Uris.Organizations.Organization.PATH)
     fun deleteProject(@PathVariable("orgId") id: Int): ResponseEntity<Any> {
-        organizationService.deleteOrganization(id)
+        organizationsService.deleteOrganization(id)
 
         return ResponseEntity
             .ok()

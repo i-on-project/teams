@@ -12,7 +12,7 @@ import pt.isel.ion.teams.deliveries.toCompactOutput
 
 @RestController
 @RequestMapping(Uris.Assignments.MAIN_PATH)
-class AssignmentController(val assignmentsService: AssignmentsService, val deliveriesService: DeliveriesService) {
+class AssignmentsController(val assignmentsService: AssignmentsService, val deliveriesService: DeliveriesService) {
 
     @GetMapping
     fun getAllAssignments(

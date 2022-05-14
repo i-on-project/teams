@@ -5,32 +5,32 @@ import org.springframework.stereotype.Component
 import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 
 @Component
-class OrganizationService(val jdbi: Jdbi) {
+class OrganizationsService(val jdbi: Jdbi) {
 
     fun getAllOrganizations(pageSize: Int, pageIndex: Int) =
         sqlExceptionHandler {
             jdbi
-                .onDemand(OrganizationDAO::class.java)
+                .onDemand(OrganizationsDAO::class.java)
                 .getAllOrganizations(pageSize + 1, pageIndex * pageSize)
         }
 
     fun getOrganization(id: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(OrganizationDAO::class.java).getOrganization(id)
+            jdbi.onDemand(OrganizationsDAO::class.java).getOrganization(id)
         }
 
     fun createOrganization(organization: OrganizationDbWrite) =
         sqlExceptionHandler {
-            jdbi.onDemand(OrganizationDAO::class.java).createOrganization(organization)
+            jdbi.onDemand(OrganizationsDAO::class.java).createOrganization(organization)
         }
 
     fun updateOrganization(organization: OrganizationDbUpdate) =
         sqlExceptionHandler {
-            jdbi.onDemand(OrganizationDAO::class.java).updateOrganization(organization)
+            jdbi.onDemand(OrganizationsDAO::class.java).updateOrganization(organization)
         }
 
     fun deleteOrganization(id: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(OrganizationDAO::class.java).deleteOrganization(id)
+            jdbi.onDemand(OrganizationsDAO::class.java).deleteOrganization(id)
         }
 }

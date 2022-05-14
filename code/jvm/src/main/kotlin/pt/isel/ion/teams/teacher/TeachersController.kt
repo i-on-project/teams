@@ -5,13 +5,13 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
-import pt.isel.ion.teams.classrooms.ClassroomService
+import pt.isel.ion.teams.classrooms.ClassroomsService
 import pt.isel.ion.teams.classrooms.toCompactOutput
 import pt.isel.ion.teams.common.Uris
 
 @RestController
 @RequestMapping(Uris.Teachers.MAIN_PATH)
-class TeacherController(val service: TeacherService, val classService: ClassroomService) {
+class TeachersController(val service: TeachersService, val classService: ClassroomsService) {
 
     @GetMapping
     fun getTeachers(

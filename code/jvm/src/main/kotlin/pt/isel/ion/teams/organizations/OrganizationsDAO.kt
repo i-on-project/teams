@@ -6,7 +6,7 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
-interface OrganizationDAO {
+interface OrganizationsDAO {
 
     @SqlQuery("SELECT * FROM organizations_view LIMIT :limit OFFSET :offset")
     fun getAllOrganizations(@Bind("limit") limit: Int, @Bind("offset") offset: Int): List<OrganizationDbRead>

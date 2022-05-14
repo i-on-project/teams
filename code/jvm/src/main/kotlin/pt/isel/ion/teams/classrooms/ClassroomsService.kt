@@ -5,38 +5,38 @@ import org.springframework.stereotype.Component
 import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 
 @Component
-class ClassroomService(val jdbi: Jdbi) {
+class ClassroomsService(val jdbi: Jdbi) {
 
     fun getAllClassroomsByOrganizationWithPaging(pageSize: Int, pageIndex: Int, orgId: Int) =
         sqlExceptionHandler {
             jdbi
-                .onDemand(ClassroomDAO::class.java)
+                .onDemand(ClassroomsDAO::class.java)
                 .getAllClassroomsByOrganizationWithPaging(pageSize + 1, pageIndex * pageSize, orgId)
         }
 
     fun getAllClassroomsByOrganization(orgId: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(ClassroomDAO::class.java)
+            jdbi.onDemand(ClassroomsDAO::class.java)
                 .getAllClassroomsByOrganization(orgId)
         }
 
     fun getClassroom(id: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(ClassroomDAO::class.java).getClassroom(id)
+            jdbi.onDemand(ClassroomsDAO::class.java).getClassroom(id)
         }
 
     fun createClassroom(classroomDbWrite: ClassroomDbWrite) =
         sqlExceptionHandler {
-            jdbi.onDemand(ClassroomDAO::class.java).createClassroom(classroomDbWrite)
+            jdbi.onDemand(ClassroomsDAO::class.java).createClassroom(classroomDbWrite)
         }
 
     fun updateClassroom(classroomDbUpdate: ClassroomDbUpdate) =
         sqlExceptionHandler {
-            jdbi.onDemand(ClassroomDAO::class.java).updateClassroom(classroomDbUpdate)
+            jdbi.onDemand(ClassroomsDAO::class.java).updateClassroom(classroomDbUpdate)
         }
 
     fun deleteClassroom(id: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(ClassroomDAO::class.java).deleteClassroom(id)
+            jdbi.onDemand(ClassroomsDAO::class.java).deleteClassroom(id)
         }
 }

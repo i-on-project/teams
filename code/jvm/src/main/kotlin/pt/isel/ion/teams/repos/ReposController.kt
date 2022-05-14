@@ -8,12 +8,11 @@ import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.tags.TagsService
 import pt.isel.ion.teams.tags.toCompactOutput
-import pt.isel.ion.teams.teams.*
 
 @RestController
 @RequestMapping(Uris.Repos.MAIN_PATH)
-class RepoController(
-    val repoService: RepoService,
+class ReposController(
+    val reposService: ReposService,
     val tagsService: TagsService
 ) {
 
@@ -30,7 +29,7 @@ class RepoController(
         .body(
             CollectionModel(pageIndex, pageSize)
                 .toRepoSirenObject(
-                    repoService.getAllReposByTeamWithPaging(pageSize, pageIndex, teamId).map { it.toCompactOutput() },
+                    reposService.getAllReposByTeamWithPaging(pageSize, pageIndex, teamId).map { it.toCompactOutput() },
                     orgId,
                     classId,
                     teamId
@@ -45,7 +44,7 @@ class RepoController(
         @PathVariable teamId: Int,
         @PathVariable repoId: Int
     ): ResponseEntity<Any> {
-        val repo = repoService.getRepo(repoId)
+        val repo = reposService.getRepo(repoId)
         val tags = tagsService.getAllTags(repoId).map { it.toCompactOutput() }
 
         //TODO: Detect if user is student or teacher
@@ -63,7 +62,7 @@ class RepoController(
         @PathVariable classId: Int,
         @PathVariable teamId: Int,
     ): ResponseEntity<Any> {
-        val createdRepo = repoService.createRepo(repo.toDb(teamId)).toOutput()
+        val createdRepo = reposService.createRepo(repo.toDb(teamId)).toOutput()
 
         return ResponseEntity
             .created(Uris.Repos.Repo.make(orgId, classId, teamId, createdRepo.id))
@@ -78,11 +77,11 @@ class RepoController(
     ) = ResponseEntity
         .ok()
         .contentType(MediaType.APPLICATION_JSON)
-        .body(repoService.updateRepo(repo.toDb(repoId)).toOutput())
+        .body(reposService.updateRepo(repo.toDb(repoId)).toOutput())
 
     @DeleteMapping(Uris.Repos.Repo.PATH)
     fun deleteRepo(@PathVariable repoId: Int): ResponseEntity<Any> {
-        repoService.deleteRepo(repoId)
+        reposService.deleteRepo(repoId)
 
         return ResponseEntity
             .ok()

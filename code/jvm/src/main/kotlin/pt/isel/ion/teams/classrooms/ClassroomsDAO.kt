@@ -6,7 +6,7 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
-interface ClassroomDAO {
+interface ClassroomsDAO {
 
     @SqlQuery("SELECT * FROM classrooms_view WHERE orgid = :orgId ORDER BY orgid LIMIT :limit OFFSET :offset")
     fun getAllClassroomsByOrganizationWithPaging(

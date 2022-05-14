@@ -6,7 +6,7 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
-interface TeacherDAO {
+interface TeachersDAO {
 
     @SqlQuery("SELECT * FROM teachers_view WHERE cid=:classId LIMIT :limit OFFSET :offset")
     fun getTeachers(

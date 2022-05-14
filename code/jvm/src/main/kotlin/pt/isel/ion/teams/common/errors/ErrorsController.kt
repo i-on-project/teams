@@ -22,7 +22,7 @@ import org.springframework.web.servlet.NoHandlerFoundException
 import java.net.URI
 
 @ControllerAdvice
-class ErrorController : ResponseEntityExceptionHandler() {
+class ErrorsController : ResponseEntityExceptionHandler() {
 
     //TODO Review URIs
     val type400 = URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md")

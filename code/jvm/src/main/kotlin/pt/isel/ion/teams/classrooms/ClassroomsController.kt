@@ -11,8 +11,8 @@ import pt.isel.ion.teams.teams.toCompactOutput
 
 @RestController
 @RequestMapping(Uris.Classrooms.MAIN_PATH)
-class ClassroomController(
-    val classroomService: ClassroomService,
+class ClassroomsController(
+    val classroomsService: ClassroomsService,
     val teamsService: TeamsService
 ) {
 
@@ -26,7 +26,7 @@ class ClassroomController(
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
             CollectionModel(pageIndex, pageSize).toClassroomSirenObject(
-                classroomService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId).map{ it.toOutput()},
+                classroomsService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId).map{ it.toOutput()},
                 orgId
             )
         )
@@ -36,7 +36,7 @@ class ClassroomController(
         @PathVariable orgId: Int,
         @PathVariable classId: Int
     ): ResponseEntity<Any> {
-        val classroom = classroomService.getClassroom(classId).toOutput()
+        val classroom = classroomsService.getClassroom(classId).toOutput()
         val teams = teamsService.getAllTeamsOfClassroom(10, 0, classId)
 
         //TODO Detect if user is student or teacher
@@ -55,7 +55,7 @@ class ClassroomController(
         @RequestBody classroomInputModel: ClassroomInputModel
     ): ResponseEntity<Any> {
         //TODO retrieve real githubURI and avatarURI
-        val classroom = classroomService.createClassroom(classroomInputModel.toDb(orgId,"example","example")).toOutput()
+        val classroom = classroomsService.createClassroom(classroomInputModel.toDb(orgId,"example","example")).toOutput()
 
         return ResponseEntity
             .created(Uris.Classrooms.Classroom.make(orgId, classroom.id))
@@ -72,11 +72,11 @@ class ClassroomController(
     ) = ResponseEntity
         .ok()
         .contentType(MediaType.APPLICATION_JSON)
-        .body(classroomService.updateClassroom(classroomUpdateModel.toDb(classId)).toOutput())
+        .body(classroomsService.updateClassroom(classroomUpdateModel.toDb(classId)).toOutput())
 
     @DeleteMapping(Uris.Classrooms.Classroom.PATH)
     fun deleteClassroom(@PathVariable classId: Int): ResponseEntity<Any> {
-        classroomService.deleteClassroom(classId)
+        classroomsService.deleteClassroom(classId)
         return ResponseEntity
             .ok()
             .body(null)

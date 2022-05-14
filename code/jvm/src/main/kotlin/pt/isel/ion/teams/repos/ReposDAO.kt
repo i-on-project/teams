@@ -6,7 +6,7 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
-interface RepoDAO {
+interface ReposDAO {
 
     @SqlQuery("SELECT * FROM repos_view WHERE tid=:teamId LIMIT :limit OFFSET :offset")
     fun getAllReposByTeamWithPaging(
