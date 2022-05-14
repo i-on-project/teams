@@ -20,11 +20,11 @@ interface TeachersDAO {
 
     @SqlUpdate("INSERT INTO teacher (number,name,email,office) VALUES (:number,:name,:email,:office)")
     @GetGeneratedKeys
-    fun createTeacher(@BindBean teacher: TeacherDbWrite): TeacherInfoDbRead
+    fun createTeacher(@BindBean teacher: TeacherDbWrite): InfoTeacherDbRead
 
     @SqlUpdate("UPDATE teacher SET name=COALESCE(:name,name),email=COALESCE(:email,email),office=COALESCE(:office,office) WHERE number=:number")
     @GetGeneratedKeys
-    fun updateTeacherInfo(@BindBean teacher: TeacherDbUpdate): TeacherInfoDbRead
+    fun updateTeacherInfo(@BindBean teacher: TeacherDbUpdate): InfoTeacherDbRead
 
     @SqlUpdate("UPDATE teachers SET cid=COALESCE(:cid,cid) WHERE number=:number")
     @GetGeneratedKeys
