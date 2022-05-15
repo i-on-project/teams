@@ -113,7 +113,7 @@ object Uris {
     }
 
     object Students {
-        const val MAIN_PATH = "api/orgs/{orgId}/classrooms/{classId}"
+        const val MAIN_PATH = "/api/orgs/{orgId}/classrooms/{classId}"
         private val TEMPLATE = UriTemplate(MAIN_PATH)
         fun make(orgId: Int, classId: Int) = TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId))
 

@@ -168,7 +168,7 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "api/orgs/3/classrooms/4/teams/5/students?page=0&limit=10"
+      "href": "api/orgs/3/classrooms/4/teams/5/students"
     },
     {
       "rel": ["next"],
@@ -185,10 +185,6 @@ Status:  200 OK
     {
       "rel": ["logout"],
       "href": "/api/logout"
-    },
-    {
-      "rel": ["classroom"],
-      "href": "api/orgs/3/classrooms/4"
     },
     {
       "rel": ["team"],

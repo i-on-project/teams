@@ -23,7 +23,7 @@ class StudentsController(val studentsService: StudentsService, val teamsService:
         .ok()
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
-            CollectionModel(pageIndex, pageSize).toStudentSirenObject(
+            CollectionModel(pageIndex, pageSize).toStudentByClassroomSirenObject(
                 studentsService.getAllStudentsByClassroom(pageSize, pageIndex, classId)
                     .map { it.toCompactOutput() },
                 orgId,
@@ -42,11 +42,12 @@ class StudentsController(val studentsService: StudentsService, val teamsService:
         .ok()
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
-            CollectionModel(pageIndex, pageSize).toStudentSirenObject(
+            CollectionModel(pageIndex, pageSize).toStudentByTeamSirenObject(
                 studentsService.getAllStudentsByTeam(teamId, pageSize, pageIndex)
                     .map { it.toCompactOutput() },
                 orgId,
-                classId
+                classId,
+                teamId
             )
         )
 

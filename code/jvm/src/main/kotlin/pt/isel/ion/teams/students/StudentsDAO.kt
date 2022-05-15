@@ -25,7 +25,7 @@ interface StudentsDAO {
     @SqlQuery("SELECT * FROM students_view WHERE number=:number")
     fun getStudent(@Bind("number") number: Int): CompleteStudentDbRead
 
-    @SqlUpdate("INSERT INTO student (number, name)  VALUES (:number, :name)")
+    @SqlUpdate("INSERT INTO student (number, name)  VALUES (:number, :name) ON CONFLICT (number) DO UPDATE SET number = :number, name = :name")
     @GetGeneratedKeys
     fun createStudent(@BindBean student: StudentDbWrite): PersonalInfoStudentDbRead
 
@@ -36,6 +36,9 @@ interface StudentsDAO {
     @SqlUpdate("UPDATE student SET name=COALESCE(:name,name) WHERE number=:number")
     @GetGeneratedKeys
     fun updateStudentName(@BindBean student: StudentDbUpdate): PersonalInfoStudentDbRead
+
+    @SqlUpdate("UPDATE student SET deleted=B'0' WHERE number=:number")
+    fun deleteStudent(@Bind number: Int)
 
     //For internal use only
     @SqlUpdate("INSERT INTO students (number, tid, cid)  VALUES (:number, :tid, :cid)")

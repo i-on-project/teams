@@ -7,10 +7,11 @@ import pt.isel.ion.teams.common.siren.*
 import pt.isel.ion.teams.teams.TeamsCompactOutputModel
 
 
-fun CollectionModel.toStudentSirenObject(
+fun CollectionModel.toStudentByTeamSirenObject(
     studentList: List<StudentCompactOutputModel>,
     orgId: Int,
-    cId: Int
+    cId: Int,
+    teamId: Int
 ): SirenEntity<CollectionModel> {
     val list = if (studentList.size > this.pageSize) studentList.subList(0, this.pageSize) else studentList
     val pageSize = this.pageSize
@@ -28,7 +29,42 @@ fun CollectionModel.toStudentSirenObject(
             )
         },
         links = listOfNotNull(
-            selfLink(Uris.Students.make(orgId,cId)),
+            selfLink(Uris.Students.FromTeam.make(orgId, cId, teamId)),
+            if (studentList.size > pageSize)
+                nextLink(Uris.Students.makePage(pageIndex + 1, pageSize, cId, orgId))
+            else null,
+            if (pageIndex > 0)
+                prevLink(Uris.Students.makePage(pageIndex - 1, pageSize, cId, orgId))
+            else null,
+            SirenLink(SirenRelations.TEAM, Uris.Teams.Team.make(orgId, cId, teamId)),
+            homeLink(),
+            logoutLink(),
+        )
+    )
+}
+
+fun CollectionModel.toStudentByClassroomSirenObject(
+    studentList: List<StudentCompactOutputModel>,
+    orgId: Int,
+    cId: Int,
+): SirenEntity<CollectionModel> {
+    val list = if (studentList.size > this.pageSize) studentList.subList(0, this.pageSize) else studentList
+    val pageSize = this.pageSize
+    this.pageSize = list.size
+
+    return SirenEntity(
+        properties = this,
+        clazz = listOf(SirenClasses.COLLECTION, SirenClasses.STUDENT),
+        entities = list.map {
+            EmbeddedEntity(
+                properties = it,
+                clazz = listOf(SirenClasses.STUDENT),
+                rel = listOf(SirenRelations.ITEM),
+                links = listOf(selfLink(Uris.Students.Student.make(orgId, cId, it.number)))
+            )
+        },
+        links = listOfNotNull(
+            selfLink(Uris.Students.FromClassroom.make(orgId, cId)),
             if (studentList.size > pageSize)
                 nextLink(Uris.Students.makePage(pageIndex + 1, pageSize, cId, orgId))
             else null,
@@ -41,7 +77,6 @@ fun CollectionModel.toStudentSirenObject(
         )
     )
 }
-
 
 fun CompleteStudentOutputModel.toTeacherSirenObject(
     teamsList: List<TeamsCompactOutputModel>,
@@ -75,7 +110,7 @@ fun CompleteStudentOutputModel.toTeacherSirenObject(
     links = listOf(
         selfLink(Uris.Students.Student.make(orgId, classId, number)),
         homeLink(),
-        SirenLink(SirenRelations.CLASSROOMS, Uris.Classrooms.Classroom.make(orgId, classId)),
+        SirenLink(SirenRelations.CLASSROOM, Uris.Classrooms.Classroom.make(orgId, classId)),
         logoutLink()
     )
 )
@@ -110,7 +145,7 @@ fun CompleteStudentOutputModel.toStudentSirenObject(
     ),
     links = listOf(
         selfLink(Uris.Students.Student.make(orgId, classId, number)),
-        SirenLink(SirenRelations.CLASSROOMS, Uris.Classrooms.Classroom.make(orgId, classId)),
+        SirenLink(SirenRelations.CLASSROOM, Uris.Classrooms.Classroom.make(orgId, classId)),
         homeLink(),
         logoutLink()
     )
