@@ -13,7 +13,6 @@ import pt.isel.ion.teams.common.errors.ProblemJsonModel
 import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_SUBTYPE
-import pt.isel.ion.teams.repos.RepoOutputModel
 import pt.isel.ion.teams.teams.TeamsOutputModel
 
 @SpringBootTest
