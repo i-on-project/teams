@@ -101,9 +101,7 @@ fun CompleteStudentOutputModel.toTeacherSirenObject(
             href = Uris.Students.Student.make(orgId, classId, number),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "tId", type = "number"),
-                SirenAction.Field(name = "cId", type = "number")
+                SirenAction.Field(name = "name", type = "string")
             )
         )
     ),

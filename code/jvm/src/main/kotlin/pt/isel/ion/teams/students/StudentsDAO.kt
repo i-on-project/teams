@@ -25,26 +25,29 @@ interface StudentsDAO {
     @SqlQuery("SELECT * FROM students_view WHERE number=:number")
     fun getStudent(@Bind("number") number: Int): CompleteStudentDbRead
 
+    /**
+     * Action on Student table.
+     */
     @SqlUpdate("INSERT INTO student (number, name)  VALUES (:number, :name) ON CONFLICT (number) DO UPDATE SET number = :number, name = :name")
     @GetGeneratedKeys
-    fun createStudent(@BindBean student: StudentDbWrite): PersonalInfoStudentDbRead
-
-    @SqlUpdate("UPDATE students SET tid=COALESCE(:tid,tid), cid=COALESCE(:cid,cid) WHERE number=:number")
-    @GetGeneratedKeys
-    fun updateStudentTeam(@BindBean student: StudentDbUpdate): ClassInfoStudentDbRead
+    fun createStudent(@BindBean student: StudentInfoDbWrite): StudentInfoDbRead
 
     @SqlUpdate("UPDATE student SET name=COALESCE(:name,name) WHERE number=:number")
     @GetGeneratedKeys
-    fun updateStudentName(@BindBean student: StudentDbUpdate): PersonalInfoStudentDbRead
+    fun updateStudentName(@BindBean student: StudentDbUpdate): StudentInfoDbRead
 
     @SqlUpdate("UPDATE student SET deleted=B'0' WHERE number=:number")
     fun deleteStudent(@Bind number: Int)
 
-    //For internal use only
-    @SqlUpdate("INSERT INTO students (number, tid, cid)  VALUES (:number, :tid, :cid)")
-    fun associateStudentToTeam(@BindBean student: StudentAssociationDbWrite)
+    /**
+     * Action on Students table.
+     */
 
-    //For internal use only
-    @SqlUpdate("UPDATE students SET deleted=B'0' WHERE number=:number")
-    fun dissociateStudentFromTeam(@Bind number: Int)
+    @SqlUpdate("INSERT INTO students (number, tid, cid)  VALUES (:number, :tid, :cid) ON CONFLICT (number, tid, cid) DO UPDATE SET deleted=B'0'")
+    @GetGeneratedKeys
+    fun addStudent(@BindBean student: StudentClassInfoDbWrite): StudentClassInfoDbRead
+
+    @SqlUpdate("UPDATE students SET deleted=B'1' WHERE number=:number AND cid=:cid")
+    fun removeStudent(@Bind number: Int, @Bind cid: Int)
+
 }

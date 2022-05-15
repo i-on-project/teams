@@ -11,38 +11,44 @@ data class CompleteStudentDbRead(
     val cid: Int
 )
 
-data class PersonalInfoStudentDbRead(
+data class StudentInfoDbRead(
     val number: Int,
     val name: String
 )
 
-data class ClassInfoStudentDbRead(
+data class StudentClassInfoDbRead(
     val number: Int,
     val tid: Int,
     val cid: Int
 )
 
-data class StudentDbWrite(
-    val number: Int,
-    val name: String
-)
-
-data class StudentAssociationDbWrite(
+data class StudentClassInfoDbWrite(
     val number: Int,
     val tid: Int,
     val cid: Int
+)
+data class StudentInfoDbWrite(
+    val number: Int,
+    val name: String
 )
 
 data class StudentDbUpdate(
     val number: Int,
-    val name: String?,
-    val tid: Int?,
-    val cid: Int?
+    val name: String
 )
 
 /**
  * For external use only.
  */
+
+data class StudentInputModel(
+    val number: Int,
+    val name: String
+)
+
+data class StudentClassInfoInputModel(
+    val number: Int
+)
 
 data class CompleteStudentOutputModel(
     val number: Int,
@@ -50,12 +56,12 @@ data class CompleteStudentOutputModel(
     val tid: Int
 )
 
-data class PersonalInfoStudentOutputModel(
+data class StudentInfoOutputModel(
     val number: Int,
     val name: String
 )
 
-data class ClassInfoStudentOutputModel(
+data class StudentClassInfoOutputModel(
     val number: Int,
     val tid: Int,
     val cid: Int
@@ -66,31 +72,18 @@ data class StudentCompactOutputModel(
     val name: String,
 )
 
-data class StudentInputModel(
-    val number: Int,
-    val name: String
-)
-
-data class StudentAssociationInputModel(
-    val number: Int,
-    val cid: Int,
-    val tid: Int
-)
-
 data class StudentUpdateModel(
-    val name: String?,
-    val tid: Int?,
-    val cid: Int?
+    val name: String
 )
 
 /**
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun StudentInputModel.toDb() = StudentDbWrite(this.number, this.name)
-fun StudentAssociationInputModel.toDb(number: Int) = StudentAssociationDbWrite(number, this.tid, this.cid)
-fun StudentUpdateModel.toDb(number: Int) = StudentDbUpdate(number, this.name, this.tid, this.cid)
+fun StudentClassInfoInputModel.toDb(tid: Int, cid: Int) = StudentClassInfoDbWrite(this.number, tid, cid)
+fun StudentInputModel.toDb() = StudentInfoDbWrite(this.number, this.name)
+fun StudentInfoDbRead.toOutput() = StudentInfoOutputModel(this.number, this.name)
+fun StudentClassInfoDbRead.toOutput() = StudentClassInfoOutputModel(this.number, this.tid, this.cid)
 fun CompleteStudentDbRead.toOutput() = CompleteStudentOutputModel(this.number, this.name, this.tid)
-fun PersonalInfoStudentDbRead.toOutput() = PersonalInfoStudentOutputModel(this.number, this.name)
-fun ClassInfoStudentDbRead.toOutput() = ClassInfoStudentOutputModel(this.number, this.tid, this.cid)
 fun CompleteStudentDbRead.toCompactOutput() =StudentCompactOutputModel(this.number,this.name)
+fun StudentUpdateModel.toDb(number: Int) = StudentDbUpdate(number, this.name)

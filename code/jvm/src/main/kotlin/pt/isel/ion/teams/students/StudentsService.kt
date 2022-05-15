@@ -10,12 +10,12 @@ class StudentsService(val jdbi: Jdbi) {
     fun getAllStudentsByClassroom(pageSize: Int, pageIndex: Int, classroomId: Int) =
         sqlExceptionHandler {
             jdbi.onDemand(StudentsDAO::class.java)
-                .getAllStudentsByClassroom( classroomId,pageSize + 1, pageIndex * pageSize)
+                .getAllStudentsByClassroom(classroomId, pageSize + 1, pageIndex * pageSize)
         }
 
-    fun getAllStudentsByTeam(teamId: Int,pageSize: Int, pageIndex: Int) =
+    fun getAllStudentsByTeam(teamId: Int, pageSize: Int, pageIndex: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(StudentsDAO::class.java).getAllStudentsByTeam(teamId,pageSize + 1, pageIndex * pageSize)
+            jdbi.onDemand(StudentsDAO::class.java).getAllStudentsByTeam(teamId, pageSize + 1, pageIndex * pageSize)
         }
 
     fun getStudent(number: Int) =
@@ -23,21 +23,31 @@ class StudentsService(val jdbi: Jdbi) {
             jdbi.onDemand(StudentsDAO::class.java).getStudent(number)
         }
 
-    fun createStudent(student: StudentDbWrite) =
+    fun createStudent(student: StudentInfoDbWrite) =
         sqlExceptionHandler {
             jdbi.onDemand(StudentsDAO::class.java).createStudent(student)
         }
 
     fun updateStudent(student: StudentDbUpdate) =
         sqlExceptionHandler {
-            if (student.name == null)
-                jdbi.onDemand(StudentsDAO::class.java).updateStudentTeam(student).toOutput()
-            else
-                jdbi.onDemand(StudentsDAO::class.java).updateStudentName(student).toOutput()
+            jdbi.onDemand(StudentsDAO::class.java).updateStudentName(student)
         }
 
     fun deleteStudent(number: Int) =
         sqlExceptionHandler {
             jdbi.onDemand(StudentsDAO::class.java).deleteStudent(number)
         }
+
+    fun addStudent(student: StudentClassInfoDbWrite) =
+        sqlExceptionHandler {
+            jdbi.onDemand(StudentsDAO::class.java).addStudent(student)
+        }
+
+    fun removeStudent(number: Int, cid: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(StudentsDAO::class.java).removeStudent(number, cid)
+        }
+
+
+
 }

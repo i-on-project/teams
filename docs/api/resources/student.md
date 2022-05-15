@@ -302,10 +302,25 @@ Status:  200 OK
         "href": "/api/orgs/{orgId}/classrooms/{classId}/teams/123/students/977",
         "type": "application/json",
         "field": [
-          {"name": "name", "type": "string"},
-          {"name": "tId", "type": "number"},
-          {"name": "cId", "type": "number"}
+          {"name": "name", "type": "string"}
         ]
+      },
+      {
+        "name": "add-student",
+        "title": "Add Student",
+        "method": "POST",
+        "href": "/api/orgs/852/classrooms/123/teams/123/students",
+        "type": "application/json",
+        "field": [
+          {"name": "number", "type": "number"}
+        ]
+      },
+      {
+        "name": "remove-student",
+        "title": "Remove Student",
+        "method": "DELETE",
+        "href": "/api/orgs/852/classrooms/123/teams/123/students/977",
+        "type": "application/json"
       }
     ],
   "links": [

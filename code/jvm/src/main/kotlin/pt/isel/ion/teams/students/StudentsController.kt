@@ -85,7 +85,38 @@ class StudentsController(val studentsService: StudentsService, val teamsService:
         ResponseEntity
             .ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(studentsService.updateStudent(student.toDb(number)))
+            .body(studentsService.updateStudent(student.toDb(number)).toOutput())
+
+    @PostMapping(Uris.Students.FromTeam.PATH)
+    fun addStudent(
+        @PathVariable orgId: Int,
+        @PathVariable classId: Int,
+        @PathVariable teamId: Int,
+        @RequestBody student: StudentClassInfoInputModel
+    ): ResponseEntity<Any> {
+        val std = studentsService.addStudent(student.toDb(teamId,classId)).toOutput()
+
+        return ResponseEntity
+            .created(Uris.Students.Student.make(orgId, classId, std.number))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(
+                std
+            )
+    }
+
+    @DeleteMapping(Uris.Students.Student.PATH)
+    fun removeStudent(
+        @PathVariable orgId: Int,
+        @PathVariable classId: Int,
+        @PathVariable number: Int
+    ): ResponseEntity<Any> {
+        studentsService.removeStudent(number, classId)
+        return ResponseEntity
+            .ok()
+            .body(null)
+    }
+
+
 
 }
 
