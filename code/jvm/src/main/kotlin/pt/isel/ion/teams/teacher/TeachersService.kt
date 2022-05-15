@@ -24,14 +24,20 @@ class TeachersService(val jdbi: Jdbi) {
 
     fun updateTeacher(teacher: TeacherDbUpdate) =
         sqlExceptionHandler {
-            if (teacher.cId == null)
-                jdbi.onDemand(TeachersDAO::class.java).updateTeacherInfo(teacher).toOutput()
-            else
-                jdbi.onDemand(TeachersDAO::class.java).updateTeacherClass(teacher).toOutput()
+                jdbi.onDemand(TeachersDAO::class.java).updateTeacherInfo(teacher)
         }
 
     fun deleteTeacher(number: Int) =
         sqlExceptionHandler {
             jdbi.onDemand(TeachersDAO::class.java).deleteTeacher(number)
+        }
+
+    fun addTeacher(simpleTeacherDbRead: SimpleTeacherDbRead) =
+        sqlExceptionHandler {
+            jdbi.onDemand(TeachersDAO::class.java).addTeacher(simpleTeacherDbRead)
+        }
+    fun removeTeacher(simpleTeacherDbRead: SimpleTeacherDbRead) =
+        sqlExceptionHandler {
+            jdbi.onDemand(TeachersDAO::class.java).removeTeacher(simpleTeacherDbRead)
         }
 }

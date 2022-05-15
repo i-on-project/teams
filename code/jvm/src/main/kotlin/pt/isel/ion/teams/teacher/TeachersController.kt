@@ -65,6 +65,37 @@ class TeachersController(val service: TeachersService, val classService: Classro
         ResponseEntity
             .ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(service.updateTeacher(teacher.toDb(number)))
+            .body(service.updateTeacher(teacher.toDb(number)).toOutput())
+
+    @PostMapping(Uris.Teachers.Teacher.PATH)
+    fun addTeacher(
+        @PathVariable orgId: Int,
+        @PathVariable classId: Int,
+        @PathVariable number: Int
+    ): ResponseEntity<Any> {
+        val teacher = service.addTeacher(SimpleTeacherDbRead(number,classId)).toOutput()
+
+        return ResponseEntity
+            .created(Uris.Teachers.Teacher.make(orgId, classId, teacher.number))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(
+                teacher
+            )
+    }
+
+    @DeleteMapping(Uris.Teachers.Teacher.PATH)
+    fun removeTeacher(
+        @PathVariable orgId: Int,
+        @PathVariable classId: Int,
+        @PathVariable number: Int
+    ): ResponseEntity<Any> {
+        service.removeTeacher(SimpleTeacherDbRead(number,classId))
+        return ResponseEntity
+            .ok()
+            .body(null)
+    }
+
+
+
 
 }

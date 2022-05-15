@@ -181,7 +181,7 @@ Status:  200 OK
   "links": [
     {
       "rel": ["self"],
-      "href": "/api/orgs/852/classrooms/456/teams/123/teachers/977"
+      "href": "/api/orgs/852/classrooms/456/teachers/977"
     },
     {
       "rel": ["home"],
@@ -241,14 +241,28 @@ Status:  200 OK
         "name": "update-teacher",
         "title": "Update Teacher",
         "method": "PUT",
-        "href": "/api/orgs/852/classrooms/123/teams/123/teachers/977",
+        "href": "/api/orgs/852/classrooms/123/teachers/977",
         "type": "application/json",
         "field": [
           {"name": "name", "type": "number"},
           {"name": "email", "type": "string"},
-          {"name": "office", "type": "string"},
-          {"name": "cId", "type": "number"}
+          {"name": "office", "type": "string"}
         ]
+      },
+      {
+        "name": "add-teacher",
+        "title": "Add Teacher",
+        "method": "POST",
+        "href": "/api/orgs/852/classrooms/123/teachers",
+        "type": "application/json",
+        "field": []
+      },
+      {
+        "name": "remove-teacher",
+        "title": "Remove Teacher",
+        "method": "DELETE",
+        "href": "/api/orgs/852/classrooms/123/teachers",
+        "type": "application/json"
       }
     ],
   "links": [

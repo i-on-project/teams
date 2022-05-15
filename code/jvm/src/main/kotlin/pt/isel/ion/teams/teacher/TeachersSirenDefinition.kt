@@ -60,8 +60,8 @@ fun TeacherCompactOutputModel.toTeacherSirenObject(
     },
     actions = listOf(
         SirenAction(
-            name = "update-student",
-            title = "Update Student",
+            name = "update-teacher",
+            title = "Update Teacher",
             method = HttpMethod.PUT,
             href = Uris.Teachers.Teacher.make(orgId, classId, number),
             type = MediaType.APPLICATION_JSON,
@@ -71,6 +71,21 @@ fun TeacherCompactOutputModel.toTeacherSirenObject(
                 SirenAction.Field(name = "office", type = "string"),
                 SirenAction.Field(name = "cId", type = "number")
             )
+        ),
+        SirenAction(
+            name = "add-teacher",
+            title = "Add Teacher",
+            method = HttpMethod.POST,
+            href = Uris.Teachers.Teacher.make(orgId, classId, number),
+            type = MediaType.APPLICATION_JSON,
+            fields = listOf()
+        ),
+        SirenAction(
+            name = "remove-teacher",
+            title = "Remove Teacher",
+            method = HttpMethod.DELETE,
+            href = Uris.Teachers.Teacher.make(orgId, classId, number),
+            type = MediaType.APPLICATION_JSON
         )
     ),
     links = listOf(

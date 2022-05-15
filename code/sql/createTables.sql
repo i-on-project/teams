@@ -54,7 +54,7 @@ CREATE TABLE TEACHER
 
 CREATE TABLE TEACHERS
 (
-    number  int unique  NOT NULL,
+    number  int NOT NULL,
     cId     int,
     deleted bit(1) DEFAULT B'0',
     PRIMARY KEY (number,cId),
