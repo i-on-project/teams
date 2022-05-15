@@ -29,4 +29,9 @@ class TeachersService(val jdbi: Jdbi) {
             else
                 jdbi.onDemand(TeachersDAO::class.java).updateTeacherClass(teacher).toOutput()
         }
+
+    fun deleteTeacher(number: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(TeachersDAO::class.java).deleteTeacher(number)
+        }
 }

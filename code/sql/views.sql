@@ -26,7 +26,7 @@ SELECT code, cId
 FROM invite_links
 WHERE deleted = B'0';
 
-CREATE VIEW TEACHERS_VIEW (number, name, email, office, cId) AS
+CREATE VIEW TEACHERS_VIEW (number, name, email, office) AS
 SELECT ts.number, t.name, t.email, t.office, ts.cId
 FROM teachers ts
          JOIN teacher t on ts.number = t.number
@@ -91,3 +91,10 @@ CREATE VIEW TAGS_VIEW (id, name, date, delId, repoId) AS
 SELECT id, name, date, delId, repoId
 FROM tags
 WHERE deleted = B'0';
+
+CREATE VIEW TEACHER_CLASSROOMS (id, name, description, maxTeams, maxMembersPertTeam, repoUri, schoolYear, orgId, state, githubUri, avatarUri, number) AS
+SELECT c.id, c.name, c.description, c.maxTeams, c.maxMembersPerTeam, c.repoUri, c.schoolYear, c.orgId, c.state, c.githubUri, c.avatarUri, t.number
+FROM classrooms c
+        JOIN teachers t on c.id = t.cid
+WHERE c.deleted = B'0'
+  AND t.deleted = B'0';

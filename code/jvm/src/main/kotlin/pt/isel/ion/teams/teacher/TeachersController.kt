@@ -36,9 +36,9 @@ class TeachersController(val service: TeachersService, val classService: Classro
         .ok()
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
-            service.getTeacher(number).toOutput()
+            service.getTeacher(number).toCompactOutput()
                 .toStudentSirenObject(
-                    classService.getAllClassroomsByOrganization(orgId).map { it.toCompactOutput() },
+                    classService.getAllClassroomsByTeacher(number).map { it.toCompactOutput() },
                     classId,
                     orgId
                 )

@@ -20,6 +20,12 @@ class ClassroomsService(val jdbi: Jdbi) {
                 .getAllClassroomsByOrganization(orgId)
         }
 
+    fun getAllClassroomsByTeacher(teacherNum: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(ClassroomsDAO::class.java)
+                .getAllClassroomsByTeacher(teacherNum)
+        }
+
     fun getClassroom(id: Int) =
         sqlExceptionHandler {
             jdbi.onDemand(ClassroomsDAO::class.java).getClassroom(id)

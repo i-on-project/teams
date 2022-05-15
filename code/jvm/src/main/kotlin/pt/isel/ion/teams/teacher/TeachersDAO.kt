@@ -18,7 +18,7 @@ interface TeachersDAO {
     @SqlQuery("SELECT * FROM teachers_view WHERE number=:number")
     fun getTeacher(@Bind("number") number: Int): CompleteTeacherDbRead
 
-    @SqlUpdate("INSERT INTO teacher (number,name,email,office) VALUES (:number,:name,:email,:office)")
+    @SqlUpdate("INSERT INTO teacher (number,name,email,office) VALUES (:number,:name,:email,:office) ON CONFLICT (number) DO UPDATE set name = :name, email = :email, office = :office, deleted = B'0'")
     @GetGeneratedKeys
     fun createTeacher(@BindBean teacher: TeacherDbWrite): InfoTeacherDbRead
 
@@ -29,4 +29,7 @@ interface TeachersDAO {
     @SqlUpdate("UPDATE teachers SET cid=COALESCE(:cid,cid) WHERE number=:number")
     @GetGeneratedKeys
     fun updateTeacherClass(@BindBean teacher: TeacherDbUpdate): SimpleTeacherDbRead
+
+    @SqlUpdate("UPDATE teacher SET deleted = B'1' WHERE number = :number")
+    fun deleteTeacher(@Bind("number") number: Int)
 }

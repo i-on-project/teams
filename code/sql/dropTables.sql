@@ -13,6 +13,7 @@ DROP VIEW IF EXISTS deliveries_view;
 DROP VIEW IF EXISTS tags_view;
 DROP VIEW IF EXISTS deliveries_with_team_view;
 DROP VIEW IF EXISTS tags_with_repo_and_team;
+DROP VIEW IF EXISTS teacher_classrooms;
 
 DROP TRIGGER IF EXISTS check_team_counter on teams;
 DROP TRIGGER IF EXISTS check_team_members_counter on student;
