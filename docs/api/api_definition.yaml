@@ -1,0 +1,1412 @@
+openapi: 3.0.3
+info:
+  title: i-on Teams Service API
+  description: i-on Teams Service, serverside component of the i-on Teams project, exposes an API hereby documented.
+  version: 1.0.0
+servers:
+  - url: 'https'
+paths:
+  /api/orgs/{orgId}/classrooms:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms"
+      operationId: "getAllClassroomsByOrganization"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms"
+      operationId: "createClassroom"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}"
+      operationId: "getClassroom"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/orgs/{orgId}/classrooms/{classId}"
+      operationId: "updateClassroom"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}/classrooms/{classId}"
+      operationId: "deleteClassroom"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}/tags:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}/tags"
+      operationId: "getAllTags"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "repoId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}/tags"
+      operationId: "createTag"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "repoId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}/tags/{tagId}:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}/tags/{tagId}"
+      operationId: "getTag"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "repoId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "tagId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}/tags/{tagId}"
+      operationId: "updateTag"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "teamId"
+          in: "path"
+        - name: "repoId"
+          in: "path"
+        - name: "tagId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}/tags/{tagId}"
+      operationId: "deleteTag"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "teamId"
+          in: "path"
+        - name: "repoId"
+          in: "path"
+        - name: "tagId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes"
+      operationId: "getAllNotesOfTeam"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes"
+      operationId: "createNote"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes/{noteId}:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes/{noteId}"
+      operationId: "getNote"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "noteId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes/{noteId}"
+      operationId: "updateTeam"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "noteId"
+          in: "path"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/notes/{noteId}"
+      operationId: "deleteTeam"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "teamId"
+          in: "path"
+        - name: "noteId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos"
+      operationId: "getAllReposByRTeam"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos"
+      operationId: "createRepo"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}"
+      operationId: "getRepo"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "repoId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}"
+      operationId: "updateRepo"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "teamId"
+          in: "path"
+        - name: "repoId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos/{repoId}"
+      operationId: "deleteRepo"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "teamId"
+          in: "path"
+        - name: "repoId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teams:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teams"
+      operationId: "getAllTeamsOfOrganization"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms/{classId}/teams"
+      operationId: "createTeam"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}"
+      operationId: "getTeam"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}"
+      operationId: "updateTeam"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}"
+      operationId: "deleteTeam"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teachers:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teachers"
+      operationId: "getTeachers"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms/{classId}/teachers"
+      operationId: "createTeacher"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teachers/{number}:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teachers/{number}"
+      operationId: "getTeacher"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "number"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/orgs/{orgId}/classrooms/{classId}/teachers/{number}"
+      operationId: "updateTeacher"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "number"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms/{classId}/teachers/{number}"
+      operationId: "addTeacher"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "number"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}/classrooms/{classId}/teachers/{number}"
+      operationId: "removeTeacher"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "number"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/requests:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/requests"
+      operationId: "getAllRequestInClassroom"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}:
+    put:
+      summary: "PUT api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}"
+      operationId: "acceptRequest"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}/classrooms/{classId}/requests/{teamId}"
+      operationId: "declineRequest"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/students:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/students"
+      operationId: "getAllStudentsByClassroom"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms/{classId}/students"
+      operationId: "createStudent"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/students/{number}:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/students/{number}"
+      operationId: "getStudent"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "number"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/orgs/{orgId}/classrooms/{classId}/students/{number}"
+      operationId: "updateStudent"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "number"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/students:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/students"
+      operationId: "getAllStudentsByTeam"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "teamId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/assignments:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/assignments"
+      operationId: "getAllAssignments"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms/{classId}/assignments"
+      operationId: "createAssignment"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/assignments/{assignmentId}:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/assignments/{assignmentId}"
+      operationId: "getAssignment"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "assignmentId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/orgs/{orgId}/classrooms/{classId}/assignments/{assignmentId}"
+      operationId: "updateAssignment"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "assignmentId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}/classrooms/{classId}/assignments/{assignmentId}"
+      operationId: "deleteAssignment"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "assignmentId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs:
+    get:
+      summary: "GET api/orgs"
+      operationId: "getAllOrganizations"
+      parameters:
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs"
+      operationId: "createOrganization"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}:
+    get:
+      summary: "GET api/orgs/{orgId}"
+      operationId: "getOrganization"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/orgs/{orgId}"
+      operationId: "updateOrganization"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}"
+      operationId: "deleteProject"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/invite-links:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/invite-links"
+      operationId: "getAllInviteLinks"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms/{classId}/invite-links"
+      operationId: "createInviteLink"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/invite-links/{code}:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/invite-links/{code}"
+      operationId: "getInviteLink"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "code"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}/classrooms/{classId}/invite-links/{code}"
+      operationId: "deleteInviteLink"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "code"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/assignments/{assId}/deliveries:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/assignments/{assId}/deliveries"
+      operationId: "getAllDeliveriesOfAssignment"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "assId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageIndex"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/orgs/{orgId}/classrooms/{classId}/assignments/{assId}/deliveries"
+      operationId: "createDelivery"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "assId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /api/orgs/{orgId}/classrooms/{classId}/assignments/{assId}/deliveries/{deliveryId}:
+    get:
+      summary: "GET api/orgs/{orgId}/classrooms/{classId}/assignments/{assId}/deliveries/{deliveryId}"
+      operationId: "getDelivery"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "assId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "deliveryId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/orgs/{orgId}/classrooms/{classId}/assignments/{assId}/deliveries/{deliveryId}"
+      operationId: "updateDelivery"
+      parameters:
+        - name: "orgId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "classId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "assId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+        - name: "deliveryId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/orgs/{orgId}/classrooms/{classId}/assignments/{assId}/deliveries/{deliveryId}"
+      operationId: "deleteDelivery"
+      parameters:
+        - name: "orgId"
+          in: "path"
+        - name: "classId"
+          in: "path"
+        - name: "assId"
+          in: "path"
+        - name: "deliveryId"
+          in: "path"
+          required: true
+          schema:
+            type: "number"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+
+  
