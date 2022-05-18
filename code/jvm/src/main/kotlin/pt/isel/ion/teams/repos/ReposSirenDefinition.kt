@@ -88,6 +88,7 @@ fun RepoOutputModel.toTeacherSirenObject(
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
                 SirenAction.Field(name = "name", type = "string"),
+                SirenAction.Field(name = "state", type = "string"),
                 SirenAction.Field(name = "url", type = "string"),
                 SirenAction.Field(name = "assId", type = "number"),
             )

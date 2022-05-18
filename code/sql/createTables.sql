@@ -123,12 +123,14 @@ CREATE TABLE REPOS
     id      serial,
     url     varchar(200) unique NOT NULL,
     name    varchar(50)        NOT NULL,
+    state varchar(50) DEFAULT 'active',
     tId     int                NOT NULL, --team id
     assId   int                NOT NULL, --assignment id
     deleted bit(1) DEFAULT B'0',
     PRIMARY KEY (id),
     FOREIGN KEY (tId) REFERENCES TEAMS (id),
-    FOREIGN KEY (assId) REFERENCES ASSIGNMENTS (id)
+    FOREIGN KEY (assId) REFERENCES ASSIGNMENTS (id),
+    CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' )
 );
 
 CREATE TABLE DELIVERIES

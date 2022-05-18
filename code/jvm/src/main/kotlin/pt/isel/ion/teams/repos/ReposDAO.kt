@@ -27,7 +27,7 @@ interface ReposDAO {
     @GetGeneratedKeys
     fun createRepo(@BindBean repo: RepoDbWrite): RepoDbRead
 
-    @SqlUpdate("UPDATE repos SET name = coalesce(:name, name), assid = coalesce(:assId, assid) WHERE id=:id")
+    @SqlUpdate("UPDATE repos SET name = coalesce(:name, name), state = coalesce(:state, state), tid = coalesce(:tid, tid), assid = coalesce(:assId, assid) WHERE id=:id")
     @GetGeneratedKeys
     fun updateRepo(@BindBean repo: RepoDbUpdate): RepoDbRead
 
