@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain, Notification } = require('electron')
 const path = require('path')
 
 /**
@@ -11,7 +11,9 @@ const createWindow = () => {
         webPreferences: {
             nodeIntegration: false,
             worldSafeExecuteJavaScript: true,
-            contextIsolation: true
+            contextIsolation: true,
+            sandbox: true,
+            preload: path.join(__dirname, 'preload.js')
         }
     })
 
@@ -23,15 +25,24 @@ require('electron-reload')(__dirname, {
 })
 
 /**
+ * Notification test
+ */
+ipcMain.on('notify', (_, obj) => {
+    console.log(obj)
+    new Notification({title: obj.t, body: obj.m}).show()
+})
+
+/**
  * Creating window
  */
-app.whenReady().then(() => {
-    createWindow()
+app.whenReady()
+    .then(() => {
+        createWindow()
 
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow()
-      })
-})
+        app.on('activate', () => {
+            if (BrowserWindow.getAllWindows().length === 0) createWindow()
+        })
+    })
 
 /**
  * Listener to stop app on windows when all windows are closed
