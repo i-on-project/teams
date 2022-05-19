@@ -1,6 +1,5 @@
-'use strict'
-
 const { app, BrowserWindow } = require('electron')
+const path = require('path')
 
 /**
  * Defining window
@@ -8,11 +7,20 @@ const { app, BrowserWindow } = require('electron')
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
-        height: 600
+        height: 600,
+        webPreferences: {
+            nodeIntegration: false,
+            worldSafeExecuteJavaScript: true,
+            contextIsolation: true
+        }
     })
 
-    win.loadFile('./views/test.html')
+    win.loadFile('./index.html')
 }
+
+require('electron-reload')(__dirname, {
+    electron: require(`${__dirname}/node_modules/electron`)
+})
 
 /**
  * Creating window
