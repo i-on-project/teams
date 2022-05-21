@@ -87,6 +87,13 @@ BEGIN
             UPDATE repos SET deleted = B'1' WHERE tid = new.id;
         END;
     END IF;
+
+    IF (old.state != new.state) THEN
+        BEGIN
+            UPDATE repos SET state = new.state WHERE tid = new.id;
+        END;
+    END IF;
+
     RETURN new;
 END
 $cascade_delete_teams_fun$

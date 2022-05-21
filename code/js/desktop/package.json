@@ -1,52 +1,27 @@
 {
-  "name": "i-on-teams-desktop",
-  "version": "1.0.0",
-  "description": "i-on teams desktop app for teacher use only.",
+  "name": "ion-teams-desktop",
+  "version": "0.1.0",
+  "description": "i-on Teams Desktop Application using ReactJS and ElectronJS",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "electron .",
+    "watch": "webpack --config webpack.common.js --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Martim Francisco, Afonso Machado",
+  "author": "Afonso Machado & Martim Francisco",
   "license": "ISC",
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.63",
-    "@electron-forge/maker-deb": "^6.0.0-beta.63",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
-    "@electron-forge/maker-zip": "^6.0.0-beta.63",
-    "electron": "^18.0.3"
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "electron": "^18.2.4",
+    "electron-reload": "^2.0.0-alpha.1",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.6.4",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "i_on_teams_desktop"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   }
 }
