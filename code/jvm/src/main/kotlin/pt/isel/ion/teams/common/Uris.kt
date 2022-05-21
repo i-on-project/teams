@@ -5,6 +5,13 @@ import org.springframework.web.util.UriTemplate
 object Uris {
     object Home {
         const val PATH = "/api/home"
+        private val TEMPLATE = UriTemplate(PATH)
+        fun make() = TEMPLATE.expand()
+
+        private const val PAGE_PATH = "${PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
+        private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
+        fun makePage(pageIndex: Int, pageSize: Int) =
+            PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
     }
 
     object Logout {

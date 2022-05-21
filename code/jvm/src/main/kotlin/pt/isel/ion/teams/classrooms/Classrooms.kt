@@ -53,6 +53,15 @@ data class ClassroomOutputModel(
     val avatarURI: String
 )
 
+data class SimpleClassroomOutputModel(
+    val id: Int,
+    val name: String,
+    val description: String,
+    val schoolYear: String,
+    val state: String,
+    val orgId: Int
+)
+
 data class ClassroomCompactOutputModel(
     val id: Int,
     val name: String,
@@ -117,9 +126,22 @@ fun ClassroomDbRead.toOutput() =
         this.avatarURI
     )
 
+fun ClassroomDbRead.toSimpleOutput() =
+    SimpleClassroomOutputModel(
+        this.id,
+        this.name,
+        this.description,
+        this.schoolYear,
+        this.state,
+        this.orgId
+    )
+
 fun ClassroomDbRead.toCompactOutput() =
     ClassroomCompactOutputModel(this.id, this.name, this.description, this.schoolYear)
 
 fun ClassroomOutputModel.toCompactOutput() =
+    ClassroomCompactOutputModel(this.id, this.name, this.description, this.schoolYear)
+
+fun SimpleClassroomOutputModel.toCompactOutput() =
     ClassroomCompactOutputModel(this.id, this.name, this.description, this.schoolYear)
 

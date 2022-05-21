@@ -18,6 +18,7 @@ object SirenRelations {
     const val CLASSROOMS = "classrooms"
     const val ORGANIZATIONS = "organizations"
     const val ASSIGNMENTS = "assignments"
+    const val TEAMS = "teams"
     const val REQUESTS = "requests"
     const val STUDENTS = "students"
     const val NOTES = "notes"

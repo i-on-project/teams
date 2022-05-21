@@ -24,14 +24,12 @@ fun CollectionModel.toClassroomSirenObject(
                 clazz = listOf(SirenClasses.CLASSROOM),
                 rel = listOf(SirenRelations.ITEM),
                 links = listOf(
-                    selfLink(Uris.Classrooms.Classroom.make(orgId, it.id)),
-                    SirenLink(SirenRelations.GITHUB,URI(it.githubURI)),
-                    SirenLink(SirenRelations.AVATAR,URI(it.avatarURI))
+                    selfLink(Uris.Classrooms.Classroom.make(orgId, it.id))
                 )
             )
         },
         links = listOfNotNull(
-            selfLink(Uris.Classrooms.make(orgId)),
+            selfLink(Uris.Classrooms.makePage(pageIndex,pageSize,orgId)),
             if (classroomList.size > pageSize)
                 nextLink(Uris.Classrooms.makePage(pageIndex + 1, pageSize, orgId))
             else null,

@@ -103,13 +103,22 @@ Status:  200 OK
       "rel": [ "item" ],
       "properties": {
         "id": 123123,
-        "releaseDate": "2028/05/04",
-        "description": "Hello world."
+        "name": "LI61D",
+        "state": "active",
+        "schoolYear": "2021/22"
       },
       "links": [
         {
           "rel": ["self"],
           "href": "/api/orgs/852/classrooms/123123"
+        },
+        {
+          "rel": ["teams"],
+          "href": "/api/orgs/852/classrooms/123123/teams"
+        },
+        {
+          "rel": ["assignments"],
+          "href": "/api/orgs/852/classrooms/123123/assignments"
         }
       ]
     }
@@ -134,14 +143,6 @@ Status:  200 OK
     {
       "rel": ["organizations"],
       "href": "/api/orgs"
-    },
-    {
-      "rel": ["teams"],
-      "href": "/api/orgs/852/classrooms/123123/teams"
-    },
-    {
-      "rel": ["assignments"],
-      "href": "/api/orgs/852/classrooms/123123/assignments"
     }
   ]
 }
@@ -180,6 +181,10 @@ Status:  200 OK
         {
           "rel": ["self"],
           "href": "/api/orgs/852"
+        },
+        {
+          "rel": ["classrooms"],
+          "href": "/api/orgs/852/classrooms"
         }
       ]
     }
@@ -200,16 +205,7 @@ Status:  200 OK
     {
       "rel": ["logout"],
       "href": "/api/logout"
-    },
-    {
-      "rel": ["classrooms"],
-      "href": "/api/orgs/852/classrooms"
-    },
-    {
-      "rel": ["teams"],
-      "href": "/api/orgs/852/classrooms/123123/teams"
     }
-
   ]
 }
 ```
