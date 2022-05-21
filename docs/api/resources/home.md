@@ -80,7 +80,7 @@ Home is _**Not yet completed**_
 
 #### Home Student
 
-Request for home page of the Student.
+Request for home page of the Student, that shows all the classrooms that the student belongs.
 
 ```http
 GET /api
@@ -150,7 +150,7 @@ Status:  200 OK
 
 #### Home Teacher
 
-Request for home page of the Teacher.
+Request for home page of the Teacher, that shows all the organizations that the teacher belongs.
 
 
 ```http
