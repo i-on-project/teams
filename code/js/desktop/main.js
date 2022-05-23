@@ -6,6 +6,7 @@ const path = require('path')
  */
 const createWindow = () => {
     const win = new BrowserWindow({
+        title: 'i-on Teams Desktop',
         width: 800,
         height: 600,
         webPreferences: {
@@ -28,7 +29,6 @@ require('electron-reload')(__dirname, {
  * Notification test
  */
 ipcMain.on('notify', (_, obj) => {
-    console.log(obj)
     new Notification({title: obj.t, body: obj.m}).show()
 })
 
