@@ -14,6 +14,7 @@ import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_SUBTYPE
 import pt.isel.ion.teams.organizations.OrganizationOutputModel
+import javax.servlet.http.Cookie
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,6 +32,7 @@ class OrganizationsControllerTests {
         client
             .get(Uris.Organizations.make()) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
+                cookie(Cookie("number","86951"))
             }
             .andExpect {
                 status { isOk() }

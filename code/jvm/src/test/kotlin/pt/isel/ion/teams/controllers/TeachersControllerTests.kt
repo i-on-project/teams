@@ -185,7 +185,7 @@ class TeachersControllerTests {
             }
 
         //Fetch classrooms by teacher to see if it was successfully added
-        val classes = classroomsService.getAllClassroomsByTeacher(teacher.number)
+        val classes = classroomsService.getAllClassroomsByTeacher(teacher.number) //TODO: bad test
         assertEquals(classes.last().id, 2)
     }
 
