@@ -18,6 +18,7 @@ class ClassroomsController(
 
     @GetMapping
     fun getAllClassroomsByOrganization(
+        @CookieValue(name="number") number: Int?,
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int,
         @PathVariable orgId: Int
@@ -26,7 +27,7 @@ class ClassroomsController(
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
             CollectionModel(pageIndex, pageSize).toClassroomSirenObject(
-                classroomsService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId).map{ it.toOutput()},
+                classroomsService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId, number).map{ it.toOutput()},
                 orgId
             )
         )

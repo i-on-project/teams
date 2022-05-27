@@ -24,7 +24,7 @@ class TeachersController(val service: TeachersService, val classService: Classro
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
             CollectionModel(pageIndex, pageSize).toTeachersSirenObject(
-                service.getTeachers(classId, pageSize, pageIndex)
+                service.getTeachersByClass(classId, pageSize, pageIndex)
                     .map { it.toCompactOutput() },
                 orgId,
                 classId
@@ -50,7 +50,7 @@ class TeachersController(val service: TeachersService, val classService: Classro
         @PathVariable classId: Int,
         @RequestBody teacher: TeacherInputModel
     ): ResponseEntity<Any> {
-        val tch = service.createTeacher(teacher.toDb(classId)).toOutput()
+        val tch = service.createTeacher(teacher.toDb(classId, orgId)).toOutput()
 
         return ResponseEntity
             .created(Uris.Students.Student.make(orgId, classId, tch.number))
@@ -73,7 +73,7 @@ class TeachersController(val service: TeachersService, val classService: Classro
         @PathVariable classId: Int,
         @PathVariable number: Int
     ): ResponseEntity<Any> {
-        val teacher = service.addTeacher(SimpleTeacherDbRead(number,classId)).toOutput()
+        val teacher = service.addTeacher(SimpleTeacherDbRead(number, classId, orgId)).toOutput()
 
         return ResponseEntity
             .created(Uris.Teachers.Teacher.make(orgId, classId, teacher.number))
@@ -89,13 +89,9 @@ class TeachersController(val service: TeachersService, val classService: Classro
         @PathVariable classId: Int,
         @PathVariable number: Int
     ): ResponseEntity<Any> {
-        service.removeTeacher(SimpleTeacherDbRead(number,classId))
+        service.removeTeacher(SimpleTeacherDbRead(number, classId, orgId))
         return ResponseEntity
             .ok()
             .body(null)
     }
-
-
-
-
 }

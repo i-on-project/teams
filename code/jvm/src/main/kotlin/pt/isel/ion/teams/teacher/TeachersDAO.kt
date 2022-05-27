@@ -9,7 +9,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 interface TeachersDAO {
 
     @SqlQuery("SELECT * FROM teachers_view WHERE cid=:classId LIMIT :limit OFFSET :offset")
-    fun getTeachers(
+    fun getTeachersByClass(
         @Bind("limit") limit: Int,
         @Bind("offset") offset: Int,
         @Bind("classId") classId: Int
@@ -35,10 +35,10 @@ interface TeachersDAO {
     /**
      * Actions on table teachers.
      */
-    @SqlUpdate("INSERT INTO teachers (number, cid) VALUES (:number,:cid)")
+    @SqlUpdate("INSERT INTO teachers (number, cid, orgid) VALUES (:number,:cid, :orgid)")
     @GetGeneratedKeys
     fun addTeacher(@BindBean simpleTeacherDbRead: SimpleTeacherDbRead): SimpleTeacherDbRead
 
-    @SqlUpdate("DELETE FROM teachers WHERE number=:number AND cid=:cid")
+    @SqlUpdate("DELETE FROM teachers WHERE number=:number AND cid=:cid AND orgid=:orgid")
     fun removeTeacher(@BindBean simpleTeacherDbRead: SimpleTeacherDbRead)
 }

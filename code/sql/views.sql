@@ -27,7 +27,7 @@ FROM invite_links
 WHERE deleted = B'0';
 
 CREATE VIEW TEACHERS_VIEW (number, name, email, office) AS
-SELECT ts.number, t.name, t.email, t.office, ts.cId
+SELECT ts.number, t.name, t.email, t.office, ts.cId, ts.orgid
 FROM teachers ts
          JOIN teacher t on ts.number = t.number
 WHERE ts.deleted = B'0';

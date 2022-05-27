@@ -7,17 +7,17 @@ import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 @Component
 class ClassroomsService(val jdbi: Jdbi) {
 
-    fun getAllClassroomsByOrganizationWithPaging(pageSize: Int, pageIndex: Int, orgId: Int) =
+    fun getAllClassroomsByOrganizationWithPaging(pageSize: Int, pageIndex: Int, orgId: Int, number: Int?) =
         sqlExceptionHandler {
-            jdbi
-                .onDemand(ClassroomsDAO::class.java)
-                .getAllClassroomsByOrganizationWithPaging(pageSize + 1, pageIndex * pageSize, orgId)
-        }
+            //TODO: cookie null??
+            if (number != null)
+                jdbi
+                    .onDemand(ClassroomsDAO::class.java)
+                    .getAllClassroomsByOrganizationOfTeacherWithPaging(pageSize + 1, pageIndex * pageSize, number)
+            else
+                jdbi.onDemand(ClassroomsDAO::class.java)
+                    .getAllClassroomsByOrganization(pageSize + 1, pageIndex * pageSize,orgId)
 
-    fun getAllClassroomsByOrganization(orgId: Int) =
-        sqlExceptionHandler {
-            jdbi.onDemand(ClassroomsDAO::class.java)
-                .getAllClassroomsByOrganization(orgId)
         }
 
     fun getAllClassroomsByTeacher(teacherNum: Int) =

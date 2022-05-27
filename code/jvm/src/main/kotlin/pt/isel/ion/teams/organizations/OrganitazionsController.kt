@@ -18,6 +18,7 @@ class OrganizationController(
 
     @GetMapping
     fun getAllOrganizations(
+        @CookieValue("number") number: Int,
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int
     ) = ResponseEntity
@@ -26,14 +27,14 @@ class OrganizationController(
         .body(
             CollectionModel(pageIndex, pageSize)
                 .toOrganizationsSirenObject(
-                    organizationsService.getAllOrganizations(pageSize, pageIndex).map { it.toOutput() }
+                    organizationsService.getAllOrganizationsOfTeacher(number, pageSize, pageIndex).map { it.toOutput() }
                 )
         )
 
     @GetMapping(Uris.Organizations.Organization.PATH)
     fun getOrganization(@PathVariable orgId: Int): ResponseEntity<Any> {
         val org = organizationsService.getOrganization(orgId).toOutput()
-        val classrooms = classroomsService.getAllClassroomsByOrganization(orgId)
+        val classrooms = classroomsService.getAllClassroomsByOrganizationWithPaging(10,0,orgId,null)
 
         //TODO Detect if user is student or teacher
 

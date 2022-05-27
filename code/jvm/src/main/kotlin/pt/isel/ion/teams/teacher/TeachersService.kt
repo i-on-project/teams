@@ -7,9 +7,9 @@ import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 @Component
 class TeachersService(val jdbi: Jdbi) {
 
-    fun getTeachers(classId: Int, pageSize: Int, pageIndex: Int) =
+    fun getTeachersByClass(classId: Int, pageSize: Int, pageIndex: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(TeachersDAO::class.java).getTeachers(pageSize + 1, pageIndex * pageSize,classId)
+            jdbi.onDemand(TeachersDAO::class.java).getTeachersByClass(pageSize + 1, pageIndex * pageSize,classId)
         }
 
     fun getTeacher(number: Int) =

@@ -27,6 +27,7 @@ CREATE TABLE CLASSROOMS
     PRIMARY KEY (id),
     FOREIGN KEY (orgId) REFERENCES ORGANIZATIONS (id),
     UNIQUE (repoURI,githubUri,avatarUri),
+    UNIQUE (id,orgId),
     CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' ),
     CONSTRAINT schoolYear_check CHECK ( schoolYear ~* '[0-9][0-9][0-9][0-9]/[0-9][0-9]')
 );
@@ -56,10 +57,11 @@ CREATE TABLE TEACHERS
 (
     number  int NOT NULL,
     cId     int,
+    orgId     int,
     deleted bit(1) DEFAULT B'0',
-    PRIMARY KEY (number,cId),
+    PRIMARY KEY (number,cId,orgId),
     FOREIGN KEY (number) REFERENCES TEACHER (number),
-    FOREIGN KEY (cId) REFERENCES CLASSROOMS (id)
+    FOREIGN KEY (cId,orgId) REFERENCES CLASSROOMS (id,orgId)
 );
 
 CREATE TABLE TEAMS

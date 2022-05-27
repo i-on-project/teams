@@ -7,12 +7,13 @@ import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 @Component
 class OrganizationsService(val jdbi: Jdbi) {
 
-    fun getAllOrganizations(pageSize: Int, pageIndex: Int) =
+    fun getAllOrganizationsOfTeacher(number: Int, pageSize: Int, pageIndex: Int) =
         sqlExceptionHandler {
             jdbi
                 .onDemand(OrganizationsDAO::class.java)
-                .getAllOrganizations(pageSize + 1, pageIndex * pageSize)
+                .getAllOrganizationsOfTeacher(number, pageSize + 1, pageIndex * pageSize)
         }
+
 
     fun getOrganization(id: Int) =
         sqlExceptionHandler {

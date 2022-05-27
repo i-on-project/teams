@@ -164,7 +164,7 @@ class TeachersControllerTests {
 
         //Create teacher to test
         val teacherDb =
-            TeacherDbWrite(93829, "TestUpdateCid", "test@test.test", "G.0.0", 1)
+            TeacherDbWrite(93829, "TestUpdateCid", "test@test.test", "G.0.0", 1,1)
         val teacher = teachersService.createTeacher(teacherDb)
 
         //Update cid and compare

@@ -19,9 +19,9 @@ INSERT INTO teacher (number, name, email, office)
 VALUES (86951, 'Humberto Silva', 'humberto.silva@isel.pt', 'F.0.5'),
        (85462, 'Gilberto Silva', 'gilberto.silva@isel.pt', 'F.0.6');
 
-INSERT INTO teachers (number, cid)
-VALUES (86951, 1),
-       (85462, 2);
+INSERT INTO teachers (number, cid,orgid)
+VALUES (86951, 1, 1),
+       (85462, 2, 1);
 
 INSERT INTO invite_links (code, cid)
 VALUES ('8b171ab5-2f09-4272-a607-f8fd68eeca31', 1),
