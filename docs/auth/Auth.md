@@ -21,13 +21,14 @@ ____
 
 Users will be authorized via ``OAuth App`` (GitHub), using [Web Application Flow](#web-application-flow).
 
-### Web Application Flow
+### Web App
 
+<div style="text-align:center"><img src="./OAuth-WebApp.png" /></div>
 
-<div style="text-align:center"><img src="./Authorizing_OAuth_Web.png" /></div>
+### Desktop App
 
-- Response A - Contains the ``code``, that is temporary and will expire after 10 minutes, and ``state`` initially passed in the first request.
-- Response B - returns the Access Token. We can specify the format we want (e.g. application/json)
+<div style="text-align:center"><img src="./OAuth-DesktopApp.png" /></div>
+
 
 ### Scopes
 
@@ -44,7 +45,7 @@ Users will be authorized via ``OAuth App`` (GitHub), using [Web Application Flow
   - ``repo`` - 	Grants full access to repositories, including private repositories.
 ___
 ## Information needed to store in DB
-#### Student - Web Flow
+#### Student 
 - ``client_ID``
 - ``client_secret`` (encrypted)
 - ``code``
@@ -52,7 +53,7 @@ ___
   - expiration_date
 
 
-#### Teacher - Device Flow
+#### Teacher
 - ``client_ID``
 - ``client_secret`` (encrypted)
 - ``code``
