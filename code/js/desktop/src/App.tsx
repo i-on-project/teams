@@ -1,19 +1,19 @@
 import * as React from 'react'
-import { Outlet, Link } from "react-router-dom";
+import { Route, Routes, HashRouter } from "react-router-dom";
+import { Container, Divider, Grid, GridColumn } from 'semantic-ui-react';
+import { MenuItem, MenuVertical } from './commons/components/Menu';
 
-declare const electron: {
-  notificationApi: {
-      sendNotification: (notification: { t: string, m: string }) => undefined
-  }
-}
+import * as Home from "./home/Page"
+import * as Organizations from "./Organizations/Page"
 
 export default function App() {
+
   return (
-    <div>
-      <h1>Hello from react component!</h1>
-      <button className='ui simple button' onClick={() => {
-        electron.notificationApi.sendNotification({ t: 'SOME TITLE', m: 'YEEEEET!' })
-      }}>Notify</button>
-    </div>
+    <HashRouter>
+      <Routes>
+        <Route path='' element={<Home.Page />} />
+        <Route path='/orgs' element={<Organizations.Page />} />
+      </Routes>
+    </HashRouter >
   )
 }
