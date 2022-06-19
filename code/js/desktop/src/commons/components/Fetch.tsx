@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useReducer, useEffect} from "react"
 import { ChangedContext } from "./changedStatus"
+import { Error, ErrorNOk } from "./error"
 
 const apiUrl: string = 'http://localhost:8080' 
 
@@ -9,8 +10,8 @@ export type FetchProps = {
     renderBegin: () => React.ReactElement,
     renderLoading: () => React.ReactElement,
     renderOk: (payload: any) => React.ReactElement,
-    renderNok: (response: Response) => React.ReactElement,
-    renderError: (error: Error) => React.ReactElement,
+    renderNok?: (response: Response) => React.ReactElement,
+    renderError?: (error: Error) => React.ReactElement,
 }
 
 type State =
@@ -90,15 +91,16 @@ export function Fetch(props: FetchProps) {
     const [state, dispatcher] = useReducer(reducer, { state: 'begin' })
     useEffect(() => fetchEffect(props.url, dispatcher), [props.url, dispatcher, changed])
 
+
     switch (state.state) {
         case 'begin': return props.renderBegin()
 
         case 'loading': return props.renderLoading()
 
-        case 'error-receive': return props.renderError(state.error)
+        case 'error-receive': return props.renderError(state.error)? props.renderError(state.error) :   <Error error={state.error} />
 
         case 'response-received': return state.response.ok ? props.renderLoading() : props.renderNok(state.response)
 
-        case 'payload-receive': return props.renderOk(state.payload)
+        case 'payload-receive': return props.renderOk(state.payload) 
     }
 }

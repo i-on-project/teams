@@ -9,18 +9,19 @@ export type MenuItem = {
     href: string
 }
 
-export function BuildMenu({ items }: { items: MenuItem[] }) {
+export function BuildMenu({ items, currItem }: { items: MenuItem[], currItem: string }) {
 
-    const [activeItem, setActiveItem] = useState('/')
+    const [activeItem, setActiveItem] = useState(currItem)
     const navigate = useNavigate()
 
     function onClick(href: string) {
-        setActiveItem(href)
         navigate(href)
+        setActiveItem(href)
     }
 
-    function onLogout(event: any) {
+    function onLogout() {
         //TODO: perform logout
+        navigate('/')
     }
 
     return (
@@ -38,6 +39,7 @@ export function BuildMenu({ items }: { items: MenuItem[] }) {
                         name={item.name}
                         active={(activeItem === item.href)}
                         onClick={() => onClick(item.href)}
+                        key={item.name}
                     />
                 )
             }
@@ -45,8 +47,8 @@ export function BuildMenu({ items }: { items: MenuItem[] }) {
             <Menu.Item
               name='logout'
               active={activeItem === 'logout'}
-              color='red'
-              onClick={() => onClick('/logout')}
+              
+              onClick={() => onLogout()}
             />
           </Menu.Menu>
         </Menu>
