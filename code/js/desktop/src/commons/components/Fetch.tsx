@@ -10,8 +10,8 @@ export type FetchProps = {
     renderBegin: () => React.ReactElement,
     renderLoading: () => React.ReactElement,
     renderOk: (payload: any) => React.ReactElement,
-    renderNok?: (response: Response) => React.ReactElement,
-    renderError?: (error: Error) => React.ReactElement,
+    renderNok: (response: Response) => React.ReactElement,
+    renderError: (error: Error) => React.ReactElement,
 }
 
 type State =
@@ -97,7 +97,7 @@ export function Fetch(props: FetchProps) {
 
         case 'loading': return props.renderLoading()
 
-        case 'error-receive': return props.renderError(state.error)? props.renderError(state.error) :   <Error error={state.error} />
+        case 'error-receive': return props.renderError(state.error)
 
         case 'response-received': return state.response.ok ? props.renderLoading() : props.renderNok(state.response)
 

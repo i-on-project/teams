@@ -18,7 +18,7 @@ export function OrganizationInfo(props: Props) {
                     </Segment>
                 </Grid.Column>
                 <Grid.Column width={3}>
-                    <Segment color="green">
+                    <Segment color="blue">
                         <List>
                             <ListHeader as='h3'>Actions</ListHeader>
                             {

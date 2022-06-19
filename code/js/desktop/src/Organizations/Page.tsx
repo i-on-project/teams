@@ -34,6 +34,7 @@ export function Page() {
             }
             renderLoading={() => <Loader /> }
             renderNok={message => <ErrorNOk message={message} />}
+            renderError={error => <Error error={error} />}
         />
     )
 }
@@ -44,12 +45,13 @@ function Body({ collection }: { collection: Collection }) {
         <Container>
             <h1>Your Organizations</h1>
             <OrganizationsTable collection={collection}></OrganizationsTable>
-            <Divider></Divider>
+            <Divider/>
             {
                 collection.actions.map((action: Action) =>
                         <BuildForm action={action}></BuildForm>
                 )
             }
+            <Divider hidden/>
         </Container>
     )
 }

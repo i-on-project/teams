@@ -5,15 +5,15 @@
 INSERT INTO organizations (name, description, githuburi, avataruri)
 VALUES ('AVE', 'Ambientes Virtuais de Execução.', 'https://github.com/example1', 'https://github.com/example1'),
        ('PC', 'Programação comcurrente.', 'https://github.com/example2', 'https://github.com/example2'),
-       ('Org1', 'Organization.', 'https://github.com/example3', 'https://github.com/example3'),
-       ('Org1', 'Organization.', 'https://github.com/example4', 'https://github.com/example4'),
-       ('Org1', 'Organization.', 'https://github.com/example5', 'https://github.com/example5'),
-       ('Org1', 'Organization.', 'https://github.com/example6', 'https://github.com/example6'),
-       ('Org1', 'Organization.', 'https://github.com/example7', 'https://github.com/example7'),
-       ('Org1', 'Organization.', 'https://github.com/example8', 'https://github.com/example8'),
-       ('Org1', 'Organization.', 'https://github.com/example9', 'https://github.com/example9'),
-       ('Org1', 'Organization.', 'https://github.com/example10', 'https://github.com/example10'),
-       ('Org1', 'Organization.', 'https://github.com/example11', 'https://github.com/example11');
+       ('Org3', 'Organization.', 'https://github.com/example3', 'https://github.com/example3'),
+       ('Org4', 'Organization.', 'https://github.com/example4', 'https://github.com/example4'),
+       ('Org5', 'Organization.', 'https://github.com/example5', 'https://github.com/example5'),
+       ('Org6', 'Organization.', 'https://github.com/example6', 'https://github.com/example6'),
+       ('Org7', 'Organization.', 'https://github.com/example7', 'https://github.com/example7'),
+       ('Org8', 'Organization.', 'https://github.com/example8', 'https://github.com/example8'),
+       ('Org9', 'Organization.', 'https://github.com/example9', 'https://github.com/example9'),
+       ('Org10', 'Organization.', 'https://github.com/example10', 'https://github.com/example10'),
+       ('Org11', 'Organization.', 'https://github.com/example11', 'https://github.com/example11');
 
 INSERT INTO classrooms (name, description, maxteams, maxmembersperteam, repoURI, schoolyear, orgid, githuburi,
                         avataruri)

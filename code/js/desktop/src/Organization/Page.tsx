@@ -1,10 +1,12 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { Container, Divider, Loader } from "semantic-ui-react";
-import { ErrorNOk } from "../commons/components/error";
+import { ClassroomsTable } from "../Classrooms/Components/ClassroomsTable";
+import { BuildForm } from "../commons/components/BuildForm";
+import { ErrorNOk, Error } from "../commons/components/error";
 import { Fetch } from "../commons/components/fetch";
 import { BuildMenu, MenuItem } from "../commons/components/Menu";
-import { Resource } from "../commons/types/siren";
+import { Action, Entity, Resource } from "../commons/types/siren";
 import { makeHome, makeOrganization, makeOrganizations } from "../commons/Uris";
 import { OrganizationInfo } from "./components/OrganizationInfo";
 
@@ -34,19 +36,22 @@ export function Page() {
                     <Body resource={payload}></Body>
                 </div>
             }
-            renderLoading={() => <Loader /> }
+            renderLoading={() => <Loader />}
             renderNok={message => <ErrorNOk message={message} />}
+            renderError={error => <Error error={error} />}
         />
     )
 }
 
 //TODO: missing components
 function Body({ resource }: { resource: Resource }) {
-    return(
+    return (
         <Container>
-            <OrganizationInfo resource={resource}/>
-            <Divider/>
-            
+            <OrganizationInfo resource={resource} />
+            <Divider />
+            {
+                <ClassroomsTable entities={resource.entities}></ClassroomsTable>
+            }
         </Container>
     )
 }

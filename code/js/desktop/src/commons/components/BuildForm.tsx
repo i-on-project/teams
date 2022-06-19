@@ -38,7 +38,7 @@ export function BuildForm({ action, divider = false }: { action: Action, divider
             <Header as='h2'>{action.title}</Header>
             <Form onSubmit={(event) => onSubmit(event)}>
                 {buildFields()}
-                <Button positive fluid type='submit' onClick={(event) => onSubmit(event)}>{action.title}</Button>
+                <Button color='blue' fluid type='submit' onClick={(event) => onSubmit(event)}>{action.title}</Button>
                 {
                     (divider) ? <Divider hidden></Divider> : ''
                 }
