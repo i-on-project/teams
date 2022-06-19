@@ -1,32 +1,15 @@
 import * as React from "react"
-import { Container, Loader } from "semantic-ui-react"
+import { Container, Divider, Loader } from "semantic-ui-react"
+import { BuildForm } from "../commons/components/BuildForm"
 import { ErrorNOk, Error } from "../commons/components/error"
 import { Fetch } from "../commons/components/fetch"
-import { Collection } from "../commons/types/siren"
+import { Action, Collection } from "../commons/types/siren"
 import { makeOrganizations } from "../commons/Uris"
 import { OrganizationsTable } from "./components/OrganizationsTable"
-//import * as remote from "@electron/remote";
 
 export function Page() {
 
-    /*const net = remote.net
-    const request = net.request({
-        method: 'GET',
-        protocol: 'https:',
-        hostname: 'localhost',
-        port: 8080,
-        path: '/api/organizations',
-        credentials: "include"
-      })
-
-    request.on('response', (response) => {
-        console.log(response)
-        response.on('data', (chunk) => {
-            console.log('BODY: '+ chunk)
-        })
-    })*/
-
-        return (
+    return (
         <Fetch
             url={`/api${makeOrganizations()}`}
             renderBegin={() => <p>Waiting for URL...</p>}
@@ -49,6 +32,12 @@ function Body({ collection }: { collection: Collection }) {
         <Container>
             <h1>Your Organizations</h1>
             <OrganizationsTable collection={collection}></OrganizationsTable>
+            <Divider></Divider>
+            {
+                collection.actions.map((action: Action) =>
+                        <BuildForm action={action}></BuildForm>
+                )
+            }
         </Container>
     )
 }
