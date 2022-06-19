@@ -1,11 +1,9 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
-import * as Organizations from '../Organizations/page'
+import * as Organizations from "../Organizations/Page"
 
 export function Page({authenticated=true}: {authenticated?: boolean}) {
-
-    const navigate = useNavigate()
 
     return (
         <Container>

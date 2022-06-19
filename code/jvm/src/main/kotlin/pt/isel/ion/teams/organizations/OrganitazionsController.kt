@@ -11,6 +11,7 @@ import pt.isel.ion.teams.common.Uris
 
 @RestController
 @RequestMapping(Uris.Organizations.MAIN_PATH)
+@CrossOrigin("https://localhost:5000")
 class OrganizationController(
     val organizationsService: OrganizationsService,
     val classroomsService: ClassroomsService
@@ -18,7 +19,6 @@ class OrganizationController(
 
     @GetMapping
     fun getAllOrganizations(
-        @CookieValue("number") number: Int,
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int
     ) = ResponseEntity
@@ -27,7 +27,7 @@ class OrganizationController(
         .body(
             CollectionModel(pageIndex, pageSize)
                 .toOrganizationsSirenObject(
-                    organizationsService.getAllOrganizationsOfTeacher(number, pageSize, pageIndex).map { it.toOutput() }
+                    organizationsService.getAllOrganizationsOfTeacher(0, pageSize, pageIndex).map { it.toOutput() }
                 )
         )
 

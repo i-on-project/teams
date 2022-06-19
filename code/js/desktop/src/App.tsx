@@ -1,8 +1,5 @@
 import * as React from 'react'
 import { Route, Routes, HashRouter } from "react-router-dom";
-import { Container, Divider, Grid, GridColumn } from 'semantic-ui-react';
-import { MenuItem, MenuVertical } from './commons/components/Menu';
-
 import * as Home from "./home/Page"
 import * as Organizations from "./Organizations/Page"
 

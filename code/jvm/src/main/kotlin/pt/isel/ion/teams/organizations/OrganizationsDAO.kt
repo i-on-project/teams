@@ -8,7 +8,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
 interface OrganizationsDAO {
 
-    @SqlQuery("SELECT o.* FROM organizations_view o JOIN teachers_view ts ON (o.id = ts.orgid) WHERE number=:number LIMIT :limit OFFSET :offset")
+    @SqlQuery("SELECT o.* FROM organizations_view o JOIN teachers_view ts ON (o.id = ts.orgid)  LIMIT :limit OFFSET :offset")
     fun getAllOrganizationsOfTeacher(@Bind number: Int, @Bind("limit") limit: Int, @Bind("offset") offset: Int): List<OrganizationDbRead>
 
     @SqlQuery("SELECT * FROM organizations_view WHERE id=:id")

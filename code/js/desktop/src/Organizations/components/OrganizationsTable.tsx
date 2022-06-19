@@ -11,7 +11,7 @@ export type Props = {
 
 export function OrganizationsTable({ collection }: Props) {
 
-  const navigate = useNavigate()
+  const navigate = useNavigate()  
 
   function rowSpan() {
     const projects = collection.entities.map(entity => {
