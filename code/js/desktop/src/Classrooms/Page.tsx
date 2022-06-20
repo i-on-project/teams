@@ -39,10 +39,6 @@ export function Page() {
                 </div>
             }
             renderLoading={() => <Loader /> }
-            renderNok={message => {
-                return <ErrorNOk message={message} />
-            }}
-            renderError={error => <Error error={error} />}
         />
     )
 }
