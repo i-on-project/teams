@@ -14,7 +14,7 @@ export function OrganizationsTable({ collection }: Props) {
   const navigate = useNavigate()  
 
   function rowSpan() {
-    const projects = collection.entities.map(entity => {
+    const organizations = collection.entities.map(entity => {
       return {
         id: entity.properties.id,
         name: entity.properties.name,
@@ -23,7 +23,7 @@ export function OrganizationsTable({ collection }: Props) {
       }
     })
 
-    return projects.map(item =>
+    return organizations.map(item =>
       <Table.Row key={item.id} >
         <Table.Cell onClick={() => navigate(Uris.makeOrganization(item.id), { replace: false })}> {item.name} </Table.Cell>
         <Table.Cell > {item.description} </Table.Cell>

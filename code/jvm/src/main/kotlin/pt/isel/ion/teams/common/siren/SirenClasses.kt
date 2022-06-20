@@ -14,4 +14,5 @@ object SirenClasses {
     const val DELIVERY = "delivery"
     const val TAG = "tag"
     const val NOTE = "note"
+    const val HOME = "home"
 }

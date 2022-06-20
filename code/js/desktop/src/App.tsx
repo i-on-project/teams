@@ -3,6 +3,7 @@ import { Route, Routes, HashRouter } from "react-router-dom";
 import * as Home from "./home/Page"
 import * as Organizations from "./Organizations/Page"
 import * as Organization from "./Organization/Page"
+import * as Classrooms from "./Classrooms/Page"
 
 
 
@@ -14,6 +15,7 @@ export default function App() {
         <Route path='' element={<Home.Page />} />
         <Route path='/orgs' element={<Organizations.Page />} />
         <Route path='/orgs/:orgId' element={<Organization.Page />} />
+        <Route path='/orgs/:orgId/classrooms' element={<Classrooms.Page />} />
       </Routes>
     </HashRouter >
   )

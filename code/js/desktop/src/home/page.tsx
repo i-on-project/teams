@@ -4,7 +4,7 @@ import { Button, Container, Divider, Loader } from 'semantic-ui-react'
 import { ErrorNOk, Error } from '../commons/components/error'
 import { Fetch } from '../commons/components/fetch'
 import { BuildMenu } from '../commons/components/Menu'
-import { makeHome, makeOrganizations } from '../commons/Uris'
+import { makeClassrooms, makeHome, makeOrganizations } from '../commons/Uris'
 import { OrganizationsTable } from '../Organizations/components/OrganizationsTable'
 
 //TODO: change value
@@ -14,6 +14,10 @@ export function Page({authenticated=true}: {authenticated?: boolean}) {
         {
             name: "Home",
             href: makeHome()
+        },
+        {
+            name: "Organizations",
+            href: makeOrganizations()
         }
     ]
 

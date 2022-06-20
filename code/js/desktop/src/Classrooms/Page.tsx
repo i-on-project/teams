@@ -7,12 +7,12 @@ import { Fetch } from "../commons/components/fetch"
 import { BuildMenu, MenuItem } from "../commons/components/Menu"
 import { Action, Collection } from "../commons/types/siren"
 import { makeClassrooms, makeHome, makeOrganizations } from "../commons/Uris"
-import { OrganizationsTable } from "./components/OrganizationsTable"
+import { ClassroomsTable } from "./Components/ClassroomsTable"
 
 export function Page() {
 
-    const { orgId } = useParams()
-
+    const {orgId} = useParams()
+    
     const menuItems: MenuItem[] = [
         {
           name: "Home",
@@ -21,21 +21,27 @@ export function Page() {
         {
             name: "Organizations",
             href: makeOrganizations()
+        },
+        {
+            name: "Classrooms",
+            href: makeClassrooms(orgId)
         }
-      ]
+    ]
 
     return (
         <Fetch
-            url={`/api${makeOrganizations()}`}
+            url={`/api${makeClassrooms(orgId)}`}
             renderBegin={() => <p>Waiting for URL...</p>}
-            renderOk={(payload) =>
+            renderOk={ (payload) =>
                 <div>
-                    <BuildMenu items={menuItems} currItem={makeOrganizations()}></BuildMenu>
+                    <BuildMenu items={menuItems} currItem={makeClassrooms(orgId)}></BuildMenu>
                     <Body collection={payload}></Body>
                 </div>
             }
             renderLoading={() => <Loader /> }
-            renderNok={message => <ErrorNOk message={message} />}
+            renderNok={message => {
+                return <ErrorNOk message={message} />
+            }}
             renderError={error => <Error error={error} />}
         />
     )
@@ -43,17 +49,12 @@ export function Page() {
 
 
 function Body({ collection }: { collection: Collection }) {
+    console.log(collection)
+
     return (
         <Container>
-            <h1>Your Organizations</h1>
-            <OrganizationsTable collection={collection}></OrganizationsTable>
-            <Divider/>
-            {
-                collection.actions.map((action: Action) =>
-                        <BuildForm action={action} key={action.name}></BuildForm>
-                )
-            }
-            <Divider hidden/>
+            <h1>Your Classrooms</h1>
+            <ClassroomsTable entities={collection.entities}></ClassroomsTable>
         </Container>
     )
 }

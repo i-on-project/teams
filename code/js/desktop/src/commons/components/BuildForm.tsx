@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router';
-import { Button, Container, Divider, Dropdown, Form, Header, Loader, Popup, PopupContent } from "semantic-ui-react";
-import { Action, Resource } from "../types/siren";
+import { Button, Container, Divider, Dropdown, Form, Header, Modal } from "semantic-ui-react";
+import { Action } from "../types/siren";
 import { ChangedContext } from './changedStatus';
-import { Fetch } from './fetch';
 
 interface FormData {
     [str: string]: any
@@ -29,7 +28,7 @@ export function BuildForm({ action, divider = false }: { action: Action, divider
             body: JSON.stringify(state)
         })
             .then(() => {
-                    setChanged(true)
+                setChanged(true)
             })
     }
 
@@ -105,41 +104,32 @@ export function BuildFormLoading({ name, fieldsName }: { name: string, fieldsNam
     )
 }
 
-export function BuildFormInPopupWithFetch({ children, url }: { children: React.ReactNode, url: string }) {
+export function BuildFormInModal({ children, action }: { children: React.ReactNode, action: Action }) {
 
-    return (
-        <Fetch
-            url={url}
-            renderBegin={() => <p>waiting for URL...</p>}
-            renderOk={(payload: Resource) =>
-                <Container>
-                    {
-                        <BuildFormInPopup actions={payload.actions}>{children}</BuildFormInPopup>
-                    }
-                </Container>
+    const [open, setOpen] = useState(false)
 
-            }
-            renderLoading={() =>
-                <Loader inline>Loading</Loader>
-            }
-            renderNok={message => <p><>Status: {message.status}</></p>}
-            renderError={error => <p><>Error: {error.message}</></p>}
-        />
-    )
-}
-
-export function BuildFormInPopup({ children, actions }: { children: React.ReactNode, actions: Action[] }) {
     return (
         <Container>
-            {
-                actions.map((action) =>
-                    <Popup trigger={children} position='right center' flowing hoverable key={action.name}>
-                        <PopupContent>
+            <Modal
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+                open={open}
+                trigger={children}
+            >
+                <Modal.Content>
+                    <Modal.Description>
+                        {
                             <BuildForm action={action} divider={false}></BuildForm>
-                        </PopupContent>
-                    </Popup>
-                )
-            }
+                        }
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button color='black' onClick={() => setOpen(false)}>
+                        Cancel
+                    </Button>
+                </Modal.Actions>
+            </Modal>
         </Container>
     )
 }
+

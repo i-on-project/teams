@@ -7,7 +7,7 @@ import { ErrorNOk, Error } from "../commons/components/error";
 import { Fetch } from "../commons/components/fetch";
 import { BuildMenu, MenuItem } from "../commons/components/Menu";
 import { Action, Entity, Resource } from "../commons/types/siren";
-import { makeHome, makeOrganization, makeOrganizations } from "../commons/Uris";
+import { makeClassrooms, makeHome, makeOrganization, makeOrganizations } from "../commons/Uris";
 import { OrganizationInfo } from "./components/OrganizationInfo";
 
 export function Page() {
@@ -22,6 +22,10 @@ export function Page() {
         {
             name: "Organizations",
             href: makeOrganizations()
+        },
+        {
+            name: "Classrooms",
+            href: makeClassrooms(orgId)
         }
     ]
 
@@ -49,6 +53,7 @@ function Body({ resource }: { resource: Resource }) {
         <Container>
             <OrganizationInfo resource={resource} />
             <Divider />
+            <h1>Classrooms in this organization</h1>
             {
                 <ClassroomsTable entities={resource.entities}></ClassroomsTable>
             }

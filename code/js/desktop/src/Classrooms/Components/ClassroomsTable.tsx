@@ -1,18 +1,17 @@
 import * as React from "react"
 import { useNavigate } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
+import { entry } from "../../../webpack.common";
 import { BuildTable } from '../../commons/components/Table'
 import { Entity } from '../../commons/types/siren';
 import * as Uris from '../../commons/Uris';
-
-
 
 export function ClassroomsTable({ entities }: { entities: Entity[] }) {
 
     const navigate = useNavigate()
 
     function rowSpan() {
-        const projects = entities.map(entity => {
+        const projects = entities.map((entity: Entity) => {
             return {
                 id: entity.properties.id,
                 name: entity.properties.name,
@@ -30,8 +29,6 @@ export function ClassroomsTable({ entities }: { entities: Entity[] }) {
             </Table.Row>
         )
     }
-
-
 
     return (
         <BuildTable propNames={["Name", "Descrition", "School Year"]}>{rowSpan()}</BuildTable>
