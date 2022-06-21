@@ -7,6 +7,12 @@ import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 import java.net.URI
 
+/* ******************* RESOURCE COLLECTION RESPONSES ******************** */
+
+/**
+ * Siren definition for an organization collection response
+ * @param orgsList List of organizations to display
+ */
 fun CollectionModel.toOrganizationsSirenObject(orgsList: List<OrganizationOutputModel>): SirenEntity<CollectionModel> {
     val list = if (orgsList.size > this.pageSize) orgsList.subList(0, this.pageSize) else orgsList
     val pageSize = this.pageSize
@@ -51,27 +57,12 @@ fun CollectionModel.toOrganizationsSirenObject(orgsList: List<OrganizationOutput
     )
 }
 
-fun OrganizationOutputModel.toStudentSirenObject(classroomList: List<ClassroomCompactOutputModel>) = SirenEntity(
-    properties = this,
-    clazz = listOf(SirenClasses.ORGANIZATION),
-    entities = classroomList.map {
-        EmbeddedEntity(
-            properties = it,
-            clazz = listOf(SirenClasses.CLASSROOM),
-            rel = listOf(SirenRelations.ITEM),
-            links = listOf(selfLink(Uris.Classrooms.Classroom.make(this.id, it.id)))
-        )
-    },
-    links = listOf(
-        selfLink(Uris.Organizations.Organization.make(id)),
-        homeLink(),
-        SirenLink(SirenRelations.GITHUB, URI(githubUri)),
-        logoutLink(),
-        SirenLink(SirenRelations.CLASSROOMS, Uris.Classrooms.make(id)),
-        SirenLink(SirenRelations.ORGANIZATIONS, URI(Uris.Organizations.MAIN_PATH))
-    )
-)
+/* ******************* INDIVIDUAL RESOURCE RESPONSES ******************** */
 
+/**
+ * Siren definition for a teacher's organization resource response
+ * @param classroomList List of organization's classrooms to display
+ */
 fun OrganizationOutputModel.toTeacherSirenObject(classroomList: List<ClassroomCompactOutputModel>) = SirenEntity(
     properties = this,
     clazz = listOf(SirenClasses.ORGANIZATION),

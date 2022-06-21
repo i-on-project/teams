@@ -6,7 +6,15 @@ import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 import pt.isel.ion.teams.tags.TagWithTeamRepoDbRead
 
+/* ******************* RESOURCE COLLECTION RESPONSES ******************** */
 
+/**
+ * Siren definition for an assignment collection response
+ * @param deliveryList List of deliveries to display
+ * @param orgId Delivery's organization id
+ * @param classId Delivery's classroom id
+ * @param assId Delivery's assignment id
+ */
 fun CollectionModel.toDeliveriesSirenObject(
     deliveryList: List<DeliveryCompactOutputModel>,
     orgId: Int,
@@ -45,6 +53,14 @@ fun CollectionModel.toDeliveriesSirenObject(
     )
 }
 
+/* ******************* INDIVIDUAL RESOURCE RESPONSES ******************** */
+
+/**
+ * Siren definition for a student's delivery resource response
+ * @param orgId Delivery's organization id
+ * @param classId Delivery's classroom id
+ * @param assId Delivery's assignment id
+ */
 fun DeliveryOutputModel.toStudentSirenObject(
     orgId: Int,
     classId: Int,
@@ -60,6 +76,13 @@ fun DeliveryOutputModel.toStudentSirenObject(
     )
 )
 
+/**
+ * Siren definition for a teacher's delivery resource response
+ * @param tags List of tags associated with the delivery
+ * @param orgId Delivery's organization id
+ * @param classId Delivery's classroom id
+ * @param assId Delivery's assignment id
+ */
 fun DeliveryOutputModel.toTeacherSirenObject(
     tags: List<TagWithTeamRepoDbRead>,
     orgId: Int,

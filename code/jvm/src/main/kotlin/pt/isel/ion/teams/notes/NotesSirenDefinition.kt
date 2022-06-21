@@ -5,6 +5,15 @@ import org.springframework.http.MediaType
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 
+/* ******************* RESOURCE COLLECTION RESPONSES ******************** */
+
+/**
+ * Siren definition for an note collection response
+ * @param notesList List of notes to display
+ * @param orgId Note's organization id
+ * @param classId Note's classroom id
+ * @param teamId Note's assignment id
+ */
 fun CollectionModel.toNotesSirenObject(
     notesList: List<NotesCompactOutputModel>,
     orgId: Int,
@@ -41,6 +50,14 @@ fun CollectionModel.toNotesSirenObject(
     )
 }
 
+/* ******************* INDIVIDUAL RESOURCE RESPONSES ******************** */
+
+/**
+ * Siren definition for a student's delivery resource response
+ * @param orgId Delivery's organization id
+ * @param classId Delivery's classroom id
+ * @param assId Delivery's assignment id
+ */
 fun NotesOutputModel.toSirenObject(
     orgId: Int,
     classId: Int,

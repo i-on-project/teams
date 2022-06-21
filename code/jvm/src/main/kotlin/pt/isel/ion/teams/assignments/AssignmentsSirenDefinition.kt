@@ -6,7 +6,14 @@ import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 import pt.isel.ion.teams.deliveries.DeliveryCompactOutputModel
 
+/* ******************* RESOURCE COLLECTION RESPONSES ******************** */
 
+/**
+ * Siren definition for an assignment collection response
+ * @param assignmentList List of assignments to display
+ * @param orgId Assignment's organization id
+ * @param classId Assignment's classroom id
+ */
 fun CollectionModel.toAssignmentsSirenObject(
     assignmentList: List<AssignmentCompactOutputModel>,
     orgId: Int,
@@ -43,7 +50,14 @@ fun CollectionModel.toAssignmentsSirenObject(
     )
 }
 
+/* ******************* INDIVIDUAL RESOURCE RESPONSES ******************** */
 
+/**
+ * Siren definition for a student's assignment resource response
+ * @param deliveriesList List of deliveries to display
+ * @param orgId orgId Assignment's organization id
+ * @param classId Assignment's classroom id
+ */
 fun AssignmentOutputModel.toStudentSirenObject(
     deliveriesList: List<DeliveryCompactOutputModel>,
     orgId: Int,
@@ -68,6 +82,12 @@ fun AssignmentOutputModel.toStudentSirenObject(
     )
 )
 
+/**
+ * Siren definition for a student's assignment resource response
+ * @param deliveriesList List of deliveries to display
+ * @param orgId orgId Assignment's organization id
+ * @param classId Assignment's classroom id
+ */
 fun AssignmentOutputModel.toTeacherSirenObject(
     deliveriesList: List<DeliveryCompactOutputModel>,
     orgId: Int,

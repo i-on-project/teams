@@ -7,6 +7,13 @@ import pt.isel.ion.teams.common.siren.*
 import pt.isel.ion.teams.teams.TeamsCompactOutputModel
 import java.net.URI
 
+/* ******************* RESOURCE COLLECTION RESPONSES ******************** */
+
+/**
+ * Siren definition for a classroom collection response
+ * @param classroomList List of classrooms meant to send
+ * @param orgId Classroom's organization id
+ */
 fun CollectionModel.toClassroomSirenObject(
     classroomList: List<ClassroomOutputModel>,
     orgId: Int
@@ -43,6 +50,14 @@ fun CollectionModel.toClassroomSirenObject(
     )
 }
 
+/* ******************* INDIVIDUAL RESOURCE RESPONSES ******************** */
+
+/**
+ * Siren definition for a student's classroom resource response
+ * @param teamsList List of teams of a student in a given classroom
+ * @param orgId Classroom's organization id
+ * @param teamId Student's classroom team id
+ */
 fun ClassroomOutputModel.toStudentSirenObject(
     teamsList: List<TeamsCompactOutputModel>,
     orgId: Int,
@@ -70,6 +85,11 @@ fun ClassroomOutputModel.toStudentSirenObject(
     )
 )
 
+/**
+ * Siren definition for a teacher's classroom resource response
+ * @param teamsList List of teams of a given classroom
+ * @param orgId Classroom's organization id
+ */
 fun ClassroomOutputModel.toTeacherSirenObject(
     teamsList: List<TeamsCompactOutputModel>,
     orgId: Int,

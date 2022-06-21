@@ -5,7 +5,14 @@ import org.springframework.http.MediaType
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 
+/* ******************* RESOURCE COLLECTION RESPONSES ******************** */
 
+/**
+ * Siren definition for an invite link collection response
+ * @param listOfLinks Links to display
+ * @param orgId Invite link's organization id
+ * @param classId Invite link's classroom id
+ */
 fun CollectionModel.toInviteLinksSirenObject(
     listOfLinks: List<InviteLinksOutputModel>,
     orgId: Int,
@@ -43,6 +50,13 @@ fun CollectionModel.toInviteLinksSirenObject(
     )
 }
 
+/* ******************* INDIVIDUAL RESOURCE RESPONSES ******************** */
+
+/**
+ * Siren definition for an invite link response
+ * @param orgId Invite link's organization id
+ * @param classId Invite link's classroom id
+ */
 fun InviteLinksOutputModel.toSirenObject(
     classId: Int,
     orgId: Int
