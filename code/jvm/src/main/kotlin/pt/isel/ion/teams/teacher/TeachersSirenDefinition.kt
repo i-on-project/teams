@@ -6,7 +6,14 @@ import pt.isel.ion.teams.classrooms.ClassroomCompactOutputModel
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 
+/* ******************* RESOURCE COLLECTION RESPONSES ******************** */
 
+/**
+ * Siren definition for a teacher collection response
+ * @param teacherList List of tags to display
+ * @param orgId Teacher's organization id
+ * @param classId Teacher's classroom id
+ */
 fun CollectionModel.toTeachersSirenObject(
     teacherList: List<TeacherCompactOutputModel>,
     orgId: Int,
@@ -42,7 +49,14 @@ fun CollectionModel.toTeachersSirenObject(
     )
 }
 
+/* ******************* INDIVIDUAL RESOURCE RESPONSES ******************** */
 
+/**
+ * Siren definition for a teacher resource response
+ * @param classroomsList List of classrooms associated with a given teacher
+ * @param orgId Teacher's organization id
+ * @param classId Teacher's classroom id
+ */
 fun TeacherCompactOutputModel.toTeacherSirenObject(
     classroomsList: List<ClassroomCompactOutputModel>,
     classId: Int,
@@ -96,7 +110,12 @@ fun TeacherCompactOutputModel.toTeacherSirenObject(
     )
 )
 
-
+/**
+ * Siren definition for a teacher resource response
+ * @param classroomsList List of classrooms associated with a given teacher
+ * @param orgId Teacher's organization id
+ * @param classId Teacher's classroom id
+ */
 fun TeacherCompactOutputModel.toStudentSirenObject(
     classroomsList: List<ClassroomCompactOutputModel>,
     classId: Int,

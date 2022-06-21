@@ -6,7 +6,15 @@ import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 import pt.isel.ion.teams.teams.TeamsCompactOutputModel
 
+/* ******************* RESOURCE COLLECTION RESPONSES ******************** */
 
+/**
+ * Siren definition for a student list by team collection response
+ * @param studentList List of deliveries to display
+ * @param orgId Student's organization id
+ * @param cId Student's classroom id
+ * @param teamId Student's assignment id
+ */
 fun CollectionModel.toStudentByTeamSirenObject(
     studentList: List<StudentCompactOutputModel>,
     orgId: Int,
@@ -43,6 +51,12 @@ fun CollectionModel.toStudentByTeamSirenObject(
     )
 }
 
+/**
+ * Siren definition for a student list by classroom collection response
+ * @param studentList List of deliveries to display
+ * @param orgId Student's organization id
+ * @param cId Student's classroom id
+ */
 fun CollectionModel.toStudentByClassroomSirenObject(
     studentList: List<StudentCompactOutputModel>,
     orgId: Int,
@@ -78,6 +92,14 @@ fun CollectionModel.toStudentByClassroomSirenObject(
     )
 }
 
+/* ******************* INDIVIDUAL RESOURCE RESPONSES ******************** */
+
+/**
+ * Siren definition for a student's resource response (for teachers)
+ * @param teamsList List of teams of a student to display
+ * @param classId Student's classroom id
+ * @param orgId Organization's assignment id
+ */
 fun CompleteStudentOutputModel.toTeacherSirenObject(
     teamsList: List<TeamsCompactOutputModel>,
     classId: Int,
@@ -113,7 +135,12 @@ fun CompleteStudentOutputModel.toTeacherSirenObject(
     )
 )
 
-
+/**
+ * Siren definition for a student's resource response (for students)
+ * @param teamsList List of teams of a student to display
+ * @param classId Student's classroom id
+ * @param orgId Organization's assignment id
+ */
 fun CompleteStudentOutputModel.toStudentSirenObject(
     teamList: List<TeamsCompactOutputModel>,
     classId: Int,

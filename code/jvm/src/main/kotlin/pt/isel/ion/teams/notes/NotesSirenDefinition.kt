@@ -53,10 +53,10 @@ fun CollectionModel.toNotesSirenObject(
 /* ******************* INDIVIDUAL RESOURCE RESPONSES ******************** */
 
 /**
- * Siren definition for a student's delivery resource response
- * @param orgId Delivery's organization id
- * @param classId Delivery's classroom id
- * @param assId Delivery's assignment id
+ * Siren definition for a teacher's Note resource response
+ * @param orgId Note's organization id
+ * @param classId Note's classroom id
+ * @param teamId Note's assignment id
  */
 fun NotesOutputModel.toSirenObject(
     orgId: Int,

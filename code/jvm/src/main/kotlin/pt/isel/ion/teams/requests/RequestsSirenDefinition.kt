@@ -5,13 +5,20 @@ import org.springframework.http.MediaType
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 
+/* ******************* RESOURCE COLLECTION RESPONSES ******************** */
 
+/**
+ * Siren definition for a request collection response
+ * @param requestsList List of requests to display
+ * @param orgId Request's organization id
+ * @param classId Request's classroom id
+ */
 fun CollectionModel.toRequestSirenObject(
-    RequestsList: List<RequestsOutputModel>,
+    requestsList: List<RequestsOutputModel>,
     orgId: Int,
-    classroomId: Int
+    classId: Int
 ): SirenEntity<CollectionModel> {
-    val list = if (RequestsList.size > this.pageSize) RequestsList.subList(0, this.pageSize) else RequestsList
+    val list = if (requestsList.size > this.pageSize) requestsList.subList(0, this.pageSize) else requestsList
     val pageSize = this.pageSize
     this.pageSize = list.size
 
@@ -28,31 +35,31 @@ fun CollectionModel.toRequestSirenObject(
                         name = "accept-request",
                         title = "Accept Request",
                         method = HttpMethod.PUT,
-                        href = Uris.Requests.Request.make(orgId, classroomId, it.tid),
+                        href = Uris.Requests.Request.make(orgId, classId, it.tid),
                         type = MediaType.APPLICATION_JSON
                     ),
                     SirenAction(
                         name = "decline-request",
                         title = "Decline Request",
                         method = HttpMethod.DELETE,
-                        href = Uris.Teams.Team.make(orgId, classroomId, it.tid)
+                        href = Uris.Teams.Team.make(orgId, classId, it.tid)
                     )
                 ),
                 links = listOf(
-                    selfLink(Uris.Requests.Request.make(orgId, classroomId, it.tid)),
-                    SirenLink(SirenRelations.TEAM, Uris.Teams.Team.make(orgId, classroomId, it.tid))
+                    selfLink(Uris.Requests.Request.make(orgId, classId, it.tid)),
+                    SirenLink(SirenRelations.TEAM, Uris.Teams.Team.make(orgId, classId, it.tid))
                 )
             )
         },
         links = listOfNotNull(
-            selfLink(Uris.Requests.make(orgId, classroomId)),
-            if (RequestsList.size > pageSize)
-                nextLink(Uris.Requests.makePage(pageIndex + 1, pageSize, orgId, classroomId))
+            selfLink(Uris.Requests.make(orgId, classId)),
+            if (requestsList.size > pageSize)
+                nextLink(Uris.Requests.makePage(pageIndex + 1, pageSize, orgId, classId))
             else null,
             if (pageIndex > 0)
-                prevLink(Uris.Requests.makePage(pageIndex - 1, pageSize, orgId, classroomId))
+                prevLink(Uris.Requests.makePage(pageIndex - 1, pageSize, orgId, classId))
             else null,
-            SirenLink(SirenRelations.CLASSROOM, Uris.Classrooms.Classroom.make(orgId, classroomId)),
+            SirenLink(SirenRelations.CLASSROOM, Uris.Classrooms.Classroom.make(orgId, classId)),
             homeLink(),
             logoutLink()
         )

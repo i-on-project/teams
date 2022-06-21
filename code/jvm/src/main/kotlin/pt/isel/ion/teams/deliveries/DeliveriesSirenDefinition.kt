@@ -9,7 +9,7 @@ import pt.isel.ion.teams.tags.TagWithTeamRepoDbRead
 /* ******************* RESOURCE COLLECTION RESPONSES ******************** */
 
 /**
- * Siren definition for an assignment collection response
+ * Siren definition for a delivery collection response
  * @param deliveryList List of deliveries to display
  * @param orgId Delivery's organization id
  * @param classId Delivery's classroom id

@@ -3,6 +3,8 @@ package pt.isel.ion.teams.home
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 
+//TODO: Home is not a collection
+
 fun StudentHomeSirenObject(): SirenEntity<CollectionModel> =
     SirenEntity(
         clazz = listOf(SirenClasses.HOME),

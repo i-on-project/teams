@@ -7,6 +7,15 @@ import pt.isel.ion.teams.common.siren.*
 import pt.isel.ion.teams.tags.TagCompactOutputModel
 import java.net.URI
 
+/* ******************* RESOURCE COLLECTION RESPONSES ******************** */
+
+/**
+ * Siren definition for a repo collection response
+ * @param repoList List of repos to display
+ * @param orgId Repo's organization id
+ * @param classId Repo's classroom id
+ * @param teamId Repo's team id
+ */
 fun CollectionModel.toRepoSirenObject(
     repoList: List<RepoCompactOutputModel>,
     orgId: Int,
@@ -43,6 +52,15 @@ fun CollectionModel.toRepoSirenObject(
     )
 }
 
+/* ******************* INDIVIDUAL RESOURCE RESPONSES ******************** */
+
+/**
+ * Siren definition for a student's repo resource response
+ * @param orgId Repo's organization id
+ * @param classId Repo's classroom id
+ * @param teamId Repo's team id
+ * @param assId Repo's assignment id
+ */
 fun RepoOutputModel.toStudentSirenObject(
     orgId: Int,
     classId: Int,
@@ -62,6 +80,14 @@ fun RepoOutputModel.toStudentSirenObject(
     )
 )
 
+/**
+ * Siren definition for a student's repo resource response
+ * @param tagsList List of repo's tags
+ * @param orgId Repo's organization id
+ * @param classId Repo's classroom id
+ * @param teamId Repo's team id
+ * @param assId Repo's assignment id
+ */
 fun RepoOutputModel.toTeacherSirenObject(
     tagsList: List<TagCompactOutputModel>,
     orgId: Int,
