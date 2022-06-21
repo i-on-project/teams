@@ -1,9 +1,9 @@
 import * as React from "react"
 import { useNavigate } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
-import { BuildTable, Paging } from '../../commons/components/Table'
-import { Collection } from '../../commons/types/siren';
-import * as Uris from '../../commons/Uris';
+import { BuildTable, Paging } from '../../common/components/Table'
+import { Collection } from '../../common/types/siren';
+import * as Uris from '../../common/Uris';
 
 export type Props = {
   collection: Collection

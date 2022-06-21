@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid, Header, List, ListHeader, ListItem, Popup, Segment } from 'semantic-ui-react';
-import { BuildForm, BuildFormInModal } from '../../commons/components/BuildForm';
-import { Action, Resource } from '../../commons/types/siren';
+import { BuildForm, BuildFormInModal } from '../../common/components/BuildForm';
+import { Action, Resource } from '../../common/types/siren';
 
 export function OrganizationInfo({ resource }: { resource: Resource }) {
     return (

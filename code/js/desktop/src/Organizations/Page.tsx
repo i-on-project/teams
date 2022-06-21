@@ -1,12 +1,12 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
 import { Container, Divider, Loader } from "semantic-ui-react"
-import { BuildForm } from "../commons/components/BuildForm"
-import { ErrorNOk, Error } from "../commons/components/error"
-import { Fetch } from "../commons/components/fetch"
-import { BuildMenu, MenuItem } from "../commons/components/Menu"
-import { Action, Collection } from "../commons/types/siren"
-import { makeClassrooms, makeHome, makeOrganizations } from "../commons/Uris"
+import { BuildForm } from "../common/components/BuildForm"
+import { ErrorNOk, Error } from "../common/components/error"
+import { Fetch } from "../common/components/fetch"
+import { BuildMenu, MenuItem } from "../common/components/Menu"
+import { Action, Collection } from "../common/types/siren"
+import { makeClassrooms, makeHome, makeOrganizations } from "../common/Uris"
 import { OrganizationsTable } from "./components/OrganizationsTable"
 
 export function Page() {
@@ -15,29 +15,29 @@ export function Page() {
 
     const menuItems: MenuItem[] = [
         {
-          name: "Home",
-          href: makeHome()
+            name: "Home",
+            href: makeHome()
         },
         {
             name: "Organizations",
             href: makeOrganizations()
         }
-      ]
+    ]
 
     return (
-        <Fetch
-            url={`/api${makeOrganizations()}`}
-            renderBegin={() => <p>Waiting for URL...</p>}
-            renderOk={(payload) =>
-                <div>
-                    <BuildMenu items={menuItems} currItem={makeOrganizations()}></BuildMenu>
+        <div>
+            <BuildMenu items={menuItems} currItem={makeOrganizations()}></BuildMenu>
+            <Fetch
+                url={`/api${makeOrganizations()}`}
+                renderBegin={() => <p>Waiting for URL...</p>}
+                renderOk={(payload) =>
                     <Body collection={payload}></Body>
-                </div>
-            }
-            renderLoading={() => <Loader /> }
-            renderNok={message => <ErrorNOk message={message} />}
-            renderError={error => <Error error={error} />}
-        />
+                }
+                renderLoading={() => <Loader />}
+                renderNok={message => <ErrorNOk message={message} />}
+                renderError={error => <Error error={error} />}
+            />
+        </div>
     )
 }
 
@@ -47,13 +47,13 @@ function Body({ collection }: { collection: Collection }) {
         <Container>
             <h1>Your Organizations</h1>
             <OrganizationsTable collection={collection}></OrganizationsTable>
-            <Divider/>
+            <Divider />
             {
                 collection.actions.map((action: Action) =>
-                        <BuildForm action={action} key={action.name}></BuildForm>
+                    <BuildForm action={action} key={action.name}></BuildForm>
                 )
             }
-            <Divider hidden/>
+            <Divider hidden />
         </Container>
     )
 }

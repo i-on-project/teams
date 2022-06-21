@@ -26,12 +26,8 @@ export function BuildMenu({ items, currItem }: { items: MenuItem[], currItem: st
 
     return (
         <Menu secondary pointing>
-            <Menu.Item>
-                <Icon>
-                    <img src="logotipo_blue.png"></img>
-                </Icon>
-            
-                
+            <Menu.Item key="menu_logo">
+                <img src="public/logo_blue.svg"></img>
             </Menu.Item>
             {
                 items.map((item: MenuItem) =>
@@ -43,14 +39,14 @@ export function BuildMenu({ items, currItem }: { items: MenuItem[], currItem: st
                     />
                 )
             }
-            <Menu.Menu position='right'>
-            <Menu.Item
-              name='logout'
-              active={activeItem === 'logout'}
-              
-              onClick={() => onLogout()}
-            />
-          </Menu.Menu>
+            <Menu.Menu position='right' key="logout_button">
+                <Menu.Item
+                    name='logout'
+                    active={activeItem === 'logout'}
+
+                    onClick={() => onLogout()}
+                />
+            </Menu.Menu>
         </Menu>
     )
 

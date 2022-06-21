@@ -1,12 +1,12 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
 import { Container, Divider, Loader } from "semantic-ui-react"
-import { BuildForm } from "../commons/components/BuildForm"
-import { ErrorNOk, Error } from "../commons/components/error"
-import { Fetch } from "../commons/components/fetch"
-import { BuildMenu, MenuItem } from "../commons/components/Menu"
-import { Action, Collection } from "../commons/types/siren"
-import { makeClassrooms, makeHome, makeOrganizations } from "../commons/Uris"
+import { BuildForm } from "../common/components/BuildForm"
+import { ErrorNOk, Error } from "../common/components/error"
+import { Fetch } from "../common/components/fetch"
+import { BuildMenu, MenuItem } from "../common/components/Menu"
+import { Action, Collection } from "../common/types/siren"
+import { makeClassrooms, makeHome, makeOrganizations } from "../common/Uris"
 import { ClassroomsTable } from "./Components/ClassroomsTable"
 
 export function Page() {

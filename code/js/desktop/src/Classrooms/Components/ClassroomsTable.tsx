@@ -1,10 +1,9 @@
 import * as React from "react"
 import { useNavigate } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
-import { entry } from "../../../webpack.common";
-import { BuildTable } from '../../commons/components/Table'
-import { Entity } from '../../commons/types/siren';
-import * as Uris from '../../commons/Uris';
+import { BuildTable } from '../../common/components/Table'
+import { Entity } from '../../common/types/siren';
+import * as Uris from '../../common/Uris';
 
 export function ClassroomsTable({ entities }: { entities: Entity[] }) {
 
@@ -20,6 +19,10 @@ export function ClassroomsTable({ entities }: { entities: Entity[] }) {
                 link: entity.links[0].href
             }
         })
+
+        /*
+        FIXME: Change link to individual classroom 
+        */
 
         return projects.map(item =>
             <Table.Row key={item.id} >

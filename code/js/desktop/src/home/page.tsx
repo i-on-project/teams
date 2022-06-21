@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Container, Divider, Loader } from 'semantic-ui-react'
-import { ErrorNOk, Error } from '../commons/components/error'
-import { Fetch } from '../commons/components/fetch'
-import { BuildMenu } from '../commons/components/Menu'
-import { makeClassrooms, makeHome, makeOrganizations } from '../commons/Uris'
+import { ErrorNOk, Error } from '../common/components/error'
+import { Fetch } from '../common/components/fetch'
+import { BuildMenu } from '../common/components/Menu'
+import { makeClassrooms, makeHome, makeOrganizations } from '../common/Uris'
 import { OrganizationsTable } from '../Organizations/components/OrganizationsTable'
 
 //TODO: change value
