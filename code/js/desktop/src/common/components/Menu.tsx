@@ -2,28 +2,53 @@ import { Dropdown, Menu } from "semantic-ui-react"
 import { useState } from "react"
 import * as React from "react"
 import { NavigateFunction, useNavigate } from "react-router-dom"
+import { MenuContext } from "./MenuStatus"
 
 
 export type MenuItem = {
     name: string,
     href: string,
+    isActive?: boolean,
     isDropDown?: boolean,
-    dropDownOptions?: { key: number, text: string, value: any }[]
+    dropDownOptions?: MenuItem[]
 }
 
-export function BuildMenu({ items, currItem }: { items: MenuItem[], currItem: string }) {
+export function BuildMenu() {
 
-    const [activeItem, setActiveItem] = useState(currItem)
+    const { items } = React.useContext(MenuContext)
     const navigate = useNavigate()
 
     function onClick(href: string) {
         navigate(href)
-        setActiveItem(href)
     }
 
     function onLogout() {
         //TODO: perform logout
         navigate('/')
+    }
+
+    function itemsBuilder(items: MenuItem[]) {
+        return items.map((item: MenuItem) =>
+            item.isDropDown ?
+                <Dropdown key={item.name} text={item.name} simple item >
+                    <Dropdown.Menu>
+                        {
+                            item.dropDownOptions.map((option: MenuItem) => {
+                                return (
+                                    <Dropdown.Item key={option.name} onClick={() => onClick(item.href)}>{option.name}</Dropdown.Item>
+                                )
+                            })
+                        }
+                    </Dropdown.Menu>
+                </Dropdown>
+                :
+                <Menu.Item
+                    name={item.name}
+                    active={item.isActive}
+                    onClick={() => onClick(item.href)}
+                    key={item.name}
+                />
+        )
     }
 
     return (
@@ -33,22 +58,11 @@ export function BuildMenu({ items, currItem }: { items: MenuItem[], currItem: st
 
             </Menu.Item>
             {
-                items.map((item: MenuItem) =>
-                    item.isDropDown ?
-                        <Dropdown text={item.name} options={item.dropDownOptions} simple item />
-                    :
-                        <Menu.Item
-                            name={item.name}
-                            active={(activeItem === item.href)}
-                            onClick={() => onClick(item.href)}
-                            key={item.name}
-                        />
-                )
+                itemsBuilder(items)
             }
             <Menu.Menu position='right' key="logout_button">
                 <Menu.Item
                     name='logout'
-                    active={activeItem === 'logout'}
 
                     onClick={() => onLogout()}
                 />
@@ -57,3 +71,4 @@ export function BuildMenu({ items, currItem }: { items: MenuItem[], currItem: st
     )
 
 }
+

@@ -5,6 +5,7 @@ import { ClassroomsTable } from "../Classrooms/Components/ClassroomsTable";
 import { ErrorNOk, Error } from "../common/components/error";
 import { Fetch } from "../common/components/fetch";
 import { BuildMenu, MenuItem } from "../common/components/Menu";
+import { MenuContext } from "../common/components/MenuStatus";
 import { Resource } from "../common/types/siren";
 import { makeClassrooms, makeHome, makeOrganization, makeOrganizations } from "../common/Uris";
 import { OrganizationInfo } from "./components/OrganizationInfo";
@@ -13,36 +14,43 @@ export function Page() {
 
     const { orgId } = useParams()
 
-    const menuItems: MenuItem[] = [
-        {
-            name: "Home",
-            href: makeHome()
-        },
-        {
-            name: "Organizations",
-            href: makeOrganizations()
-        }
-    ]
-
-
     return (
-        <Fetch
-            url={`/api${makeOrganization(orgId)}`}
-            renderBegin={() => <p>Waiting for URL...</p>}
-            renderOk={(payload) =>
-                <div>
-                    <BuildMenu items={menuItems} currItem={makeOrganization(orgId)} ></BuildMenu>
+        <div>
+            
+            <Fetch
+                url={`/api${makeOrganization(orgId)}`}
+                renderBegin={() => <p>Waiting for URL...</p>}
+                renderOk={(payload) =>
                     <Body resource={payload} orgId={orgId}></Body>
-                </div>
-            }
-            renderLoading={() => <Loader />}
-            renderNok={message => <ErrorNOk message={message} />}
-            renderError={error => <Error error={error} />}
-        />
+                }
+                renderLoading={() => <Loader />}
+                renderNok={message => <ErrorNOk message={message} />}
+                renderError={error => <Error error={error} />}
+            />
+        </div>
     )
 }
 
 function Body({ resource, orgId }: { resource: Resource, orgId: any }) {
+
+    const { setItems } = React.useContext(MenuContext)
+
+    React.useEffect(() => {
+        const menuItems: MenuItem[] = [
+            {
+                name: "Home",
+                href: makeHome()
+            },
+            {
+                name: "Organizations",
+                href: makeOrganizations(),
+                isActive: true
+            }
+        ]
+
+        setItems(menuItems)
+    }, [])
+
     return (
         <Container>
             <OrganizationInfo resource={resource} />

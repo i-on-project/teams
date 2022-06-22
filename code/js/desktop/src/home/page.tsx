@@ -4,26 +4,33 @@ import { Button, Container, Divider, Loader } from 'semantic-ui-react'
 import { ErrorNOk, Error } from '../common/components/error'
 import { Fetch } from '../common/components/fetch'
 import { BuildMenu } from '../common/components/Menu'
+import { MenuContext } from '../common/components/MenuStatus'
 import { makeClassrooms, makeHome, makeOrganizations } from '../common/Uris'
 import { OrganizationsTable } from '../Organizations/components/OrganizationsTable'
 
 //TODO: change value
 export function Page({authenticated=true}: {authenticated?: boolean}) {
 
+    const { setItems } = React.useContext(MenuContext)
+
     const menuItems = [
         {
             name: "Home",
-            href: makeHome()
+            href: makeHome(),
+            isActive: true
         },
         {
             name: "Organizations",
-            href: makeOrganizations()
+            href: makeOrganizations(),
         }
     ]
 
+    React.useEffect(() => {
+        setItems(menuItems)
+    }, [])
+        
     return (
         <div>
-            <BuildMenu items={menuItems} currItem={makeHome()}></BuildMenu>
             {getHome()}
         </div>
     )

@@ -5,26 +5,15 @@ import { BuildForm } from "../common/components/BuildForm"
 import { ErrorNOk, Error } from "../common/components/error"
 import { Fetch } from "../common/components/fetch"
 import { BuildMenu, MenuItem } from "../common/components/Menu"
+import { MenuContext } from "../common/components/MenuStatus"
 import { Action, Collection } from "../common/types/siren"
 import { makeClassrooms, makeHome, makeOrganizations } from "../common/Uris"
 import { OrganizationsTable } from "./components/OrganizationsTable"
 
 export function Page() {
 
-    const menuItems: MenuItem[] = [
-        {
-            name: "Home",
-            href: makeHome()
-        },
-        {
-            name: "Organizations",
-            href: makeOrganizations()
-        }
-    ]
-
     return (
         <div>
-            <BuildMenu items={menuItems} currItem={makeOrganizations()}></BuildMenu>
             <Fetch
                 url={`/api${makeOrganizations()}`}
                 renderBegin={() => <p>Waiting for URL...</p>}
@@ -41,6 +30,25 @@ export function Page() {
 
 
 function Body({ collection }: { collection: Collection }) {
+
+    const { setItems } = React.useContext(MenuContext)
+
+    React.useEffect(() => {
+        const menuItems: MenuItem[] = [
+            {
+                name: "Home",
+                href: makeHome()
+            },
+            {
+                name: "Organizations",
+                href: makeOrganizations(),
+                isActive: true
+            }
+        ]
+
+        setItems(menuItems)
+    }, [])
+
     return (
         <Container>
             <h1>Your Organizations</h1>
