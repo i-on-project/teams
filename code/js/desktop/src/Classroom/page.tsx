@@ -1,9 +1,9 @@
 import * as React from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Button, Container, Divider, Loader } from "semantic-ui-react";
+import { useParams } from "react-router-dom";
+import { Container, Divider, Loader } from "semantic-ui-react";
 import { ErrorNOk, Error } from "../common/components/error";
 import { Fetch } from "../common/components/fetch";
-import { BuildMenu, MenuItem } from "../common/components/Menu";
+import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
 import { Resource } from "../common/types/siren";
 import { makeAssignments, makeClassroom, makeHome, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
@@ -31,7 +31,6 @@ export function Page() {
 function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, classId: any }) {
 
     const { setItems } = React.useContext(MenuContext)
-    const navigate = useNavigate()
 
     React.useEffect(() => {
 
@@ -53,7 +52,7 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
-                    { name: 'Assignments', href: makeAssignments(orgId, classId) }
+                    { name: 'Assignments', href: makeAssignments(orgId, classId)}
                 ]
             }
         ]

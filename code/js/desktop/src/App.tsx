@@ -1,12 +1,14 @@
 import * as React from 'react'
 import { Route, Routes, HashRouter } from "react-router-dom";
+import { MenuContainer } from './common/components/MenuStatus';
+import { BuildMenu } from './common/components/Menu';
+
 import * as Home from "./home/Page"
 import * as Organizations from "./Organizations/Page"
 import * as Organization from "./Organization/Page"
-
 import * as Classroom from "./Classroom/Page"
-import { MenuContainer } from './common/components/MenuStatus';
-import { BuildMenu } from './common/components/Menu';
+import * as Teams from "./Teams/Page"
+
 
 
 

@@ -18,10 +18,6 @@ export function BuildMenu() {
     const { items } = React.useContext(MenuContext)
     const navigate = useNavigate()
 
-    function onClick(href: string) {
-        navigate(href)
-    }
-
     function onLogout() {
         //TODO: perform logout
         navigate('/')
@@ -30,22 +26,25 @@ export function BuildMenu() {
     function itemsBuilder(items: MenuItem[]) {
         return items.map((item: MenuItem) =>
             item.isDropDown ?
-                <Dropdown key={item.name} text={item.name} simple item >
-                    <Dropdown.Menu>
-                        {
-                            item.dropDownOptions.map((option: MenuItem) => {
-                                return (
-                                    <Dropdown.Item key={option.name} onClick={() => onClick(item.href)}>{option.name}</Dropdown.Item>
-                                )
-                            })
-                        }
-                    </Dropdown.Menu>
-                </Dropdown>
+                <Menu.Item key={item.name} active={item.isActive}>
+                    <Dropdown text={item.name} >
+                        <Dropdown.Menu>
+                        <Dropdown.Item key={'This'} action={navigate(item.href)} text={'This'}/>
+                            {
+                                item.dropDownOptions.map((option: MenuItem) => {
+                                    return (
+                                        <Dropdown.Item key={option.name} onClick={() => navigate(option.href)} text={option.name}/>
+                                    )
+                                })
+                            }
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Menu.Item>
                 :
                 <Menu.Item
                     name={item.name}
                     active={item.isActive}
-                    onClick={() => onClick(item.href)}
+                    onClick={() => navigate(item.href)}
                     key={item.name}
                 />
         )
