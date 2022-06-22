@@ -51,9 +51,8 @@ export function BuildMenu() {
 
     return (
         <Menu secondary pointing>
-            <Menu.Item key="menu_logo">
-                <img src="public/logo_blue.svg" alt='logo'></img>
-
+            <Menu.Item key="menu_logo" onClick={() => { navigate("/") }}>
+                <img src="public/logo_blue_simple.svg" alt='logo' style={{height: "20px"}}></img>
             </Menu.Item>
             {
                 itemsBuilder(items)

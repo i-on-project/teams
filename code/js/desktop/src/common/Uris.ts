@@ -56,3 +56,7 @@ export function makeRequest(orgId: UriParam, classId: UriParam, teamId: UriParam
 export function makeAssignments(orgId: UriParam, classId: UriParam): string {
   return `/orgs/${orgId}/classrooms/${classId}/assignments`
 }
+
+export function makeAssignment(orgId: UriParam, classId: UriParam, assId: UriParam): string {
+  return `/orgs/${orgId}/classrooms/${classId}/assignments/${assId}`
+}
