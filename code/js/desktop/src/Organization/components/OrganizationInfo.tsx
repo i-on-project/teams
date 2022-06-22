@@ -18,14 +18,18 @@ export function OrganizationInfo({ resource }: { resource: Resource }) {
                         <List>
                             <ListHeader as='h3'>Actions</ListHeader>
                             {
-                                resource.actions.map( (action: Action) =>
-                                    <BuildFormInModal key={action.name} action={action}>{<ListItem key={action.name}> {action.title} </ListItem>}</BuildFormInModal>
+                                resource.actions.map((action: Action) =>
+                                    <BuildFormInModal key={action.name} action={action}>
+                                        {
+                                            <ListItem key={action.name}> {action.title} </ListItem>
+                                        }
+                                    </BuildFormInModal>
                                 )
                             }
                         </List>
                     </Segment>
                 </Grid.Column>
-            </Grid.Row> 
+            </Grid.Row>
         </Grid>
     )
 }

@@ -1,7 +1,6 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
-import { Container, Divider, Loader } from "semantic-ui-react"
-import { BuildForm } from "../common/components/BuildForm"
+import { Container, Loader } from "semantic-ui-react"
 import { ErrorNOk, Error } from "../common/components/error"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
@@ -23,8 +22,6 @@ export function Page() {
                     <Body collection={payload} orgId={orgId} classId={classId}></Body>
                 }
                 renderLoading={() => <Loader />}
-                renderNok={message => <ErrorNOk message={message} />}
-                renderError={error => <Error error={error} />}
             />
         </div>
     )

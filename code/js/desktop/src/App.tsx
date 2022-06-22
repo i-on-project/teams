@@ -7,6 +7,7 @@ import * as Organizations from "./Organizations/Page"
 import * as Organization from "./Organization/Page"
 import * as Classroom from "./Classroom/Page"
 import * as Teams from "./Teams/Page"
+import * as Students from "./Students/Page"
 
 export default function App() {
 
@@ -21,6 +22,7 @@ export default function App() {
           <Route path='/orgs/:orgId' element={<Organization.Page />} />
           <Route path='/orgs/:orgId/classrooms/:classId' element={<Classroom.Page />} />
           <Route path='/orgs/:orgId/classrooms/:classId/Teams' element={<Teams.Page />} />
+          <Route path='/orgs/:orgId/classrooms/:classId/students' element={<Students.Page />} />
         </Routes>
         </MenuContainer>
       </HashRouter >

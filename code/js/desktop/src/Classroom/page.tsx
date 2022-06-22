@@ -21,8 +21,6 @@ export function Page() {
                 renderBegin={() => <p>Waiting for URL...</p>}
                 renderOk={(payload) => <Body resource={payload} orgId={orgId} classId={classId}></Body>}
                 renderLoading={() => <Loader />}
-                renderNok={message => <ErrorNOk message={message} />}
-                renderError={error => <Error error={error} />}
             />
         </div>
     )
@@ -61,7 +59,6 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
                 ]
             }
         ]
-
         setItems(menuItems)
     }, [])
 

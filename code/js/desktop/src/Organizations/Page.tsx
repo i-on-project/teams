@@ -20,8 +20,6 @@ export function Page() {
                     <Body collection={payload}></Body>
                 }
                 renderLoading={() => <Loader />}
-                renderNok={message => <ErrorNOk message={message} />}
-                renderError={error => <Error error={error} />}
             />
         </div>
     )
@@ -58,7 +56,6 @@ function Body({ collection }: { collection: Collection }) {
                     <BuildForm action={action} key={action.name}></BuildForm>
                 )
             }
-            <Divider hidden />
         </Container>
     )
 }

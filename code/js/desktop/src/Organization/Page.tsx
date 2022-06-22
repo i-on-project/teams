@@ -4,10 +4,10 @@ import { Container, Divider, Loader } from "semantic-ui-react";
 import { ClassroomsTable } from "../Classrooms/Components/ClassroomsTable";
 import { ErrorNOk, Error } from "../common/components/error";
 import { Fetch } from "../common/components/fetch";
-import { BuildMenu, MenuItem } from "../common/components/Menu";
+import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
 import { Resource } from "../common/types/siren";
-import { makeClassrooms, makeHome, makeOrganization, makeOrganizations } from "../common/Uris";
+import { makeHome, makeOrganization, makeOrganizations } from "../common/Uris";
 import { OrganizationInfo } from "./components/OrganizationInfo";
 
 export function Page() {
@@ -24,8 +24,6 @@ export function Page() {
                     <Body resource={payload} orgId={orgId}></Body>
                 }
                 renderLoading={() => <Loader />}
-                renderNok={message => <ErrorNOk message={message} />}
-                renderError={error => <Error error={error} />}
             />
         </div>
     )

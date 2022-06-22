@@ -18,14 +18,18 @@ export function ClassroomInfo({ resource }: { resource: Resource }) {
                         <List>
                             <ListHeader as='h3'>Actions</ListHeader>
                             {
-                                resource.actions.map( (action: Action) =>
-                                    <BuildFormInModal action={action} key={action.name} >{<ListItem key={action.name}> {action.title} </ListItem>}</BuildFormInModal>
+                                resource.actions.map((action: Action) =>
+                                    <BuildFormInModal action={action} key={action.name} >
+                                        {
+                                            <ListItem key={action.name}> {action.title} </ListItem>
+                                        }
+                                    </BuildFormInModal>
                                 )
                             }
                         </List>
                     </Segment>
                 </Grid.Column>
-            </Grid.Row> 
+            </Grid.Row>
         </Grid>
     )
 }
