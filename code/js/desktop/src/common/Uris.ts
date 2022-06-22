@@ -28,6 +28,12 @@ export function makeStudentsClassroom(orgId: UriParam, classId: UriParam) {
   return `/orgs/${orgId}/classrooms/${classId}/students`
 }
 
+//Invite Links
+export function makeInviteLinks(orgId: UriParam, classId: UriParam) {
+  return `/orgs/${orgId}/classrooms/${classId}/invite-links`
+}
+
+
 //Teams
 export function makeTeams(orgId: UriParam, classId: UriParam): string {
   return `/orgs/${orgId}/classrooms/${classId}/teams`

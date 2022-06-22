@@ -133,3 +133,32 @@ export function BuildFormInModal({ children, action }: { children: React.ReactNo
     )
 }
 
+export function BuildModal({ children, trigger }: { children: React.ReactNode, trigger: React.ReactNode}) {
+
+    const [open, setOpen] = useState(false)
+
+    return (
+        <Container>
+            <Modal
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+                open={open}
+                trigger={trigger}
+            >
+                <Modal.Content>
+                    <Modal.Description>
+                        {
+                            children
+                        }
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button color='black' onClick={() => setOpen(false)}>
+                        Cancel
+                    </Button>
+                </Modal.Actions>
+            </Modal>
+        </Container>
+    )
+}
+

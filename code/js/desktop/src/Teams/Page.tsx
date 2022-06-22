@@ -66,7 +66,7 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
 
     return (
         <Container>
-            <h1>Teams</h1>
+            <h1>Teams in Classroom</h1>
             <TeamsTable entities={collection.entities} orgId={orgId} classId={classId}></TeamsTable>
         </Container>
     )

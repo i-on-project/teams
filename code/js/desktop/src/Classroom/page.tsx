@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { Container, Divider, Loader } from "semantic-ui-react";
-import { ErrorNOk, Error } from "../common/components/error";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
@@ -64,9 +63,9 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
 
     return (
         <Container>
-            <ClassroomInfo resource={resource} />
+            <ClassroomInfo resource={resource} orgId={orgId} classId={classId}/>
             <Divider />
-            <h1>Teams in this classrooms</h1>
+            <h1>Teams in Classroom</h1>
             {
                 <TeamsTable entities={resource.entities} orgId={orgId} classId={classId}></TeamsTable>
             }
