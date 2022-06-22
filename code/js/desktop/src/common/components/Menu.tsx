@@ -27,13 +27,12 @@ export function BuildMenu() {
         return items.map((item: MenuItem) =>
             item.isDropDown ?
                 <Menu.Item key={item.name} active={item.isActive}>
-                    <Dropdown text={item.name} >
+                    <Dropdown text={item.name}>
                         <Dropdown.Menu>
-                        <Dropdown.Item key={'This'} action={navigate(item.href)} text={'This'}/>
                             {
                                 item.dropDownOptions.map((option: MenuItem) => {
                                     return (
-                                        <Dropdown.Item key={option.name} onClick={() => navigate(option.href)} text={option.name}/>
+                                        <Dropdown.Item key={option.name} onClick={() => navigate(option.href)} text={option.name} active={option.isActive}/>
                                     )
                                 })
                             }

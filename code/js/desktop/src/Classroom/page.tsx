@@ -6,7 +6,7 @@ import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
 import { Resource } from "../common/types/siren";
-import { makeAssignments, makeClassroom, makeHome, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
+import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
 import { TeamsTable } from "../Teams/components/TeamsTable";
 import { ClassroomInfo } from "./components/ClassroomInfo";
 
@@ -44,13 +44,18 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
                 href: makeOrganizations()
             },
             {
+                name: "Organization",
+                href: makeOrganization(orgId)
+            },
+            {
                 name: "Classroom",
                 href: makeClassroom(orgId, classId),
                 isActive: true,
                 isDropDown: true,
                 dropDownOptions: [
-                    { name: 'Teams', href: makeTeams(orgId, classId) },
+                    { name: 'This', href: makeClassroom(orgId, classId), isActive: true},
                     { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
+                    { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
                     { name: 'Assignments', href: makeAssignments(orgId, classId)}
                 ]

@@ -43,11 +43,14 @@ function Body({ resource, orgId }: { resource: Resource, orgId: any }) {
             },
             {
                 name: "Organizations",
-                href: makeOrganizations(),
+                href: makeOrganizations()
+            },
+            {
+                name: "Organization",
+                href: makeOrganization(orgId),
                 isActive: true
             }
         ]
-
         setItems(menuItems)
     }, [])
 
