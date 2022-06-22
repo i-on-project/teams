@@ -11,8 +11,6 @@ import { OrganizationsTable } from "./components/OrganizationsTable"
 
 export function Page() {
 
-    const { orgId } = useParams()
-
     const menuItems: MenuItem[] = [
         {
             name: "Home",

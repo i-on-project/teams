@@ -5,11 +5,7 @@ import { BuildTable, Paging } from '../../common/components/Table'
 import { Collection } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
 
-export type Props = {
-  collection: Collection
-}
-
-export function OrganizationsTable({ collection }: Props) {
+export function OrganizationsTable({ collection }: { collection: Collection }) {
 
   const navigate = useNavigate()  
 

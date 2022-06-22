@@ -21,10 +21,6 @@ export function Page() {
         {
             name: "Organizations",
             href: makeOrganizations()
-        },
-        {
-            name: "Classrooms",
-            href: makeClassrooms(orgId)
         }
     ]
 
@@ -36,7 +32,7 @@ export function Page() {
             renderOk={(payload) =>
                 <div>
                     <BuildMenu items={menuItems} currItem={makeOrganization(orgId)} ></BuildMenu>
-                    <Body resource={payload}></Body>
+                    <Body resource={payload} orgId={orgId}></Body>
                 </div>
             }
             renderLoading={() => <Loader />}
@@ -46,15 +42,14 @@ export function Page() {
     )
 }
 
-//TODO: missing components
-function Body({ resource }: { resource: Resource }) {
+function Body({ resource, orgId }: { resource: Resource, orgId: any }) {
     return (
         <Container>
             <OrganizationInfo resource={resource} />
             <Divider />
             <h1>Classrooms in this organization</h1>
             {
-                <ClassroomsTable entities={resource.entities}></ClassroomsTable>
+                <ClassroomsTable entities={resource.entities} orgId={orgId}></ClassroomsTable>
             }
         </Container>
     )

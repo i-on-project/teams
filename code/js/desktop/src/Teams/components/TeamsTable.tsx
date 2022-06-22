@@ -5,7 +5,7 @@ import { BuildTable } from '../../common/components/Table'
 import { Entity } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
 
-export function ClassroomsTable({ entities, orgId }: { entities: Entity[], orgId: number }) {
+export function TeamsTable({ entities, orgId, classId }: { entities: Entity[], orgId: number, classId: number }) {
 
     const navigate = useNavigate()
 
@@ -14,26 +14,20 @@ export function ClassroomsTable({ entities, orgId }: { entities: Entity[], orgId
             return {
                 id: entity.properties.id,
                 name: entity.properties.name,
-                description: entity.properties.description,
-                schoolYear: entity.properties.schoolYear,
+                state: entity.properties.state,
                 link: entity.links[0].href
             }
         })
 
-        /*
-        FIXME: Change link to individual classroom 
-        */
-
         return projects.map(item =>
             <Table.Row key={item.id} >
-                <Table.Cell onClick={() => navigate(Uris.makeClassroom(orgId, item.id), { replace: false })}> {item.name} </Table.Cell>
-                <Table.Cell > {item.description} </Table.Cell>
-                <Table.Cell > {item.schoolYear} </Table.Cell>
+                <Table.Cell onClick={() => navigate(Uris.makeTeam(orgId, classId, item.id), { replace: false })}> {item.name} </Table.Cell>
+                <Table.Cell > {item.state} </Table.Cell>
             </Table.Row>
         )
     }
 
     return (
-        <BuildTable propNames={["Name", "Descrition", "School Year"]}>{rowSpan()}</BuildTable>
+        <BuildTable propNames={["Name", "State"]}>{rowSpan()}</BuildTable>
     )
 }
