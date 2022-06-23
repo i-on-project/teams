@@ -62,7 +62,7 @@ function Body({ resource }: { resource: Resource }) {
         <Container>
             <DeliveryInfo resource={resource} />
             <Divider />
-            <h1>Deliveries of the assignment</h1>
+            <h1>Tags of the delivery</h1>
             {
                 <TagsTable entities={resource.entities}></TagsTable>
             }
