@@ -5,18 +5,18 @@ import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
 import { Resource } from "../common/types/siren";
-import { makeAssignment, makeAssignments, makeClassroom, makeClassrooms, makeHome } from "../common/Uris";
-import { AssignmentInfo } from "./components/AssignmentInfo";
-import { DeliveriesTable } from "../Deliveries/components/DeliveriesTable";
+import { makeAssignment, makeAssignments, makeClassroom, makeDelivery, makeHome } from "../common/Uris";
+import { DeliveryInfo } from "./components/DeliveryInfo";
+import { TagsTable } from "../Tags/components/TagsTable";
 
 export function Page() {
 
-    const { orgId, classId, assId } = useParams()
+    const { orgId, classId, assId, delId } = useParams()
 
     return (
         <div>
             <Fetch
-                url={`/api${makeAssignment(orgId, classId, assId)}`}
+                url={`/api${makeDelivery(orgId, classId, assId, delId)}`}
                 renderBegin={() => <p>Waiting for URL...</p>}
                 renderOk={(payload) => <Body resource={payload} ></Body>}
                 renderLoading={() => <Loader />}
@@ -28,7 +28,7 @@ export function Page() {
 function Body({ resource }: { resource: Resource }) {
 
     const { setItems } = React.useContext(MenuContext)
-    const { orgId, classId, assId } = useParams()
+    const { orgId, classId, assId, delId } = useParams()
 
     React.useEffect(() => {
 
@@ -36,10 +36,6 @@ function Body({ resource }: { resource: Resource }) {
             {
                 name: "Home",
                 href: makeHome()
-            },
-            {
-                name: "Classrooms",
-                href: makeClassrooms(orgId)
             },
             {
                 name: "Classroom",
@@ -51,21 +47,24 @@ function Body({ resource }: { resource: Resource }) {
             },
             {
                 name: "Assignment",
-                href: makeAssignment(orgId, classId, assId),
+                href: makeAssignment(orgId, classId, assId)
+            },
+            {
+                name: "Delivery",
+                href: makeDelivery(orgId, classId, assId, delId),
                 isActive: true
             },
-
         ]
         setItems(menuItems)
     }, [])
 
     return (
         <Container>
-            <AssignmentInfo resource={resource} />
+            <DeliveryInfo resource={resource} />
             <Divider />
             <h1>Deliveries of the assignment</h1>
             {
-                <DeliveriesTable entities={resource.entities}></DeliveriesTable>
+                <TagsTable entities={resource.entities}></TagsTable>
             }
         </Container>
     )

@@ -93,6 +93,14 @@ fun DeliveryOutputModel.toTeacherSirenObject(
     return SirenEntity(
         properties = this,
         clazz = listOf(SirenClasses.DELIVERY),
+        entities = tags.map {
+            EmbeddedEntity(
+                properties = it,
+                clazz = listOf(SirenClasses.TAG),
+                rel = listOf(SirenRelations.ITEM),
+                links = listOf(selfLink(Uris.Tags.Tag.make(orgId, classId, it.teamId, it.repoId, it.id)))
+            )
+        },
         actions = listOf(
             SirenAction(
                 name = "update-delivery",
@@ -111,14 +119,6 @@ fun DeliveryOutputModel.toTeacherSirenObject(
                 href = Uris.Deliveries.Delivery.make(orgId, classId, assId, id)
             ),
         ),
-        entities = tags.map {
-            EmbeddedEntity(
-                properties = it,
-                clazz = listOf(SirenClasses.TAG),
-                rel = listOf(SirenRelations.ITEM),
-                links = listOf(selfLink(Uris.Tags.Tag.make(orgId, classId, it.teamId, it.repoId, it.id)))
-            )
-        },
         links = listOf(
             selfLink(Uris.Deliveries.Delivery.make(orgId, classId, assId, id)),
             homeLink(),

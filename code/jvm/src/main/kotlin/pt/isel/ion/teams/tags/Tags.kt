@@ -20,6 +20,7 @@ data class TagWithTeamRepoDbRead(
     val date: String,
     val repoId: Int,
     val teamId: Int,
+    val teamName: String,
     val delId: Int
 )
 

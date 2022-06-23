@@ -33,7 +33,6 @@ export function makeInviteLinks(orgId: UriParam, classId: UriParam) {
   return `/orgs/${orgId}/classrooms/${classId}/invite-links`
 }
 
-
 //Teams
 export function makeTeams(orgId: UriParam, classId: UriParam): string {
   return `/orgs/${orgId}/classrooms/${classId}/teams`
@@ -59,4 +58,9 @@ export function makeAssignments(orgId: UriParam, classId: UriParam): string {
 
 export function makeAssignment(orgId: UriParam, classId: UriParam, assId: UriParam): string {
   return `/orgs/${orgId}/classrooms/${classId}/assignments/${assId}`
+}
+
+//Deliveries
+export function makeDelivery(orgId: UriParam, classId: UriParam, assId: UriParam, delId: UriParam): string {
+  return `/orgs/${orgId}/classrooms/${classId}/assignments/${assId}/deliveries/${delId}`
 }

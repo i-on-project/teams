@@ -78,8 +78,8 @@ FROM deliveries d
 WHERE d.deleted = B'0'
   AND tg.deleted = B'0';
 
-CREATE VIEW TAGS_WITH_REPO_AND_TEAM (id, name, date, repoId, teamId, delId) AS
-SELECT t.id, t.name, t.date, r.id, tm.id, d.id
+CREATE VIEW TAGS_WITH_REPO_AND_TEAM (id, name, date, repoId, teamId, teamName, delId) AS
+SELECT t.id, t.name, t.date, r.id, tm.id, tm.name, d.id
 FROM tags t
          JOIN repos r on r.id = t.repoid
          JOIN teams tm on r.tid = tm.id
