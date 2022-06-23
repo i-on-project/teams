@@ -5,6 +5,12 @@ import { Fetch } from '../../common/components/fetch';
 import { Action, Collection, Entity, Resource } from '../../common/types/siren';
 import { makeInviteLinks } from '../../common/Uris';
 
+declare const electron: {
+    clipboardApi: {
+        copy: (value: string) => undefined
+    }
+  }
+
 export function ClassroomInfo({ resource, orgId, classId }: { resource: Resource, orgId: number, classId: number }) {
 
 
@@ -42,7 +48,7 @@ export function ClassroomInfo({ resource, orgId, classId }: { resource: Resource
                                                     payload.entities.map( (entity: Entity) => 
                                                         <Segment key={entity.properties.code}>
                                                             {entity.properties.code}
-                                                            <Button size='mini' floated='right' inverted color='blue'>Copy</Button>
+                                                            <Button size='mini' floated='right' inverted color='blue' onClick={() => {electron.clipboardApi.copy(entity.properties.code)}}>Copy</Button>
                                                         </Segment>
                                                     )
                                                 }

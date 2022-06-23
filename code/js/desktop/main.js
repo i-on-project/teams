@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Notification } = require('electron')
+const { app, BrowserWindow, ipcMain, Notification, clipboard } = require('electron')
 const path = require('path')
 
 /**
@@ -7,8 +7,8 @@ const path = require('path')
 const createWindow = () => {
     const win = new BrowserWindow({
         title: 'i-on Teams Desktop',
-        width: 800,
-        height: 600,
+        width: 1280,
+        height: 720,
         webPreferences: {
             nodeIntegration: false,
             worldSafeExecuteJavaScript: true,
@@ -26,10 +26,14 @@ require('electron-reload')(__dirname, {
 })
 
 /**
- * Notification test
+ * IPC Notification receptors
  */
 ipcMain.on('notify', (_, obj) => {
     new Notification({title: obj.t, body: obj.m}).show()
+})
+
+ipcMain.on('copy', (_, value) => {
+    clipboard.writeText(value)
 })
 
 /**

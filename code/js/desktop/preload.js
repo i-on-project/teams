@@ -6,6 +6,11 @@ contextBridge.exposeInMainWorld(
             sendNotification(notification) {
                 ipcRenderer.send('notify', notification)
             }
+        },
+        clipboardApi: {
+            copy(value) {
+                ipcRenderer.send('copy', value)
+            }
         }
     }
 )
