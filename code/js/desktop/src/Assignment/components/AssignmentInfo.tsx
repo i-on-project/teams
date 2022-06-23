@@ -11,7 +11,7 @@ export function AssignmentInfo({ resource }: { resource: Resource }) {
             <Grid.Row columns={2}>
                 <Grid.Column>
                     <Segment>
-                        <Header as='h3'>Assignment: {resource.properties.id}</Header>
+                        <Header as='h3'>{resource.properties.name}</Header>
                         {resource.properties.description}
                     </Segment>
                 </Grid.Column>

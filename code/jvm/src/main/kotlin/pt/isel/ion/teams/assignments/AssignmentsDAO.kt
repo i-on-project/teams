@@ -18,11 +18,11 @@ interface AssignmentsDAO {
     @SqlQuery("SELECT * FROM assignments_view WHERE id=:id")
     fun getAssignment(@Bind("id") id: Int): AssignmentDbRead
 
-    @SqlUpdate("INSERT INTO assignments (releasedate, cid, description) VALUES (:releaseDate,:cid,:description)")
+    @SqlUpdate("INSERT INTO assignments (releasedate, cid, name, description) VALUES (:releaseDate,:cid, :name, :description)")
     @GetGeneratedKeys
     fun createAssignment(@BindBean assignment: AssignmentDbWrite): AssignmentDbRead
 
-    @SqlUpdate("UPDATE assignments SET releasedate = COALESCE(:releaseDate,releasedate), description = COALESCE(:description,description), cid = COALESCE(:cid,cid) WHERE id=:id")
+    @SqlUpdate("UPDATE assignments SET releasedate = COALESCE(:releaseDate,releasedate), name = COALESCE(:name,name), description = COALESCE(:description,description), cid = COALESCE(:cid,cid) WHERE id=:id")
     @GetGeneratedKeys
     fun updateAssignment(@BindBean assignment: AssignmentDbUpdate): AssignmentDbRead
 

@@ -114,6 +114,7 @@ CREATE TABLE ASSIGNMENTS
     id          serial,
     releaseDate timestamp    DEFAULT current_timestamp,
     cId         int          NOT NULL, --class id
+    name varchar NOT NULL,
     description varchar NOT NULL,
     deleted     bit(1) DEFAULT B'0',
     PRIMARY KEY (id),

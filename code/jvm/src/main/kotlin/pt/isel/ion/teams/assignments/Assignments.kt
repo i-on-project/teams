@@ -9,6 +9,7 @@ data class AssignmentDbRead(
     val id: Int,
     val releaseDate: String,
     val description: String,
+    val name: String,
     val cid: Int,
 )
 
@@ -16,6 +17,7 @@ data class AssignmentDbWrite(
     val releaseDate: Timestamp?,
     val cid: Int,
     val description: String,
+    val name: String
 )
 
 data class AssignmentDbUpdate(
@@ -31,6 +33,7 @@ data class AssignmentDbUpdate(
 
 data class AssignmentOutputModel(
     val id: Int,
+    val name: String,
     val releaseDate: String,
     val cid: Int,
     val description: String,
@@ -38,16 +41,19 @@ data class AssignmentOutputModel(
 
 data class AssignmentCompactOutputModel(
     val id: Int,
+    val name: String,
     val releaseDate: String
 )
 
 data class AssignmentInputModel(
     val releaseDate: String?,
-    val description: String
+    val description: String,
+    val name: String
 )
 
 data class AssignmentUpdateModel(
     val releaseDate: String?,
+    val name: String,
     val description: String?,
     val cid: Int?
 )
@@ -57,10 +63,10 @@ data class AssignmentUpdateModel(
  */
 
 fun AssignmentInputModel.toDb(classId: Int) =
-    AssignmentDbWrite(Timestamp.valueOf(this.releaseDate), classId, this.description)
+    AssignmentDbWrite(Timestamp.valueOf(this.releaseDate), classId, this.description, this.name)
 
 fun AssignmentUpdateModel.toDb(id: Int) =
     AssignmentDbUpdate(id, Timestamp.valueOf(this.releaseDate), this.description, this.cid)
 
-fun AssignmentDbRead.toOutput() = AssignmentOutputModel(this.id, this.releaseDate, this.cid, this.description)
-fun AssignmentDbRead.toCompactOutput() = AssignmentCompactOutputModel(this.id, this.releaseDate)
+fun AssignmentDbRead.toOutput() = AssignmentOutputModel(this.id, this.name, this.releaseDate, this.cid, this.description)
+fun AssignmentDbRead.toCompactOutput() = AssignmentCompactOutputModel(this.id, this.name, this.releaseDate)

@@ -55,9 +55,9 @@ VALUES (80000, 1, 1),
        (90000, 2, 2),
        (10000, 3, 1);
 
-INSERT INTO assignments (cid, description)
-VALUES (1, 'Make application yes yes.'),
-       (2, 'Make chess game for android.');
+INSERT INTO assignments (cid, description, name)
+VALUES (1, 'Make application yes yes.', 'tp1'),
+       (2, 'Make chess game for android.', 'tp2');
 
 INSERT INTO deliveries (assid, name, date)
 VALUES (1, 'phase 1', now()),

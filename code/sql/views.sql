@@ -54,8 +54,8 @@ SELECT id, tId, date, description
 FROM notes
 WHERE deleted = B'0';
 
-CREATE VIEW ASSIGNMENTS_VIEW (id, releaseDate, description, cId) AS
-SELECT id, releaseDate, description, cId
+CREATE VIEW ASSIGNMENTS_VIEW (id, releaseDate, name, description, cId) AS
+SELECT id, releaseDate, name, description, cId
 FROM assignments
 WHERE deleted = B'0';
 

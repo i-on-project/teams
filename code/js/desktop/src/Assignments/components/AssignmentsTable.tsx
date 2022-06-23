@@ -14,13 +14,14 @@ export function AssignmentsTable({ collection }: { collection: Collection }) {
     const assignments = collection.entities.map(entity => {
       return {
         id: entity.properties.id,
+        name: entity.properties.name,
         releaseDate: entity.properties.releaseDate,
       }
     })
 
     return assignments.map(item =>
       <Table.Row key={item.id} >
-        <Table.Cell onClick={() => navigate(Uris.makeAssignment(orgId, classId, item.id), { replace: false })}> {item.id} </Table.Cell>
+        <Table.Cell onClick={() => navigate(Uris.makeAssignment(orgId, classId, item.id), { replace: false })}> {item.name} </Table.Cell>
         <Table.Cell > {item.releaseDate} </Table.Cell>
       </Table.Row>
     )
@@ -35,6 +36,6 @@ export function AssignmentsTable({ collection }: { collection: Collection }) {
   }
 
   return (
-    <BuildTable propNames={["ID", "Release Date"]} pagingProps={paging}>{rowSpan()}</BuildTable>
+    <BuildTable propNames={["Name", "Release Date"]} pagingProps={paging}>{rowSpan()}</BuildTable>
   )
 }

@@ -112,6 +112,7 @@ fun ClassroomOutputModel.toTeacherSirenObject(
             href = Uris.Assignments.make(orgId, id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
+                SirenAction.Field(name = "name", type = "string"),
                 SirenAction.Field(name = "releaseDate", type = "string"),
                 SirenAction.Field(name = "description", type = "string"),
             )
