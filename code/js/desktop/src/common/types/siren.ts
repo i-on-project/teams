@@ -21,7 +21,7 @@ export type Entity = {
     class: string[],
     rel: string[],
     properties: any,
-    actions?: Action,
+    actions?: Action[],
     links: Link_relation[]
 }
 

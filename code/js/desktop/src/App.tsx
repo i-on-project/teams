@@ -11,6 +11,7 @@ import * as Students from "./Students/Page"
 import * as Assignments from "./Assignments/Page"
 import * as Assignment from "./Assignment/Page"
 import * as Delivery from "./Delivery/Page"
+import * as Requests from "./Requests/Page"
 
 export default function App() {
 
@@ -29,6 +30,7 @@ export default function App() {
           <Route path='/orgs/:orgId/classrooms/:classId/assignments' element={<Assignments.Page />} />
           <Route path='/orgs/:orgId/classrooms/:classId/assignments/:assId' element={<Assignment.Page />} />
           <Route path='/orgs/:orgId/classrooms/:classId/assignments/:assId/deliveries/:delId' element={<Delivery.Page />} />
+          <Route path='/orgs/:orgId/classrooms/:classId/requests' element={<Requests.Page />} />
         </Routes>
         </MenuContainer>
       </HashRouter >

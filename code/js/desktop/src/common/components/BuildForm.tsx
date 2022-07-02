@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router';
 import { Button, Container, Divider, Dropdown, Form, Header, Modal } from "semantic-ui-react";
 import { Action } from "../types/siren";
 import { ChangedContext } from './changedStatus';
@@ -13,7 +12,6 @@ export function BuildForm({ action, divider = false }: { action: Action, divider
 
     const { setChanged } = useContext(ChangedContext)
     const [state, setState] = useState<FormData>({})
-    const navigate = useNavigate()
 
     function onSubmit(event: any) {
         event.preventDefault();

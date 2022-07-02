@@ -4,9 +4,9 @@ import { Container, Loader } from "semantic-ui-react"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { MenuContext } from "../common/components/MenuStatus"
-import { Collection } from "../common/types/siren"
+import { Action, Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
-import { TeamsTable } from "./components/TeamsTable"
+import { RequestsTable } from "./components/Requests"
 
 export function Page() {
 
@@ -15,7 +15,7 @@ export function Page() {
     return (
         <div>
             <Fetch
-                url={`/api${makeTeams(orgId, classId)}`}
+                url={`/api${makeRequests(orgId, classId)}`}
                 renderBegin={() => <p>Waiting for URL...</p>}
                 renderOk={(payload) =>
                     <Body collection={payload} orgId={orgId} classId={classId}></Body>
@@ -53,8 +53,8 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
                 dropDownOptions: [
                     { name: 'This', href: makeClassroom(orgId, classId) },
                     { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
-                    { name: 'Teams', href: makeTeams(orgId, classId), isActive: true },
-                    { name: 'Requests', href: makeRequests(orgId, classId) },
+                    { name: 'Teams', href: makeTeams(orgId, classId) },
+                    { name: 'Requests', href: makeRequests(orgId, classId), isActive: true },
                     { name: 'Assignments', href: makeAssignments(orgId, classId) }
                 ]
             }
@@ -65,8 +65,8 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
 
     return (
         <Container>
-            <h1>Teams in Classroom</h1>
-            <TeamsTable entities={collection.entities} orgId={orgId} classId={classId}></TeamsTable>
+            <h1>Requests for creating a team</h1>
+            <RequestsTable entities={collection.entities}></RequestsTable>
         </Container>
     )
 }
