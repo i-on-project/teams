@@ -7,6 +7,7 @@ import * as Organizations from "./Organizations/Page"
 import * as Organization from "./Organization/Page"
 import * as Classroom from "./Classroom/Page"
 import * as Teams from "./Teams/Page"
+import * as Team from "./Team/Page"
 import * as Students from "./Students/Page"
 import * as Assignments from "./Assignments/Page"
 import * as Assignment from "./Assignment/Page"
@@ -25,7 +26,8 @@ export default function App() {
           <Route path='/orgs' element={<Organizations.Page />} />
           <Route path='/orgs/:orgId' element={<Organization.Page />} />
           <Route path='/orgs/:orgId/classrooms/:classId' element={<Classroom.Page />} />
-          <Route path='/orgs/:orgId/classrooms/:classId/Teams' element={<Teams.Page />} />
+          <Route path='/orgs/:orgId/classrooms/:classId/teams' element={<Teams.Page />} />
+          <Route path='/orgs/:orgId/classrooms/:classId/teams/:teamId' element={<Team.Page />} />
           <Route path='/orgs/:orgId/classrooms/:classId/students' element={<Students.Page />} />
           <Route path='/orgs/:orgId/classrooms/:classId/assignments' element={<Assignments.Page />} />
           <Route path='/orgs/:orgId/classrooms/:classId/assignments/:assId' element={<Assignment.Page />} />

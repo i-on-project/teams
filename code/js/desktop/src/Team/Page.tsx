@@ -1,34 +1,34 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { Container, Divider, Loader } from "semantic-ui-react";
+import { Container, Loader } from "semantic-ui-react";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
 import { Resource } from "../common/types/siren";
-import { makeAssignment, makeAssignments, makeClassroom, makeClassrooms, makeHome, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
-import { AssignmentInfo } from "./components/AssignmentInfo";
-import { DeliveriesTable } from "../Deliveries/components/DeliveriesTable";
+import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeam, makeTeams } from "../common/Uris";
+import { TeamsTable } from "../Teams/components/TeamsTable";
+import { TeamInfo } from "./Components/TeamInfo";
 
 export function Page() {
 
-    const { orgId, classId, assId } = useParams()
+    const { orgId, classId, teamId } = useParams()
 
     return (
         <div>
             <Fetch
-                url={`/api${makeAssignment(orgId, classId, assId)}`}
+                url={`/api${makeTeam(orgId, classId, teamId)}`}
                 renderBegin={() => <p>Waiting for URL...</p>}
-                renderOk={(payload) => <Body resource={payload} ></Body>}
+                renderOk={(payload) => <Body resource={payload}></Body>}
                 renderLoading={() => <Loader />}
             />
         </div>
     )
 }
 
-function Body({ resource }: { resource: Resource }) {
+function Body({ resource}: { resource: Resource }) {
 
+    const { orgId, classId, teamId } = useParams()
     const { setItems } = React.useContext(MenuContext)
-    const { orgId, classId, assId } = useParams()
 
     React.useEffect(() => {
 
@@ -38,8 +38,12 @@ function Body({ resource }: { resource: Resource }) {
                 href: makeHome()
             },
             {
-                name: "Classrooms",
-                href: makeClassrooms(orgId)
+                name: "Organizations",
+                href: makeOrganizations()
+            },
+            {
+                name: "Organization",
+                href: makeOrganization(orgId)
             },
             {
                 name: "Classroom",
@@ -54,23 +58,17 @@ function Body({ resource }: { resource: Resource }) {
                 ]
             },
             {
-                name: "Assignment",
-                href: makeAssignment(orgId, classId, assId),
+                name: "Team",
+                href: makeTeam(orgId,classId,teamId),
                 isActive: true
-            },
-
+            }
         ]
         setItems(menuItems)
     }, [])
 
     return (
         <Container>
-            <AssignmentInfo resource={resource} />
-            <Divider />
-            <h1>Deliveries of the assignment</h1>
-            {
-                <DeliveriesTable entities={resource.entities}></DeliveriesTable>
-            }
+            <TeamInfo resource={resource}></TeamInfo>
         </Container>
     )
 }

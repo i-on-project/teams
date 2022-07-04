@@ -34,11 +34,11 @@ export function RequestsTable({ entities }: { entities: Entity[] }) {
 
         return projects.map(item =>
             <Table.Row key={item.id} >
-                <Table.Cell> {item.name} </Table.Cell>
-                <Table.Cell textAlign="right">
+                <Table.Cell key={item.id +'_name'}> {item.name} </Table.Cell>
+                <Table.Cell textAlign="right" key={item.id + '_buttons'}>
                     <Button.Group>
-                        <Button positive onClick={ () => onClick( item.actions.find( (it) => it.name == "accept-request" ))} key={'Accept' + item.id}>Accept</Button>
-                        <Button negative onClick={ () => onClick( item.actions.find( (it) => it.name == "decline-request"))} key={'Decline' + item.id}>Decline</Button>
+                        <Button positive onClick={ () => onClick( item.actions.find( (it) => it.name == "accept-request" ))} key={'Accept_' + item.id}>Accept</Button>
+                        <Button negative onClick={ () => onClick( item.actions.find( (it) => it.name == "decline-request"))} key={'Decline_' + item.id}>Decline</Button>
                     </Button.Group>
                 </Table.Cell>
             </Table.Row>

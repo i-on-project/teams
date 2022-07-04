@@ -1,4 +1,4 @@
-import { Dropdown, Menu } from "semantic-ui-react"
+import { Confirm, Dropdown, Menu } from "semantic-ui-react"
 import { useState } from "react"
 import * as React from "react"
 import { NavigateFunction, useNavigate } from "react-router-dom"
@@ -17,6 +17,7 @@ export function BuildMenu() {
 
     const { items } = React.useContext(MenuContext)
     const navigate = useNavigate()
+
 
     function onLogout() {
         //TODO: perform logout
@@ -60,8 +61,9 @@ export function BuildMenu() {
             <Menu.Menu position='right' key="logout_button">
                 <Menu.Item
                     name='logout'
-
-                    onClick={() => onLogout()}
+                    active
+                    color="red"
+                    onClick={() => {onLogout()}}
                 />
             </Menu.Menu>
         </Menu>

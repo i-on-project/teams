@@ -6,7 +6,7 @@ import { MenuItem } from "../common/components/Menu"
 import { MenuContext } from "../common/components/MenuStatus"
 import { Action, Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
-import { RequestsTable } from "./components/Requests"
+import { RequestsTable } from "./components/RequestsTable"
 
 export function Page() {
 

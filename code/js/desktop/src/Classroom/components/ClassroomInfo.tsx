@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Button, Divider, Grid, Header, Icon, List, ListHeader, ListItem, Loader, Popup, Segment } from 'semantic-ui-react';
-import { BuildForm, BuildFormInModal, BuildModal } from '../../common/components/BuildForm';
+import { Button, Divider, Grid, Header, List, ListHeader, ListItem, Loader, Popup, Segment } from 'semantic-ui-react';
+import { BuildFormInModal, BuildModal } from '../../common/components/BuildForm';
 import { Fetch } from '../../common/components/fetch';
 import { Action, Collection, Entity, Resource } from '../../common/types/siren';
 import { makeInviteLinks } from '../../common/Uris';
