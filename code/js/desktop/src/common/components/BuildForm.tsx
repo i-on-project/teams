@@ -141,7 +141,7 @@ export function BuildModal({ children, trigger }: { children: React.ReactNode, t
                 onClose={() => setOpen(false)}
                 onOpen={() => setOpen(true)}
                 open={open}
-                trigger={trigger}
+                trigger={trigger ? trigger : children}
             >
                 <Modal.Content>
                     <Modal.Description>

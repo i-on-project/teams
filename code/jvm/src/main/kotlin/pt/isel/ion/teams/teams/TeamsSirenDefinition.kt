@@ -122,19 +122,7 @@ fun TeamsOutputModel.toTeacherSirenObject(
             title = "Delete team",
             method = HttpMethod.DELETE,
             href = Uris.Teams.Team.make(orgId, classId, id),
-        ),
-        SirenAction(
-            name = "create-note",
-            title = "Create Note",
-            method = HttpMethod.POST,
-            href = Uris.Notes.make(orgId, classId, id),
-            type = MediaType.APPLICATION_JSON,
-            fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "description", type = "string"),
-            )
-        ),
-
+        )
     ),
     links = listOf(
         selfLink(Uris.Teams.make(orgId, classId)),

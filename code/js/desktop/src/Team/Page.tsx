@@ -4,9 +4,9 @@ import { Container, Loader } from "semantic-ui-react";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
-import { Resource } from "../common/types/siren";
+import { Resource, Link_relation } from "../common/types/siren";
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeam, makeTeams } from "../common/Uris";
-import { TeamsTable } from "../Teams/components/TeamsTable";
+import { NotesAsComments } from "../Notes/components/NotesAsComments";
 import { TeamInfo } from "./Components/TeamInfo";
 
 export function Page() {
@@ -29,6 +29,7 @@ function Body({ resource}: { resource: Resource }) {
 
     const { orgId, classId, teamId } = useParams()
     const { setItems } = React.useContext(MenuContext)
+    const notesLink = resource.links.find( (it) => it.rel == "notes")
 
     React.useEffect(() => {
 
@@ -69,6 +70,20 @@ function Body({ resource}: { resource: Resource }) {
     return (
         <Container>
             <TeamInfo resource={resource}></TeamInfo>
+            { getNotes(notesLink)}
         </Container>
+    )
+}
+
+function getNotes(link: Link_relation) {
+
+    return (
+        <Fetch
+            url={link.href} 
+            renderBegin={() => <p>Waiting for URL...</p>}
+            renderOk={(payload) =>
+                 <NotesAsComments collection={payload}/>
+                }
+            renderLoading={() => <Loader />} />
     )
 }

@@ -28,6 +28,7 @@ CREATE TABLE CLASSROOMS
     FOREIGN KEY (orgId) REFERENCES ORGANIZATIONS (id),
     UNIQUE (repoURI,githubUri,avatarUri),
     UNIQUE (id,orgId),
+    UNIQUE (name,orgId),
     CONSTRAINT state_check CHECK ( state = 'active' OR state = 'inactive' ),
     CONSTRAINT schoolYear_check CHECK ( schoolYear ~* '[0-9][0-9][0-9][0-9]/[0-9][0-9]')
 );

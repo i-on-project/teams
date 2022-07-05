@@ -15,7 +15,7 @@ import pt.isel.ion.teams.common.siren.*
  * @param teamId Note's assignment id
  */
 fun CollectionModel.toNotesSirenObject(
-    notesList: List<NotesCompactOutputModel>,
+    notesList: List<NotesOutputModel>,
     orgId: Int,
     classId: Int,
     teamId: Int
@@ -32,9 +32,40 @@ fun CollectionModel.toNotesSirenObject(
                 properties = it,
                 clazz = listOf(SirenClasses.NOTE),
                 rel = listOf(SirenRelations.ITEM),
-                links = listOf(selfLink(Uris.Notes.Note.make(orgId, classId, teamId, it.id)))
+                links = listOf(selfLink(Uris.Notes.Note.make(orgId, classId, teamId, it.id))),
+                actions = listOf(
+                    SirenAction(
+                        name = "update-note",
+                        title = "Update Note",
+                        method = HttpMethod.PUT,
+                        href = Uris.Notes.Note.make(orgId, classId, teamId, it.id),
+                        type = MediaType.APPLICATION_JSON,
+                        fields = listOf(
+                            SirenAction.Field(name = "description", type = "string"),
+                        )
+                    ),
+                    SirenAction(
+                        name = "delete-note",
+                        title = "Delete Note",
+                        method = HttpMethod.PUT,
+                        href = Uris.Notes.Note.make(orgId, classId, teamId, it.id),
+                    )
+                )
             )
         },
+        actions = listOf(
+            SirenAction(
+                name = "create-note",
+                title = "Create Note",
+                method = HttpMethod.POST,
+                href = Uris.Notes.make(orgId, classId, teamId),
+                type = MediaType.APPLICATION_JSON,
+                fields = listOf(
+                    SirenAction.Field(name = "name", type = "string"),
+                    SirenAction.Field(name = "description", type = "string"),
+                )
+            )
+        ),
         links = listOfNotNull(
             selfLink(Uris.Notes.make(orgId, classId, teamId)),
             if (notesList.size > pageSize)
@@ -81,7 +112,7 @@ fun NotesOutputModel.toSirenObject(
             title = "Delete Note",
             method = HttpMethod.PUT,
             href = Uris.Notes.Note.make(orgId, classId, teamId, id),
-        ),
+        )
     ),
     links = listOf(
         selfLink(Uris.Notes.Note.make(orgId, classId, teamId, id)),

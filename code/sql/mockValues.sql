@@ -19,7 +19,7 @@ INSERT INTO classrooms (name, description, maxteams, maxmembersperteam, repoURI,
                         avataruri)
 VALUES ('li4xd', 'Turma x 4 ano.', 3, 2, 'https://github.com/isel-leic-ave/lae-2021-22-sem2-i4xd', '2021/22', 1,
         'https://github.com/example1', 'https://github.com/example1'),
-       ('li4xd', 'Turma y 4 ano.', 3, 2, 'https://github.com/isel-leic-ave/lae-2021-22-sem2-i4yd', '2021/22', 1,
+       ('li4yd', 'Turma y 4 ano.', 3, 2, 'https://github.com/isel-leic-ave/lae-2021-22-sem2-i4yd', '2021/22', 1,
         'https://github.com/example2', 'https://github.com/example2'),
        ('li5xd', 'Turma x 5 ano.', 3, 2, 'https://github.com/isel-leic-pc/pc-2021-22-sem2-i4xd', '2021/22', 2,
         'https://github.com/example3', 'https://github.com/example3');
@@ -72,6 +72,6 @@ VALUES ('phase 1', 1, 1),
        ('phase 2', 2, 1);
 
 INSERT INTO notes (tid, description)
-VALUES (1, 'Does not meet all requirements.'),
+VALUES (3, 'Does not meet all requirements.'),
        (2, 'Does meet all requirements.');
 

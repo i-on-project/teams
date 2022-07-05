@@ -93,6 +93,24 @@ Status:  200 OK
           "rel": ["self"],
           "href": "/api/orgs/852/classroom/1/teams/123123/notes/6"
         }
+      ],
+      "actions": [
+        {
+          "name": "update-note",
+          "title": "Update Note",
+          "method": "PUT",
+          "href": "/api/orgs/123123/classrooms/1/teams/1/notes/{notesId}",
+          "type": "application/json",
+          "field": [
+            {"name": "description", "type": "string"}
+          ]
+        },
+        {
+        "name": "delete-note",
+        "title": "Delete Note",
+        "method": "DELETE",
+        "href": "/api/orgs/123123/classrooms/1/teams/1/notes/{notesId}"
+        }
       ]
     }
   ],

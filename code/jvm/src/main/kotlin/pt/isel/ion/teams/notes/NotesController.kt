@@ -25,7 +25,7 @@ class NotesController(val notesService: NotesService) {
         .body(
             CollectionModel(pageIndex, pageSize)
                 .toNotesSirenObject(
-                    notesService.getAllNotesByTeam(pageSize, pageIndex, teamId).map { it.toCompactOutput() },
+                    notesService.getAllNotesByTeam(pageSize, pageIndex, teamId).map { it.toOutput() },
                     orgId,
                     classId,
                     teamId
