@@ -1,16 +1,23 @@
-const {ipcRenderer, contextBridge} = require('electron')
+const { ipcRenderer, contextBridge } = require('electron')
 
 contextBridge.exposeInMainWorld(
     'electron', {
-        notificationApi: {
-            sendNotification(notification) {
-                ipcRenderer.send('notify', notification)
-            }
-        },
-        clipboardApi: {
-            copy(value) {
-                ipcRenderer.send('copy', value)
-            }
+    notificationApi: {
+        sendNotification(notification) {
+            ipcRenderer.send('notify', notification)
         }
-    }
+    },
+    clipboardApi: {
+        copy(value) {
+            ipcRenderer.send('copy', value)
+        }
+    },
+    externalBrowserApi: {
+        open(url) {
+            ipcRenderer.send('openBrowser', url)
+        }
+    },
+    //IPC main to renderer example
+    customProtocolUrl: (callback) => ipcRenderer.on('url', callback)
+}
 )
