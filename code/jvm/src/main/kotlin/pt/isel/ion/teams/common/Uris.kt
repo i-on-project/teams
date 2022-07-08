@@ -3,6 +3,15 @@ package pt.isel.ion.teams.common
 import org.springframework.web.util.UriTemplate
 
 object Uris {
+
+    object Login {
+        const val PATH = "/api/login"
+    }
+
+    object Logout {
+        const val PATH = "/api/logout"
+    }
+
     object Home {
         const val PATH = "/api/home"
         private val TEMPLATE = UriTemplate(PATH)
@@ -12,10 +21,6 @@ object Uris {
         private val PAGE_TEMPLATE = UriTemplate(PAGE_PATH)
         fun makePage(pageIndex: Int, pageSize: Int) =
             PAGE_TEMPLATE.expand(mapOf("pageIndex" to pageIndex, "pageSize" to pageSize))
-    }
-
-    object Logout {
-        const val PATH = "/api/logout"
     }
 
     object Organizations {
