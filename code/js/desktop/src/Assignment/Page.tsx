@@ -5,7 +5,7 @@ import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
 import { Resource } from "../common/types/siren";
-import { makeAssignment, makeAssignments, makeClassroom, makeClassrooms, makeHome, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
+import { makeAssignment, makeAssignments, makeClassroom, makeClassrooms, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
 import { AssignmentInfo } from "./components/AssignmentInfo";
 import { DeliveriesTable } from "../Deliveries/components/DeliveriesTable";
 
@@ -38,20 +38,20 @@ function Body({ resource }: { resource: Resource }) {
                 href: makeHome()
             },
             {
-                name: "Classrooms",
-                href: makeClassrooms(orgId)
+                name: "Organizations",
+                href: makeOrganizations(),
+            },
+            {
+                name: "Organization",
+                href: makeOrganization(orgId),
             },
             {
                 name: "Classroom",
-                href: makeClassroom(orgId, classId),
-                isDropDown: true,
-                dropDownOptions: [
-                    { name: 'This', href: makeClassroom(orgId, classId)},
-                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
-                    { name: 'Teams', href: makeTeams(orgId, classId) },
-                    { name: 'Requests', href: makeRequests(orgId, classId) },
-                    { name: 'Assignments', href: makeAssignments(orgId, classId)}
-                ]
+                href: makeClassroom(orgId, classId)
+            },
+            { 
+                name: 'Assignments', 
+                href: makeAssignments(orgId, classId)
             },
             {
                 name: "Assignment",

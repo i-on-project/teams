@@ -50,16 +50,12 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
             },
             {
                 name: "Classroom",
-                href: makeClassroom(orgId, classId),
-                isActive: true,
-                isDropDown: true,
-                dropDownOptions: [
-                    { name: 'This', href: makeClassroom(orgId, classId) },
-                    { name: 'Students', href: makeStudentsClassroom(orgId, classId), isActive: true },
-                    { name: 'Teams', href: makeTeams(orgId, classId) },
-                    { name: 'Requests', href: makeRequests(orgId, classId) },
-                    { name: 'Assignments', href: makeAssignments(orgId, classId) }
-                ]
+                href: makeClassroom(orgId, classId)
+            },
+            {
+                name: 'Students',
+                href: makeStudentsClassroom(orgId, classId),
+                isActive: true
             }
         ]
 

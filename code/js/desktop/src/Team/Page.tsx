@@ -48,15 +48,11 @@ function Body({ resource}: { resource: Resource }) {
             },
             {
                 name: "Classroom",
-                href: makeClassroom(orgId, classId),
-                isDropDown: true,
-                dropDownOptions: [
-                    { name: 'This', href: makeClassroom(orgId, classId)},
-                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
-                    { name: 'Teams', href: makeTeams(orgId, classId) },
-                    { name: 'Requests', href: makeRequests(orgId, classId) },
-                    { name: 'Assignments', href: makeAssignments(orgId, classId)}
-                ]
+                href: makeClassroom(orgId, classId)
+            },
+            {
+                name: 'Teams',
+                href: makeTeams(orgId, classId)
             },
             {
                 name: "Team",
