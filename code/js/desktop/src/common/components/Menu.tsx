@@ -19,6 +19,14 @@ export function VerticalFixedMenu() {
     const { items } = React.useContext(MenuContext)
     const navigate = useNavigate()
 
+    const logoStyle = {
+        display: "block",
+        height: "40px",
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: "50 %"
+    }
+
     function onLogout() {
         //TODO: perform logout
         navigate('/')
@@ -64,20 +72,17 @@ export function VerticalFixedMenu() {
     }
 
     return (
-        <Menu vertical fixed="left">
+        <Menu inverted vertical fixed="left">
             <Menu.Item key="menu_logo" onClick={() => { navigate("/") }}>
-                <img src="public/logo_blue.svg" alt='logo' style={{ height: "40px" }}></img>
+                <img src="public/logo_blue_darktheme.svg" alt='logo' style={logoStyle}></img>
             </Menu.Item>
             {
                 itemsBuilder(items)
             }
-            <Menu.Item
-                name='logout'
-                color="red"
-                onClick={() => { onLogout() }}
-            >
+            <Menu.Item position='bottom'>
+                <Button fluid negative onClick={() => { onLogout() }}>Logout</Button>
             </Menu.Item>
-        </Menu>
+        </Menu >
     )
 
 }

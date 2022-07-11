@@ -98,10 +98,10 @@ function urlToRenderer(url) {
 //Register application to handle custom protocol, in this case the protocol is "i-on-teams://"
 if (process.defaultApp) {
     if (process.argv.length >= 2) {
-        app.setAsDefaultProtocolClient('i-on-teams', process.execPath, [path.resolve(process.argv[1])])
+        app.setAsDefaultProtocolClient('ion-teams', process.execPath, [path.resolve(process.argv[1])])
     }
 } else {
-    app.setAsDefaultProtocolClient('i-on-teams')
+    app.setAsDefaultProtocolClient('ion-teams')
 }
 
 //Handle protocol events on windows. This is different that MacOS and Linux because windows needs extra instructions
@@ -119,11 +119,6 @@ if (!gotTheLock) {
         }
     })
 
-    // Create mainWindow, load the rest of the app, etc...
-    app.whenReady().then(() => {
-        createWindow()
-    })
-
     // Handle the protocol. In this case, we choose to show an Error Box.
     app.on('open-url', (event, url) => {
         //TODO: Handle event and notify renderer
@@ -132,13 +127,6 @@ if (!gotTheLock) {
 }
 
 //Handle protocol events on MacOS and Linux.
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
-    createWindow()
-})
 
 // Handle the protocol. In this case, we choose to show an Error Box.
 app.on('open-url', (event, url) => {

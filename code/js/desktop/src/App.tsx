@@ -40,7 +40,7 @@ export default function App() {
         <Grid.Column width={3}>
           <VerticalFixedMenu />
         </Grid.Column>
-        <Grid.Column width={12}>
+        <Grid.Column width={12} style={{marginTop: "16px"}}>
         <Routes>
           <Route path='' element={<Home.Page />} />
           <Route path='/orgs' element={<Organizations.Page />} />
