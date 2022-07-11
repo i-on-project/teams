@@ -5,7 +5,7 @@ import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { MenuContext } from "../common/components/MenuStatus"
 import { Action, Collection } from "../common/types/siren"
-import { makeAssignments, makeClassroom, makeClassrooms, makeHome, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
+import { makeAssignments, makeClassroom, makeClassrooms, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { AssignmentsTable } from "./components/AssignmentsTable"
 
 export function Page() {
@@ -42,21 +42,17 @@ function Body({ collection }: { collection: Collection }) {
                 href: makeOrganizations(),
             },
             {
-                name: "Classrooms",
-                href: makeClassrooms(orgId),
+                name: "Organization",
+                href: makeOrganization(orgId),
             },
             {
                 name: "Classroom",
-                href: makeClassroom(orgId, classId),
-                isActive: true,
-                isDropDown: true,
-                dropDownOptions: [
-                    { name: 'This', href: makeClassroom(orgId, classId)},
-                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
-                    { name: 'Teams', href: makeTeams(orgId, classId) },
-                    { name: 'Requests', href: makeRequests(orgId, classId) },
-                    { name: 'Assignments', href: makeAssignments(orgId, classId), isActive: true}
-                ]
+                href: makeClassroom(orgId, classId)
+            },
+            { 
+                name: 'Assignments', 
+                href: makeAssignments(orgId, classId),
+                isActive: true
             }
         ]
 

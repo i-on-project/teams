@@ -48,13 +48,12 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
                 name: "Classroom",
                 href: makeClassroom(orgId, classId),
                 isActive: true,
-                isDropDown: true,
-                dropDownOptions: [
-                    { name: 'This', href: makeClassroom(orgId, classId), isActive: true},
-                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
+                hasSubItems: true,
+                subItems: [
+                    { name: 'Students', href: makeStudentsClassroom(orgId, classId)},
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
-                    { name: 'Assignments', href: makeAssignments(orgId, classId)}
+                    { name: 'Assignments', href: makeAssignments(orgId, classId) }
                 ]
             }
         ]
@@ -62,13 +61,13 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
     }, [])
 
     return (
-        <Container>
-            <ClassroomInfo resource={resource} orgId={orgId} classId={classId}/>
+        <div>
+            <ClassroomInfo resource={resource} orgId={orgId} classId={classId} />
             <Divider />
             <h1>Teams in Classroom</h1>
             {
                 <TeamsTable entities={resource.entities} orgId={orgId} classId={classId}></TeamsTable>
             }
-        </Container>
+        </div>
     )
 }
