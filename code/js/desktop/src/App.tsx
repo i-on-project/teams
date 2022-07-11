@@ -30,8 +30,8 @@ export default function App() {
       console.log('callback called')
   
       setUrl(value)
-    })
-  */
+    })*/
+  
   return (
 
     <HashRouter>
@@ -67,6 +67,6 @@ export default function App() {
             The counter is: {url}
           </div>
         </div>
-        */
+      */  
   )
 }

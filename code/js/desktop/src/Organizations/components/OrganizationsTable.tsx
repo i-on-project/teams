@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useNavigate } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
-import { BuildTable, Paging } from '../../common/components/Table'
+import { DefaultTable, Paging } from '../../common/components/Table'
 import { Collection } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
 
@@ -36,6 +36,6 @@ export function OrganizationsTable({ collection }: { collection: Collection }) {
   }
 
   return (
-    <BuildTable propNames={["Name", "Descrition"]} pagingProps={paging}>{rowSpan()}</BuildTable>
+    <DefaultTable propNames={["Name", "Descrition"]} pagingProps={paging}>{rowSpan()}</DefaultTable>
   )
 }

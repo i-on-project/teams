@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Table } from 'semantic-ui-react';
-import { BuildTable } from '../../common/components/Table'
+import { DefaultTable } from '../../common/components/Table'
 import { Entity } from '../../common/types/siren';
 
 export function TagsTable({ entities }: { entities: Entity[] }) {
@@ -27,6 +27,6 @@ export function TagsTable({ entities }: { entities: Entity[] }) {
     }
 
     return (
-        <BuildTable propNames={["Team", "Name", "Date"]}>{rowSpan()}</BuildTable>
+        <DefaultTable propNames={["Team", "Name", "Date"]}>{rowSpan()}</DefaultTable>
     )
 }

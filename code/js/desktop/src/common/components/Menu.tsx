@@ -37,10 +37,10 @@ export function VerticalFixedMenu() {
 
         return items.map((item: MenuItem) =>
             item.hasSubItems ?
-                <Menu.Item>
+                <Menu.Item key={item.name}>
                     <MenuHeader>{item.name}</MenuHeader>
-                    <Menu.Menu key={item.name} active={item.isActive}>
-                        <Menu.Item //HARDCODED??
+                    <Menu.Menu key={item.name} >
+                        <Menu.Item
                             key={item.name}
                             name={'Description'}
                             active={item.isActive}
@@ -79,42 +79,10 @@ export function VerticalFixedMenu() {
             {
                 itemsBuilder(items)
             }
-            <Menu.Item position='bottom'>
+            <Menu.Item>
                 <Button fluid negative onClick={() => { onLogout() }}>Logout</Button>
             </Menu.Item>
         </Menu >
     )
 
 }
-
-/*
- 
-export function VerticalMenu({ subItems, children }: { subItems: MenuItem[], children: React.ReactNode }) {
-
-    const navigate = useNavigate()
-
-    return (
-        <Grid columns={2}>
-            <Grid.Column width={3}>
-                <Menu secondary pointing vertical>
-                    {
-                        subItems.map((item: MenuItem) =>
-                            <Menu.Item
-                                name={item.name}
-                                active={item.isActive}
-                                onClick={() => navigate(item.href)}
-                                key={item.name}
-                            />
-                        )
-                    }
-                </Menu>
-            </Grid.Column>
-            <Grid.Column width={12}>
-                {children}
-            </Grid.Column>
-        </Grid>
-
-
-    )
-}
-*/

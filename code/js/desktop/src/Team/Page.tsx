@@ -25,11 +25,11 @@ export function Page() {
     )
 }
 
-function Body({ resource}: { resource: Resource }) {
+function Body({ resource }: { resource: Resource }) {
 
     const { orgId, classId, teamId } = useParams()
     const { setItems } = React.useContext(MenuContext)
-    const notesLink = resource.links.find( (it) => it.rel == "notes")
+    const notesLink = resource.links.find((it) => it.rel == "notes")
 
     React.useEffect(() => {
 
@@ -48,15 +48,18 @@ function Body({ resource}: { resource: Resource }) {
             },
             {
                 name: "Classroom",
-                href: makeClassroom(orgId, classId)
-            },
-            {
-                name: 'Teams',
-                href: makeTeams(orgId, classId)
+                href: makeClassroom(orgId, classId),
+                hasSubItems: true,
+                subItems: [
+                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
+                    { name: 'Teams', href: makeTeams(orgId, classId) },
+                    { name: 'Requests', href: makeRequests(orgId, classId) },
+                    { name: 'Assignments', href: makeAssignments(orgId, classId) }
+                ]
             },
             {
                 name: "Team",
-                href: makeTeam(orgId,classId,teamId),
+                href: makeTeam(orgId, classId, teamId),
                 isActive: true
             }
         ]
@@ -66,7 +69,7 @@ function Body({ resource}: { resource: Resource }) {
     return (
         <Container>
             <TeamInfo resource={resource}></TeamInfo>
-            { getNotes(notesLink)}
+            {getNotes(notesLink)}
         </Container>
     )
 }
@@ -75,11 +78,11 @@ function getNotes(link: Link_relation) {
 
     return (
         <Fetch
-            url={link.href} 
+            url={link.href}
             renderBegin={() => <p>Waiting for URL...</p>}
             renderOk={(payload) =>
-                 <NotesAsComments collection={payload}/>
-                }
+                <NotesAsComments collection={payload} />
+            }
             renderLoading={() => <Loader />} />
     )
 }

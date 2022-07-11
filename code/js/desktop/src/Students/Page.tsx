@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
 import { Container, Divider, Loader } from "semantic-ui-react"
-import { BuildForm } from "../common/components/BuildForm"
+import { DefaultForm } from "../common/components/BuildForm"
 import { ErrorNOk, Error } from "../common/components/error"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid, Header, List, ListHeader, ListItem, Segment } from 'semantic-ui-react';
-import { BuildFormInModal } from '../../common/components/BuildForm';
+import { FormInModal } from '../../common/components/BuildForm';
 import { Action, Resource } from '../../common/types/siren';
 
 export function AssignmentInfo({ resource }: { resource: Resource }) {
@@ -21,11 +21,11 @@ export function AssignmentInfo({ resource }: { resource: Resource }) {
                             <ListHeader as='h3'>Actions</ListHeader>
                             {
                                 resource.actions.map((action: Action) =>
-                                    <BuildFormInModal action={action} key={action.name} >
+                                    <FormInModal action={action} key={action.name} >
                                         {
                                             <ListItem key={action.name}> {action.title} </ListItem>
                                         }
-                                    </BuildFormInModal>
+                                    </FormInModal>
                                 )
                             }                            
                         </List>

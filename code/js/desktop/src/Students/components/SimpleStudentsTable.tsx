@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Table } from 'semantic-ui-react';
-import { BuildTable } from '../../common/components/Table';
+import { DefaultTable } from '../../common/components/Table';
 import { Entity } from '../../common/types/siren';
 
 export function SimpleStudentsTable({ entities }: { entities: Entity[] }) {
@@ -24,6 +24,6 @@ export function SimpleStudentsTable({ entities }: { entities: Entity[] }) {
     }
   
     return (
-      <BuildTable propNames={["Number", "Name"]}>{rowSpan()}</BuildTable>
+      <DefaultTable propNames={["Number", "Name"]}>{rowSpan()}</DefaultTable>
     )
   }

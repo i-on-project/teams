@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useNavigate, useParams } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
-import { BuildTable } from '../../common/components/Table'
+import { DefaultTable } from '../../common/components/Table'
 import { Entity } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
 
@@ -30,6 +30,6 @@ export function DeliveriesTable({ entities }: { entities: Entity[] }) {
     }
 
     return (
-        <BuildTable propNames={["Name", "Date"]}>{rowSpan()}</BuildTable>
+        <DefaultTable propNames={["Name", "Date"]}>{rowSpan()}</DefaultTable>
     )
 }

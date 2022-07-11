@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useNavigate } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
-import { BuildTable } from '../../common/components/Table'
+import { DefaultTable } from '../../common/components/Table'
 import { Entity } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
 
@@ -34,6 +34,6 @@ export function ClassroomsTable({ entities, orgId }: { entities: Entity[], orgId
     }
 
     return (
-        <BuildTable propNames={["Name", "Descrition", "School Year"]}>{rowSpan()}</BuildTable>
+        <DefaultTable propNames={["Name", "Descrition", "School Year"]}>{rowSpan()}</DefaultTable>
     )
 }

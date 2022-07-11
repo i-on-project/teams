@@ -47,12 +47,14 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
             },
             {
                 name: "Classroom",
-                href: makeClassroom(orgId, classId)
-            },
-            {
-                name: 'Teams',
-                href: makeTeams(orgId, classId),
-                isActive: true
+                href: makeClassroom(orgId, classId),
+                hasSubItems: true,
+                subItems: [
+                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
+                    { name: 'Teams', href: makeTeams(orgId, classId), isActive: true },
+                    { name: 'Requests', href: makeRequests(orgId, classId) },
+                    { name: 'Assignments', href: makeAssignments(orgId, classId) }
+                ]
             }
         ]
 

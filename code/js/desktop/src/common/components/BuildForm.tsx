@@ -8,7 +8,7 @@ interface FormData {
     [str: string]: any
 }
 
-export function BuildForm({ action, divider = false }: { action: Action, divider?: boolean }) {
+export function DefaultForm({ action, divider = false }: { action: Action, divider?: boolean }) {
 
     const { setChanged } = useContext(ChangedContext)
     const [state, setState] = useState<FormData>({})
@@ -88,7 +88,7 @@ export function BuildForm({ action, divider = false }: { action: Action, divider
     }
 }
 
-export function BuildFormLoading({ name, fieldsName }: { name: string, fieldsName: string[] }) {
+export function FormLoading({ name, fieldsName }: { name: string, fieldsName: string[] }) {
     return (
         <Form loading>
             {fieldsName.map((fieldName) =>
@@ -102,7 +102,7 @@ export function BuildFormLoading({ name, fieldsName }: { name: string, fieldsNam
     )
 }
 
-export function BuildFormInModal({ children, action }: { children: React.ReactNode, action: Action }) {
+export function FormInModal({ children, action }: { children: React.ReactNode, action: Action }) {
 
     const [open, setOpen] = useState(false)
 
@@ -117,7 +117,7 @@ export function BuildFormInModal({ children, action }: { children: React.ReactNo
                 <Modal.Content>
                     <Modal.Description>
                         {
-                            <BuildForm action={action} divider={false}></BuildForm>
+                            <DefaultForm action={action} divider={false}></DefaultForm>
                         }
                     </Modal.Description>
                 </Modal.Content>
@@ -131,7 +131,7 @@ export function BuildFormInModal({ children, action }: { children: React.ReactNo
     )
 }
 
-export function BuildModal({ children, trigger }: { children: React.ReactNode, trigger: React.ReactNode}) {
+export function DefaultModal({ children, trigger }: { children: React.ReactNode, trigger: React.ReactNode}) {
 
     const [open, setOpen] = useState(false)
 

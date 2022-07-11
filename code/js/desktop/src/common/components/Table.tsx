@@ -8,7 +8,7 @@ export type Paging = {
     prevUri?: string
 }
 
-export function BuildTable({ propNames, pagingProps, children }: { propNames: string[], pagingProps?: Paging, children: React.ReactNode }) {
+export function DefaultTable({ propNames, pagingProps, children }: { propNames: string[], pagingProps?: Paging, children: React.ReactNode }) {
     const { setPaging } = useContext(PagingContext)
 
     return (
@@ -27,18 +27,19 @@ export function BuildTable({ propNames, pagingProps, children }: { propNames: st
                 </Table.Body>
             </Table>
 
-            {pagingProps ?
+            {
+                pagingProps != null &&
                 <div>
                     {pagingProps.prevUri ? <Button onClick={() => console.log('click')}>Previous</Button> : null}
                     {pagingProps.nextUri ? <Button onClick={() => console.log('click')}>Next</Button> : null}
-                </div> : null
+                </div>
             }
         </div>
 
     )
 }
 
-export function BuildTableLoading() {
+export function DefaultTableLoading() {
 
     return (
         <Table loading>

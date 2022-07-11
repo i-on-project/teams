@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid, Header, List, ListHeader, ListItem, Popup, Segment } from 'semantic-ui-react';
-import { BuildForm, BuildFormInModal } from '../../common/components/BuildForm';
+import { DefaultForm, FormInModal } from '../../common/components/BuildForm';
 import { Action, Resource } from '../../common/types/siren';
 
 export function OrganizationInfo({ resource }: { resource: Resource }) {
@@ -19,11 +19,11 @@ export function OrganizationInfo({ resource }: { resource: Resource }) {
                             <ListHeader as='h3'>Actions</ListHeader>
                             {
                                 resource.actions.map((action: Action) =>
-                                    <BuildFormInModal key={action.name} action={action}>
+                                    <FormInModal key={action.name} action={action}>
                                         {
                                             <ListItem key={action.name}> {action.title} </ListItem>
                                         }
-                                    </BuildFormInModal>
+                                    </FormInModal>
                                 )
                             }
                         </List>

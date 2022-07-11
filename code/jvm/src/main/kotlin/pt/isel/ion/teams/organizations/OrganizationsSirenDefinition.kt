@@ -28,6 +28,7 @@ fun CollectionModel.toOrganizationsSirenObject(orgsList: List<OrganizationOutput
                 clazz = listOf(SirenClasses.ORGANIZATION),
                 links = listOf(
                     selfLink(Uris.Organizations.Organization.make(it.id)),
+                    SirenLink(SirenRelations.CLASSROOMS,Uris.Classrooms.make(it.id)),
                     SirenLink(SirenRelations.GITHUB, URI(it.githubUri)),
                     SirenLink(SirenRelations.AVATAR, URI(it.avatarUri)),
                 )

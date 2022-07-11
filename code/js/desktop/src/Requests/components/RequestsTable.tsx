@@ -2,7 +2,7 @@ import * as React from "react"
 import { useContext } from "react";
 import { Button, Table } from 'semantic-ui-react';
 import { ChangedContext } from "../../common/components/changedStatus";
-import { BuildTable } from '../../common/components/Table'
+import { DefaultTable } from '../../common/components/Table'
 import { Action, Entity } from '../../common/types/siren';
 
 export function RequestsTable({ entities }: { entities: Entity[] }) {
@@ -46,6 +46,6 @@ export function RequestsTable({ entities }: { entities: Entity[] }) {
     }
 
     return (
-        <BuildTable propNames={["Name", ""]}>{rowSpan()}</BuildTable>
+        <DefaultTable propNames={["Name", ""]}>{rowSpan()}</DefaultTable>
     )
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Divider, Grid, Header, List, ListHeader, ListItem, Loader, Popup, Segment } from 'semantic-ui-react';
-import { BuildFormInModal, BuildModal } from '../../common/components/BuildForm';
+import { FormInModal, DefaultModal } from '../../common/components/BuildForm';
 import { Fetch } from '../../common/components/fetch';
 import { Action, Collection, Entity, Resource } from '../../common/types/siren';
 import { makeInviteLinks } from '../../common/Uris';
@@ -29,15 +29,15 @@ export function ClassroomInfo({ resource, orgId, classId }: { resource: Resource
                             <ListHeader as='h3'>Actions</ListHeader>
                             {
                                 resource.actions.map((action: Action) =>
-                                    <BuildFormInModal action={action} key={action.name} >
+                                    <FormInModal action={action} key={action.name} >
                                         {
                                             <ListItem key={action.name}> {action.title} </ListItem>
                                         }
-                                    </BuildFormInModal>
+                                    </FormInModal>
                                 )
                             }
                             <Divider />
-                            <BuildModal key={'invite-links'} trigger={<Button fluid color='blue' >Invite Links</Button>}>
+                            <DefaultModal key={'invite-links'} trigger={<Button fluid color='blue' >Invite Links</Button>}>
                                 {
                                     <Fetch
                                         url={`/api${makeInviteLinks(orgId, classId)}`}
@@ -57,7 +57,7 @@ export function ClassroomInfo({ resource, orgId, classId }: { resource: Resource
                                         renderLoading={() => <Loader />}
                                     />
                                 }
-                            </BuildModal>
+                            </DefaultModal>
                         </List>
                 </Segment>
             </Grid.Column>

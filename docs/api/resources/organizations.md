@@ -105,6 +105,10 @@ Status:  200 OK
           "href": "/api/orgs/123"
         },
         {
+          "rel": ["classrooms"],
+          "href": "/api/orgs/123/classrooms"
+        },
+        {
           "rel": ["github"],
           "href": "https://github.com/i-on-project"
         },

@@ -12,21 +12,16 @@ import pt.isel.ion.teams.teacher.toTeachersSirenObject
 
 @RestController
 @RequestMapping(Uris.Home.PATH)
-class HomeController(val organizationsService: OrganizationsService, val classroomService: OrganizationsService) {
+class HomeController() {
 
     @GetMapping
-    fun getHome(
-        //number: Int,
-        @RequestParam(defaultValue = "0") pageIndex: Int,
-        @RequestParam(defaultValue = "10") pageSize: Int
-    ): ResponseEntity<Any> {
-        //TODO: check if its student or teacher
+    fun getHome(): ResponseEntity<Any> {
 
         return ResponseEntity
             .ok()
             .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
             .body(
-                TeacherHomeSirenObject()
+                HomeSirenObject()
             )
     }
 

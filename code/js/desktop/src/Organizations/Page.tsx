@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Container, Divider, Loader } from "semantic-ui-react"
-import { BuildForm } from "../common/components/BuildForm"
+import { DefaultForm } from "../common/components/BuildForm"
 import { ErrorNOk, Error } from "../common/components/error"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
@@ -53,7 +53,7 @@ function Body({ collection }: { collection: Collection }) {
             <Divider />
             {
                 collection.actions.map((action: Action) =>
-                    <BuildForm action={action} key={action.name}></BuildForm>
+                    <DefaultForm action={action} key={action.name}></DefaultForm>
                 )
             }
         </Container>

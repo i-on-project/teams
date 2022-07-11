@@ -1,65 +1,99 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Container, Loader } from 'semantic-ui-react'
+import { Button, Container, Loader, Segment } from 'semantic-ui-react'
 import { ErrorNOk, Error } from '../common/components/error'
 import { Fetch } from '../common/components/fetch'
 import { MenuContext } from '../common/components/MenuStatus'
-import { makeHome, makeOrganizations } from '../common/Uris'
-import { OrganizationsTable } from '../Organizations/components/OrganizationsTable'
+import { Paging } from '../common/components/Table'
+import { Collection, Entity, Link_relation } from '../common/types/siren'
+import { makeClassroom, makeHome, makeOrganization, makeOrganizations } from '../common/Uris'
 
-//TODO: change value
-export function Page({authenticated=true}: {authenticated?: boolean}) {
+//TODO: session
+export function Page() {
 
     const { setItems } = React.useContext(MenuContext)
 
-    const menuItems = [
-        {
-            name: "Home",
-            href: makeHome(),
-            isActive: true
-        },
-        {
-            name: "Organizations",
-            href: makeOrganizations(),
-        }
-    ]
-
     React.useEffect(() => {
-        setItems(menuItems)
+        setItems([
+            {
+                name: "Home",
+                href: makeHome(),
+                isActive: true
+            },
+            {
+                name: "Organizations",
+                href: makeOrganizations(),
+            }
+        ])
     }, [])
-        
+
     return (
-        <div>
-            {getHome()}
-        </div>
+        <Fetch
+            url={`/api${makeOrganizations()}`}
+            renderBegin={() => <p>Waiting for URL...</p>}
+            renderOk={(payload) =>
+                <Body collection={payload} />
+            }
+            renderLoading={() => <Loader />}
+        />
     )
 
-    //TODO: Replace with get home
-    function getHome() {
+    function Body({ collection }: { collection: Collection }) {
 
         const navigate = useNavigate()
 
-        return( authenticated?
-            <Container>
-                <Fetch
-                    url={`/api${makeOrganizations()}`}
+        const nextUri = collection.links.find(link => link.rel === 'next')?.href
+        const prevUri = collection.links.find(link => link.rel === 'prev')?.href
+
+        return (
+            <React.Fragment>
+                <h1> Your Organizations and Classrooms</h1>
+                    {
+                        collection.entities.map((entity: Entity) =>
+                            <Segment.Group>
+                                <Segment color='blue' key={entity.properties.id} onClick={() => navigate(makeOrganization(entity.properties.id))}>
+                                    {entity.properties.name}
+                                </Segment>
+                                {
+                                    getClassrooms(entity.properties.id, entity.links.find((link: Link_relation) => link.rel == 'classrooms'))
+                                }
+                            </Segment.Group>
+                        )
+                    }
+                {
+                    prevUri != null &&
+                    <Button onClick={() => console.log('click')}>Previous</Button>
+                }
+                {
+                    nextUri != null &&
+                    <Button onClick={() => console.log('click')}>Next</Button>
+                }
+            </React.Fragment>
+        )
+
+
+
+        function getClassrooms(id: number, link?: Link_relation) {
+
+            return (
+                link != null && <Fetch
+                    url={link.href}
                     renderBegin={() => <p>Waiting for URL...</p>}
                     renderOk={(payload) =>
-                        <div>
-                            <OrganizationsTable collection={payload}></OrganizationsTable>
-                        </div>
+                        <Segment.Group key={id + '_classrooms'}>
+                            {
+                                payload.entities.map((entity: Entity) =>
+                                    <Segment key={entity.properties.id} onClick={() => navigate(makeClassroom(id,entity.properties.id))}>
+                                        {entity.properties.name}
+                                    </Segment>
+                                )
+                            }
+                        </Segment.Group>
                     }
-                    renderLoading={() => <Loader /> }
-                    renderNok={message => <ErrorNOk message={message} />}
-                    renderError={error => <Error error={error} />}
+                    renderLoading={() => <Loader />}
                 />
-            </Container>
-                :
-            <div>
-                <h1>Sign in/ Sign up</h1>
-            </div>
-        )
-        
+            )
+
+        }
     }
 }
-

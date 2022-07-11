@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useNavigate } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
-import { BuildTable, Paging } from '../../common/components/Table'
+import { DefaultTable, Paging } from '../../common/components/Table'
 import { Collection } from '../../common/types/siren';
 
 export function StudentsTable({ collection }: { collection: Collection }) {
@@ -33,6 +33,6 @@ export function StudentsTable({ collection }: { collection: Collection }) {
   }
 
   return (
-    <BuildTable propNames={["Number", "Name"]} pagingProps={paging}>{rowSpan()}</BuildTable>
+    <DefaultTable propNames={["Number", "Name"]} pagingProps={paging}>{rowSpan()}</DefaultTable>
   )
 }

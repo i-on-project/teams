@@ -1,9 +1,7 @@
-import { Action, Collection } from "../../common/types/siren";
-import { Button, Comment, Divider, Form } from "semantic-ui-react";
+import { Collection } from "../../common/types/siren";
+import { Comment, Divider, Form } from "semantic-ui-react";
 import * as React from "react";
-import { BuildForm, BuildModal } from "../../common/components/BuildForm";
-import { useContext } from "react";
-import { ChangedContext } from "../../common/components/changedStatus";
+import { DefaultForm, DefaultModal } from "../../common/components/BuildForm";
 
 export function NotesAsComments({ collection }: { collection: Collection }) {
 
@@ -11,33 +9,35 @@ export function NotesAsComments({ collection }: { collection: Collection }) {
         <Comment.Group>
             <h3>Notes</h3>
             {
-                collection.entities.map( (entity) =>
-                    //TODO <Comment.Author> ... </Comment.Author>
-                    <BuildModal  trigger={
-                        <Comment key={entity.properties.id}>
+                collection.entities.map((entity) =>
+                    //TODO: get current teacher name
+                    <DefaultModal
+                        trigger={
+                            <Comment key={entity.properties.id}>
                                 <Comment.Content>
+                                    <Comment.Author as='a'> Teacher </Comment.Author>
                                     <Comment.Metadata>
-                                        {entity.properties.date}
+                                        <div>{entity.properties.date}</div>
                                     </Comment.Metadata>
                                     <Comment.Text>
                                         {entity.properties.description}
                                     </Comment.Text>
                                 </Comment.Content>
-                        </Comment>
-                    }>
-                    {
-                        entity.actions.map( (action) => 
-                            <div>
-                                <BuildForm key={action.name} action={action} divider={false}/>
-                                <Divider hidden/>
-                            </div>
-                        )
-                    }
-                    </BuildModal>
+                            </Comment>
+                        }>
+                        {
+                            entity.actions.map((action) =>
+                                <div>
+                                    <DefaultForm key={action.name} action={action} divider={false} />
+                                    <Divider hidden />
+                                </div>
+                            )
+                        }
+                    </DefaultModal>
                 )
             }
-            
+
         </Comment.Group>
-//TODO create notes missing
+        //TODO create notes missing
     )
 }
