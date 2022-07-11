@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Route, Routes, HashRouter } from "react-router-dom";
 import { MenuContainer } from './common/components/MenuStatus';
-import { HorizontalMenu, VerticalMenu } from './common/components/Menu';
+import { VerticalFixedMenu } from './common/components/Menu';
 import * as Home from "./home/Page"
 import * as Organizations from "./Organizations/Page"
 import * as Organization from "./Organization/Page"
@@ -36,7 +36,11 @@ export default function App() {
 
     <HashRouter>
       <MenuContainer>
-        <HorizontalMenu />
+      <Grid columns={2}>
+        <Grid.Column width={3}>
+          <VerticalFixedMenu />
+        </Grid.Column>
+        <Grid.Column width={12}>
         <Routes>
           <Route path='' element={<Home.Page />} />
           <Route path='/orgs' element={<Organizations.Page />} />
@@ -50,6 +54,8 @@ export default function App() {
           <Route path='/orgs/:orgId/classrooms/:classId/assignments/:assId/deliveries/:delId' element={<Delivery.Page />} />
           <Route path='/orgs/:orgId/classrooms/:classId/requests' element={<Requests.Page />} />
         </Routes>
+        </Grid.Column>
+        </Grid>
       </MenuContainer>
     </HashRouter >
     /*
