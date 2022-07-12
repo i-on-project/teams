@@ -5,11 +5,15 @@ import org.springframework.web.util.UriTemplate
 object Uris {
 
     object Login {
-        const val PATH = "/api/login"
+        const val PATH = "/auth/login"
     }
 
     object Logout {
-        const val PATH = "/api/logout"
+        const val PATH = "/auth/logout"
+    }
+
+    object Callback {
+        const val PATH = "/auth/callback"
     }
 
     object Home {
