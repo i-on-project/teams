@@ -36,7 +36,7 @@ export default function App() {
         <div>
           THIS IS A TEST PAGE, TO SEE THE REAL PAGES UNCOMMENT THE ROUTER!
     
-          <button onClick={() => { electron.externalBrowserApi.open('http://127.0.0.1:8080/auth/login') }}>Open Google on browser</button>
+          <button onClick={() => { electron.externalBrowserApi.open('http://127.0.0.1:8080/auth/login') }}>Open on browser</button>
           <div>
             The counter is: {url}
           </div>
