@@ -19,7 +19,7 @@ declare const electron: {
   externalBrowserApi: {
     open: (value: string) => undefined
   },
-  customProtocolUrl: Function
+  customProtocolUrl: (callback:(_event: any, value: string) => void) => void
 }
 
 export default function App() {
@@ -38,7 +38,7 @@ export default function App() {
     
           <button onClick={() => { electron.externalBrowserApi.open('http://127.0.0.1:8080/auth/login') }}>Open on browser</button>
           <div>
-            The counter is: {url}
+            The url is: {url}
           </div>
         </div>
   )

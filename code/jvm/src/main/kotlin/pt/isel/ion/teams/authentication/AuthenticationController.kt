@@ -29,7 +29,7 @@ class AuthenticationController {
         val state = UUID.randomUUID().toString()
 
         val cookie = ResponseCookie.from("state", state)
-            .path("/auth/callback")
+            .path("/auth/callback/")
             .domain("localhost")
             .maxAge(ONE_HOUR)
             .httpOnly(true)
@@ -51,7 +51,8 @@ class AuthenticationController {
     @GetMapping(Uris.Callback.PATH)
     fun getCallback(
         @RequestParam code: String,
-        @RequestParam state: String
+        @RequestParam stateParam: String,
+        @CookieValue state: String
     ) {
         //TODO
     }
