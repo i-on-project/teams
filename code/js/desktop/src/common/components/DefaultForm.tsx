@@ -107,31 +107,29 @@ export function FormInModal({ children, action }: { children: React.ReactNode, a
     const [open, setOpen] = useState(false)
 
     return (
-        <Container>
-            <Modal
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                open={open}
-                trigger={children}
-            >
-                <Modal.Content>
-                    <Modal.Description>
-                        {
-                            <DefaultForm action={action} divider={false}></DefaultForm>
-                        }
-                    </Modal.Description>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button color='black' onClick={() => setOpen(false)}>
-                        Cancel
-                    </Button>
-                </Modal.Actions>
-            </Modal>
-        </Container>
+        <Modal
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            trigger={children}
+        >
+            <Modal.Content>
+                <Modal.Description>
+                    {
+                        <DefaultForm action={action} divider={false}></DefaultForm>
+                    }
+                </Modal.Description>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button color='black' onClick={() => setOpen(false)}>
+                    Cancel
+                </Button>
+            </Modal.Actions>
+        </Modal>
     )
 }
 
-export function DefaultModal({ children, trigger }: { children: React.ReactNode, trigger: React.ReactNode}) {
+export function DefaultModal({ children, trigger }: { children: React.ReactNode, trigger: React.ReactNode }) {
 
     const [open, setOpen] = useState(false)
 

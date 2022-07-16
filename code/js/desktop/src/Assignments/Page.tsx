@@ -49,10 +49,8 @@ function Body({ collection }: { collection: Collection }) {
             {
                 name: "Classroom",
                 href: makeClassroom(orgId, classId),
-                isActive: true,
                 hasSubItems: true,
                 subItems: [
-                    { name: 'Description', href: makeClassroom(orgId, classId)},
                     { name: 'Students', href: makeStudentsClassroom(orgId, classId)},
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },

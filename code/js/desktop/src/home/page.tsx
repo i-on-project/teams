@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Container, Loader, Segment } from 'semantic-ui-react'
+import { Button, Container, Loader, Menu, Segment } from 'semantic-ui-react'
 import { ErrorNOk, Error } from '../common/components/error'
 import { Fetch } from '../common/components/fetch'
 import { MenuContext } from '../common/components/MenuStatus'
@@ -50,14 +50,16 @@ export function Page() {
                 <h1> Your Organizations and Classrooms</h1>
                     {
                         collection.entities.map((entity: Entity) =>
-                            <Segment.Group>
-                                <Segment color='blue' key={entity.properties.id} onClick={() => navigate(makeOrganization(entity.properties.id))}>
-                                    {entity.properties.name}
-                                </Segment>
+                            <Menu fluid vertical size='large'>
+                                <Menu.Item  
+                                    key={entity.properties.id} 
+                                    onClick={() => navigate(makeOrganization(entity.properties.id))}
+                                    name={entity.properties.name}
+                                />
                                 {
                                     getClassrooms(entity.properties.id, entity.links.find((link: Link_relation) => link.rel == 'classrooms'))
                                 }
-                            </Segment.Group>
+                            </Menu>
                         )
                     }
                 {
@@ -80,17 +82,19 @@ export function Page() {
                     url={link.href}
                     renderBegin={() => <p>Waiting for URL...</p>}
                     renderOk={(payload) =>
-                        <Segment.Group key={id + '_classrooms'}>
+                        <Menu.Menu fluid vertical>
                             {
                                 payload.entities.map((entity: Entity) =>
-                                    <Segment key={entity.properties.id} onClick={() => navigate(makeClassroom(id,entity.properties.id))}>
-                                        {entity.properties.name}
-                                    </Segment>
+                                    <Menu.Item
+                                        key={entity.properties.id} 
+                                        onClick={() => navigate(makeClassroom(id,entity.properties.id))}
+                                        name={entity.properties.name}
+                                    />
                                 )
                             }
-                        </Segment.Group>
+                        </Menu.Menu>
                     }
-                    renderLoading={() => <Loader />}
+                    renderLoading={() => <Loader/>}
                 />
             )
 

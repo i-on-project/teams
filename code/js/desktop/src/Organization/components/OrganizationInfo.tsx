@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Grid, Header, List, ListHeader, ListItem, Popup, Segment } from 'semantic-ui-react';
+import { ActionsSegment } from '../../common/components/ActionsSegment';
 import { DefaultForm, FormInModal } from '../../common/components/DefaultForm';
 import { Action, Resource } from '../../common/types/siren';
 
@@ -14,20 +15,7 @@ export function OrganizationInfo({ resource }: { resource: Resource }) {
                     </Segment>
                 </Grid.Column>
                 <Grid.Column width={3}>
-                    <Segment color="blue">
-                        <List>
-                            <ListHeader as='h3'>Actions</ListHeader>
-                            {
-                                resource.actions.map((action: Action) =>
-                                    <FormInModal key={action.name} action={action}>
-                                        {
-                                            <ListItem key={action.name}> {action.title} </ListItem>
-                                        }
-                                    </FormInModal>
-                                )
-                            }
-                        </List>
-                    </Segment>
+                    <ActionsSegment actions={resource.actions}></ActionsSegment>
                 </Grid.Column>
             </Grid.Row>
         </Grid>

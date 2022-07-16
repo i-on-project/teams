@@ -37,8 +37,12 @@ export function VerticalFixedMenu() {
 
         return items.map((item: MenuItem) =>
             item.hasSubItems ?
-                <Menu.Item key={item.name}>
-                    <MenuHeader>{item.name}</MenuHeader>
+                <React.Fragment>
+                    <Menu.Item
+                        key={item.name}
+                        name={item.name}
+                        active={item.isActive}
+                        onClick={() => navigate(item.href)} />
                     <Menu.Menu key={item.name} >
                         {
                             item.subItems.map((subItem: MenuItem) => {
@@ -54,7 +58,7 @@ export function VerticalFixedMenu() {
 
                         }
                     </Menu.Menu>
-                </Menu.Item>
+                </React.Fragment>
                 :
                 <Menu.Item
                     key={item.name}

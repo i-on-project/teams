@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Button, Divider, Grid, Header, List, ListHeader, ListItem, Loader, Popup, Segment } from 'semantic-ui-react';
+import { Button, Container, Divider, Grid, Header, List, ListHeader, ListItem, Loader, Menu, Popup, Segment } from 'semantic-ui-react';
+import { ActionsSegment } from '../../common/components/ActionsSegment';
 import { FormInModal, DefaultModal } from '../../common/components/DefaultForm';
 import { Fetch } from '../../common/components/fetch';
 import { Action, Collection, Entity, Resource } from '../../common/types/siren';
@@ -9,7 +10,7 @@ declare const electron: {
     clipboardApi: {
         copy: (value: string) => undefined
     }
-  }
+}
 
 export function ClassroomInfo({ resource, orgId, classId }: { resource: Resource, orgId: number, classId: number }) {
 
@@ -24,44 +25,32 @@ export function ClassroomInfo({ resource, orgId, classId }: { resource: Resource
                     </Segment>
                 </Grid.Column>
                 <Grid.Column width={3}>
-                    <Segment color="blue">
-                        <List>
-                            <ListHeader as='h3'>Actions</ListHeader>
-                            {
-                                resource.actions.map((action: Action) =>
-                                    <FormInModal action={action} key={action.name} >
-                                        {
-                                            <ListItem key={action.name}> {action.title} </ListItem>
-                                        }
-                                    </FormInModal>
-                                )
-                            }
-                            <Divider />
-                            <DefaultModal key={'invite-links'} trigger={<Button fluid color='blue' >Invite Links</Button>}>
+                    <ActionsSegment actions={resource.actions}></ActionsSegment>
+                </Grid.Column>
+            </Grid.Row>
+            <Grid.Row columns={1}>
+                <Divider />
+                <Container>
+                <Header as={'h2'}>Invite Links</Header>
+                    <Fetch
+                        url={`/api${makeInviteLinks(orgId, classId)}`}
+                        renderBegin={() => <p>Waiting for URL...</p>}
+                        renderOk={(payload: Collection) =>
+                            <Segment.Group>
                                 {
-                                    <Fetch
-                                        url={`/api${makeInviteLinks(orgId, classId)}`}
-                                        renderBegin={() => <p>Waiting for URL...</p>}
-                                        renderOk={(payload: Collection) =>
-                                             <Segment.Group>
-                                                {
-                                                    payload.entities.map( (entity: Entity) => 
-                                                        <Segment key={entity.properties.code}>
-                                                            {entity.properties.code}
-                                                            <Button size='mini' floated='right' inverted color='blue' onClick={() => {electron.clipboardApi.copy(entity.properties.code)}}>Copy</Button>
-                                                        </Segment>
-                                                    )
-                                                }
-                                             </Segment.Group>
-                                        }
-                                        renderLoading={() => <Loader />}
-                                    />
+                                    payload.entities.map((entity: Entity) =>
+                                        <Segment key={entity.properties.code}>
+                                            {entity.properties.code}
+                                            <Button size='mini' floated='right' color='blue' onClick={() => { electron.clipboardApi.copy(entity.properties.code) }}>Copy</Button>
+                                        </Segment>
+                                    )
                                 }
-                            </DefaultModal>
-                        </List>
-                </Segment>
-            </Grid.Column>
-        </Grid.Row>
+                            </Segment.Group>
+                        }
+                        renderLoading={() => <Loader />}
+                    />
+                </Container>
+            </Grid.Row>
         </Grid >
     )
 }

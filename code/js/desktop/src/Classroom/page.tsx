@@ -6,7 +6,6 @@ import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
 import { Resource } from "../common/types/siren";
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
-import { TeamsTable } from "../Teams/components/TeamsTable";
 import { ClassroomInfo } from "./components/ClassroomInfo";
 
 export function Page() {
@@ -50,7 +49,6 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
                 isActive: true,
                 hasSubItems: true,
                 subItems: [
-                    { name: 'Description', href: makeClassroom(orgId, classId), isActive: true},
                     { name: 'Students', href: makeStudentsClassroom(orgId, classId)},
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
