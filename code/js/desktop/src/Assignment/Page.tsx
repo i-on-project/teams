@@ -50,17 +50,18 @@ function Body({ resource }: { resource: Resource }) {
                 href: makeClassroom(orgId, classId),
                 hasSubItems: true,
                 subItems: [
-                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
+                    { name: 'Description', href: makeClassroom(orgId, classId)},
+                    { name: 'Students', href: makeStudentsClassroom(orgId, classId)},
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
-                    { name: 'Assignments', href: makeAssignments(orgId, classId) }
+                    { name: 'Assignments', href: makeAssignments(orgId, classId)}
                 ]
             },
             {
                 name: "Assignment",
                 href: makeAssignment(orgId, classId, assId),
                 isActive: true
-            },
+            }
 
         ]
         setItems(menuItems)
@@ -69,10 +70,14 @@ function Body({ resource }: { resource: Resource }) {
     return (
         <Container>
             <AssignmentInfo resource={resource} />
-            <Divider />
-            <h1>Deliveries of the assignment</h1>
-            {
-                <DeliveriesTable entities={resource.entities}></DeliveriesTable>
+            { resource.entities.length != 0 &&
+                <React.Fragment>
+                    <Divider />
+                    <h1>Deliveries of the assignment</h1>
+                    {
+                        <DeliveriesTable entities={resource.entities}></DeliveriesTable>
+                    }
+                </React.Fragment>
             }
         </Container>
     )

@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { Container, Divider, Loader } from "semantic-ui-react";
+import { Container, Divider, Header, Loader } from "semantic-ui-react";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
 import { Resource } from "../common/types/siren";
-import { makeAssignment, makeAssignments, makeClassroom, makeDelivery, makeHome } from "../common/Uris";
+import { makeAssignment, makeAssignments, makeClassroom, makeDelivery, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
 import { DeliveryInfo } from "./components/DeliveryInfo";
 import { TagsTable } from "../Tags/components/TagsTable";
 
@@ -38,12 +38,24 @@ function Body({ resource }: { resource: Resource }) {
                 href: makeHome()
             },
             {
-                name: "Classroom",
-                href: makeClassroom(orgId, classId)
+                name: "Organizations",
+                href: makeOrganizations(),
             },
             {
-                name: "Assignments",
-                href: makeAssignments(orgId, classId)
+                name: "Organization",
+                href: makeOrganization(orgId),
+            },
+            {
+                name: "Classroom",
+                href: makeClassroom(orgId, classId),
+                hasSubItems: true,
+                subItems: [
+                    { name: 'Description', href: makeClassroom(orgId, classId) },
+                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
+                    { name: 'Teams', href: makeTeams(orgId, classId) },
+                    { name: 'Requests', href: makeRequests(orgId, classId) },
+                    { name: 'Assignments', href: makeAssignments(orgId, classId) }
+                ]
             },
             {
                 name: "Assignment",
@@ -53,7 +65,7 @@ function Body({ resource }: { resource: Resource }) {
                 name: "Delivery",
                 href: makeDelivery(orgId, classId, assId, delId),
                 isActive: true
-            },
+            }
         ]
         setItems(menuItems)
     }, [])
@@ -62,8 +74,9 @@ function Body({ resource }: { resource: Resource }) {
         <Container>
             <DeliveryInfo resource={resource} />
             <Divider />
-            <h1>Tags of the delivery</h1>
-            {
+            <Header as='h2' floated="left">Tags of the delivery</Header>
+            <Header as='h2' floated="right" color={resource.entities.length > 0 ? "green" : "red"}>{resource.entities.length} Tags</Header>
+            {resource.entities.length != 0 &&
                 <TagsTable entities={resource.entities}></TagsTable>
             }
         </Container>

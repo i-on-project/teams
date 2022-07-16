@@ -1,9 +1,10 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
-import { Container, Loader } from "semantic-ui-react"
+import { Container, Header, Loader } from "semantic-ui-react"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { MenuContext } from "../common/components/MenuStatus"
+import { NothingToShow } from "../common/components/NothingToShow"
 import { Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { TeamsTable } from "./components/TeamsTable"
@@ -48,10 +49,12 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
             {
                 name: "Classroom",
                 href: makeClassroom(orgId, classId),
+                isActive: true,
                 hasSubItems: true,
                 subItems: [
+                    { name: 'Description', href: makeClassroom(orgId, classId) },
                     { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
-                    { name: 'Teams', href: makeTeams(orgId, classId), isActive: true },
+                    { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
                     { name: 'Assignments', href: makeAssignments(orgId, classId) }
                 ]
@@ -62,9 +65,13 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
     }, [])
 
     return (
-        <Container>
-            <h1>Teams in Classroom</h1>
-            <TeamsTable entities={collection.entities} orgId={orgId} classId={classId}></TeamsTable>
-        </Container>
+        collection.entities.length != 0 ?
+            <Container>
+                <Header as='h1'>Tags of the delivery</Header>
+                <Header size="tiny" color='grey'>{collection.entities.length} Teams</Header>
+                <TeamsTable entities={collection.entities} orgId={orgId} classId={classId}></TeamsTable>
+            </Container>
+            :
+            <NothingToShow>No Teams to show.</NothingToShow>
     )
 }

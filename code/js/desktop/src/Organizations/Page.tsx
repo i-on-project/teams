@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Container, Divider, Loader } from "semantic-ui-react"
-import { DefaultForm } from "../common/components/BuildForm"
+import { DefaultForm } from "../common/components/DefaultForm"
 import { ErrorNOk, Error } from "../common/components/error"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"

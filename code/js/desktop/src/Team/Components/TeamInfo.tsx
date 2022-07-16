@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {  Grid, List, ListHeader, ListItem, Segment } from 'semantic-ui-react';
-import { FormInModal } from '../../common/components/BuildForm';
+import { FormInModal } from '../../common/components/DefaultForm';
 import { Action, Resource } from '../../common/types/siren';
 import { SimpleStudentsTable } from '../../Students/components/SimpleStudentsTable';
 

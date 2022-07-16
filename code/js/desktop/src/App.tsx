@@ -22,6 +22,7 @@ declare const electron: {
   customProtocolUrl: (callback:(_event: any, value: string) => void) => void
 }
 
+/*
 export default function App() {
 
   const [url, setUrl] = React.useState('*No URL yet*')
@@ -42,9 +43,9 @@ export default function App() {
           </div>
         </div>
   )
-}
+}*/
 
-/*export default function App() {
+export default function App() {
 
   return (
 
@@ -73,4 +74,4 @@ export default function App() {
       </MenuContainer>
     </HashRouter >
   )
-}*/
+}

@@ -43,10 +43,10 @@ function Body({ resource, orgId }: { resource: Resource, orgId: any }) {
                 name: "Organizations",
                 href: makeOrganizations()
             },
-            {
-                name: "Organization",
-                href: makeOrganization(orgId),
-                isActive: true
+            { 
+                name: "Organization", 
+                href: makeOrganization(orgId), 
+                isActive: true 
             }
         ]
         setItems(menuItems)
@@ -55,10 +55,12 @@ function Body({ resource, orgId }: { resource: Resource, orgId: any }) {
     return (
         <Container>
             <OrganizationInfo resource={resource} />
-            <Divider />
-            <h1>Classrooms in this organization</h1>
-            {
-                <ClassroomsTable entities={resource.entities} orgId={orgId}></ClassroomsTable>
+            { resource.entities.length != 0 &&
+                <React.Fragment>
+                    <Divider />
+                    <h1>Classrooms in this organization</h1>
+                    <ClassroomsTable entities={resource.entities} orgId={orgId}></ClassroomsTable>
+                </React.Fragment>
             }
         </Container>
     )

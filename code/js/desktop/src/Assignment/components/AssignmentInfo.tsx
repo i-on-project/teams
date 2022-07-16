@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid, Header, List, ListHeader, ListItem, Segment } from 'semantic-ui-react';
-import { FormInModal } from '../../common/components/BuildForm';
+import { FormInModal } from '../../common/components/DefaultForm';
 import { Action, Resource } from '../../common/types/siren';
 
 export function AssignmentInfo({ resource }: { resource: Resource }) {

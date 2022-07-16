@@ -51,7 +51,8 @@ function Body({ resource }: { resource: Resource }) {
                 href: makeClassroom(orgId, classId),
                 hasSubItems: true,
                 subItems: [
-                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
+                    { name: 'Description', href: makeClassroom(orgId, classId)},
+                    { name: 'Students', href: makeStudentsClassroom(orgId, classId)},
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
                     { name: 'Assignments', href: makeAssignments(orgId, classId) }

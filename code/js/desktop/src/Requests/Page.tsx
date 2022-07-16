@@ -4,7 +4,8 @@ import { Container, Loader } from "semantic-ui-react"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { MenuContext } from "../common/components/MenuStatus"
-import { Action, Collection } from "../common/types/siren"
+import { NothingToShow } from "../common/components/NothingToShow"
+import { Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { RequestsTable } from "./components/RequestsTable"
 
@@ -50,6 +51,7 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
                 href: makeClassroom(orgId, classId),
                 hasSubItems: true,
                 subItems: [
+                    { name: 'Description', href: makeClassroom(orgId, classId) },
                     { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId), isActive: true },
@@ -62,9 +64,12 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
     }, [])
 
     return (
-        <Container>
-            <h1>Requests for creating a team</h1>
-            <RequestsTable entities={collection.entities}></RequestsTable>
-        </Container>
+        collection.entities.length != 0 ?
+            <Container>
+                <h1>Requests for creating a team</h1>
+                <RequestsTable entities={collection.entities}></RequestsTable>
+            </Container>
+            :
+            <NothingToShow>No Request to show.</NothingToShow>
     )
 }

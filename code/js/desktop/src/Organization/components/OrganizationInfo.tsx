@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid, Header, List, ListHeader, ListItem, Popup, Segment } from 'semantic-ui-react';
-import { DefaultForm, FormInModal } from '../../common/components/BuildForm';
+import { DefaultForm, FormInModal } from '../../common/components/DefaultForm';
 import { Action, Resource } from '../../common/types/siren';
 
 export function OrganizationInfo({ resource }: { resource: Resource }) {

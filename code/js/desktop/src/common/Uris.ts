@@ -61,6 +61,11 @@ export function makeAssignment(orgId: UriParam, classId: UriParam, assId: UriPar
 }
 
 //Deliveries
+
+export function makeDeliveries(orgId: UriParam, classId: UriParam, assId: UriParam): string {
+  return `/orgs/${orgId}/classrooms/${classId}/assignments/${assId}/deliveries`
+}
+
 export function makeDelivery(orgId: UriParam, classId: UriParam, assId: UriParam, delId: UriParam): string {
   return `/orgs/${orgId}/classrooms/${classId}/assignments/${assId}/deliveries/${delId}`
 }

@@ -1,11 +1,12 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
 import { Container, Divider, Loader } from "semantic-ui-react"
-import { DefaultForm } from "../common/components/BuildForm"
+import { DefaultForm } from "../common/components/DefaultForm"
 import { ErrorNOk, Error } from "../common/components/error"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { MenuContext } from "../common/components/MenuStatus"
+import { NothingToShow } from "../common/components/NothingToShow"
 import { Action, Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { StudentsTable } from "./components/StudentsTable"
@@ -51,8 +52,10 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
             {
                 name: "Classroom",
                 href: makeClassroom(orgId, classId),
+                isActive: true,
                 hasSubItems: true,
                 subItems: [
+                    { name: 'Description', href: makeClassroom(orgId, classId)},
                     { name: 'Students', href: makeStudentsClassroom(orgId, classId), isActive: true},
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
@@ -64,9 +67,12 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
     }, [])
 
     return (
-        <Container>
-            <h1>Students in classroom</h1>
-            <StudentsTable collection={collection}></StudentsTable>
-        </Container>
+        collection.entities.length != 0 ?
+            <Container>
+                <h1>Students in classroom</h1>
+                <StudentsTable collection={collection}></StudentsTable>
+            </Container>
+            :
+            <NothingToShow>No Students in this classroom.</NothingToShow>
     )
 }

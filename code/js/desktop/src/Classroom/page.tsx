@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { Container, Divider, Loader } from "semantic-ui-react";
+import { Loader } from "semantic-ui-react";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { MenuContext } from "../common/components/MenuStatus";
@@ -50,6 +50,7 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
                 isActive: true,
                 hasSubItems: true,
                 subItems: [
+                    { name: 'Description', href: makeClassroom(orgId, classId), isActive: true},
                     { name: 'Students', href: makeStudentsClassroom(orgId, classId)},
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
@@ -63,11 +64,6 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
     return (
         <div>
             <ClassroomInfo resource={resource} orgId={orgId} classId={classId} />
-            <Divider />
-            <h1>Teams in Classroom</h1>
-            {
-                <TeamsTable entities={resource.entities} orgId={orgId} classId={classId}></TeamsTable>
-            }
         </div>
     )
 }
