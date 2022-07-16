@@ -65,8 +65,8 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
     return (
         collection.entities.length != 0 ?
             <Container>
-                <Header as='h1'>Tags of the delivery</Header>
-                <Header size="tiny" color='grey'>{collection.entities.length} Teams</Header>
+                <Header as='h1'>Classroom's Teams</Header>
+                <Header size="tiny" color='grey'>Number of Teams: {collection.entities.length}</Header>
                 <TeamsTable entities={collection.entities} orgId={orgId} classId={classId}></TeamsTable>
             </Container>
             :
