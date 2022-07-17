@@ -19,33 +19,80 @@ declare const electron: {
   externalBrowserApi: {
     open: (value: string) => undefined
   },
-  customProtocolUrl: (callback:(_event: any, value: string) => void) => void
+  customProtocolUrl: (callback: (_event: any, value: string) => void) => void,
+  getClientInfo: () => Promise<ClientInfo>
 }
 
-/*
+declare type ClientInfo = {
+  clientId: string,
+  clientSecret: string
+}
+
+declare type UrlObj = {
+  protocol: string,
+  code: string
+}
+
+function convertUrltoObj(url: string) {
+
+  let split = url.split('://')
+  const protocol = split[0]
+
+  split = split[1].split('=')
+  const code = split[1]
+
+  const obj: UrlObj = { protocol: protocol, code: code }
+
+  return obj
+}
+
 export default function App() {
 
   const [url, setUrl] = React.useState('*No URL yet*')
 
   electron.customProtocolUrl((_event, value) => {
-    console.log('callback called')
-
     setUrl(value)
   })
 
-  return (
-        <div>
-          THIS IS A TEST PAGE, TO SEE THE REAL PAGES UNCOMMENT THE ROUTER!
-    
-          <button onClick={() => { electron.externalBrowserApi.open('http://127.0.0.1:8080/auth/login') }}>Open on browser</button>
-          <div>
-            The url is: {url}
-          </div>
-        </div>
-  )
-}*/
+  React.useEffect(() => {
+    if (!url.includes('code=')) return
 
-export default function App() {
+    const urlObj = convertUrltoObj(url)
+
+    electron.getClientInfo()
+    .then( clientInfo => {
+      console.log( clientInfo)
+    })
+
+    /*const CLIENT_ID = process.env.CLIENT_ID
+    const CLIENT_SECRET = process.env.CLIENT_SECRET
+
+    const tokenEnpointUrl = `
+        https://github.com/login/oauth/access_token?
+        client_id=${CLIENT_ID}&
+        client_secret=${CLIENT_SECRET}&
+        code=${urlObj.code}
+      `
+
+    fetch(tokenEnpointUrl, {
+      method: 'POST',
+    })
+      .then(resp => console.log(resp))*/
+  }, [url])
+
+  return (
+    <div>
+      THIS IS A TEST PAGE, TO SEE THE REAL PAGES UNCOMMENT THE ROUTER!
+
+      <button onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop') }}>Login</button>
+      <div>
+        The url is: {url}
+      </div>
+    </div>
+  )
+}
+
+/*export default function App() {
 
   return (
 
@@ -74,4 +121,4 @@ export default function App() {
       </MenuContainer>
     </HashRouter >
   )
-}
+}*/

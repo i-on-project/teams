@@ -2,6 +2,8 @@ const { ipcRenderer, contextBridge } = require('electron')
 
 contextBridge.exposeInMainWorld(
     'electron', {
+    
+    //Renderer to main
     notificationApi: {
         sendNotification(notification) {
             ipcRenderer.send('notify', notification)
@@ -17,7 +19,11 @@ contextBridge.exposeInMainWorld(
             ipcRenderer.send('openBrowser', url)
         }
     },
-    //IPC main to renderer example
-    customProtocolUrl: (callback) => ipcRenderer.on('url', callback)
+
+    //Main to renderer
+    customProtocolUrl: (callback) => ipcRenderer.on('url', callback),
+
+    //Renderer to main to renderer
+    getClientInfo: () => ipcRenderer.invoke('clientInfo')
 }
 )

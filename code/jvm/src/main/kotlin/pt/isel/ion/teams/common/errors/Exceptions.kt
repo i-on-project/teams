@@ -18,6 +18,13 @@ class InvalidDateFormatException: BaseException(
     "The date you inserted is in an invalid format, must be <yyyy-mm-dd hh:mm:ss>"
 )
 
+class InvalidAuthenticationStateException: BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"), //TODO Update URL
+    "Forbidden",
+    403,
+    "The state return by the authorization provider does not match the user's state."
+)
+
 class EmptyDbReturnException: BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
     "Resource Not Found",

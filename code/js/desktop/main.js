@@ -8,11 +8,13 @@ const path = require('path')
  * https://www.electronjs.org/docs/latest/api/app
  */
 
+let mainWindow
+
 /**
  * Defining window
  */
 const createWindow = () => {
-    const win = new BrowserWindow({
+    const mainWindow = new BrowserWindow({
         title: 'i-on Teams Desktop',
         width: 1280,
         height: 720,
@@ -25,7 +27,7 @@ const createWindow = () => {
         }
     })
 
-    win.loadFile('./index.html')
+    mainWindow.loadFile('./index.html')
 }
 
 require('electron-reload')(__dirname, {
@@ -35,14 +37,7 @@ require('electron-reload')(__dirname, {
 /**
  * Creating window
  */
-app.whenReady()
-    .then(() => {
-        createWindow()
 
-        app.on('activate', () => {
-            if (BrowserWindow.getAllWindows().length === 0) createWindow()
-        })
-    })
 
 /**
  * Listener to stop app on windows when all windows are closed
@@ -74,6 +69,16 @@ ipcMain.on('openBrowser', (_, url) => {
 })
 
 /**
+ * IPC messages from renderer, that expect a response (renderer to main to renderer)
+ */
+/*function getClientIdAndSecret() {
+    return {
+        cliendId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET
+    }
+}*/
+
+/**
  * IPC messages to renderer (main to renderer)
  */
 function urlToRenderer(url) {
@@ -84,7 +89,7 @@ function urlToRenderer(url) {
         return wContents.send('url', url)
     }
 }
- 
+
 
 /* ****************************** DEEP LINKING AND CUSTOM PROTOCOL ******************************
 
@@ -95,7 +100,7 @@ function urlToRenderer(url) {
  * TODO: Review packaging instructions
  */
 
-//Register application to handle custom protocol, in this case the protocol is "i-on-teams://"
+//Register application to handle custom protocol, in this case the protocol is "ion-teams://"
 if (process.defaultApp) {
     if (process.argv.length >= 2) {
         app.setAsDefaultProtocolClient('ion-teams', process.execPath, [path.resolve(process.argv[1])])
@@ -113,16 +118,28 @@ if (!gotTheLock) {
 } else {
     app.on('second-instance', (event, commandLine, workingDirectory) => {
         // Someone tried to run a second instance, we should focus our window.
-        if (createWindow) {
-            if (createWindow.isMinimized()) createWindow.restore()
-            createWindow.focus()
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) mainWindow.restore()
+            mainWindow.focus()
         }
+    })
+
+    // Create mainWindow, load the rest of the app, etc...
+    app.whenReady()
+    .then(() => {
+        createWindow()
+   
+        //IPC both ways
+        //ipcMain.handle('clientInfo', getClientIdAndSecret)
+   
+        app.on('activate', () => {
+            if (BrowserWindow.getAllWindows().length === 0) createWindow()
+        })
     })
 
     // Handle the protocol. In this case, we choose to show an Error Box.
     app.on('open-url', (event, url) => {
-        //TODO: Handle event and notify renderer
-        urlToRenderer(url)
+        dialog.showErrorBox('Welcome Back', `You arrived from: ${url}`)
     })
 }
 
@@ -130,7 +147,6 @@ if (!gotTheLock) {
 
 // Handle the protocol. In this case, we choose to show an Error Box.
 app.on('open-url', (event, url) => {
-    //TODO: Handle event and notify renderer
-    urlToRenderer(url)
+    dialog.showErrorBox('Welcome Back', `You arrived from: ${url}`)
 })
 
