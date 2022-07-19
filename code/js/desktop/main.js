@@ -30,9 +30,9 @@ const createWindow = () => {
     mainWindow.loadFile('./index.html')
 }
 
-require('electron-reload')(__dirname, {
+/*require('electron-reload')(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`)
-})
+})*/
 
 /**
  * Creating window
@@ -71,12 +71,6 @@ ipcMain.on('openBrowser', (_, url) => {
 /**
  * IPC messages from renderer, that expect a response (renderer to main to renderer)
  */
-/*function getClientIdAndSecret() {
-    return {
-        cliendId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET
-    }
-}*/
 
 /**
  * IPC messages to renderer (main to renderer)
@@ -130,7 +124,7 @@ if (!gotTheLock) {
         createWindow()
    
         //IPC both ways
-        //ipcMain.handle('clientInfo', getClientIdAndSecret)
+        ipcMain.handle('clientInfo', getClientIdAndSecret)
    
         app.on('activate', () => {
             if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -139,7 +133,7 @@ if (!gotTheLock) {
 
     // Handle the protocol. In this case, we choose to show an Error Box.
     app.on('open-url', (event, url) => {
-        dialog.showErrorBox('Welcome Back', `You arrived from: ${url}`)
+        urlToRenderer(url)
     })
 }
 
@@ -147,6 +141,9 @@ if (!gotTheLock) {
 
 // Handle the protocol. In this case, we choose to show an Error Box.
 app.on('open-url', (event, url) => {
-    dialog.showErrorBox('Welcome Back', `You arrived from: ${url}`)
+    urlToRenderer(url)
 })
 
+/* ****************************** PACKAGING REQUIREMENTS ****************************** */
+
+if (require('electron-squirrel-startup')) return app.quit();

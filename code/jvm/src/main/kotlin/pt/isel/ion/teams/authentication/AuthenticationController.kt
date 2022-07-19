@@ -1,20 +1,16 @@
 package pt.isel.ion.teams.authentication
 
-import org.springframework.http.HttpHeaders
-import org.springframework.http.ResponseCookie
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.CookieValue
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.*
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.client.WebClient
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.errors.InvalidAuthenticationStateException
+import pt.isel.ion.teams.common.errors.InvalidClientId
+import pt.isel.ion.teams.common.errors.NoAccessTokenException
+import reactor.core.publisher.Mono
 import java.util.*
 
 const val GITHUB_OAUTH_URI = "https://github.com/login/oauth/authorize"
-const val GITHUB_CLIENT_ID = "ed269215b2b47847a3a5"
 const val GITHUB_TEACHER_SCOPE = "admin:org"
 
 const val HALF_HOUR: Long = 60 * 30
@@ -53,10 +49,11 @@ class AuthenticationController {
             .status(303)
             .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
             .header(HttpHeaders.SET_COOKIE, clientId.toString())
-            .header(HttpHeaders.LOCATION, GITHUB_OAUTH_URI +
-                    "?client_id=" + GITHUB_CLIENT_ID + "&" +
-                    "scope=" + GITHUB_TEACHER_SCOPE + "&" +
-                    "state=" + state
+            .header(
+                HttpHeaders.LOCATION, GITHUB_OAUTH_URI +
+                        "?client_id=" + System.getenv("CLIENT_ID") + "&" +
+                        "scope=" + GITHUB_TEACHER_SCOPE + "&" +
+                        "state=" + state
             )
             .build()
     }
@@ -76,17 +73,50 @@ class AuthenticationController {
         if (clientId == DESKTOP_CLIENT_ID) {
             return ResponseEntity
                 .status(303)
-                .header(HttpHeaders.LOCATION, "ion-teams://code=" + code
+                .header(
+                    HttpHeaders.LOCATION, "ion-teams://code=" + code
                 )
                 .build()
-        } /*else if (clientId == WEB_CLIENT_ID) {
+        } else if (clientId == WEB_CLIENT_ID) {
+            val accessToken = getAccessToken(code) ?: throw NoAccessTokenException()
 
-        }*/
+            return ResponseEntity
+                .ok(accessToken)
+        }
 
-        val webClient = WebClient.create()
+        throw InvalidClientId()
+    }
+
+    @GetMapping(Uris.DesktopAccessToken.PATH)
+    fun getDesktopAccessToken(
+        @RequestParam code: String
+    ): ResponseEntity<Any> {
+        //TODO: should this verify a state?
+        val accessToken = getAccessToken(code) ?: throw NoAccessTokenException()
 
         return ResponseEntity
-            .status(500)
-            .build()
+            .ok(accessToken)
+    }
+
+    /**
+     * Function used to fetch the access token associated to the given code from the github token endpoint
+     * @param code The code from the authentication flow
+     * @return client token and aditional information
+     */
+    fun getAccessToken(code: String): ClientToken? {
+        val webClient = WebClient.create("https://github.com")
+        val uri = "/login/oauth/access_token?client_id=" + System.getenv("CLIENT_ID") +
+                "&client_secret=" + System.getenv("CLIENT_SECRET") +
+                "&code=" + code
+
+        val resp: Mono<ClientToken> =
+            webClient
+                .post()
+                .uri(uri)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(ClientToken::class.java)
+
+        return resp.block()
     }
 }

@@ -16,6 +16,10 @@ object Uris {
         const val PATH = "/auth/callback"
     }
 
+    object DesktopAccessToken {
+        const val PATH = "/auth/access_token"
+    }
+
     object Home {
         const val PATH = "/api/home"
         private val TEMPLATE = UriTemplate(PATH)

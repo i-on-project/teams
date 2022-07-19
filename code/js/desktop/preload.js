@@ -24,6 +24,5 @@ contextBridge.exposeInMainWorld(
     customProtocolUrl: (callback) => ipcRenderer.on('url', callback),
 
     //Renderer to main to renderer
-    getClientInfo: () => ipcRenderer.invoke('clientInfo')
 }
 )

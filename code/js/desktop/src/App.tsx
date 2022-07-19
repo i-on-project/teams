@@ -13,19 +13,19 @@ import * as Assignments from "./Assignments/Page"
 import * as Assignment from "./Assignment/Page"
 import * as Delivery from "./Delivery/Page"
 import * as Requests from "./Requests/Page"
-import { Grid } from 'semantic-ui-react';
+import { AccordionAccordionProps, Grid } from 'semantic-ui-react';
 
 declare const electron: {
   externalBrowserApi: {
     open: (value: string) => undefined
   },
   customProtocolUrl: (callback: (_event: any, value: string) => void) => void,
-  getClientInfo: () => Promise<ClientInfo>
 }
 
-declare type ClientInfo = {
-  clientId: string,
-  clientSecret: string
+declare type AccessToken = {
+  access_token: string,
+  scope: string,
+  token_type: string
 }
 
 declare type UrlObj = {
@@ -59,33 +59,17 @@ export default function App() {
 
     const urlObj = convertUrltoObj(url)
 
-    electron.getClientInfo()
-    .then( clientInfo => {
-      console.log( clientInfo)
-    })
+    fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}`)
+      .then(resp => resp.json())
+      .then((token: AccessToken) => console.log(token))
 
-    /*const CLIENT_ID = process.env.CLIENT_ID
-    const CLIENT_SECRET = process.env.CLIENT_SECRET
-
-    const tokenEnpointUrl = `
-        https://github.com/login/oauth/access_token?
-        client_id=${CLIENT_ID}&
-        client_secret=${CLIENT_SECRET}&
-        code=${urlObj.code}
-      `
-
-    fetch(tokenEnpointUrl, {
-      method: 'POST',
-    })
-      .then(resp => console.log(resp))*/
   }, [url])
 
   return (
     <div>
-      THIS IS A TEST PAGE, TO SEE THE REAL PAGES UNCOMMENT THE ROUTER!
-
-      <button onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop') }}>Login</button>
+      THIS IS A TEST PAGE, TO SEE THE REAL PAGES UNCOMMENT THE ROUTER!      
       <div>
+        <button onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop') }}>Login</button>
         The url is: {url}
       </div>
     </div>
