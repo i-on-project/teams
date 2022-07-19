@@ -20,10 +20,6 @@ export function ClassroomsTable({ entities, orgId }: { entities: Entity[], orgId
             }
         })
 
-        /*
-        FIXME: Change link to individual classroom 
-        */
-
         return projects.map(item =>
             <Table.Row key={item.id} >
                 <Table.Cell onClick={() => navigate(Uris.makeClassroom(orgId, item.id), { replace: false })}> {item.name} </Table.Cell>

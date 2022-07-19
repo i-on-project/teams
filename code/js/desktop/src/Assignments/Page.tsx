@@ -5,6 +5,7 @@ import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { MenuContext } from "../common/components/MenuStatus"
 import { NothingToShow } from "../common/components/NothingToShow"
+import { UriContext } from "../common/PagingContext"
 import { Action, Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeClassrooms, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { AssignmentsTable } from "./components/AssignmentsTable"
@@ -12,14 +13,17 @@ import { AssignmentsTable } from "./components/AssignmentsTable"
 export function Page() {
 
     const { orgId, classId } = useParams()
+    const [uri, setUri] = React.useState(`/api${makeAssignments(orgId, classId)}`)
 
     return (
         <div>
             <Fetch
-                url={`/api${makeAssignments(orgId, classId)}`}
+                url={uri}
                 renderBegin={() => <p>Waiting for URL...</p>}
                 renderOk={(payload) =>
-                    <Body collection={payload}></Body>
+                    <UriContext.Provider value={{ uri, setUri }} >
+                        <Body collection={payload}></Body>
+                    </UriContext.Provider>
                 }
                 renderLoading={() => <Loader />}
             />
@@ -51,7 +55,7 @@ function Body({ collection }: { collection: Collection }) {
                 href: makeClassroom(orgId, classId),
                 hasSubItems: true,
                 subItems: [
-                    { name: 'Students', href: makeStudentsClassroom(orgId, classId)},
+                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
                     { name: 'Assignments', href: makeAssignments(orgId, classId), isActive: true }
@@ -68,12 +72,12 @@ function Body({ collection }: { collection: Collection }) {
     }
 
     return (
-        collection.entities.length !=0 ?
-        <Container>
-            <h1>Classroom's assignments</h1>
-            <AssignmentsTable collection={collection}></AssignmentsTable>
-        </Container>
-        :
-        <NothingToShow sugestion={sugestion}>No Assignements to show.</NothingToShow>
+        collection.entities.length != 0 ?
+            <Container>
+                <h1>Classroom's assignments</h1>
+                <AssignmentsTable collection={collection}></AssignmentsTable>
+            </Container>
+            :
+            <NothingToShow sugestion={sugestion}>No Assignements to show.</NothingToShow>
     )
 }

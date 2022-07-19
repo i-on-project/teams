@@ -7,6 +7,7 @@ import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { MenuContext } from "../common/components/MenuStatus"
 import { NothingToShow } from "../common/components/NothingToShow"
+import { UriContext } from "../common/PagingContext"
 import { Action, Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { StudentsTable } from "./components/StudentsTable"
@@ -14,14 +15,17 @@ import { StudentsTable } from "./components/StudentsTable"
 export function Page() {
 
     const { orgId, classId } = useParams()
+    const [uri, setUri] = React.useState(`/api${makeStudentsClassroom(orgId, classId)}`)
 
     return (
         <div>
             <Fetch
-                url={`/api${makeStudentsClassroom(orgId, classId)}`}
+                url={uri}
                 renderBegin={() => <p>Waiting for URL...</p>}
                 renderOk={(payload) =>
-                    <Body collection={payload} orgId={orgId} classId={classId}></Body>
+                    <UriContext.Provider value={{ uri, setUri }} >
+                        <Body collection={payload} orgId={orgId} classId={classId}></Body>
+                    </UriContext.Provider>
                 }
                 renderLoading={() => <Loader />}
             />
@@ -54,7 +58,7 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
                 href: makeClassroom(orgId, classId),
                 hasSubItems: true,
                 subItems: [
-                    { name: 'Students', href: makeStudentsClassroom(orgId, classId), isActive: true},
+                    { name: 'Students', href: makeStudentsClassroom(orgId, classId), isActive: true },
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
                     { name: 'Assignments', href: makeAssignments(orgId, classId) }

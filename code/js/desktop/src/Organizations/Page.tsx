@@ -5,19 +5,24 @@ import { ErrorNOk, Error } from "../common/components/error"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { MenuContext } from "../common/components/MenuStatus"
+import { UriContext } from "../common/PagingContext"
 import { Action, Collection } from "../common/types/siren"
 import { makeHome, makeOrganizations } from "../common/Uris"
 import { OrganizationsTable } from "./components/OrganizationsTable"
 
 export function Page() {
 
+    const [uri, setUri] = React.useState(`/api${makeOrganizations()}`)
+
     return (
         <div>
             <Fetch
-                url={`/api${makeOrganizations()}`}
+                url={uri}
                 renderBegin={() => <p>Waiting for URL...</p>}
                 renderOk={(payload) =>
-                    <Body collection={payload}></Body>
+                    <UriContext.Provider value={{ uri, setUri }} >
+                        <Body collection={payload} />
+                    </UriContext.Provider>
                 }
                 renderLoading={() => <Loader />}
             />

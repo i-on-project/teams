@@ -15,7 +15,7 @@ import * as Delivery from "./Delivery/Page"
 import * as Requests from "./Requests/Page"
 import { AccordionAccordionProps, Grid } from 'semantic-ui-react';
 
-declare const electron: {
+/*declare const electron: {
   externalBrowserApi: {
     open: (value: string) => undefined
   },
@@ -74,9 +74,9 @@ export default function App() {
       </div>
     </div>
   )
-}
+}*/
 
-/*export default function App() {
+export default function App() {
 
   return (
 
@@ -105,4 +105,4 @@ export default function App() {
       </MenuContainer>
     </HashRouter >
   )
-}*/
+}

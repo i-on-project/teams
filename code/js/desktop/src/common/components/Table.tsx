@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useContext } from 'react'
 import { Table, Loader, Button } from 'semantic-ui-react'
-import { PagingContext } from '../PagingContext'
+import { UriContext, useUri } from '../PagingContext'
 
 export type Paging = {
     nextUri?: string,
@@ -9,7 +9,7 @@ export type Paging = {
 }
 
 export function DefaultTable({ propNames, pagingProps, children }: { propNames: string[], pagingProps?: Paging, children: React.ReactNode }) {
-    const { setPaging } = useContext(PagingContext)
+    const uri = useUri()
 
     return (
         <div>
@@ -30,8 +30,8 @@ export function DefaultTable({ propNames, pagingProps, children }: { propNames: 
             {
                 pagingProps != null &&
                 <div>
-                    {pagingProps.prevUri ? <Button onClick={() => console.log('click')}>Previous</Button> : null}
-                    {pagingProps.nextUri ? <Button onClick={() => console.log('click')}>Next</Button> : null}
+                    {pagingProps.prevUri ? <Button onClick={() => uri.setUri(pagingProps.prevUri!!)}>Previous</Button> : null}
+                    {pagingProps.nextUri ? <Button onClick={() => uri.setUri(pagingProps.nextUri!!)}>Next</Button> : null}
                 </div>
             }
         </div>

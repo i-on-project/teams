@@ -5,6 +5,7 @@ import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { MenuContext } from "../common/components/MenuStatus"
 import { NothingToShow } from "../common/components/NothingToShow"
+import { UriContext } from "../common/PagingContext"
 import { Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { TeamsTable } from "./components/TeamsTable"
@@ -12,14 +13,17 @@ import { TeamsTable } from "./components/TeamsTable"
 export function Page() {
 
     const { orgId, classId } = useParams()
+    const [uri, setUri] = React.useState(`/api${makeTeams(orgId, classId)}`)
 
     return (
         <div>
             <Fetch
-                url={`/api${makeTeams(orgId, classId)}`}
+                url={uri}
                 renderBegin={() => <p>Waiting for URL...</p>}
                 renderOk={(payload) =>
-                    <Body collection={payload} orgId={orgId} classId={classId}></Body>
+                    <UriContext.Provider value={{ uri, setUri }} >
+                        <Body collection={payload} orgId={orgId} classId={classId}></Body>
+                    </UriContext.Provider>
                 }
                 renderLoading={() => <Loader />}
             />

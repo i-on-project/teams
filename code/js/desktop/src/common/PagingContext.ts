@@ -1,8 +1,12 @@
-import { createContext } from "react"
+import { createContext, useContext } from "react"
 
-const pagingContextDefaulValue = {
-    paging: '',
-    setPaging: (state: string) => { }
+const uriContextDefault = {
+    uri: '',
+    setUri: (state: string) => { }
 }
 
-export const PagingContext = createContext(pagingContextDefaulValue)
+export const UriContext = createContext(uriContextDefault)
+
+export function useUri() {
+    return useContext(UriContext)
+}
