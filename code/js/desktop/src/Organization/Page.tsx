@@ -2,10 +2,9 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 import { Container, Divider, Loader } from "semantic-ui-react";
 import { ClassroomsTable } from "../Classrooms/Components/ClassroomsTable";
-import { ErrorNOk, Error } from "../common/components/error";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
-import { MenuContext } from "../common/components/MenuStatus";
+import { useMenu } from "../common/components/MenuContext";
 import { Resource } from "../common/types/siren";
 import { makeHome, makeOrganization, makeOrganizations } from "../common/Uris";
 import { OrganizationInfo } from "./components/OrganizationInfo";
@@ -31,7 +30,7 @@ export function Page() {
 
 function Body({ resource, orgId }: { resource: Resource, orgId: any }) {
 
-    const { setItems } = React.useContext(MenuContext)
+    const setItems = useMenu().setItems
 
     React.useEffect(() => {
         const menuItems: MenuItem[] = [

@@ -1,13 +1,13 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
-import { Container, Divider, Loader } from "semantic-ui-react"
+import { Container, Loader } from "semantic-ui-react"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
-import { MenuContext } from "../common/components/MenuStatus"
+import { useMenu } from "../common/components/MenuContext"
 import { NothingToShow } from "../common/components/NothingToShow"
-import { UriContext } from "../common/PagingContext"
-import { Action, Collection } from "../common/types/siren"
-import { makeAssignments, makeClassroom, makeClassrooms, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
+import { UriContext } from "../common/components/UriContext"
+import { Collection } from "../common/types/siren"
+import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { AssignmentsTable } from "./components/AssignmentsTable"
 
 export function Page() {
@@ -33,7 +33,7 @@ export function Page() {
 
 function Body({ collection }: { collection: Collection }) {
 
-    const { setItems } = React.useContext(MenuContext)
+    const setItems = useMenu().setItems
     const { orgId, classId } = useParams()
 
     React.useEffect(() => {

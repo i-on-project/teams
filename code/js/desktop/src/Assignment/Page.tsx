@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { Container, Divider, Loader } from "semantic-ui-react";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
-import { MenuContext } from "../common/components/MenuStatus";
 import { Resource } from "../common/types/siren";
-import { makeAssignment, makeAssignments, makeClassroom, makeClassrooms, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
+import { makeAssignment, makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
 import { AssignmentInfo } from "./components/AssignmentInfo";
 import { DeliveriesTable } from "../Deliveries/components/DeliveriesTable";
+import { useMenu } from "../common/components/MenuContext";
 
 export function Page() {
 
@@ -27,7 +27,7 @@ export function Page() {
 
 function Body({ resource }: { resource: Resource }) {
 
-    const { setItems } = React.useContext(MenuContext)
+    const setItems = useMenu().setItems
     const { orgId, classId, assId } = useParams()
 
     React.useEffect(() => {

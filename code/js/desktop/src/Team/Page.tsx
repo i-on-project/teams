@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Container, Loader } from "semantic-ui-react";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
-import { MenuContext } from "../common/components/MenuStatus";
+import { useMenu } from "../common/components/MenuContext";
 import { Resource, Link_relation } from "../common/types/siren";
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeam, makeTeams } from "../common/Uris";
 import { NotesAsComments } from "../Notes/components/NotesAsComments";
@@ -28,7 +28,7 @@ export function Page() {
 function Body({ resource }: { resource: Resource }) {
 
     const { orgId, classId, teamId } = useParams()
-    const { setItems } = React.useContext(MenuContext)
+    const setItems = useMenu().setItems
     const notesLink = resource.links.find((it) => it.rel == "notes")
 
     React.useEffect(() => {

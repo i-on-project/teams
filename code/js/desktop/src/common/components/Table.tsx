@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useContext } from 'react'
 import { Table, Loader, Button } from 'semantic-ui-react'
-import { UriContext, useUri } from '../PagingContext'
+import { UriContext, useUri } from './UriContext'
 
 export type Paging = {
     nextUri?: string,

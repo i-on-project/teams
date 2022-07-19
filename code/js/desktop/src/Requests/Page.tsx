@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { Container, Loader } from "semantic-ui-react"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
-import { MenuContext } from "../common/components/MenuStatus"
+import { useMenu } from "../common/components/MenuContext"
 import { NothingToShow } from "../common/components/NothingToShow"
 import { Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
@@ -30,7 +30,7 @@ export function Page() {
 
 function Body({ collection, orgId, classId }: { collection: Collection, orgId: any, classId: any }) {
 
-    const { setItems } = React.useContext(MenuContext)
+    const setItems = useMenu().setItems
 
     React.useEffect(() => {
         const menuItems: MenuItem[] = [

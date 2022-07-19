@@ -1,17 +1,15 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Container, Loader, Menu, Segment } from 'semantic-ui-react'
-import { ErrorNOk, Error } from '../common/components/error'
+import { Button, Loader, Menu} from 'semantic-ui-react'
 import { Fetch } from '../common/components/fetch'
-import { MenuContext } from '../common/components/MenuStatus'
-import { Paging } from '../common/components/Table'
+import { useMenu } from '../common/components/MenuContext'
 import { Collection, Entity, Link_relation } from '../common/types/siren'
 import { makeClassroom, makeHome, makeOrganization, makeOrganizations } from '../common/Uris'
 
 //TODO: session
 export function Page() {
 
-    const { setItems } = React.useContext(MenuContext)
+    const setItems = useMenu().setItems
 
     React.useEffect(() => {
         setItems([

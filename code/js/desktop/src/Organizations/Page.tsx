@@ -1,11 +1,10 @@
 import * as React from "react"
 import { Container, Divider, Loader } from "semantic-ui-react"
 import { DefaultForm } from "../common/components/DefaultForm"
-import { ErrorNOk, Error } from "../common/components/error"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
-import { MenuContext } from "../common/components/MenuStatus"
-import { UriContext } from "../common/PagingContext"
+import { useMenu } from "../common/components/MenuContext"
+import { UriContext } from "../common/components/UriContext"
 import { Action, Collection } from "../common/types/siren"
 import { makeHome, makeOrganizations } from "../common/Uris"
 import { OrganizationsTable } from "./components/OrganizationsTable"
@@ -33,7 +32,7 @@ export function Page() {
 
 function Body({ collection }: { collection: Collection }) {
 
-    const { setItems } = React.useContext(MenuContext)
+    const setItems = useMenu().setItems
 
     React.useEffect(() => {
         const menuItems: MenuItem[] = [

@@ -1,8 +1,7 @@
 import { Button, Menu, MenuHeader } from "semantic-ui-react"
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
-import { MenuContext } from "./MenuStatus"
-import { useState } from "react"
+import { useMenu } from "./MenuContext"
 
 
 export type MenuItem = {
@@ -16,7 +15,7 @@ export type MenuItem = {
 
 export function VerticalFixedMenu() {
 
-    const { items } = React.useContext(MenuContext)
+    const items = useMenu().items
     const navigate = useNavigate()
 
     const logoStyle = {

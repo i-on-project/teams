@@ -8,6 +8,9 @@ export const MenuContext = createContext({
 
 })
 
+export function useMenu() {
+    return React.useContext(MenuContext)
+}
 
 export function MenuContainer({ children }: { children: React.ReactNode }) {
     const [items, setItems] = useState([])

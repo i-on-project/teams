@@ -1,14 +1,12 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
-import { Container, Divider, Loader } from "semantic-ui-react"
-import { DefaultForm } from "../common/components/DefaultForm"
-import { ErrorNOk, Error } from "../common/components/error"
+import { Container, Loader } from "semantic-ui-react"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
-import { MenuContext } from "../common/components/MenuStatus"
+import { useMenu } from "../common/components/MenuContext"
 import { NothingToShow } from "../common/components/NothingToShow"
-import { UriContext } from "../common/PagingContext"
-import { Action, Collection } from "../common/types/siren"
+import { UriContext } from "../common/components/UriContext"
+import { Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { StudentsTable } from "./components/StudentsTable"
 
@@ -36,7 +34,7 @@ export function Page() {
 
 function Body({ collection, orgId, classId }: { collection: Collection, orgId: any, classId: any }) {
 
-    const { setItems } = React.useContext(MenuContext)
+    const setItems = useMenu().setItems
 
     React.useEffect(() => {
 
