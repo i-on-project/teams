@@ -1,5 +1,7 @@
 package pt.isel.ion.teams.authentication
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import org.springframework.boot.configurationprocessor.json.JSONObject
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.client.WebClient
@@ -14,8 +16,11 @@ const val GITHUB_OAUTH_URI = "https://github.com/login/oauth/authorize"
 const val GITHUB_TEACHER_SCOPE = "admin:org"
 
 const val HALF_HOUR: Long = 60 * 30
+const val ONE_MONTH: Long = 60 * 60 * 24 * 30
 const val DESKTOP_CLIENT_ID = "desktop"
 const val WEB_CLIENT_ID = "web"
+
+//TODO: After deployment activate flag secure on cookies
 
 @RestController
 @RequestMapping
@@ -89,13 +94,48 @@ class AuthenticationController {
 
     @GetMapping(Uris.DesktopAccessToken.PATH)
     fun getDesktopAccessToken(
-        @RequestParam code: String
+        @RequestParam code: String,
+        @CookieValue accessToken: String?
     ): ResponseEntity<Any> {
-        //TODO: should this verify a state?
-        val accessToken = getAccessToken(code) ?: throw NoAccessTokenException()
 
-        return ResponseEntity
-            .ok(accessToken)
+        /**
+         * If the request has an access token return that access token, if not fetch a new access token
+         * from the GitHub token endpoint
+         */
+        if (accessToken != null) {
+            return ResponseEntity
+                .ok(accessToken)
+        }
+        else {
+            val at = getAccessToken(code) ?: throw NoAccessTokenException()
+
+            val accessTokenCookie = ResponseCookie.from("accessToken", at.access_token)
+                .path("/auth/access_token")
+                .domain("localhost")
+                .maxAge(ONE_MONTH)
+                .httpOnly(true)
+                .secure(false)
+                .sameSite("Strict")
+                .build()
+
+            return ResponseEntity
+                .status(200)
+                .header(HttpHeaders.SET_COOKIE, accessTokenCookie.toString())
+                .body(at.toCompact())
+        }
+    }
+
+    @PostMapping(Uris.Register.PATH)
+    fun postRegisterUser(
+        @RequestParam clientId: String,
+        @RequestBody  userInfo: UserInfoInputModel
+    ) {
+
+    }
+
+    @GetMapping(Uris.Logout.PATH)
+    fun getLogout() {
+
     }
 
     /**

@@ -15,7 +15,7 @@ import * as Delivery from "./Delivery/Page"
 import * as Requests from "./Requests/Page"
 import { AccordionAccordionProps, Grid } from 'semantic-ui-react';
 
-/*declare const electron: {
+declare const electron: {
   externalBrowserApi: {
     open: (value: string) => undefined
   },
@@ -23,9 +23,7 @@ import { AccordionAccordionProps, Grid } from 'semantic-ui-react';
 }
 
 declare type AccessToken = {
-  access_token: string,
-  scope: string,
-  token_type: string
+  access_token: string
 }
 
 declare type UrlObj = {
@@ -74,9 +72,9 @@ export default function App() {
       </div>
     </div>
   )
-}*/
+}
 
-export default function App() {
+/*export default function App() {
 
   return (
 
@@ -105,4 +103,4 @@ export default function App() {
       </MenuContainer>
     </HashRouter >
   )
-}
+}*/

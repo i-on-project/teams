@@ -30,6 +30,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation(kotlin("script-runtime"))
+
+	runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.76.Final:osx-aarch_64")
 }
 
 tasks.withType<KotlinCompile> {

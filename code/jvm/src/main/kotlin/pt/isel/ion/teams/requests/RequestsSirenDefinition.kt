@@ -11,7 +11,7 @@ import pt.isel.ion.teams.common.siren.*
  * Siren definition for a request collection response
  * @param requestsList List of requests to display
  * @param orgId Request's organization id
- * @param classId Request's classroom id
+ * @param classId Request   's classroom id
  */
 fun CollectionModel.toRequestSirenObject(
     requestsList: List<RequestsOutputModel>,

@@ -45,11 +45,12 @@ CREATE TABLE INVITE_LINKS
 
 CREATE TABLE TEACHER
 (
-    number  int unique  NOT NULL,
-    name    varchar(50) NOT NULL,
-    email   varchar     NOT NULL,
-    office  varchar(20) NOT NULL, --X.X.XX (e.g G.1.16)
-    deleted bit(1) DEFAULT B'0',
+    number              int unique  NOT NULL,
+    name                varchar(50) NOT NULL,
+    githubUsername      varchar(50),
+    email               varchar     NOT NULL,
+    office              varchar(20) NOT NULL, --X.X.XX (e.g G.1.16)
+    deleted             bit(1) DEFAULT B'0',
     PRIMARY KEY (number),
     CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
 );
@@ -81,9 +82,10 @@ CREATE TABLE TEAMS
 
 CREATE TABLE STUDENT
 (
-    number  int         NOT NULL,
-    name    varchar(50) NOT NULL,
-    deleted bit(1) DEFAULT B'0',
+    number              int NOT NULL,
+    name                varchar(50) NOT NULL,
+    githubUsername      varchar(50),
+    deleted             bit(1) DEFAULT B'0',
     UNIQUE (number, name),
     PRIMARY KEY (number)
 );
@@ -141,7 +143,7 @@ CREATE TABLE DELIVERIES
 (
     id      serial,
     assId   int       NOT NULL, --assignment id
-    name varchar(20) NOT NULL,
+    name    varchar(20) NOT NULL,
     date    timestamp NOT NULL, --due date
     deleted bit(1) DEFAULT B'0',
     PRIMARY KEY (id),
@@ -159,6 +161,14 @@ CREATE TABLE TAGS
     PRIMARY KEY (id),
     FOREIGN KEY (delId) REFERENCES DELIVERIES (id),
     FOREIGN KEY (repoId) REFERENCES REPOS (id)
+);
+
+CREATE TABLE USER_SESSION
+(
+    number      int NOT NULL,
+    sessionId   int NOT NULL,
+    userType    varchar(1),
+    PRIMARY KEY (number, sessionId)
 );
 
 
