@@ -8,6 +8,7 @@ import { makeAssignment, makeAssignments, makeClassroom, makeHome, makeOrganizat
 import { AssignmentInfo } from "./components/AssignmentInfo";
 import { DeliveriesTable } from "../Deliveries/components/DeliveriesTable";
 import { useMenu } from "../common/components/MenuContext";
+import { useMenuItemNameContext } from "../common/components/MenuItemNameContext";
 
 export function Page() {
 
@@ -29,6 +30,8 @@ function Body({ resource }: { resource: Resource }) {
 
     const setItems = useMenu().setItems
     const { orgId, classId, assId } = useParams()
+    
+    const menuItemNameContext = useMenuItemNameContext()
 
     React.useEffect(() => {
 
@@ -39,14 +42,14 @@ function Body({ resource }: { resource: Resource }) {
             },
             {
                 name: "Organizations",
-                href: makeOrganizations(),
+                href: makeOrganizations()
             },
             {
-                name: "Organization",
-                href: makeOrganization(orgId),
+                name: menuItemNameContext.orgName,
+                href: makeOrganization(orgId)
             },
             {
-                name: "Classroom",
+                name: menuItemNameContext.className,
                 href: makeClassroom(orgId, classId),
                 hasSubItems: true,
                 subItems: [
@@ -58,7 +61,7 @@ function Body({ resource }: { resource: Resource }) {
                 ]
             },
             {
-                name: "Assignment",
+                name: menuItemNameContext.assignmentName,
                 href: makeAssignment(orgId, classId, assId),
                 isActive: true
             }

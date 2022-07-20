@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate, useParams } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
+import { useMenuItemNameContext } from "../../common/components/MenuItemNameContext";
 import { DefaultTable, Paging } from '../../common/components/Table'
 import { Collection } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
@@ -9,6 +10,7 @@ export function AssignmentsTable({ collection }: { collection: Collection }) {
 
   const navigate = useNavigate()  
   const { orgId, classId } = useParams()
+  const setAssignmentName = useMenuItemNameContext().setAssignmentName
 
   function rowSpan() {
     const assignments = collection.entities.map(entity => {
@@ -21,7 +23,10 @@ export function AssignmentsTable({ collection }: { collection: Collection }) {
 
     return assignments.map(item =>
       <Table.Row key={item.id} >
-        <Table.Cell onClick={() => navigate(Uris.makeAssignment(orgId, classId, item.id), { replace: false })}> {item.name} </Table.Cell>
+        <Table.Cell onClick={() => {
+          setAssignmentName(item.name)
+          navigate(Uris.makeAssignment(orgId, classId, item.id), { replace: false })  
+        }}> {item.name} </Table.Cell>
         <Table.Cell > {item.releaseDate} </Table.Cell>
       </Table.Row>
     )

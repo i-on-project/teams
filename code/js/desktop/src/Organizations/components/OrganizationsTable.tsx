@@ -1,11 +1,19 @@
 import * as React from "react"
 import { useNavigate } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
+import { useMenuItemNameContext } from "../../common/components/MenuItemNameContext";
 import { DefaultTable, Paging } from '../../common/components/Table'
 import { Collection } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
 
 export function OrganizationsTable({ collection }: { collection: Collection }) {
+
+  const setName = useMenuItemNameContext().setOrgName
+
+  function onClick(id: number, name: string) {
+    setName(name)
+    navigate(Uris.makeOrganization(id), { replace: false })
+  }
 
   const navigate = useNavigate()  
 
@@ -21,7 +29,7 @@ export function OrganizationsTable({ collection }: { collection: Collection }) {
 
     return organizations.map(item =>
       <Table.Row key={item.id} >
-        <Table.Cell onClick={() => navigate(Uris.makeOrganization(item.id), { replace: false })}> {item.name} </Table.Cell>
+        <Table.Cell onClick={() => onClick(item.id,item.name)}> {item.name} </Table.Cell>
         <Table.Cell > {item.description} </Table.Cell>
       </Table.Row>
     )

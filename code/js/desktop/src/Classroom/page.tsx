@@ -4,6 +4,7 @@ import { Loader } from "semantic-ui-react";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { useMenu } from "../common/components/MenuContext";
+import { useMenuItemNameContext } from "../common/components/MenuItemNameContext";
 import { Resource } from "../common/types/siren";
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
 import { ClassroomInfo } from "./components/ClassroomInfo";
@@ -28,6 +29,8 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
 
     const setItems = useMenu().setItems
 
+    const menuItemNameContext = useMenuItemNameContext()
+
     React.useEffect(() => {
 
         const menuItems: MenuItem[] = [
@@ -40,11 +43,11 @@ function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, cl
                 href: makeOrganizations()
             },
             {
-                name: "Organization",
+                name: menuItemNameContext.orgName,
                 href: makeOrganization(orgId)
             },
             {
-                name: "Classroom",
+                name: menuItemNameContext.className,
                 href: makeClassroom(orgId, classId),
                 isActive: true,
                 hasSubItems: true,

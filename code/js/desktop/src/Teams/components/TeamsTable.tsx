@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useNavigate } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
+import { useMenuItemNameContext } from "../../common/components/MenuItemNameContext";
 import { DefaultTable } from '../../common/components/Table'
 import { Entity } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
@@ -8,6 +9,7 @@ import * as Uris from '../../common/Uris';
 export function TeamsTable({ entities, orgId, classId }: { entities: Entity[], orgId: number, classId: number }) {
 
     const navigate = useNavigate()
+    const menuItemNameContext= useMenuItemNameContext()
 
     function rowSpan() {
         const projects = entities.map((entity: Entity) => {
@@ -21,7 +23,10 @@ export function TeamsTable({ entities, orgId, classId }: { entities: Entity[], o
 
         return projects.map(item =>
             <Table.Row key={item.id} >
-                <Table.Cell onClick={() => navigate(Uris.makeTeam(orgId, classId, item.id), { replace: false })}> {item.name} </Table.Cell>
+                <Table.Cell onClick={() => {
+                    menuItemNameContext.setTeamName(item.name)
+                    navigate(Uris.makeTeam(orgId, classId, item.id), { replace: false })
+                }}> {item.name} </Table.Cell>
                 <Table.Cell > {item.state} </Table.Cell>
             </Table.Row>
         )

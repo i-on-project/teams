@@ -5,6 +5,7 @@ import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { useMenu } from "../common/components/MenuContext"
 import { NothingToShow } from "../common/components/NothingToShow"
+import { useMenuItemNameContext } from "../common/components/MenuItemNameContext"
 import { UriContext } from "../common/components/UriContext"
 import { Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
@@ -35,8 +36,10 @@ function Body({ collection }: { collection: Collection }) {
 
     const setItems = useMenu().setItems
     const { orgId, classId } = useParams()
+    const menuItemNameContext = useMenuItemNameContext()
 
     React.useEffect(() => {
+
         const menuItems: MenuItem[] = [
             {
                 name: "Home",
@@ -44,14 +47,14 @@ function Body({ collection }: { collection: Collection }) {
             },
             {
                 name: "Organizations",
-                href: makeOrganizations(),
+                href: makeOrganizations()
             },
             {
-                name: "Organization",
-                href: makeOrganization(orgId),
+                name: menuItemNameContext.orgName,
+                href: makeOrganization(orgId)
             },
             {
-                name: "Classroom",
+                name: menuItemNameContext.className,
                 href: makeClassroom(orgId, classId),
                 hasSubItems: true,
                 subItems: [

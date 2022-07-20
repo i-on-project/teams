@@ -33,6 +33,7 @@ export function Page() {
 function Body({ collection }: { collection: Collection }) {
 
     const setItems = useMenu().setItems
+    
 
     React.useEffect(() => {
         const menuItems: MenuItem[] = [

@@ -8,6 +8,7 @@ import { Resource } from "../common/types/siren";
 import { makeAssignment, makeAssignments, makeClassroom, makeDelivery, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
 import { DeliveryInfo } from "./components/DeliveryInfo";
 import { TagsTable } from "../Tags/components/TagsTable";
+import { useMenuItemNameContext } from "../common/components/MenuItemNameContext";
 
 export function Page() {
 
@@ -29,6 +30,7 @@ function Body({ resource }: { resource: Resource }) {
 
     const setItems = useMenu().setItems
     const { orgId, classId, assId, delId } = useParams()
+    const menuItemNameContext = useMenuItemNameContext()
 
     React.useEffect(() => {
 
@@ -39,15 +41,16 @@ function Body({ resource }: { resource: Resource }) {
             },
             {
                 name: "Organizations",
-                href: makeOrganizations(),
+                href: makeOrganizations()
             },
             {
-                name: "Organization",
-                href: makeOrganization(orgId),
+                name: menuItemNameContext.orgName,
+                href: makeOrganization(orgId)
             },
             {
-                name: "Classroom",
+                name: menuItemNameContext.className,
                 href: makeClassroom(orgId, classId),
+                isActive: true,
                 hasSubItems: true,
                 subItems: [
                     { name: 'Description', href: makeClassroom(orgId, classId) },
@@ -58,11 +61,11 @@ function Body({ resource }: { resource: Resource }) {
                 ]
             },
             {
-                name: "Assignment",
+                name: menuItemNameContext.assignmentName,
                 href: makeAssignment(orgId, classId, assId)
             },
             {
-                name: "Delivery",
+                name: menuItemNameContext.deliveryName,
                 href: makeDelivery(orgId, classId, assId, delId),
                 isActive: true
             }

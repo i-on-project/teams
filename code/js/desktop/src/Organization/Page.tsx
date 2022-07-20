@@ -5,6 +5,7 @@ import { ClassroomsTable } from "../Classrooms/Components/ClassroomsTable";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { useMenu } from "../common/components/MenuContext";
+import { useMenuItemNameContext } from "../common/components/MenuItemNameContext";
 import { Resource } from "../common/types/siren";
 import { makeHome, makeOrganization, makeOrganizations } from "../common/Uris";
 import { OrganizationInfo } from "./components/OrganizationInfo";
@@ -30,7 +31,9 @@ export function Page() {
 
 function Body({ resource, orgId }: { resource: Resource, orgId: any }) {
 
+
     const setItems = useMenu().setItems
+    const orgName = useMenuItemNameContext().orgName
 
     React.useEffect(() => {
         const menuItems: MenuItem[] = [
@@ -43,7 +46,7 @@ function Body({ resource, orgId }: { resource: Resource, orgId: any }) {
                 href: makeOrganizations()
             },
             { 
-                name: "Organization", 
+                name: orgName, 
                 href: makeOrganization(orgId), 
                 isActive: true 
             }

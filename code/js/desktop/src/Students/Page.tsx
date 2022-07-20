@@ -4,6 +4,7 @@ import { Container, Loader } from "semantic-ui-react"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
 import { useMenu } from "../common/components/MenuContext"
+import { useMenuItemNameContext } from "../common/components/MenuItemNameContext"
 import { NothingToShow } from "../common/components/NothingToShow"
 import { UriContext } from "../common/components/UriContext"
 import { Collection } from "../common/types/siren"
@@ -35,6 +36,7 @@ export function Page() {
 function Body({ collection, orgId, classId }: { collection: Collection, orgId: any, classId: any }) {
 
     const setItems = useMenu().setItems
+    const menuItemNameContext = useMenuItemNameContext()
 
     React.useEffect(() => {
 
@@ -48,11 +50,11 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
                 href: makeOrganizations()
             },
             {
-                name: "Organization",
+                name: menuItemNameContext.orgName,
                 href: makeOrganization(orgId)
             },
             {
-                name: "Classroom",
+                name: menuItemNameContext.className,
                 href: makeClassroom(orgId, classId),
                 hasSubItems: true,
                 subItems: [

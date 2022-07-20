@@ -4,6 +4,7 @@ import { Container, Loader } from "semantic-ui-react";
 import { Fetch } from "../common/components/fetch";
 import { MenuItem } from "../common/components/Menu";
 import { useMenu } from "../common/components/MenuContext";
+import { useMenuItemNameContext } from "../common/components/MenuItemNameContext";
 import { Resource, Link_relation } from "../common/types/siren";
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeam, makeTeams } from "../common/Uris";
 import { NotesAsComments } from "../Notes/components/NotesAsComments";
@@ -30,6 +31,7 @@ function Body({ resource }: { resource: Resource }) {
     const { orgId, classId, teamId } = useParams()
     const setItems = useMenu().setItems
     const notesLink = resource.links.find((it) => it.rel == "notes")
+    const menuItemNameContext = useMenuItemNameContext()
 
     React.useEffect(() => {
 
@@ -43,11 +45,11 @@ function Body({ resource }: { resource: Resource }) {
                 href: makeOrganizations()
             },
             {
-                name: "Organization",
+                name: menuItemNameContext.orgName,
                 href: makeOrganization(orgId)
             },
             {
-                name: "Classroom",
+                name: menuItemNameContext.className,
                 href: makeClassroom(orgId, classId),
                 hasSubItems: true,
                 subItems: [
@@ -59,7 +61,7 @@ function Body({ resource }: { resource: Resource }) {
                 ]
             },
             {
-                name: "Team",
+                name: menuItemNameContext.teamName,
                 href: makeTeam(orgId, classId, teamId),
                 isActive: true
             }
