@@ -8,7 +8,6 @@ import pt.isel.ion.teams.common.errors.InvalidAuthenticationStateException
 import pt.isel.ion.teams.common.errors.InvalidClientId
 import pt.isel.ion.teams.common.errors.NoAccessTokenException
 import pt.isel.ion.teams.students.StudentsService
-import pt.isel.ion.teams.teacher.TeacherDbWrite
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
 import java.util.*
@@ -19,6 +18,7 @@ const val GITHUB_TEACHER_SCOPE = "admin:org"
 const val HALF_HOUR: Long = 60 * 30
 const val ONE_MONTH: Long = 60 * 60 * 24 * 30
 const val DESKTOP_CLIENT_ID = "desktop"
+const val DESKTOP_REGISTER_CLIENT_ID = "desktop-register"
 const val WEB_CLIENT_ID = "web"
 
 //TODO: After deployment activate flag secure on cookies
@@ -35,37 +35,7 @@ class AuthenticationController(
     fun getLogin(
         @RequestParam clientId: String
     ): ResponseEntity<Any> {
-        val state = UUID.randomUUID().toString()
-
-        val stateCookie = ResponseCookie.from("userState", state)
-            .path("/auth/callback")
-            .domain("localhost")
-            .maxAge(HALF_HOUR)
-            .httpOnly(true)
-            .secure(false)
-            .sameSite("Lax")
-            .build()
-
-        val clientIdCookie = ResponseCookie.from("clientId", clientId)
-            .path("/auth/callback")
-            .domain("localhost")
-            .maxAge(HALF_HOUR)
-            .httpOnly(true)
-            .secure(false)
-            .sameSite("Lax")
-            .build()
-
-        return ResponseEntity
-            .status(303)
-            .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
-            .header(HttpHeaders.SET_COOKIE, clientIdCookie.toString())
-            .header(
-                HttpHeaders.LOCATION, GITHUB_OAUTH_URI +
-                        "?client_id=" + System.getenv("CLIENT_ID") + "&" +
-                        "scope=" + GITHUB_TEACHER_SCOPE + "&" +
-                        "state=" + state
-            )
-            .build()
+        return githubAuth(clientId)
     }
 
     @GetMapping(Uris.Callback.PATH)
@@ -77,6 +47,8 @@ class AuthenticationController(
     ): ResponseEntity<Any> {
         //Verification of state to prevent CSRF attack
         if (!state.equals(userState)) throw InvalidAuthenticationStateException()
+
+        //TODO: send verification email
 
         //Verification of the type of client logging in, if the client is the desktop app the code is sent
         // and the desktop app is responsible for retrieving its Access token
@@ -133,18 +105,23 @@ class AuthenticationController(
     fun postRegisterUser(
         @RequestParam clientId: String,
         @RequestBody userInfo: UserInfoInputModel
-    ) {
-        if (userInfo.office != null)
+    ): ResponseEntity<Any> {
+        if (clientId == DESKTOP_REGISTER_CLIENT_ID)
             teachersService.createTeacher(userInfo.toTeacherDbWrite())
         else
             studentsService.createStudent(userInfo.toStudentDbWrite())
 
-        //add same has login
+        return githubAuth(clientId)
     }
 
     @GetMapping(Uris.Logout.PATH)
     fun getLogout() {
+        //TODO: terminate session
+    }
 
+    @PutMapping
+    fun putVerified() {
+        //TODO: finish verification
     }
 
     /**
@@ -167,5 +144,39 @@ class AuthenticationController(
                 .bodyToMono(ClientToken::class.java)
 
         return resp.block()
+    }
+
+    private fun githubAuth(clientId: String): ResponseEntity<Any> {
+        val state = UUID.randomUUID().toString()
+
+        val stateCookie = ResponseCookie.from("userState", state)
+            .path("/auth/callback")
+            .domain("localhost")
+            .maxAge(HALF_HOUR)
+            .httpOnly(true)
+            .secure(false)
+            .sameSite("Lax")
+            .build()
+
+        val clientIdCookie = ResponseCookie.from("clientId", clientId)
+            .path("/auth/callback")
+            .domain("localhost")
+            .maxAge(HALF_HOUR)
+            .httpOnly(true)
+            .secure(false)
+            .sameSite("Lax")
+            .build()
+
+        return ResponseEntity
+            .status(303)
+            .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
+            .header(HttpHeaders.SET_COOKIE, clientIdCookie.toString())
+            .header(
+                HttpHeaders.LOCATION, GITHUB_OAUTH_URI +
+                        "?client_id=" + System.getenv("CLIENT_ID") + "&" +
+                        "scope=" + GITHUB_TEACHER_SCOPE + "&" +
+                        "state=" + state
+            )
+            .build()
     }
 }
