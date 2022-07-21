@@ -23,7 +23,7 @@ class StudentsService(val jdbi: Jdbi) {
             jdbi.onDemand(StudentsDAO::class.java).getStudent(number)
         }
 
-    fun createStudent(student: StudentInfoDbWrite) =
+    fun createStudent(student: StudentDbWrite) =
         sqlExceptionHandler {
             jdbi.onDemand(StudentsDAO::class.java).createStudent(student)
         }

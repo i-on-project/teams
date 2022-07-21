@@ -1,7 +1,5 @@
 package pt.isel.ion.teams.authentication
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import org.springframework.boot.configurationprocessor.json.JSONObject
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.client.WebClient
@@ -9,6 +7,9 @@ import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.errors.InvalidAuthenticationStateException
 import pt.isel.ion.teams.common.errors.InvalidClientId
 import pt.isel.ion.teams.common.errors.NoAccessTokenException
+import pt.isel.ion.teams.students.StudentsService
+import pt.isel.ion.teams.teacher.TeacherDbWrite
+import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
 import java.util.*
 
@@ -24,7 +25,11 @@ const val WEB_CLIENT_ID = "web"
 
 @RestController
 @RequestMapping
-class AuthenticationController {
+class AuthenticationController(
+    val authService: AuthenticationService,
+    val teachersService: TeachersService,
+    val studentsService: StudentsService
+) {
 
     @GetMapping(Uris.Login.PATH)
     fun getLogin(
@@ -41,7 +46,7 @@ class AuthenticationController {
             .sameSite("Lax")
             .build()
 
-        val clientId = ResponseCookie.from("clientId", clientId)
+        val clientIdCookie = ResponseCookie.from("clientId", clientId)
             .path("/auth/callback")
             .domain("localhost")
             .maxAge(HALF_HOUR)
@@ -53,7 +58,7 @@ class AuthenticationController {
         return ResponseEntity
             .status(303)
             .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
-            .header(HttpHeaders.SET_COOKIE, clientId.toString())
+            .header(HttpHeaders.SET_COOKIE, clientIdCookie.toString())
             .header(
                 HttpHeaders.LOCATION, GITHUB_OAUTH_URI +
                         "?client_id=" + System.getenv("CLIENT_ID") + "&" +
@@ -105,8 +110,7 @@ class AuthenticationController {
         if (accessToken != null) {
             return ResponseEntity
                 .ok(accessToken)
-        }
-        else {
+        } else {
             val at = getAccessToken(code) ?: throw NoAccessTokenException()
 
             val accessTokenCookie = ResponseCookie.from("accessToken", at.access_token)
@@ -128,9 +132,14 @@ class AuthenticationController {
     @PostMapping(Uris.Register.PATH)
     fun postRegisterUser(
         @RequestParam clientId: String,
-        @RequestBody  userInfo: UserInfoInputModel
+        @RequestBody userInfo: UserInfoInputModel
     ) {
+        if (userInfo.office != null)
+            teachersService.createTeacher(userInfo.toTeacherDbWrite())
+        else
+            studentsService.createStudent(userInfo.toStudentDbWrite())
 
+        //add same has login
     }
 
     @GetMapping(Uris.Logout.PATH)

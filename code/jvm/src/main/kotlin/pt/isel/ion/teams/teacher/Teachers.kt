@@ -30,9 +30,7 @@ data class TeacherDbWrite(
     val number: Int,
     val name: String,
     val email: String,
-    val office: String,
-    val cid: Int,
-    val orgid: Int
+    val office: String
 )
 
 data class TeacherDbUpdate(
@@ -88,7 +86,7 @@ data class TeacherUpdateModel(
 /**
  * Functions to transition from external to internal, or vice-versa.
  */
-fun TeacherInputModel.toDb(cId: Int, orgId: Int) = TeacherDbWrite(this.number,this.name,this.email,this.office,cId,orgId)
+fun TeacherInputModel.toDb() = TeacherDbWrite(this.number,this.name,this.email,this.office)
 fun TeacherUpdateModel.toDb(number: Int) = TeacherDbUpdate(number,this.name,this.email,this.office, this.cid,this.orgid)
 fun CompleteTeacherDbRead.toOutput() = CompleteTeacherOutputModel(this.number,this.name,this.email,this.office,this.cid,this.orgid)
 fun SimpleTeacherDbRead.toOutput() = SimpleTeacherOutputModel(this.number, this.cid, this.orgid)

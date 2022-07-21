@@ -1,6 +1,7 @@
 package pt.isel.ion.teams.authentication
 
-import ch.qos.logback.core.net.server.Client
+import pt.isel.ion.teams.students.StudentDbWrite
+import pt.isel.ion.teams.teacher.TeacherDbWrite
 
 /* ******************** TOKENS & COOKIES ******************** */
 data class ClientToken(
@@ -21,21 +22,17 @@ fun ClientToken.toCompact() = CompactClientToken(this.access_token)
 
 /* ******************** USER REGISTRATION ******************** */
 
-data class TeacherInfoDbWrite(
-    val name: String,
-    val number: Int,
-    val email: String,
-    var office: String
-)
-
 data class StudentInfoDbWrite(
     val name: String,
     val number: Int
 )
 
 data class UserInfoInputModel(
-    val name: String,
     val number: Int,
+    val name: String,
     val email: String?,
     var office: String?
 )
+
+fun UserInfoInputModel.toTeacherDbWrite() = TeacherDbWrite(number, name, email!!, office!!)
+fun UserInfoInputModel.toStudentDbWrite() = StudentDbWrite(number, name)

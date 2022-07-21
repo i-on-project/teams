@@ -44,22 +44,6 @@ class TeachersController(val service: TeachersService, val classService: Classro
                 )
         )
 
-    @PostMapping
-    fun createTeacher(
-        @PathVariable orgId: Int,
-        @PathVariable classId: Int,
-        @RequestBody teacher: TeacherInputModel
-    ): ResponseEntity<Any> {
-        val tch = service.createTeacher(teacher.toDb(classId, orgId)).toOutput()
-
-        return ResponseEntity
-            .created(Uris.Students.Student.make(orgId, classId, tch.number))
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(
-                tch
-            )
-    }
-
     @PutMapping(Uris.Teachers.Teacher.PATH)
     fun updateTeacher(@PathVariable number: Int, @RequestBody teacher: TeacherUpdateModel) =
         ResponseEntity

@@ -30,7 +30,7 @@ interface StudentsDAO {
      */
     @SqlUpdate("INSERT INTO student (number, name)  VALUES (:number, :name) ON CONFLICT (number) DO UPDATE SET number = :number, name = :name")
     @GetGeneratedKeys
-    fun createStudent(@BindBean student: StudentInfoDbWrite): StudentInfoDbRead
+    fun createStudent(@BindBean student: StudentDbWrite): StudentInfoDbRead
 
     @SqlUpdate("UPDATE student SET name=COALESCE(:name,name) WHERE number=:number")
     @GetGeneratedKeys

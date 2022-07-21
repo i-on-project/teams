@@ -27,7 +27,7 @@ data class StudentClassInfoDbWrite(
     val tid: Int,
     val cid: Int
 )
-data class StudentInfoDbWrite(
+data class StudentDbWrite(
     val number: Int,
     val name: String
 )
@@ -81,7 +81,7 @@ data class StudentUpdateModel(
  */
 
 fun StudentClassInfoInputModel.toDb(tid: Int, cid: Int) = StudentClassInfoDbWrite(this.number, tid, cid)
-fun StudentInputModel.toDb() = StudentInfoDbWrite(this.number, this.name)
+fun StudentInputModel.toDb() = StudentDbWrite(this.number, this.name)
 fun StudentInfoDbRead.toOutput() = StudentInfoOutputModel(this.number, this.name)
 fun StudentClassInfoDbRead.toOutput() = StudentClassInfoOutputModel(this.number, this.tid, this.cid)
 fun CompleteStudentDbRead.toOutput() = CompleteStudentOutputModel(this.number, this.name, this.tid)
