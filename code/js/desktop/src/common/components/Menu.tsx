@@ -2,6 +2,7 @@ import { Button, Menu, MenuHeader } from "semantic-ui-react"
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
 import { useMenu } from "./MenuContext"
+import { useLoggedInState } from "./loggedStatus"
 
 
 export type MenuItem = {
@@ -17,6 +18,7 @@ export function VerticalFixedMenu() {
 
     const items = useMenu().items
     const navigate = useNavigate()
+    const setLoggedState = useLoggedInState().setLoggedState
 
     const logoStyle = {
         display: "block",
@@ -28,6 +30,7 @@ export function VerticalFixedMenu() {
 
     function onLogout() {
         //TODO: perform logout
+        setLoggedState(false)
         navigate('/')
     }
 

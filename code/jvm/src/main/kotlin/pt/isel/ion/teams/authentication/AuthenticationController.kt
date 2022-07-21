@@ -38,7 +38,7 @@ class AuthenticationController {
             .maxAge(HALF_HOUR)
             .httpOnly(true)
             .secure(false)
-            .sameSite("Strict")
+            .sameSite("Lax")
             .build()
 
         val clientId = ResponseCookie.from("clientId", clientId)
@@ -47,7 +47,7 @@ class AuthenticationController {
             .maxAge(HALF_HOUR)
             .httpOnly(true)
             .secure(false)
-            .sameSite("Strict")
+            .sameSite("Lax")
             .build()
 
         return ResponseEntity
