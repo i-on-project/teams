@@ -8,6 +8,22 @@ import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 @Component
 class AuthenticationService(val jdbi: Jdbi) {
 
+    /* User Session */
+
+    fun createSession(@Bind number: Int, @Bind sessionId: String, @Bind usertype: Char) {
+        sqlExceptionHandler {
+            jdbi.onDemand(AuthenticationDAO::class.java).createSession(number, sessionId, usertype)
+        }
+    }
+
+    fun deleteSession(@Bind number: Int, @Bind sessionId: String) {
+        sqlExceptionHandler {
+            jdbi.onDemand(AuthenticationDAO::class.java).deleteSession(number, sessionId)
+        }
+    }
+
+    /* Verification */
+
     fun verifyTeacher(number: Int) {
         sqlExceptionHandler {
             jdbi.onDemand(AuthenticationDAO::class.java).verifyTeacher(number)

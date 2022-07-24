@@ -89,7 +89,7 @@ export function Page() {
                     url={link.href}
                     renderBegin={() => <p>Waiting for URL...</p>}
                     renderOk={(payload) =>
-                        <Menu.Menu fluid vertical>
+                        <Menu.Menu fluid>
                             {
                                 payload.entities.map((entity: Entity) =>
                                     <Menu.Item

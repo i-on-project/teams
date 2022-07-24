@@ -35,7 +35,7 @@ class AuthenticationController(
     fun getLogin(
         @RequestParam clientId: String
     ): ResponseEntity<Any> {
-        return githubAuth(clientId)
+        return githubAuthRedirect(clientId)
     }
 
     @GetMapping(Uris.Callback.PATH)
@@ -48,6 +48,7 @@ class AuthenticationController(
         //Verification of state to prevent CSRF attack
         if (!state.equals(userState)) throw InvalidAuthenticationStateException()
 
+        //TODO: create session
         //TODO: send verification email
 
         //Verification of the type of client logging in, if the client is the desktop app the code is sent
@@ -111,17 +112,32 @@ class AuthenticationController(
         else
             studentsService.createStudent(userInfo.toStudentDbWrite())
 
-        return githubAuth(clientId)
+        return githubAuthRedirect(clientId)
     }
 
     @GetMapping(Uris.Logout.PATH)
-    fun getLogout() {
-        //TODO: terminate session
+    fun getLogout(
+        @RequestParam number: Int,
+        @CookieValue sessionCookie: SessionCookie
+    ): ResponseEntity<Any>{
+        authService.deleteSession(number, sessionCookie.sessionId)
+
+        return ResponseEntity
+            .ok(null)
     }
 
-    @PutMapping
-    fun putVerified() {
-        //TODO: finish verification
+    @PutMapping(Uris.Verify.PATH)
+    fun putVerified(
+        @RequestParam clientId: String,
+        @RequestParam number: Int
+    ): ResponseEntity<Any> {
+        if (clientId == DESKTOP_REGISTER_CLIENT_ID)
+            authService.verifyTeacher(number)
+        else
+            authService.verifyStudent(number)
+
+        return ResponseEntity
+            .ok(null)
     }
 
     /**
@@ -146,7 +162,7 @@ class AuthenticationController(
         return resp.block()
     }
 
-    private fun githubAuth(clientId: String): ResponseEntity<Any> {
+    private fun githubAuthRedirect(clientId: String): ResponseEntity<Any> {
         val state = UUID.randomUUID().toString()
 
         val stateCookie = ResponseCookie.from("userState", state)

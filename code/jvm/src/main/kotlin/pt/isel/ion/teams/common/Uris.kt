@@ -24,6 +24,10 @@ object Uris {
         const val PATH = "/auth/register"
     }
 
+    object Verify {
+        const val PATH = "/auth/verify"
+    }
+
     object Home {
         const val PATH = "/api/home"
         private val TEMPLATE = UriTemplate(PATH)

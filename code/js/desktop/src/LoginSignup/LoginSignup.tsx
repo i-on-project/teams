@@ -104,10 +104,10 @@ export function LoginSignup() {
               <Header as="h3">Signup</Header>
               <Header as="h5">Enter the following information and then sign up through github</Header>
 
-              <Form.Input fluid icon='user' iconPosition='left' placeholder='First and Last names' />
-              <Form.Input fluid icon='mail' iconPosition='left' placeholder='E-mail address' />
-              <Form.Input fluid icon='id card outline' iconPosition='left' placeholder='Institutional Number' />
-              <Form.Input fluid icon='point' iconPosition='left' placeholder='Office' />
+              <Form.Input fluid required icon='user' iconPosition='left' placeholder='First and Last names' />
+              <Form.Input fluid required icon='mail' iconPosition='left' placeholder='E-mail address' />
+              <Form.Input fluid required icon='id card outline' iconPosition='left' placeholder='Institutional Number' />
+              <Form.Input fluid required icon='point' iconPosition='left' placeholder='Office' />
 
               <Button circular color='black' icon='github' />
             </Form>
