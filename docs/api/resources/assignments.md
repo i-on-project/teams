@@ -225,6 +225,17 @@ Status:  200 OK
   ],
   "actions": [
     {
+      "name": "create-delivery",
+      "title": "Create Delivery",
+      "method": "POST",
+      "href": "/api/orgs/{orgId}/class/{classId}/assignments/{assignmentId}/deliveries}",
+      "type": "application/json",
+      "field": [
+        {"name": "name", "type": "string"},
+        {"name": "date", "type": "string"}
+      ]
+    },
+    {
       "name": "update-assignment",
       "title": "Update Assignment",
       "method": "PUT",
