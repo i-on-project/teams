@@ -105,6 +105,17 @@ fun AssignmentOutputModel.toTeacherSirenObject(
     },
     actions = listOf(
         SirenAction(
+            name = "create-delivery",
+            title = "Create Delivery",
+            method = HttpMethod.POST,
+            href = Uris.Deliveries.make(orgId,classId,id),
+            type = MediaType.APPLICATION_JSON,
+            fields = listOf(
+                SirenAction.Field(name = "name", type = "string"),
+                SirenAction.Field(name = "date", type = "string")
+            )
+        ),
+        SirenAction(
             name = "update-assignment",
             title = "Update Assignment",
             method = HttpMethod.PUT,

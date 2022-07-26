@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext, useState } from 'react'
-import { Button, Container, Divider, Dropdown, Form, Header, Modal } from "semantic-ui-react";
-import { Action } from "../types/siren";
+import { Button, Container, Divider, Dropdown, Form, Header, Message, Modal } from "semantic-ui-react";
+import { Action, Field } from "../types/siren";
 import { ChangedContext } from './changedStatus';
 
 interface FormData {
@@ -45,6 +45,18 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
 
     function buildFields() {
 
+        function defaultFormField(field: Field) {
+            return (
+                <React.Fragment>
+                <Form.Field key={field.name} required>
+                    <label>{field.name}</label>
+                    <input placeholder={`Write ${field.name} here...`} onChange={(event) => setState({ ...state, [field.name]: event.target.value })} />
+                </Form.Field>
+                {field.name == "date" && <Message>Date format: YYYY-MM-DD hh:mm:ss</Message>}
+            </React.Fragment>
+            )
+        }
+
         if (!action.fields) {
             //Action is DELETE
             return (<Header size='tiny' textAlign='center'>You sure?</Header>)
@@ -71,19 +83,13 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
                         />
                     </div>
                     :
-                    <Form.Field key={field.name}>
-                        <label>{field.name}</label>
-                        <input placeholder={`Write ${field.name} here...`} onChange={(event) => setState({ ...state, [field.name]: event.target.value })} />
-                    </Form.Field>
+                    defaultFormField(field)
             )
         }
 
         //Ordinary action
         return action.fields.map((field) =>
-            <Form.Field key={field.name}>
-                <label>{field.name}</label>
-                <input placeholder={`Write ${field.name} here...`} onChange={(event) => setState({ ...state, [field.name]: event.target.value })} />
-            </Form.Field>
+            defaultFormField(field)
         )
     }
 }
