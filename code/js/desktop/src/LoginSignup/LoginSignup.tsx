@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Button, Form, Grid, Header, Message, Segment, Image, Divider } from 'semantic-ui-react';
+import { useLoggedInState } from "../common/components/loggedStatus"
 
 
 declare const electron: {
@@ -31,38 +32,9 @@ function convertUrltoObj(url: string) {
   return obj
 }
 
-/*export default function App() {
-
-  const [url, setUrl] = React.useState('*No URL yet*')
-
-  electron.customProtocolUrl((_event, value) => {
-    setUrl(value)
-  })
-
-  React.useEffect(() => {
-    if (!url.includes('code=')) return
-
-    const urlObj = convertUrltoObj(url)
-
-    fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}`)
-      .then(resp => resp.json())
-      .then((token: AccessToken) => console.log(token))
-
-  }, [url])
-
-  return (
-    <div>
-      THIS IS A TEST PAGE, TO SEE THE REAL PAGES UNCOMMENT THE ROUTER!      
-      <div>
-        <button onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop') }}>Login</button>
-        The url is: {url}
-      </div>
-    </div>
-  )
-}*/
-
 export function LoginSignup() {
 
+  const setLoggedState = useLoggedInState().setLoggedState
   const [url, setUrl] = React.useState('*No URL yet*')
 
   electron.customProtocolUrl((_event, value) => {
@@ -76,7 +48,10 @@ export function LoginSignup() {
 
     fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}`)
       .then(resp => resp.json())
-      .then((token: AccessToken) => console.log(token))
+      .then((token: AccessToken) => {
+        console.log(token)
+        setLoggedState({logged: true, access_token: token})
+      })
 
   }, [url])
 
@@ -113,7 +88,7 @@ export function LoginSignup() {
             </Form>
           </Segment>
           <Message>
-            This desktop application is ment to be used exclusively by teachers.
+            This desktop application is meant to be used exclusively by teachers.
           </Message>
         </Grid.Column>
       </Grid>

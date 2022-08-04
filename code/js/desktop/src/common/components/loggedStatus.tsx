@@ -1,9 +1,9 @@
 import { createContext, useContext, useState } from "react"
 import * as React from "react"
 
-export const LoggedInContext = createContext({ 
-    loggedInState: false,
-    setLoggedState: (state: boolean) => { },
+export const LoggedInContext = createContext({
+    loggedInState: {logged: true, access_token: null},
+    setLoggedState: (state: object) => { },
 })
 
 export function useLoggedInState() {

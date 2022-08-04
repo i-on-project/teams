@@ -6,12 +6,12 @@ import { Router } from './Router/Router';
 
 export default function App() {
 
-  const [logged, setLogged] = React.useState(true)
+  const [logged, setLogged] = React.useState({logged: false, access_token: null})
 
   return (
     <LoggedInContext.Provider value={{ loggedInState: logged, setLoggedState: setLogged }}>
       {
-        logged ?
+        logged.logged ?
           <Router />
           :
           <LoginSignup />

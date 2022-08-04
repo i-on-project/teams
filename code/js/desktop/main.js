@@ -30,15 +30,6 @@ const createWindow = () => {
     mainWindow.loadFile('./index.html')
 }
 
-/*require('electron-reload')(__dirname, {
-    electron: require(`${__dirname}/node_modules/electron`)
-})*/
-
-/**
- * Creating window
- */
-
-
 /**
  * Listener to stop app on windows when all windows are closed
  */
@@ -124,7 +115,6 @@ if (!gotTheLock) {
         createWindow()
    
         //IPC both ways
-        ipcMain.handle('clientInfo', getClientIdAndSecret)
    
         app.on('activate', () => {
             if (BrowserWindow.getAllWindows().length === 0) createWindow()

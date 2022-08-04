@@ -30,7 +30,7 @@ export function VerticalFixedMenu() {
 
     function onLogout() {
         //TODO: perform logout
-        setLoggedState(false)
+        setLoggedState({logged: false, access_token: null})
         navigate('/')
     }
 
