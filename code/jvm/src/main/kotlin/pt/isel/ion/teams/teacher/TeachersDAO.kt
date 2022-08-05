@@ -18,6 +18,9 @@ interface TeachersDAO {
     @SqlQuery("SELECT * FROM teachers_view WHERE number=:number")
     fun getTeacher(@Bind("number") number: Int): CompleteTeacherDbRead
 
+    @SqlQuery("SELECT * FROM teachers_view WHERE githubusername=:username")
+    fun getTeacherByUsername(@Bind("username") username: String): CompleteTeacherDbRead
+
     /**
      * Actions on table teachers.
      */

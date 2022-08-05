@@ -5,6 +5,7 @@ import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
+import pt.isel.ion.teams.teacher.CompleteTeacherDbRead
 
 interface StudentsDAO {
 
@@ -24,6 +25,9 @@ interface StudentsDAO {
 
     @SqlQuery("SELECT * FROM students_view WHERE number=:number")
     fun getStudent(@Bind("number") number: Int): CompleteStudentDbRead
+
+    @SqlQuery("SELECT * FROM students_view WHERE githubusername=:username")
+    fun getStudentByUsername(@Bind("username") username: String): CompleteStudentDbRead
 
     /**
      * Action on Student table.

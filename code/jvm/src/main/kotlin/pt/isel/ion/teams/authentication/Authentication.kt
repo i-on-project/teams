@@ -18,6 +18,12 @@ data class SessionCookie(
     val sessionId: String
 )
 
+data class GitHubUserInfo(
+    val login: String,
+    val url: String,
+    val name: String
+)
+
 fun ClientToken.toCompact() = CompactClientToken(this.access_token)
 
 /* ******************** USER REGISTRATION ******************** */

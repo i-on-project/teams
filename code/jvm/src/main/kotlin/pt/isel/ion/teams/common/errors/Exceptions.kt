@@ -32,6 +32,13 @@ class InvalidAuthenticationStateException: BaseException(
     "The state return by the authorization provider does not match the user's state."
 )
 
+class UserNotRegisteredException: BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"), //TODO Update URL
+    "Forbidden",
+    403,
+    "The user attempting to login is not yet registered."
+)
+
 class EmptyDbReturnException: BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
     "Resource Not Found",
@@ -44,6 +51,13 @@ class NoAccessTokenException: BaseException(
     "Resource Not Found",
     404,
     "No access token was provided by the token endpoint."
+)
+
+class NoGithubUserFoundException: BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    "Resource Not Found",
+    404,
+    "There is no existing github user associated with the login process."
 )
 
 class ResourceAlreadyExistsException : BaseException(

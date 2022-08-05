@@ -4,9 +4,7 @@ import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.client.WebClient
 import pt.isel.ion.teams.common.Uris
-import pt.isel.ion.teams.common.errors.InvalidAuthenticationStateException
-import pt.isel.ion.teams.common.errors.InvalidClientId
-import pt.isel.ion.teams.common.errors.NoAccessTokenException
+import pt.isel.ion.teams.common.errors.*
 import pt.isel.ion.teams.students.StudentsService
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
@@ -62,10 +60,20 @@ class AuthenticationController(
                 .build()
         } else if (clientId == WEB_CLIENT_ID) {
             val accessToken = getAccessToken(code) ?: throw NoAccessTokenException()
+            val ghUserInfo = getGithubUserInfo(accessToken.access_token) ?: throw NoGithubUserFoundException()
+
+            //Verification if the user trying to log in is in fact registered
+            try {
+                studentsService.getStudentByUsername(ghUserInfo.login)
+            } catch (e: EmptyDbReturnException) {
+                throw UserNotRegisteredException()
+            }
 
             return ResponseEntity
                 .ok(accessToken)
         }
+
+        //TODO: Add cases where the callback is called in the register process
 
         throw InvalidClientId()
     }
@@ -84,7 +92,18 @@ class AuthenticationController(
             return ResponseEntity
                 .ok(accessToken)
         } else {
+
             val at = getAccessToken(code) ?: throw NoAccessTokenException()
+            val ghUserInfo = getGithubUserInfo(at.access_token) ?: throw NoGithubUserFoundException()
+
+            //Verification if the user trying to log in is in fact registered
+            try {
+                teachersService.getTeacherByUsername(ghUserInfo.login)
+            } catch (e: EmptyDbReturnException) {
+                throw UserNotRegisteredException()
+            }
+
+            println()
 
             val accessTokenCookie = ResponseCookie.from("accessToken", at.access_token)
                 .path("/auth/access_token")
@@ -140,28 +159,6 @@ class AuthenticationController(
             .ok(null)
     }
 
-    /**
-     * Function used to fetch the access token associated to the given code from the github token endpoint
-     * @param code The code from the authentication flow
-     * @return client token and aditional information
-     */
-    fun getAccessToken(code: String): ClientToken? {
-        val webClient = WebClient.create("https://github.com")
-        val uri = "/login/oauth/access_token?client_id=" + System.getenv("CLIENT_ID") +
-                "&client_secret=" + System.getenv("CLIENT_SECRET") +
-                "&code=" + code
-
-        val resp: Mono<ClientToken> =
-            webClient
-                .post()
-                .uri(uri)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(ClientToken::class.java)
-
-        return resp.block()
-    }
-
     private fun githubAuthRedirect(clientId: String): ResponseEntity<Any> {
         val state = UUID.randomUUID().toString()
 
@@ -194,5 +191,48 @@ class AuthenticationController(
                         "state=" + state
             )
             .build()
+    }
+
+    /* ****************** HTTP REQUESTS ****************** */
+
+    /**
+     * Function used to fetch the access token associated to the given code from the GitHub token endpoint
+     * @param code The code from the authentication flow
+     * @return client token and additional information
+     */
+    fun getAccessToken(code: String): ClientToken? {
+        val webClient = WebClient.create("https://github.com")
+        val uri = "/login/oauth/access_token?client_id=" + System.getenv("CLIENT_ID") +
+                "&client_secret=" + System.getenv("CLIENT_SECRET") +
+                "&code=" + code
+
+        val resp: Mono<ClientToken> =
+            webClient
+                .post()
+                .uri(uri)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(ClientToken::class.java)
+
+        return resp.block()
+    }
+
+    /**
+     * Function used to fetch the user information of the user trying to log in
+     */
+    fun getGithubUserInfo(accessToken: String): GitHubUserInfo? {
+        val webClient = WebClient.create("https://api.github.com")
+        val uri = "/user"
+
+        val resp: Mono<GitHubUserInfo> =
+            webClient
+                .get()
+                .uri(uri)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer $accessToken")
+                .retrieve()
+                .bodyToMono(GitHubUserInfo::class.java)
+
+        return resp.block()
     }
 }

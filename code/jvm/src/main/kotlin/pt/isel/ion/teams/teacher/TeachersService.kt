@@ -17,6 +17,11 @@ class TeachersService(val jdbi: Jdbi) {
             jdbi.onDemand(TeachersDAO::class.java).getTeacher(number)
         }
 
+    fun getTeacherByUsername(username: String) =
+        sqlExceptionHandler {
+            jdbi.onDemand(TeachersDAO::class.java).getTeacherByUsername(username)
+        }
+
     fun createTeacher(teacher: TeacherDbWrite) =
         sqlExceptionHandler {
             jdbi.onDemand(TeachersDAO::class.java).createTeacher(teacher)

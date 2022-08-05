@@ -26,8 +26,8 @@ SELECT code, cId
 FROM invite_links
 WHERE deleted = B'0';
 
-CREATE VIEW TEACHERS_VIEW (number, name, email, office) AS
-SELECT ts.number, t.name, t.email, t.office, ts.cId, ts.orgid
+CREATE VIEW TEACHERS_VIEW (number, name, email, githubusername, office) AS
+SELECT ts.number, t.name, t.email, t.githubusername, t.office, ts.cId, ts.orgid
 FROM teachers ts
          JOIN teacher t on ts.number = t.number
 WHERE ts.deleted = B'0';
@@ -43,8 +43,8 @@ FROM teams
 WHERE state = 'pending'
   AND deleted = B'0';
 
-CREATE VIEW STUDENTS_VIEW (number, name, tId, cId) AS
-SELECT sts.number, st.name, sts.tId, sts.cId
+CREATE VIEW STUDENTS_VIEW (number, name, githubusername, tId, cId) AS
+SELECT sts.number, st.name, githubusername, sts.tId, sts.cId
 FROM student st
          JOIN students sts ON sts.number = st.number
 WHERE sts.deleted = B'0';
