@@ -8,6 +8,7 @@ import pt.isel.ion.teams.common.errors.*
 import pt.isel.ion.teams.students.StudentsService
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
+import java.nio.file.Paths
 import java.util.*
 
 const val GITHUB_OAUTH_URI = "https://github.com/login/oauth/authorize"
@@ -18,6 +19,8 @@ const val ONE_MONTH: Long = 60 * 60 * 24 * 30
 const val DESKTOP_CLIENT_ID = "desktop"
 const val DESKTOP_REGISTER_CLIENT_ID = "desktop-register"
 const val WEB_CLIENT_ID = "web"
+const val WEB_REGISTER_CLIENT_ID = "web-register"
+
 
 //TODO: After deployment activate flag secure on cookies
 
@@ -51,26 +54,39 @@ class AuthenticationController(
 
         //Verification of the type of client logging in, if the client is the desktop app the code is sent
         // and the desktop app is responsible for retrieving its Access token
-        if (clientId == DESKTOP_CLIENT_ID) {
-            return ResponseEntity
-                .status(303)
-                .header(
-                    HttpHeaders.LOCATION, "ion-teams://code=" + code
-                )
-                .build()
-        } else if (clientId == WEB_CLIENT_ID) {
-            val accessToken = getAccessToken(code) ?: throw NoAccessTokenException()
-            val ghUserInfo = getGithubUserInfo(accessToken.access_token) ?: throw NoGithubUserFoundException()
-
-            //Verification if the user trying to log in is in fact registered
-            try {
-                studentsService.getStudentByUsername(ghUserInfo.login)
-            } catch (e: EmptyDbReturnException) {
-                throw UserNotRegisteredException()
+        when(clientId) {
+            DESKTOP_CLIENT_ID -> {
+                return ResponseEntity
+                    .status(303)
+                    .header(
+                        HttpHeaders.LOCATION, "ion-teams://code=$code&type=login"
+                    )
+                    .build()
             }
 
-            return ResponseEntity
-                .ok(accessToken)
+            WEB_CLIENT_ID -> {
+                val accessToken = getAccessToken(code) ?: throw NoAccessTokenException()
+                val ghUserInfo = getGithubUserInfo(accessToken.access_token) ?: throw NoGithubUserFoundException()
+
+                //Verification if the user trying to log in is in fact registered
+                try {
+                    studentsService.getStudentByUsername(ghUserInfo.login)
+                } catch (e: EmptyDbReturnException) {
+                    throw UserNotRegisteredException()
+                }
+
+                return ResponseEntity
+                    .ok(accessToken)
+            }
+
+            DESKTOP_REGISTER_CLIENT_ID -> {
+                return ResponseEntity
+                    .status(303)
+                    .header(
+                        HttpHeaders.LOCATION, "ion-teams://code=$code&type=register"
+                    )
+                    .build()
+            }
         }
 
         //TODO: Add cases where the callback is called in the register process
@@ -121,14 +137,33 @@ class AuthenticationController(
         }
     }
 
+    /**
+     * Used by the desktop app to follow the GitHub flow, if the external sign in process is successful
+     * the register process will be completed with a POST from the app directly to the service.
+     */
+    @GetMapping(Uris.Register.PATH)
+    fun getRegisterUser(
+        @RequestParam clientId: String,
+        ): ResponseEntity<Any> {
+        return githubAuthRedirect(clientId)
+    }
+
     @PostMapping(Uris.Register.PATH)
     fun postRegisterUser(
         @RequestParam clientId: String,
         @RequestBody userInfo: UserInfoInputModel
     ): ResponseEntity<Any> {
-        if (clientId == DESKTOP_REGISTER_CLIENT_ID)
+        if (clientId == DESKTOP_REGISTER_CLIENT_ID) {
+
+            val path = Paths.get("").toAbsolutePath().toString()
+
+            if (userInfo.email == null) throw MissingRegisterParameters()
+            if (!authService.checkIsAuthorisedTeacher(userInfo.email)) throw NotAnAuthorizedEmailException()
+
             teachersService.createTeacher(userInfo.toTeacherDbWrite())
-        else
+
+            return ResponseEntity.status(200).build()
+        } else if (clientId == WEB_REGISTER_CLIENT_ID)
             studentsService.createStudent(userInfo.toStudentDbWrite())
 
         return githubAuthRedirect(clientId)
@@ -152,7 +187,7 @@ class AuthenticationController(
     ): ResponseEntity<Any> {
         if (clientId == DESKTOP_REGISTER_CLIENT_ID)
             authService.verifyTeacher(number)
-        else
+        else if (clientId == WEB_REGISTER_CLIENT_ID)
             authService.verifyStudent(number)
 
         return ResponseEntity

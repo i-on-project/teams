@@ -25,6 +25,13 @@ class InvalidClientId: BaseException(
     "The Client ID you provided in not valid in the current context."
 )
 
+class MissingRegisterParameters: BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md"),
+    "Bad Request",
+    400,
+    "There is one or more register parameters missing."
+)
+
 class InvalidAuthenticationStateException: BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"), //TODO Update URL
     "Forbidden",
@@ -37,6 +44,13 @@ class UserNotRegisteredException: BaseException(
     "Forbidden",
     403,
     "The user attempting to login is not yet registered."
+)
+
+class NotAnAuthorizedEmailException: BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"), //TODO Update URL
+    "Forbidden",
+    403,
+    "The provided teacher's email for registration was not pre authorized."
 )
 
 class EmptyDbReturnException: BaseException(

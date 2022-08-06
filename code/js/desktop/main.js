@@ -55,7 +55,6 @@ ipcMain.on('copy', (_, value) => {
 })
 
 ipcMain.on('openBrowser', (_, url) => {
-    console.log('Trying to open browser to this url: ' + url)
     shell.openExternal(url)
 })
 
