@@ -9,7 +9,6 @@ import pt.isel.ion.teams.students.StudentsService
 import pt.isel.ion.teams.teacher.TeacherDbUpdate
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
-import java.nio.file.Paths
 import java.util.*
 
 const val GITHUB_OAUTH_URI = "https://github.com/login/oauth/authorize"
@@ -31,6 +30,9 @@ class AuthenticationController(
     val studentsService: StudentsService
 ) {
 
+    /**
+     * Endpoint used to start the login procedure.
+     */
     @GetMapping(Uris.Login.PATH)
     fun getLogin(
         @RequestParam clientId: String
@@ -38,6 +40,47 @@ class AuthenticationController(
         return githubAuthRedirect(clientId)
     }
 
+    /**
+     * Used by the desktop app to follow the GitHub flow, if the external sign-in process is successful
+     * the register process will be completed with a POST from the app directly to the service.
+     */
+    @GetMapping(Uris.Register.PATH)
+    fun getRegisterUser(
+        @RequestParam clientId: String,
+    ): ResponseEntity<Any> {
+        return githubAuthRedirect(clientId)
+    }
+
+    /**
+     * Register endpoint adds a teacher or a student to the database, registering them as a user to the service.
+     * If the user is a teacher a verification is made to ensure that the email provided is present in the list of
+     * previously authorised teacher emails (maintained by the system admin).
+     */
+    @PostMapping(Uris.Register.PATH)
+    fun postRegisterUser(
+        @RequestParam clientId: String,
+        @RequestBody userInfo: UserInfoInputModel
+    ): ResponseEntity<Any> {
+        if (userInfo.email == null) throw MissingRegisterParameters()
+
+        if (clientId == DESKTOP_REGISTER_CLIENT_ID) {
+
+            if (userInfo.office == null) throw MissingRegisterParameters()
+            if (!authService.checkIsAuthorisedTeacher(userInfo.email)) throw NotAnAuthorizedEmailException()
+
+            teachersService.createTeacher(userInfo.toTeacherDbWrite())
+
+            return ResponseEntity.status(200).build()
+        } else if (clientId == WEB_REGISTER_CLIENT_ID)
+            studentsService.createStudent(userInfo.toStudentDbWrite())
+
+        return githubAuthRedirect(clientId)
+    }
+
+    /**
+     * Callback endpoint used when the OAuth flow returns to the service after the user authenticated themselves
+     * on GitHub.
+     */
     @GetMapping(Uris.Callback.PATH)
     fun getCallback(
         @RequestParam code: String,
@@ -46,7 +89,7 @@ class AuthenticationController(
         @CookieValue clientId: String
     ): ResponseEntity<Any> {
         //Verification of state to prevent CSRF attack
-        if (!state.equals(userState)) throw InvalidAuthenticationStateException()
+        if (state != userState) throw InvalidAuthenticationStateException()
 
         //TODO: create session
         //TODO: send verification email
@@ -86,13 +129,25 @@ class AuthenticationController(
                     )
                     .build()
             }
+
+            WEB_REGISTER_CLIENT_ID -> {
+                val accessToken = getAccessToken(code) ?: throw NoAccessTokenException()
+                val ghUserInfo = getGithubUserInfo(accessToken.access_token) ?: throw NoGithubUserFoundException()
+
+                //TODO: Identify user and update its GitHub username
+                
+                return ResponseEntity
+                    .ok(accessToken)
+            }
+
+            else -> throw InvalidClientId()
         }
-
-        //TODO: Add cases where the callback is called in the register process
-
-        throw InvalidClientId()
     }
 
+    /**
+     * Endpoint used by the desktop application to retrieve the GitHub access token, this way the token which is
+     * highly sensitive is never stored remotely on the service.
+     */
     @GetMapping(Uris.DesktopAccessToken.PATH)
     fun getDesktopAccessToken(
         @RequestParam code: String,
@@ -116,7 +171,7 @@ class AuthenticationController(
             if (type == "register" && number != null) {
                 teachersService.updateTeacher(
                     TeacherDbUpdate(
-                        number!!.toInt(),
+                        number.toInt(),
                         null, null, null,
                         ghUserInfo.login,
                         null, null
@@ -148,46 +203,11 @@ class AuthenticationController(
     }
 
     /**
-     * Used by the desktop app to follow the GitHub flow, if the external sign in process is successful
-     * the register process will be completed with a POST from the app directly to the service.
+     * Used for verifying a new user, after the registration the users receive an email for account verification
+     * with a link to this endpoint.
+     *
+     * The user will then be identified and verified.
      */
-    @GetMapping(Uris.Register.PATH)
-    fun getRegisterUser(
-        @RequestParam clientId: String,
-    ): ResponseEntity<Any> {
-        return githubAuthRedirect(clientId)
-    }
-
-    @PostMapping(Uris.Register.PATH)
-    fun postRegisterUser(
-        @RequestParam clientId: String,
-        @RequestBody userInfo: UserInfoInputModel
-    ): ResponseEntity<Any> {
-        if (clientId == DESKTOP_REGISTER_CLIENT_ID) {
-
-            if (userInfo.email == null) throw MissingRegisterParameters()
-            if (!authService.checkIsAuthorisedTeacher(userInfo.email)) throw NotAnAuthorizedEmailException()
-
-            teachersService.createTeacher(userInfo.toTeacherDbWrite())
-
-            return ResponseEntity.status(200).build()
-        } else if (clientId == WEB_REGISTER_CLIENT_ID)
-            studentsService.createStudent(userInfo.toStudentDbWrite())
-
-        return githubAuthRedirect(clientId)
-    }
-
-    @GetMapping(Uris.Logout.PATH)
-    fun getLogout(
-        @RequestParam number: Int,
-        @CookieValue sessionCookie: SessionCookie
-    ): ResponseEntity<Any> {
-        authService.deleteSession(number, sessionCookie.sessionId)
-
-        return ResponseEntity
-            .ok(null)
-    }
-
     @PutMapping(Uris.Verify.PATH)
     fun putVerified(
         @RequestParam clientId: String,
@@ -202,6 +222,29 @@ class AuthenticationController(
             .ok(null)
     }
 
+    /**
+     * Logout endpoint terminated the user session and removes its cookies.
+     */
+    @GetMapping(Uris.Logout.PATH)
+    fun getLogout(
+        @RequestParam number: Int,
+        @CookieValue sessionCookie: SessionCookie
+    ): ResponseEntity<Any> {
+        authService.deleteSession(number, sessionCookie.sessionId)
+
+        return ResponseEntity
+            .ok(null)
+    }
+
+    /* ****************** AUXILIARY FUNCTIONS ****************** */
+
+    /**
+     * Function responsible for creating the cookies that are necessary for an OAuth2.0 authentication, namely
+     * the state and a clientId to identify the type of client requesting the authentication.
+     *
+     * The function then returns a ResponseEntity with status 303 for redirection to GitHub to complete the
+     * authentication before returning to the server callback endpoint.
+     */
     private fun githubAuthRedirect(clientId: String): ResponseEntity<Any> {
         val state = UUID.randomUUID().toString()
 
