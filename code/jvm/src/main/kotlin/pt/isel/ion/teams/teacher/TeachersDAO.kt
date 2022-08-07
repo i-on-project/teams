@@ -18,8 +18,8 @@ interface TeachersDAO {
     @SqlQuery("SELECT * FROM teachers_view WHERE number=:number")
     fun getTeacher(@Bind("number") number: Int): CompleteTeacherDbRead
 
-    @SqlQuery("SELECT * FROM teachers_view WHERE githubusername=:username")
-    fun getTeacherByUsername(@Bind("username") username: String): CompleteTeacherDbRead
+    @SqlQuery("SELECT * FROM teacher WHERE githubusername=:username AND deleted = B'0'")
+    fun getTeacherByUsername(@Bind("username") username: String): InfoTeacherDbRead
 
     /**
      * Actions on table teachers.
@@ -28,7 +28,7 @@ interface TeachersDAO {
     @GetGeneratedKeys
     fun createTeacher(@BindBean teacher: TeacherDbWrite): InfoTeacherDbRead
 
-    @SqlUpdate("UPDATE teacher SET name=COALESCE(:name,name),email=COALESCE(:email,email),office=COALESCE(:office,office) WHERE number=:number")
+    @SqlUpdate("UPDATE teacher SET name=COALESCE(:name,name), email=COALESCE(:email,email), office=COALESCE(:office,office), githubusername=COALESCE(:githubusername,githubusername) WHERE number=:number")
     @GetGeneratedKeys
     fun updateTeacherInfo(@BindBean teacher: TeacherDbUpdate): InfoTeacherDbRead
 

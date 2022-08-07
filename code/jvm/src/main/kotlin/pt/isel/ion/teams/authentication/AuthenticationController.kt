@@ -6,6 +6,7 @@ import org.springframework.web.reactive.function.client.WebClient
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.errors.*
 import pt.isel.ion.teams.students.StudentsService
+import pt.isel.ion.teams.teacher.TeacherDbUpdate
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
 import java.nio.file.Paths
@@ -20,8 +21,6 @@ const val DESKTOP_CLIENT_ID = "desktop"
 const val DESKTOP_REGISTER_CLIENT_ID = "desktop-register"
 const val WEB_CLIENT_ID = "web"
 const val WEB_REGISTER_CLIENT_ID = "web-register"
-
-
 //TODO: After deployment activate flag secure on cookies
 
 @RestController
@@ -54,7 +53,7 @@ class AuthenticationController(
 
         //Verification of the type of client logging in, if the client is the desktop app the code is sent
         // and the desktop app is responsible for retrieving its Access token
-        when(clientId) {
+        when (clientId) {
             DESKTOP_CLIENT_ID -> {
                 return ResponseEntity
                     .status(303)
@@ -97,6 +96,8 @@ class AuthenticationController(
     @GetMapping(Uris.DesktopAccessToken.PATH)
     fun getDesktopAccessToken(
         @RequestParam code: String,
+        @RequestParam type: String,
+        @RequestParam number: String?,
         @CookieValue accessToken: String?
     ): ResponseEntity<Any> {
 
@@ -112,14 +113,23 @@ class AuthenticationController(
             val at = getAccessToken(code) ?: throw NoAccessTokenException()
             val ghUserInfo = getGithubUserInfo(at.access_token) ?: throw NoGithubUserFoundException()
 
-            //Verification if the user trying to log in is in fact registered
-            try {
-                teachersService.getTeacherByUsername(ghUserInfo.login)
-            } catch (e: EmptyDbReturnException) {
-                throw UserNotRegisteredException()
+            if (type == "register" && number != null) {
+                teachersService.updateTeacher(
+                    TeacherDbUpdate(
+                        number!!.toInt(),
+                        null, null, null,
+                        ghUserInfo.login,
+                        null, null
+                    )
+                )
+            } else {
+                //Verification if the user trying to log in is in fact registered
+                try {
+                    teachersService.getTeacherByUsername(ghUserInfo.login)
+                } catch (e: EmptyDbReturnException) {
+                    throw UserNotRegisteredException()
+                }
             }
-
-            println()
 
             val accessTokenCookie = ResponseCookie.from("accessToken", at.access_token)
                 .path("/auth/access_token")
@@ -144,7 +154,7 @@ class AuthenticationController(
     @GetMapping(Uris.Register.PATH)
     fun getRegisterUser(
         @RequestParam clientId: String,
-        ): ResponseEntity<Any> {
+    ): ResponseEntity<Any> {
         return githubAuthRedirect(clientId)
     }
 
@@ -154,8 +164,6 @@ class AuthenticationController(
         @RequestBody userInfo: UserInfoInputModel
     ): ResponseEntity<Any> {
         if (clientId == DESKTOP_REGISTER_CLIENT_ID) {
-
-            val path = Paths.get("").toAbsolutePath().toString()
 
             if (userInfo.email == null) throw MissingRegisterParameters()
             if (!authService.checkIsAuthorisedTeacher(userInfo.email)) throw NotAnAuthorizedEmailException()
@@ -173,7 +181,7 @@ class AuthenticationController(
     fun getLogout(
         @RequestParam number: Int,
         @CookieValue sessionCookie: SessionCookie
-    ): ResponseEntity<Any>{
+    ): ResponseEntity<Any> {
         authService.deleteSession(number, sessionCookie.sessionId)
 
         return ResponseEntity

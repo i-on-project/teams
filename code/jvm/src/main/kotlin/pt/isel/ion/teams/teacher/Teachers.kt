@@ -16,6 +16,7 @@ data class CompleteTeacherDbRead(
 data class InfoTeacherDbRead(
     val number: Int,
     val name: String,
+    val githubusername: String?,
     val email: String,
     val office: String
 )
@@ -38,6 +39,7 @@ data class TeacherDbUpdate(
     val name: String?,
     val email: String?,
     val office: String?,
+    val githubusername: String?,
     val cid: Int?,
     val orgid: Int?
 )
@@ -79,6 +81,7 @@ data class TeacherUpdateModel(
     val name: String?,
     val email: String?,
     val office: String?,
+    val githubusername: String?,
     val cid: Int?,
     val orgid: Int?
 )
@@ -86,9 +89,9 @@ data class TeacherUpdateModel(
 /**
  * Functions to transition from external to internal, or vice-versa.
  */
-fun TeacherInputModel.toDb() = TeacherDbWrite(this.number,this.name,this.email,this.office)
-fun TeacherUpdateModel.toDb(number: Int) = TeacherDbUpdate(number,this.name,this.email,this.office, this.cid,this.orgid)
-fun CompleteTeacherDbRead.toOutput() = CompleteTeacherOutputModel(this.number,this.name,this.email,this.office,this.cid,this.orgid)
+fun TeacherInputModel.toDb() = TeacherDbWrite(this.number, this.name, this.email, this.office)
+fun TeacherUpdateModel.toDb(number: Int) = TeacherDbUpdate(number, this.name, this.email, this.office, this.githubusername, this.cid, this.orgid)
+fun CompleteTeacherDbRead.toOutput() = CompleteTeacherOutputModel(this.number, this.name, this.email, this.office, this.cid, this.orgid)
 fun SimpleTeacherDbRead.toOutput() = SimpleTeacherOutputModel(this.number, this.cid, this.orgid)
-fun InfoTeacherDbRead.toOutput() = TeacherCompactOutputModel(this.number,this.name,this.email,this.office)
-fun CompleteTeacherDbRead.toCompactOutput() = TeacherCompactOutputModel(this.number,this.name,this.email,this.office)
+fun InfoTeacherDbRead.toOutput() = TeacherCompactOutputModel(this.number, this.name, this.email, this.office)
+fun CompleteTeacherDbRead.toCompactOutput() = TeacherCompactOutputModel(this.number, this.name, this.email, this.office)

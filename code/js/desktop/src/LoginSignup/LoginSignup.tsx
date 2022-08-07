@@ -20,6 +20,13 @@ declare type UrlObj = {
   type: string
 }
 
+declare type RegisterParams = {
+  name?: string,
+  email?: string,
+  number?: string,
+  office?: string
+}
+
 function convertUrltoObj(url: string) {
 
   let split = url.split('://')
@@ -42,7 +49,7 @@ export function LoginSignup() {
 
   const setLoggedState = useLoggedInState().setLoggedState
   const [url, setUrl] = React.useState('*No URL yet*')
-  const [parameters, setParameters] = React.useState({})
+  const [parameters, setParameters] = React.useState<RegisterParams>({})
 
   electron.customProtocolUrl((_event, value) => {
     setUrl(value)
@@ -56,7 +63,7 @@ export function LoginSignup() {
 
     switch (urlObj.type) {
       case "login":
-        fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}`)
+        fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
           .then(resp => resp.json())
           .then((token: AccessToken) => {
             console.log(token)
@@ -72,7 +79,7 @@ export function LoginSignup() {
           body: JSON.stringify(parameters)
         })
           .then(() =>
-            fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}`)
+            fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`)
               .then(resp => resp.json())
               .then((token: AccessToken) => {
                 console.log(token)
