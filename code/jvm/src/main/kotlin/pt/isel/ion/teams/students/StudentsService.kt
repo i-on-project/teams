@@ -38,6 +38,11 @@ class StudentsService(val jdbi: Jdbi) {
             jdbi.onDemand(StudentsDAO::class.java).updateStudentName(student)
         }
 
+    fun updateStudentUsername(student: StudentDbUpdate) =
+        sqlExceptionHandler {
+            jdbi.onDemand(StudentsDAO::class.java).updateStudentUsername(student)
+        }
+
     fun deleteStudent(number: Int) =
         sqlExceptionHandler {
             jdbi.onDemand(StudentsDAO::class.java).deleteStudent(number)

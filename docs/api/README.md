@@ -18,7 +18,8 @@ A diagram of the relation between resources is shown [here](api_resource_diagram
 
 ## Problems
 
-* [Bad Request](errors/badrequest.md)
-* [Not Found](errors/not_found.md)
-* [Unauthorized](errors/unauthorized.md)
-* [Conflict](errors/conflict.md)
+* [Bad Request](problems/badrequest.md)
+* [Not Found](problems/not_found.md)
+* [Unauthorized](problems/unauthorized.md)
+* [Conflict](problems/conflict.md)
+* [Internal Server Error](problems/internal_server_error.md)

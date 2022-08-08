@@ -40,6 +40,10 @@ interface StudentsDAO {
     @GetGeneratedKeys
     fun updateStudentName(@BindBean student: StudentDbUpdate): StudentInfoDbRead
 
+    @SqlUpdate("UPDATE student SET githubusername=COALESCE(:githubusername,githubusername) WHERE number=:number")
+    @GetGeneratedKeys
+    fun updateStudentUsername(@BindBean student: StudentDbUpdate): StudentInfoDbRead
+
     @SqlUpdate("UPDATE student SET deleted=B'0' WHERE number=:number")
     fun deleteStudent(@Bind number: Int)
 

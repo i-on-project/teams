@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.client.WebClient
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.errors.*
+import pt.isel.ion.teams.students.StudentDbUpdate
 import pt.isel.ion.teams.students.StudentsService
 import pt.isel.ion.teams.teacher.TeacherDbUpdate
 import pt.isel.ion.teams.teacher.TeachersService
@@ -61,20 +62,23 @@ class AuthenticationController(
         @RequestParam clientId: String,
         @RequestBody userInfo: UserInfoInputModel
     ): ResponseEntity<Any> {
-        if (userInfo.email == null) throw MissingRegisterParameters()
+        if (userInfo.email == null) throw MissingRegisterParametersException()
 
         if (clientId == DESKTOP_REGISTER_CLIENT_ID) {
 
-            if (userInfo.office == null) throw MissingRegisterParameters()
+            if (userInfo.office == null) throw MissingRegisterParametersException()
             if (!authService.checkIsAuthorisedTeacher(userInfo.email)) throw NotAnAuthorizedEmailException()
 
             teachersService.createTeacher(userInfo.toTeacherDbWrite())
 
             return ResponseEntity.status(200).build()
-        } else if (clientId == WEB_REGISTER_CLIENT_ID)
+        } else if (clientId == WEB_REGISTER_CLIENT_ID) {
             studentsService.createStudent(userInfo.toStudentDbWrite())
 
-        return githubAuthRedirect(clientId)
+            return githubAuthRedirect(clientId, userInfo.number.toString())
+        }
+
+        throw InvalidClientIdException()
     }
 
     /**
@@ -94,9 +98,18 @@ class AuthenticationController(
         //TODO: create session
         //TODO: send verification email
 
+        var number: String? = null
+        var processedClientId = clientId
+        if (clientId.contains("+")) {
+            val split = clientId.split("+")
+
+            processedClientId = split[0]
+            number = split[1]
+        }
+
         //Verification of the type of client logging in, if the client is the desktop app the code is sent
         // and the desktop app is responsible for retrieving its Access token
-        when (clientId) {
+        when (processedClientId) {
             DESKTOP_CLIENT_ID -> {
                 return ResponseEntity
                     .status(303)
@@ -134,13 +147,14 @@ class AuthenticationController(
                 val accessToken = getAccessToken(code) ?: throw NoAccessTokenException()
                 val ghUserInfo = getGithubUserInfo(accessToken.access_token) ?: throw NoGithubUserFoundException()
 
-                //TODO: Identify user and update its GitHub username
-                
+                if (number == null) throw InvalidClientIdException()
+                studentsService.updateStudentUsername(StudentDbUpdate(number.toInt(), githubusername = ghUserInfo.login))
+
                 return ResponseEntity
                     .ok(accessToken)
             }
 
-            else -> throw InvalidClientId()
+            else -> throw InvalidClientIdException()
         }
     }
 
@@ -169,14 +183,7 @@ class AuthenticationController(
             val ghUserInfo = getGithubUserInfo(at.access_token) ?: throw NoGithubUserFoundException()
 
             if (type == "register" && number != null) {
-                teachersService.updateTeacher(
-                    TeacherDbUpdate(
-                        number.toInt(),
-                        null, null, null,
-                        ghUserInfo.login,
-                        null, null
-                    )
-                )
+                teachersService.updateTeacher(TeacherDbUpdate(number.toInt(), githubusername = ghUserInfo.login))
             } else {
                 //Verification if the user trying to log in is in fact registered
                 try {
@@ -245,7 +252,7 @@ class AuthenticationController(
      * The function then returns a ResponseEntity with status 303 for redirection to GitHub to complete the
      * authentication before returning to the server callback endpoint.
      */
-    private fun githubAuthRedirect(clientId: String): ResponseEntity<Any> {
+    private fun githubAuthRedirect(clientId: String, number: String? = null): ResponseEntity<Any> {
         val state = UUID.randomUUID().toString()
 
         val stateCookie = ResponseCookie.from("userState", state)
@@ -257,7 +264,12 @@ class AuthenticationController(
             .sameSite("Lax")
             .build()
 
-        val clientIdCookie = ResponseCookie.from("clientId", clientId)
+        //In student registration it is necessary to store the student number so that the GitHub username
+        //can later be associated with that number.
+        val clientIdCookieValue =
+            if (number == null && clientId == WEB_REGISTER_CLIENT_ID) "$clientId+$number" else clientId
+
+        val clientIdCookie = ResponseCookie.from("clientId", clientIdCookieValue)
             .path("/auth/callback")
             .domain("localhost")
             .maxAge(HALF_HOUR)

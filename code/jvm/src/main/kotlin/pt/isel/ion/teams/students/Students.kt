@@ -34,7 +34,8 @@ data class StudentDbWrite(
 
 data class StudentDbUpdate(
     val number: Int,
-    val name: String
+    val name: String? = null,
+    val githubusername: String? = null
 )
 
 /**
@@ -73,7 +74,8 @@ data class StudentCompactOutputModel(
 )
 
 data class StudentUpdateModel(
-    val name: String
+    val name: String?,
+    val githubusername: String?
 )
 
 /**
@@ -86,4 +88,4 @@ fun StudentInfoDbRead.toOutput() = StudentInfoOutputModel(this.number, this.name
 fun StudentClassInfoDbRead.toOutput() = StudentClassInfoOutputModel(this.number, this.tid, this.cid)
 fun CompleteStudentDbRead.toOutput() = CompleteStudentOutputModel(this.number, this.name, this.tid)
 fun CompleteStudentDbRead.toCompactOutput() =StudentCompactOutputModel(this.number,this.name)
-fun StudentUpdateModel.toDb(number: Int) = StudentDbUpdate(number, this.name)
+fun StudentUpdateModel.toDb(number: Int) = StudentDbUpdate(number, this.name, this.githubusername)

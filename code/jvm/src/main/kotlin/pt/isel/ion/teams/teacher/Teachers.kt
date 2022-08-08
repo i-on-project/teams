@@ -36,12 +36,12 @@ data class TeacherDbWrite(
 
 data class TeacherDbUpdate(
     val number: Int,
-    val name: String?,
-    val email: String?,
-    val office: String?,
-    val githubusername: String?,
-    val cid: Int?,
-    val orgid: Int?
+    val name: String? = null,
+    val email: String? = null,
+    val office: String? = null,
+    val githubusername: String? = null,
+    val cid: Int? = null,
+    val orgid: Int? = null
 )
 
 /**

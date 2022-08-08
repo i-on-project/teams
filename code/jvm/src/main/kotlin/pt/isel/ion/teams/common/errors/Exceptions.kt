@@ -18,14 +18,14 @@ class InvalidDateFormatException: BaseException(
     "The date you inserted is in an invalid format, must be <yyyy-mm-dd hh:mm:ss>"
 )
 
-class InvalidClientId: BaseException(
+class InvalidClientIdException: BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md"),
     "Bad Request",
     400,
     "The Client ID you provided in not valid in the current context."
 )
 
-class MissingRegisterParameters: BaseException(
+class MissingRegisterParametersException: BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md"),
     "Bad Request",
     400,
@@ -53,25 +53,25 @@ class NotAnAuthorizedEmailException: BaseException(
     "The provided teacher's email for registration was not pre authorized."
 )
 
-class EmptyDbReturnException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
-    "Resource Not Found",
-    404,
-    "The database resource you tried to access was not found or does not exist"
-)
-
 class NoAccessTokenException: BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
-    "Resource Not Found",
-    404,
+    "Unauthorized",
+    403,
     "No access token was provided by the token endpoint."
 )
 
 class NoGithubUserFoundException: BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
     "Resource Not Found",
-    404,
+    403,
     "There is no existing github user associated with the login process."
+)
+
+class EmptyDbReturnException: BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    "Resource Not Found",
+    404,
+    "The database resource you tried to access was not found or does not exist"
 )
 
 class ResourceAlreadyExistsException : BaseException(
