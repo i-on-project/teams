@@ -37,6 +37,4 @@ DROP TABLE IF EXISTS invite_links;
 DROP TABLE IF EXISTS classrooms;
 DROP TABLE IF EXISTS organizations;
 DROP TABLE IF EXISTS user_session;
-
-DROP FUNCTION IF EXISTS check_class_teams_fun();
-DROP FUNCTION IF EXISTS check_team_members_fun();
+DROP TABLE IF EXISTS to_verify;

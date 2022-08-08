@@ -25,27 +25,15 @@ class AuthenticationService(val jdbi: Jdbi) {
 
     /* Verification */
 
-    fun verifyTeacher(number: Int) {
+    fun verifyUser(code: String) {
         sqlExceptionHandler {
-            jdbi.onDemand(AuthenticationDAO::class.java).verifyTeacher(number)
+            jdbi.onDemand(AuthenticationDAO::class.java).verifyUser(code)
         }
     }
 
-    fun verifyStudent(number: Int) {
+    fun isVerified(@Bind number: Int) {
         sqlExceptionHandler {
-            jdbi.onDemand(AuthenticationDAO::class.java).verifyStudent(number)
-        }
-    }
-
-    fun isVerifiedTeacher(@Bind number: Int) {
-        sqlExceptionHandler {
-            jdbi.onDemand(AuthenticationDAO::class.java).isVerifiedTeacher(number)
-        }
-    }
-
-    fun isVerifiedStudent(@Bind number: Int) {
-        sqlExceptionHandler {
-            jdbi.onDemand(AuthenticationDAO::class.java).isVerifiedStudent(number)
+            jdbi.onDemand(AuthenticationDAO::class.java).isVerified(number)
         }
     }
 

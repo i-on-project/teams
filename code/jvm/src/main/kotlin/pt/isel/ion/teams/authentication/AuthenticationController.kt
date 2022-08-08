@@ -96,7 +96,7 @@ class AuthenticationController(
         if (state != userState) throw InvalidAuthenticationStateException()
 
         //TODO: create session
-        //TODO: send verification email
+        //TODO: create verification code and send verification email
 
         var number: String? = null
         var processedClientId = clientId
@@ -148,7 +148,12 @@ class AuthenticationController(
                 val ghUserInfo = getGithubUserInfo(accessToken.access_token) ?: throw NoGithubUserFoundException()
 
                 if (number == null) throw InvalidClientIdException()
-                studentsService.updateStudentUsername(StudentDbUpdate(number.toInt(), githubusername = ghUserInfo.login))
+                studentsService.updateStudentUsername(
+                    StudentDbUpdate(
+                        number.toInt(),
+                        githubusername = ghUserInfo.login
+                    )
+                )
 
                 return ResponseEntity
                     .ok(accessToken)
@@ -217,16 +222,13 @@ class AuthenticationController(
      */
     @PutMapping(Uris.Verify.PATH)
     fun putVerified(
-        @RequestParam clientId: String,
-        @RequestParam number: Int
+        @RequestParam code: String
     ): ResponseEntity<Any> {
-        if (clientId == DESKTOP_REGISTER_CLIENT_ID)
-            authService.verifyTeacher(number)
-        else if (clientId == WEB_REGISTER_CLIENT_ID)
-            authService.verifyStudent(number)
+        authService.verifyUser(code)
 
         return ResponseEntity
-            .ok(null)
+            .ok()
+            .build()
     }
 
     /**

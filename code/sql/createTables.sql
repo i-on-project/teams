@@ -50,7 +50,6 @@ CREATE TABLE TEACHER
     githubUsername varchar(50),
     email          varchar     NOT NULL,
     office         varchar(20) NOT NULL, --X.X.XX (e.g G.1.16)
-    verified       bit(1) DEFAULT B'0',
     deleted        bit(1) DEFAULT B'0',
     PRIMARY KEY (number),
     CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
@@ -86,7 +85,6 @@ CREATE TABLE STUDENT
     number         int         NOT NULL,
     name           varchar(50) NOT NULL,
     githubUsername varchar(50),
-    verified       bit(1) DEFAULT B'0',
     deleted        bit(1) DEFAULT B'0',
     UNIQUE (number, name),
     PRIMARY KEY (number)
@@ -171,6 +169,14 @@ CREATE TABLE USER_SESSION
     sessionId int NOT NULL,
     userType  varchar(1), -- S for student and T for teacher
     PRIMARY KEY (number, sessionId)
+);
+
+CREATE TABLE TO_VERIFY
+(
+    code varchar NOT NULL,
+    number int NOT NULL,
+    PRIMARY KEY (code),
+    UNIQUE (number)
 );
 
 

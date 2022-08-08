@@ -14,16 +14,10 @@ interface AuthenticationDAO {
     fun deleteSession(@Bind number: Int, @Bind sessionId: String)
 
     /* Verification of users (Teacher or Student) */
-    @SqlUpdate("UPDATE teacher SET verified=B'1' WHERE number=:number")
-    fun verifyTeacher(@Bind number: Int)
+    @SqlUpdate("DELETE FROM to_verify WHERE code=:code")
+    fun verifyUser(@Bind code: String)
 
-    @SqlUpdate("UPDATE student SET verified=B'1' WHERE number=:number")
-    fun verifyStudent(@Bind number: Int)
-
-    @SqlQuery("SELECT verified FROM teacher WHERE number=:number")
-    fun isVerifiedTeacher(@Bind number: Int): Boolean
-
-    @SqlQuery("SELECT verified FROM student WHERE number=:number")
-    fun isVerifiedStudent(@Bind number: Int): Boolean
+    @SqlQuery("SELECT * FROM to_verify WHERE number=:number")
+    fun isVerified(@Bind number: Int): Boolean
 
 }

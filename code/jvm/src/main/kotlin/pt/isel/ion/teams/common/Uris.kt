@@ -25,7 +25,9 @@ object Uris {
     }
 
     object Verify {
-        const val PATH = "/auth/verify"
+        const val PATH = "/auth/verify/{code}"
+        private val TEMPLATE = UriTemplate(PATH)
+        fun make(code: String) = TEMPLATE.expand(mapOf("code" to code))
     }
 
     object Home {
