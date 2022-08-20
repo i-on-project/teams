@@ -2,8 +2,8 @@ import * as React from "react"
 import { Button, Image, Menu, Segment } from "semantic-ui-react"
 import { useNavigate } from "react-router-dom"
 import { makeHome } from "../Uris"
-//import { useMenu } from "./MenuContext"
-//import { useLoggedInState } from "./loggedStatus"
+import { useMenu } from "./MenuContext"
+import { useLoggedInState } from "./loggedStatus"
 
 
 export type MenuItem = {
@@ -17,15 +17,9 @@ export type MenuItem = {
 
 export function HorizontalMenu() {
 
-    const items = [
-        {
-            name: "Home",
-            href: makeHome(),
-            isActive: true
-        }
-    ]//useMenu().items
+    const items = useMenu().items
     const navigate = useNavigate()
-    //const setLoggedState = useLoggedInState().setLoggedState
+    const setLoggedState = useLoggedInState().setLoggedState
 
     const logoStyle = {
         display: "block",
@@ -37,7 +31,7 @@ export function HorizontalMenu() {
 
     function onLogout() {
         //TODO: perform logout
-        //setLoggedState({logged: false, access_token: null})
+        setLoggedState({logged: false, access_token: null})
         navigate('/')
     }
 
@@ -86,12 +80,13 @@ export function HorizontalMenu() {
             {
                 itemsBuilder(items)
             }
-            <Menu.Menu position="right">
-                <Menu.Item key={'logout-button'}>
-                    <Button fluid negative onClick={() => { onLogout() }}>Logout</Button>
-                </Menu.Item>
-            </Menu.Menu>
-
+            { useLoggedInState().loggedInState.logged && 
+                <Menu.Menu position="right">
+                    <Menu.Item key={'logout-button'}>
+                        <Button fluid circular negative onClick={() => { onLogout() }}>Logout</Button>
+                    </Menu.Item>
+                </Menu.Menu>
+            }
         </Menu>
     )
 

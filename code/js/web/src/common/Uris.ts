@@ -3,6 +3,9 @@ type UriParam = string | number
 export function makeHome(): string {
   return '/'
 }
+export function makeAbout(): string {
+  return '/about'
+}
 
 
 //Organizations
