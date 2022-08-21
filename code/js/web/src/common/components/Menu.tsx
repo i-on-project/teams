@@ -20,6 +20,7 @@ export function HorizontalMenu() {
     const items = useMenu().items
     const navigate = useNavigate()
     const setLoggedState = useLoggedInState().setLoggedState
+    
 
     const logoStyle = {
         display: "block",
@@ -80,13 +81,14 @@ export function HorizontalMenu() {
             {
                 itemsBuilder(items)
             }
-            {useLoggedInState().loggedInState.logged ?
+            { useLoggedInState().loggedInState.logged &&
                 <Menu.Menu position="right">
                     <Menu.Item key={'logout-button'}>
                         <Button fluid circular negative onClick={() => { onLogout() }}>Logout</Button>
                     </Menu.Item>
                 </Menu.Menu>
-                :
+            }
+            {(!useLoggedInState().loggedInState.logged && !window.location.href.endsWith('/start')) &&
                 <Menu.Menu position="right">
                     <Menu.Item key={'loginSignup-button'}>
                         <Button fluid circular secondary onClick={() => { setLoggedState({ logged: true, access_token: null }) }}>Log in or Sign up</Button>

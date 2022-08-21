@@ -27,7 +27,7 @@ export function Page() {
                     What's all about?
                 </Header>
                 <p>
-                    I-on Teams is a system with objective of integrating GitHub functionalities into a classroom environment.
+                    I-on Teams is a system with objective of integrating <a href="https://github.com">GitHub</a> functionalities into a classroom environment.
                     It's only useful if the course has group assignments that require code development.
                 </p>
                 <p>
@@ -44,14 +44,6 @@ export function Page() {
                 <p>
                     The student also benefit from our system using this website to enter a team,
                     via a shared link, and to consult the assignment, delivery date and teacher information.
-                </p>
-            </Segment>
-            <Segment vertical>
-                <Header as='h2' textAlign="center">
-                    How it works?
-                </Header>
-                <p>
-                    .........................................
                 </p>
             </Segment>
             <Segment vertical textAlign="center">

@@ -92,76 +92,74 @@ export function Page() {
   }, [url])
 
   return (
-    <Segment vertical>
-      <Grid columns={2} stackable textAlign='center'>
-        <Grid.Row verticalAlign='middle'>
-          <Grid.Column style={{ maxWidth: 400 }}>
-            <Segment stacked>
-              <Header as='h2'>
-                Download desktop app
-              </Header>
-              <Button fluid circular>
-                <Icon icon='windows' />
-                Windows
-              </Button>
+    <Grid columns={2} stackable textAlign='center'>
+      <Grid.Row verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 450 }} >
+          <Segment stacked>
+            <Header as='h3'>
+              Download Desktop app
+            </Header>
+            <p>
+              For Windows:
               <div />
-              <Button fluid circular>
-                <Icon icon='apple' />
-                Mac OS
-              </Button>
+              <Button circular icon='windows' />
+            </p>
+            <p>
+              For Mac Os:
               <div />
-              <Button fluid circular disabled>
-                <Icon icon='linux' />
-                Linux
+              <Button circular icon='windows'>
+                x64
               </Button>
-            </Segment>
-            <Message>
-              The Desktop application is meant to be used exclusively by Teachers.
-            </Message>
-          </Grid.Column>
+              <Button circular icon='apple'>
+                arm
+              </Button>
+            </p>
+            <p>
+              For Linux:
+              <div />
+              <Button circular icon='linux' disabled />
+            </p>
+          </Segment>
+          <Message>
+            The Desktop application is meant to be used exclusively by Teachers.
+          </Message>
+        </Grid.Column>
 
-          <Divider vertical>Or</Divider>
+        <Divider vertical>Or</Divider>
 
-          <Grid.Column style={{ maxWidth: 400 }}>
-            <Segment stacked >
-              <div>
-                The url is: {url}
-              </div>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Segment stacked >
+            <Header as="h3">Login via GitHub</Header>
+            <Button
+              circular
+              color='black'
+              icon='github'
+            //onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop') }}
+            />
+            <Divider horizontal>Or</Divider>
+            <Form>
+              <Header as="h3">Signup</Header>
+              <Header as="h5">Enter the following information and then sign up through github</Header>
 
-              <Header as="h3">Login via GitHub</Header>
+              <Form.Input fluid required icon='user' iconPosition='left' placeholder='First and Last names' onChange={(event) => setParameters({ ...parameters, ["name"]: event.target.value })} />
+              <Form.Input fluid required icon='mail' iconPosition='left' placeholder='E-mail address' onChange={(event) => setParameters({ ...parameters, ["email"]: event.target.value })} />
+              <Form.Input fluid required icon='id card outline' iconPosition='left' placeholder='Institutional Number' onChange={(event) => setParameters({ ...parameters, ["number"]: event.target.value })} />
+
               <Button
                 circular
                 color='black'
-                icon='github'
-              //onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop') }}
-              />
-
-              <Divider horizontal>Or</Divider>
-
-              <Form>
-                <Header as="h3">Signup</Header>
-                <Header as="h5">Enter the following information and then sign up through github</Header>
-
-                <Form.Input fluid required icon='user' iconPosition='left' placeholder='First and Last names' onChange={(event) => setParameters({ ...parameters, ["name"]: event.target.value })} />
-                <Form.Input fluid required icon='mail' iconPosition='left' placeholder='E-mail address' onChange={(event) => setParameters({ ...parameters, ["email"]: event.target.value })} />
-                <Form.Input fluid required icon='id card outline' iconPosition='left' placeholder='Institutional Number' onChange={(event) => setParameters({ ...parameters, ["number"]: event.target.value })} />
-
-                <Button
-                  circular
-                  color='black'
-                //onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/register?clientId=desktop-register') }}
-                >
-                  <Icon name='github' />
-                  Sign up
-                </Button>
-              </Form>
-            </Segment>
-            <Message>
-              This web application is meant to be used exclusively by students.
-            </Message>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </Segment>
+              //onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/register?clientId=desktop-register') }}
+              >
+                <Icon name='github' />
+                Sign up
+              </Button>
+            </Form>
+          </Segment>
+          <Message>
+            This web application is meant to be used exclusively by students.
+          </Message>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   )
 }
