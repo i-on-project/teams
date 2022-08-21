@@ -1,5 +1,9 @@
 package pt.isel.ion.teams.authentication
 
+import com.sendgrid.*
+import com.sendgrid.helpers.mail.Mail
+import com.sendgrid.helpers.mail.objects.Content
+import com.sendgrid.helpers.mail.objects.Email
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.client.WebClient
@@ -10,7 +14,9 @@ import pt.isel.ion.teams.students.StudentsService
 import pt.isel.ion.teams.teacher.TeacherDbUpdate
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
+import java.io.IOException
 import java.util.*
+
 
 const val GITHUB_OAUTH_URI = "https://github.com/login/oauth/authorize"
 const val GITHUB_TEACHER_SCOPE = "admin:org"
@@ -27,6 +33,7 @@ const val WEB_REGISTER_CLIENT_ID = "web-register"
 @RequestMapping
 class AuthenticationController(
     val authService: AuthenticationService,
+    val emailService: EmailService,
     val teachersService: TeachersService,
     val studentsService: StudentsService
 ) {
@@ -96,7 +103,6 @@ class AuthenticationController(
         if (state != userState) throw InvalidAuthenticationStateException()
 
         //TODO: create session
-        //TODO: create verification code and send verification email
 
         var number: String? = null
         var processedClientId = clientId
@@ -155,6 +161,16 @@ class AuthenticationController(
                     )
                 )
 
+                //Verification
+                val user = studentsService.getStudentByUsername(ghUserInfo.login)
+
+                //Creating and storing verification id
+                val verificationId = UUID.randomUUID().toString()
+                authService.createVerification(verificationId, user.number)
+
+                //Sending verification email
+                emailService.sendVerificationEmail(user.name, user.email, verificationId)
+
                 return ResponseEntity
                     .ok(accessToken)
             }
@@ -198,6 +214,16 @@ class AuthenticationController(
                 }
             }
 
+            //Verification
+            val user = teachersService.getTeacherByUsername(ghUserInfo.login)
+
+            //Creating and storing verification id
+            val verificationId = UUID.randomUUID().toString()
+            authService.createVerification(verificationId, user.number)
+
+            //Sending verification email
+            emailService.sendVerificationEmail(user.name, user.email, verificationId)
+
             val accessTokenCookie = ResponseCookie.from("accessToken", at.access_token)
                 .path("/auth/access_token")
                 .domain("localhost")
@@ -220,15 +246,14 @@ class AuthenticationController(
      *
      * The user will then be identified and verified.
      */
-    @PutMapping(Uris.Verify.PATH)
-    fun putVerified(
-        @RequestParam code: String
+    @GetMapping(Uris.Verify.PATH)
+    fun getVerify(
+        @PathVariable code: String
     ): ResponseEntity<Any> {
         authService.verifyUser(code)
 
         return ResponseEntity
-            .ok()
-            .build()
+            .ok("Verification Successful.")
     }
 
     /**

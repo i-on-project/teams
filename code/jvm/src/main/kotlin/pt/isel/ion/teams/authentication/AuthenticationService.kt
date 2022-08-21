@@ -25,6 +25,12 @@ class AuthenticationService(val jdbi: Jdbi) {
 
     /* Verification */
 
+    fun createVerification(code: String, number: Int) {
+        sqlExceptionHandler {
+            jdbi.onDemand(AuthenticationDAO::class.java).createVerification(code, number)
+        }
+    }
+
     fun verifyUser(code: String) {
         sqlExceptionHandler {
             jdbi.onDemand(AuthenticationDAO::class.java).verifyUser(code)

@@ -16,12 +16,14 @@ repositories {
 }
 
 dependencies {
+	//JDBI
 	implementation("org.jdbi:jdbi3-kotlin-sqlobject:3.28.0")
 	implementation("org.jdbi:jdbi3-core:3.28.0")
 	implementation("org.jdbi:jdbi3-kotlin:3.28.0")
 	implementation("org.jdbi:jdbi3-postgres:3.28.0")
 	implementation("org.postgresql:postgresql:42.3.4")
 
+	//Spring
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-configuration-processor")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -32,6 +34,9 @@ dependencies {
     implementation(kotlin("script-runtime"))
 
 	runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.76.Final:osx-aarch_64")
+
+	//Sendgrid
+	implementation("com.sendgrid:sendgrid-java:4.9.3")
 }
 
 tasks.withType<KotlinCompile> {

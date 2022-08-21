@@ -36,10 +36,10 @@ INSERT INTO invite_links (code, cid)
 VALUES ('8b171ab5-2f09-4272-a607-f8fd68eeca31', 1),
        ('426822c5-76e1-4cbb-bd92-b2a3dc4a261b', 2);
 
-INSERT INTO student (number, name)
-VALUES (80000, 'Julinho Silva'),
-       (90000, 'Juliano Silva'),
-       (10000, 'João Silva');
+INSERT INTO student (number, name, email)
+VALUES (80000, 'Julinho Silva', 'email@email.pt'),
+       (90000, 'Juliano Silva', 'email@email.pt'),
+       (10000, 'João Silva', 'email@email.pt');
 
 -- Insert teams with state pending
 INSERT INTO teams (name, cid)
