@@ -52,6 +52,7 @@ export function LoginSignup() {
   const [parameters, setParameters] = React.useState<RegisterParams>({})
 
   electron.customProtocolUrl((_event, value) => {
+    console.log(value)
     setUrl(value)
   })
 

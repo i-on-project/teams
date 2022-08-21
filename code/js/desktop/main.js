@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Notification, clipboard, shell, webContents } = require('electron')
+const { app, BrowserWindow, ipcMain, Notification, clipboard, shell, webContents, dialog } = require('electron')
 const path = require('path')
 
 /* ****************************** WINDOW CONFIGURATION ******************************
@@ -14,7 +14,7 @@ let mainWindow
  * Defining window
  */
 const createWindow = () => {
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         title: 'i-on Teams Desktop',
         width: 1280,
         height: 720,
@@ -85,6 +85,7 @@ function urlToRenderer(url) {
  */
 
 //Register application to handle custom protocol, in this case the protocol is "ion-teams://"
+
 if (process.defaultApp) {
     if (process.argv.length >= 2) {
         app.setAsDefaultProtocolClient('ion-teams', process.execPath, [path.resolve(process.argv[1])])
@@ -101,35 +102,35 @@ if (!gotTheLock) {
     app.quit()
 } else {
     app.on('second-instance', (event, commandLine, workingDirectory) => {
+
         // Someone tried to run a second instance, we should focus our window.
         if (mainWindow) {
             if (mainWindow.isMinimized()) mainWindow.restore()
             mainWindow.focus()
         }
+
+        //Hanle the protocol on Windows
+        if (process.platform == 'win32') {
+            urlToRenderer(commandLine[2])
+        }
     })
 
     // Create mainWindow, load the rest of the app, etc...
     app.whenReady()
-    .then(() => {
-        createWindow()
-   
-        //IPC both ways
-   
-        app.on('activate', () => {
-            if (BrowserWindow.getAllWindows().length === 0) createWindow()
-        })
-    })
+        .then(() => {
+            createWindow()
 
-    // Handle the protocol. In this case, we choose to show an Error Box.
-    app.on('open-url', (event, url) => {
-        urlToRenderer(url)
-    })
+            //IPC both ways
+
+            app.on('activate', () => {
+                if (BrowserWindow.getAllWindows().length === 0) createWindow()
+            })
+        })
 }
 
-//Handle protocol events on MacOS and Linux.
-
-// Handle the protocol. In this case, we choose to show an Error Box.
+// Handle the protocol on MacOS/Linux.
 app.on('open-url', (event, url) => {
+    dialog.showErrorBox('Welcome Back', `You arrived from ${url}`)
     urlToRenderer(url)
 })
 
