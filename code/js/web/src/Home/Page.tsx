@@ -1,11 +1,15 @@
 import * as React from "react";
-import { Header } from 'semantic-ui-react'
+import { useNavigate } from "react-router-dom";
+import { Button, Container, Divider, Header, Icon, Input, Loader } from 'semantic-ui-react'
+import { Fetch } from "../common/components/Fetch";
 import { useMenu } from "../common/components/MenuContext";
-import { makeAbout, makeHome } from "../common/Uris";
+import { makeAbout, makeHome, makeInviteCode } from "../common/Uris";
 
 export function Page() {
 
     const setItems = useMenu().setItems
+    const navigate = useNavigate()
+    const [code,setCode] = React.useState("")
 
     React.useEffect(() => {
         setItems([
@@ -18,8 +22,10 @@ export function Page() {
     }, [])
 
     return (
-        <div>
-            <Header as='h1'>Logged In</Header>
-        </div>
+        <Container>
+            <Header as='h3'>Your Teams</Header>
+            <Input placeholder='Insert invite code where.' onChange={(event)=> setCode(event.target.value)}></Input>
+            <Button color="black" icon='arrow right' size="small" onClick={() => navigate(makeInviteCode(code))}/>
+        </Container>
     )
 }

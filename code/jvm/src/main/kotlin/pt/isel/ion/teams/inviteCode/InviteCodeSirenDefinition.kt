@@ -1,4 +1,4 @@
-package pt.isel.ion.teams.inviteLinks
+package pt.isel.ion.teams.inviteCode
 
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
@@ -31,17 +31,17 @@ fun CollectionModel.toInviteLinksSirenObject(
                 clazz = listOf(SirenClasses.INVITE_LINK),
                 rel = listOf(SirenRelations.ITEM),
                 links = listOf(
-                    selfLink(Uris.InviteLinks.InviteLink.make(orgId, it.cid, it.code)),
+                    selfLink(Uris.InviteCodes.InviteCode.make(it.code)),
                 )
             )
         },
         links = listOfNotNull(
             selfLink(Uris.Classrooms.make(orgId)),
             if (list.size > pageSize)
-                nextLink(Uris.InviteLinks.makePage(pageIndex + 1, pageSize, orgId, classId))
+                nextLink(Uris.InviteCodes.makePage(pageIndex + 1, pageSize, orgId, classId))
             else null,
             if (pageIndex > 0)
-                prevLink(Uris.InviteLinks.makePage(pageIndex - 1, pageSize, orgId, classId))
+                prevLink(Uris.InviteCodes.makePage(pageIndex - 1, pageSize, orgId, classId))
             else null,
             SirenLink(SirenRelations.CLASSROOM, Uris.Classrooms.Classroom.make(orgId, classId)),
             homeLink(),
@@ -58,7 +58,6 @@ fun CollectionModel.toInviteLinksSirenObject(
  * @param classId Invite link's classroom id
  */
 fun InviteLinksOutputModel.toSirenObject(
-    classId: Int,
     orgId: Int
 ) = SirenEntity(
     properties = this,
@@ -68,7 +67,7 @@ fun InviteLinksOutputModel.toSirenObject(
             name = "create-team",
             title = "Create Team",
             method = HttpMethod.POST,
-            href = Uris.Teams.make(orgId, classId),
+            href = Uris.Teams.make(orgId, this.cid),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
                 SirenAction.Field(name = "name", type = "string")
@@ -76,7 +75,7 @@ fun InviteLinksOutputModel.toSirenObject(
         )
     ),
     links = listOf(
-        selfLink(Uris.InviteLinks.InviteLink.make(orgId, classId, code)),
+        selfLink(Uris.InviteCodes.InviteCode.make(code)),
         homeLink(),
         logoutLink(),
         //TODO: signup()

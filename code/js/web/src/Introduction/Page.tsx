@@ -43,7 +43,7 @@ export function Page() {
                 </p>
                 <p>
                     The student also benefit from our system using this website to enter a team,
-                    via a shared link, and to consult the assignment, delivery date and teacher information.
+                    via a shared code, and to consult the assignment, delivery date and teacher information.
                 </p>
             </Segment>
             <Segment vertical textAlign="center">

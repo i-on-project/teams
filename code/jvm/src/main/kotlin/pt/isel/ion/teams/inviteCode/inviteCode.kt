@@ -1,4 +1,4 @@
-package pt.isel.ion.teams.inviteLinks
+package pt.isel.ion.teams.inviteCode
 
 /**
  * For internal use only.

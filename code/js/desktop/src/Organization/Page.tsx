@@ -16,7 +16,6 @@ export function Page() {
 
     return (
         <div>
-            
             <Fetch
                 url={`/api${makeOrganization(orgId)}`}
                 renderBegin={() => <p>Waiting for URL...</p>}

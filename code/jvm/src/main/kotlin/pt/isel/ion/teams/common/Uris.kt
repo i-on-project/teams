@@ -340,7 +340,7 @@ object Uris {
 
     }
 
-    object InviteLinks {
+    object InviteCodes {
         const val MAIN_PATH = "/api/orgs/{orgId}/classrooms/{classId}/invite-links"
         private val TEMPLATE = UriTemplate(MAIN_PATH)
         fun make(orgId: Int, classId: Int) = TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId))
@@ -358,11 +358,11 @@ object Uris {
                 )
             )
 
-        object InviteLink {
+        object InviteCode {
             const val PATH = "/{code}"
-            private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
-            fun make(orgId: Int, classId: Int, code: String) =
-                TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "code" to code))
+            private val TEMPLATE = UriTemplate(PATH)
+            fun make(code: String) =
+                TEMPLATE.expand(mapOf("code" to code))
         }
     }
 }

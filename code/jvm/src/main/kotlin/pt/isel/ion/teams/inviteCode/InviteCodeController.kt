@@ -1,18 +1,22 @@
-package pt.isel.ion.teams.inviteLinks
+package pt.isel.ion.teams.inviteCode
 
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.classrooms.ClassroomsService
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping(Uris.InviteLinks.MAIN_PATH)
-class InviteLinksController(val service: InviteLinksService) {
+@RequestMapping(Uris.InviteCodes.MAIN_PATH)
+class InviteCodeController(
+    val service: InviteCodeService,
+    val classroomsService: ClassroomsService
+    ) {
 
     @GetMapping
-    fun getAllInviteLinks(
+    fun getAllInviteCodes(
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int,
         @PathVariable orgId: Int,
@@ -29,36 +33,35 @@ class InviteLinksController(val service: InviteLinksService) {
                 )
             )
 
-    @GetMapping(Uris.InviteLinks.InviteLink.PATH)
-    fun getInviteLink(
-        @PathVariable orgId: Int,
-        @PathVariable classId: Int,
+    @GetMapping(Uris.InviteCodes.InviteCode.PATH)
+    fun getInviteCode(
         @PathVariable code: String,
     ): ResponseEntity<Any> {
-        val inviteLink = service.getInviteLink(classId, code).toOutput()
+        val inviteLink = service.getInviteLink(code).toOutput()
+        val orgId = classroomsService.getClassroom(inviteLink.cid).orgId
 
         return ResponseEntity
             .ok()
             .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-            .body(inviteLink.toSirenObject(orgId, classId))
+            .body(inviteLink.toSirenObject(orgId))
     }
 
     @PostMapping
-    fun createInviteLink(
+    fun createInviteCode(
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
     ): ResponseEntity<Any> {
         val invite = service.createInviteLink(classId).toOutput()
 
         return ResponseEntity
-            .created(Uris.InviteLinks.InviteLink.make(orgId, classId, invite.code))
+            .created(Uris.InviteCodes.InviteCode.make(invite.code))
             .contentType(MediaType.APPLICATION_JSON)
             .body(invite)
     }
 
-    @DeleteMapping(Uris.InviteLinks.InviteLink.PATH)
-    fun deleteInviteLink(@PathVariable classId: Int,@PathVariable code: String): ResponseEntity<Any> {
-        service.deleteInviteLink(classId, code)
+    @DeleteMapping(Uris.InviteCodes.InviteCode.PATH)
+    fun deleteInviteCode(@PathVariable code: String): ResponseEntity<Any> {
+        service.deleteInviteLink(code)
 
         return ResponseEntity
             .ok()

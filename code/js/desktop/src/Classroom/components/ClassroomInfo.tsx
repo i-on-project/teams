@@ -4,7 +4,7 @@ import { ActionsSegment } from '../../common/components/ActionsSegment';
 import { FormInModal, DefaultModal } from '../../common/components/DefaultForm';
 import { Fetch } from '../../common/components/fetch';
 import { Action, Collection, Entity, Resource } from '../../common/types/siren';
-import { makeInviteLinks } from '../../common/Uris';
+import { makeInviteCodes } from '../../common/Uris';
 
 declare const electron: {
     clipboardApi: {
@@ -33,7 +33,7 @@ export function ClassroomInfo({ resource, orgId, classId }: { resource: Resource
                 <Container>
                 <Header as={'h2'}>Invite Links</Header>
                     <Fetch
-                        url={`/api${makeInviteLinks(orgId, classId)}`}
+                        url={`/api${makeInviteCodes(orgId, classId)}`}
                         renderBegin={() => <p>Waiting for URL...</p>}
                         renderOk={(payload: Collection) =>
                             <Segment.Group>

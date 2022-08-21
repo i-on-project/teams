@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Button, Image, Menu, Segment } from "semantic-ui-react"
+import { Button, Icon, Image, Menu, Segment } from "semantic-ui-react"
 import { useNavigate } from "react-router-dom"
 import { makeHome } from "../Uris"
 import { useMenu } from "./MenuContext"
@@ -84,7 +84,9 @@ export function HorizontalMenu() {
             { useLoggedInState().loggedInState.logged &&
                 <Menu.Menu position="right">
                     <Menu.Item key={'logout-button'}>
-                        <Button fluid circular negative onClick={() => { onLogout() }}>Logout</Button>
+                        <Button fluid circular icon negative onClick={() => { onLogout() }}>
+                            Logout <Icon name='sign-out'/>
+                        </Button>
                     </Menu.Item>
                 </Menu.Menu>
             }

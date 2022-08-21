@@ -72,7 +72,7 @@ export function Page() {
           })
 
       case "register": {
-        fetch(`http://localhost:8080/auth/register?clientId=desktop-register`, {
+        fetch(`http://localhost:8080/auth/register?clientId=web-register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -88,9 +88,27 @@ export function Page() {
               }))
       }
     }
-
   }, [url])
 
+  function onclickLogIn() {
+    fetch('http://localhost:8080/auth/login?clientId=web')
+            .then(resp => resp.json())
+            .then((token: AccessToken) => {
+              console.log(token)
+              setLoggedState({ logged: true, access_token: token })
+            })
+  }
+
+  function onclickSignUp() {
+    fetch('http://localhost:8080/auth/register?clientId=web-register')
+            .then(resp => resp.json())
+            .then((token: AccessToken) => {
+              console.log(token)
+              setLoggedState({ logged: true, access_token: token })
+            })
+  }
+
+  //TODO: change download files
   return (
     <Grid columns={2} stackable textAlign='center'>
       <Grid.Row verticalAlign='middle'>
@@ -102,16 +120,16 @@ export function Page() {
             <p>
               For Windows:
               <div />
-              <Button circular icon='windows' />
+              <Button circular icon='windows' as={'a'} href='/logo_blue.svg' download/>
             </p>
             <p>
               For Mac Os:
-              <div />
-              <Button circular icon='windows'>
-                x64
+              <div /> 
+              <Button circular icon as={'a'} href='/logo_blue.svg' download>
+                <Icon name='apple'/> x64
               </Button>
-              <Button circular icon='apple'>
-                arm
+              <Button circular icon as={'a'} href='/logo_blue.svg' download>
+                <Icon name='apple'/> arm
               </Button>
             </p>
             <p>
@@ -134,7 +152,7 @@ export function Page() {
               circular
               color='black'
               icon='github'
-            //onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop') }}
+              onClick={() => { onclickLogIn() }}
             />
             <Divider horizontal>Or</Divider>
             <Form>
@@ -148,7 +166,7 @@ export function Page() {
               <Button
                 circular
                 color='black'
-              //onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/register?clientId=desktop-register') }}
+                onClick={() => onclickSignUp()}
               >
                 <Icon name='github' />
                 Sign up
@@ -163,3 +181,4 @@ export function Page() {
     </Grid>
   )
 }
+

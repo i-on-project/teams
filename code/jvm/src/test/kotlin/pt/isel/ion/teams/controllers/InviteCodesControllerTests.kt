@@ -13,12 +13,11 @@ import pt.isel.ion.teams.common.errors.ProblemJsonModel
 import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_SUBTYPE
-import pt.isel.ion.teams.inviteLinks.InviteLinksOutputModel
-import pt.isel.ion.teams.organizations.OrganizationOutputModel
+import pt.isel.ion.teams.inviteCode.InviteLinksOutputModel
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class InviteLinksControllerTests {
+class InviteCodesControllerTests {
 
     @Autowired
     private lateinit var client: MockMvc
@@ -30,7 +29,7 @@ class InviteLinksControllerTests {
         assertNotNull(client)
 
         client
-            .get(Uris.InviteLinks.make(1,1)) {
+            .get(Uris.InviteCodes.make(1,1)) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
             }
             .andExpect {
@@ -71,7 +70,7 @@ class InviteLinksControllerTests {
         assertNotNull(client)
 
         client
-            .get(Uris.InviteLinks.InviteLink.make(1,1,"8b171ab5-2f09-4272-a607-f8fd68eeca31")) {
+            .get(Uris.InviteCodes.InviteCode.make(1,1,"8b171ab5-2f09-4272-a607-f8fd68eeca31")) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
             }
             .andExpect {
@@ -105,7 +104,7 @@ class InviteLinksControllerTests {
         assertNotNull(client)
 
         client
-            .get(Uris.InviteLinks.InviteLink.make(1,1,"DoesNotExist"))
+            .get(Uris.InviteCodes.InviteCode.make(1,1,"DoesNotExist"))
             .andExpect {
                 status { isNotFound() }
                 content { contentType(ProblemJsonModel.MEDIA_TYPE) }
@@ -118,7 +117,7 @@ class InviteLinksControllerTests {
 
         //First we post a new resource
         var result = client
-            .post(Uris.InviteLinks.make(1,1)) {
+            .post(Uris.InviteCodes.make(1,1)) {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
             }
@@ -138,7 +137,7 @@ class InviteLinksControllerTests {
 
         //Third we try to delete what we just posted
         client
-            .delete(Uris.InviteLinks.InviteLink.make(1,1,createdInviteLink.code))
+            .delete(Uris.InviteCodes.InviteCode.make(1,1,createdInviteLink.code))
             .andExpect {
                 status { isOk() }
             }

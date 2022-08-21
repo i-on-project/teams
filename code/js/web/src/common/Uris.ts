@@ -39,9 +39,9 @@ export function makeStudentsClassroom(orgId: UriParam, classId: UriParam) {
   return `/orgs/${orgId}/classrooms/${classId}/students`
 }
 
-//Invite Links
-export function makeInviteLinks(orgId: UriParam, classId: UriParam) {
-  return `/orgs/${orgId}/classrooms/${classId}/invite-links`
+//Invite Code
+export function makeInviteCode(code: UriParam) {
+  return `/invite-code/${code}`
 }
 
 //Teams
