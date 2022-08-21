@@ -1,12 +1,20 @@
 type UriParam = string | number
 
-export function makeHome(): string {
-  return '/'
-}
+
+//About
 export function makeAbout(): string {
   return '/about'
 }
 
+//Log in or Sign up or Download
+export function makeLoginSignup(): string {
+  return '/start'
+}
+
+//Home page (logged in)
+export function makeHome(): string {
+  return '/'
+}
 
 //Organizations
 export function makeOrganizations(): string {

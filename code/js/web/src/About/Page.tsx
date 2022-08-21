@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Button, Container, Divider, Header } from 'semantic-ui-react'
+import { Container, Header, Segment } from 'semantic-ui-react'
 import { useLoggedInState } from "../common/components/loggedStatus";
 import { useMenu } from "../common/components/MenuContext";
-import { makeAbout, makeHome } from "../common/Uris";
+import { makeAbout } from "../common/Uris";
 
 export function Page() {
 
@@ -12,21 +12,19 @@ export function Page() {
         setItems([
             {
                 name: "About",
-                href: makeHome(),
+                href: makeAbout(),
                 isActive: true
             }
         ])
     }, [])
 
-    const setLoggedState = useLoggedInState().setLoggedState //FOR TEST ONLY. Not supose to perform a fake log in
+    
     return (
         <Container textAlign="center">
             <Header as='h1'>About</Header>
-            Click the button bellow to perform a fake log in.
-            <Divider hidden/>
-            <Button circular secondary onClick={() => {setLoggedState({logged: true, access_token: null})}}>
-                 Start Right Now 
-            </Button>
+            <Segment vertical>
+                Click the button bellow to perform a fake log in.
+            </Segment>
         </Container>
     )
 }

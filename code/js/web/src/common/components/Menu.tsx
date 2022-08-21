@@ -31,7 +31,7 @@ export function HorizontalMenu() {
 
     function onLogout() {
         //TODO: perform logout
-        setLoggedState({logged: false, access_token: null})
+        setLoggedState({ logged: false, access_token: null })
         navigate('/')
     }
 
@@ -71,19 +71,25 @@ export function HorizontalMenu() {
                 />
         )
     }
-    
+
     return (
-        <Menu>
+        <Menu secondary>
             <Menu.Item key="menu_logo" onClick={() => { navigate(makeHome()) }}>
-                <Image src="/logo_blue.svg" alt='logo' style={logoStyle}/>
+                <Image src="/logo_blue.svg" alt='logo' style={logoStyle} />
             </Menu.Item>
             {
                 itemsBuilder(items)
             }
-            { useLoggedInState().loggedInState.logged && 
+            {useLoggedInState().loggedInState.logged ?
                 <Menu.Menu position="right">
                     <Menu.Item key={'logout-button'}>
                         <Button fluid circular negative onClick={() => { onLogout() }}>Logout</Button>
+                    </Menu.Item>
+                </Menu.Menu>
+                :
+                <Menu.Menu position="right">
+                    <Menu.Item key={'loginSignup-button'}>
+                        <Button fluid circular secondary onClick={() => { setLoggedState({ logged: true, access_token: null }) }}>Log in or Sign up</Button>
                     </Menu.Item>
                 </Menu.Menu>
             }

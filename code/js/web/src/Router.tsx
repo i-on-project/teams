@@ -5,6 +5,8 @@ import { MenuContainer } from "./common/components/MenuContext";
 import { MenuItemNameContainer } from "./common/components/MenuItemNameContext";
 import * as Home from "./Home/Page"
 import * as About from "./About/Page"
+import * as Introduction from "./Introduction/Page"
+import * as LoginSignup from "./LoginSignup/LoginSignup"
 
 export function Router({logged}: {logged : boolean}){
     return (
@@ -19,7 +21,9 @@ export function Router({logged}: {logged : boolean}){
                             </Routes>
                             :
                             <Routes>
-                                <Route path='' element={<About.Page/>}/>
+                                <Route path='' element={<Introduction.Page/>}/>
+                                <Route path='/about' element={<About.Page/>}/>
+                                <Route path='/start' element={<LoginSignup.Page/>}/>
                             </Routes>
                     }
                 </MenuItemNameContainer>
