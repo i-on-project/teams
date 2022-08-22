@@ -44,7 +44,7 @@ class AuthenticationController(
     }
 
     /**
-     * Used by the apps to follow the GitHub flow, if the external sign-in process is successful
+     * Used by the  Desktop app to follow the GitHub flow, if the external sign-in process is successful
      * the register process will be completed with a POST from the app directly to the service.
      */
     @GetMapping(Uris.Register.PATH)

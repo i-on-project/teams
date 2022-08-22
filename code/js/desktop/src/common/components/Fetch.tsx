@@ -97,9 +97,9 @@ export function Fetch(props: FetchProps) {
 
         case 'loading': return props.renderLoading()
 
-        case 'error-receive': return props.renderError(state.error) ? props.renderError(state.error) : <Error error={state.error} />
+        case 'error-receive': return props.renderError ? props.renderError(state.error) : <Error error={state.error} />
 
-        case 'response-received': return state.response.ok ? props.renderLoading() : (props.renderNok(state.response) ? props.renderNok(state.response) : <ErrorNOk message={state.response}/>)
+        case 'response-received': return state.response.ok ? props.renderLoading() : (props.renderNok ? props.renderNok(state.response) : <ErrorNOk message={state.response}/>)
 
         case 'payload-receive': return props.renderOk(state.payload) 
     }

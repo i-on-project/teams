@@ -93,7 +93,7 @@ export function LoginSignup() {
 
   return (
     <div>
-      THIS IS A TEST PAGE, TO SEE THE REAL PAGES UNCOMMENT THE ROUTER!
+        <Button onClick={() => {setLoggedState({ logged: true, access_token: 'belele' })}}> Fake Login </Button>
       <div>
         The url is: {url}
       </div>
