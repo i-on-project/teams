@@ -1,9 +1,5 @@
 package pt.isel.ion.teams.authentication
 
-import com.sendgrid.*
-import com.sendgrid.helpers.mail.Mail
-import com.sendgrid.helpers.mail.objects.Content
-import com.sendgrid.helpers.mail.objects.Email
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.client.WebClient
@@ -14,7 +10,6 @@ import pt.isel.ion.teams.students.StudentsService
 import pt.isel.ion.teams.teacher.TeacherDbUpdate
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
-import java.io.IOException
 import java.util.*
 
 
@@ -49,7 +44,7 @@ class AuthenticationController(
     }
 
     /**
-     * Used by the desktop app to follow the GitHub flow, if the external sign-in process is successful
+     * Used by the apps to follow the GitHub flow, if the external sign-in process is successful
      * the register process will be completed with a POST from the app directly to the service.
      */
     @GetMapping(Uris.Register.PATH)
@@ -78,7 +73,7 @@ class AuthenticationController(
 
             teachersService.createTeacher(userInfo.toTeacherDbWrite())
 
-            return ResponseEntity.status(200).build()
+            return ResponseEntity.status(201).build()
         } else if (clientId == WEB_REGISTER_CLIENT_ID) {
             studentsService.createStudent(userInfo.toStudentDbWrite())
 
@@ -204,6 +199,7 @@ class AuthenticationController(
             val ghUserInfo = getGithubUserInfo(at.access_token) ?: throw NoGithubUserFoundException()
 
             if (type == "register" && number != null) {
+                //Associate GitHub username with school number
                 teachersService.updateTeacher(TeacherDbUpdate(number.toInt(), githubusername = ghUserInfo.login))
             } else {
                 //Verification if the user trying to log in is in fact registered
@@ -305,6 +301,7 @@ class AuthenticationController(
             .sameSite("Lax")
             .build()
 
+        //TODO: Rever o scope para estudantes
         return ResponseEntity
             .status(303)
             .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
