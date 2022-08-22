@@ -17,18 +17,16 @@ export function Page() {
     const [uri, setUri] = React.useState(`/api${makeTeams(orgId, classId)}`)
 
     return (
-        <div>
-            <Fetch
-                url={uri}
-                renderBegin={() => <p>Waiting for URL...</p>}
-                renderOk={(payload) =>
-                    <UriContext.Provider value={{ uri, setUri }} >
-                        <Body collection={payload} orgId={orgId} classId={classId}></Body>
-                    </UriContext.Provider>
-                }
-                renderLoading={() => <Loader />}
-            />
-        </div>
+        <Fetch
+            url={uri}
+            renderBegin={() => <p>Waiting for URL...</p>}
+            renderOk={(payload) =>
+                <UriContext.Provider value={{ uri, setUri }} >
+                    <Body collection={payload} orgId={orgId} classId={classId}></Body>
+                </UriContext.Provider>
+            }
+            renderLoading={() => <Loader />}
+        />
     )
 }
 

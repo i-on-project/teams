@@ -61,25 +61,33 @@ fun CollectionModel.toTeamsSirenObject(
  */
 fun TeamsOutputModel.toStudentSirenObject(
     studentList: List<StudentCompactOutputModel>,
-    orgId: Int,
-    classId: Int
+    orgId: Int
 ) = SirenEntity(
     properties = this,
     clazz = listOf(SirenClasses.TEAM),
+    actions = listOf(
+        SirenAction(
+            name = "add-student",
+            title = "Add Student",
+            method = HttpMethod.POST,
+            href = Uris.Students.FromTeam.make(orgId,this.cid,this.id),
+            type = MediaType.APPLICATION_JSON,
+        )
+    ),
     entities = studentList.map {
         EmbeddedEntity(
             properties = it,
             clazz = listOf(SirenClasses.STUDENT),
             rel = listOf(SirenRelations.ITEM),
-            links = listOf(selfLink(Uris.Students.Student.make(orgId, classId, it.number)))
+            links = listOf(selfLink(Uris.Students.Student.make(orgId, this.cid, it.number)))
         )
     },
     links = listOf(
-        selfLink(Uris.Teams.make(orgId, classId)),
+        selfLink(Uris.Teams.make(orgId, this.cid)),
         homeLink(),
-        SirenLink(SirenRelations.CLASSROOM, Uris.Classrooms.Classroom.make(orgId, classId)),
-        SirenLink(SirenRelations.REPOS, Uris.Repos.make(orgId, classId,this.id)),
-        SirenLink(SirenRelations.ASSIGNMENTS, Uris.Assignments.make(orgId, classId)),
+        SirenLink(SirenRelations.CLASSROOM, Uris.Classrooms.Classroom.make(orgId, this.cid)),
+        SirenLink(SirenRelations.REPOS, Uris.Repos.make(orgId, this.cid,this.id)),
+        SirenLink(SirenRelations.ASSIGNMENTS, Uris.Assignments.make(orgId, this.cid)),
         logoutLink()
     )
 )

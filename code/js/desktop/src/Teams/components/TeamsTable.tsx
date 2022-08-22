@@ -12,7 +12,7 @@ export function TeamsTable({ entities, orgId, classId }: { entities: Entity[], o
     const menuItemNameContext= useMenuItemNameContext()
 
     function rowSpan() {
-        const projects = entities.map((entity: Entity) => {
+        const teams = entities.map((entity: Entity) => {
             return {
                 id: entity.properties.id,
                 name: entity.properties.name,
@@ -21,7 +21,7 @@ export function TeamsTable({ entities, orgId, classId }: { entities: Entity[], o
             }
         })
 
-        return projects.map(item =>
+        return teams.map(item =>
             <Table.Row key={item.id} >
                 <Table.Cell onClick={() => {
                     menuItemNameContext.setTeamName(item.name)

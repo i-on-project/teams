@@ -11,15 +11,20 @@ class AuthenticationService(val jdbi: Jdbi) {
 
     /* User Session */
 
-    fun createSession(@Bind number: Int, @Bind sessionId: String, @Bind usertype: Char) {
+    fun createSession(number: Int, sessionId: String,  usertype: Char) {
         sqlExceptionHandler {
             jdbi.onDemand(AuthenticationDAO::class.java).createSession(number, sessionId, usertype)
         }
     }
 
-    fun deleteSession(@Bind number: Int, @Bind sessionId: String) {
+    fun deleteSession(@Bind number: Int, sessionId: String) {
         sqlExceptionHandler {
             jdbi.onDemand(AuthenticationDAO::class.java).deleteSession(number, sessionId)
+        }
+    }
+    fun getNumber(sessionId: String){
+        sqlExceptionHandler {
+            jdbi.onDemand(AuthenticationDAO::class.java).getNumber(sessionId)
         }
     }
 
@@ -37,7 +42,7 @@ class AuthenticationService(val jdbi: Jdbi) {
         }
     }
 
-    fun isVerified(@Bind number: Int) {
+    fun isVerified( number: Int) {
         sqlExceptionHandler {
             jdbi.onDemand(AuthenticationDAO::class.java).isVerified(number)
         }

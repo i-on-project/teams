@@ -16,7 +16,7 @@ class TeamsController(
 ) {
 
     @GetMapping
-    fun getAllTeamsOfOrganization(
+    fun getAllTeamsOfClassroom(
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int,
         @PathVariable orgId: Int,
@@ -49,6 +49,8 @@ class TeamsController(
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
     ): ResponseEntity<Any> {
+
+
         val createdTeam = teamsService.createTeam(team.toDb(classId)).toOutput()
 
         return ResponseEntity.created(Uris.Teams.Team.make(orgId, classId, createdTeam.id))

@@ -153,7 +153,7 @@ fun ClassroomOutputModel.toTeacherSirenObject(
         SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
         SirenLink(SirenRelations.ASSIGNMENTS, Uris.Assignments.make(orgId, id)),
         SirenLink(SirenRelations.REQUESTS, Uris.Requests.make(orgId, id)),
-        SirenLink(SirenRelations.INVITE_LINKS, Uris.InviteCodes.make(orgId, id)),
+        SirenLink(SirenRelations.INVITE_CODES, Uris.InviteCodes.make(orgId, id)),
         SirenLink(SirenRelations.STUDENTS, Uris.Students.FromClassroom.make(orgId, id)),
         logoutLink()
     )

@@ -6,6 +6,7 @@ DECLARE
                            FROM students
                            WHERE tid = new.tid);
 BEGIN
+
     --guarantees that max members per team is not exceed
     IF (members_counter > (SELECT maxmembersperteam FROM classrooms WHERE id = new.cId)) THEN
         BEGIN
@@ -22,12 +23,12 @@ CREATE OR REPLACE FUNCTION check_class_teams_fun() --on TEAMS
     RETURNS TRIGGER AS
 $check_class_teams_fun$
 DECLARE
-    teamId   int = new.id;
+    cid_new   int = new.cid;
     maxTeams int = (SELECT maxteams
                     FROM classrooms
-                    WHERE id = teamId);
+                    WHERE id = cid_new);
 BEGIN
-    IF (maxTeams < (SELECT count(*) FROM teams where id = teamId)) THEN
+    IF (maxTeams <= (SELECT count(*) FROM teams where cid = cid_new)) THEN
         BEGIN
             RAISE EXCEPTION 'This class cannot have more teams';
         END;

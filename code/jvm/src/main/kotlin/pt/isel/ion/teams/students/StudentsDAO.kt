@@ -53,7 +53,7 @@ interface StudentsDAO {
 
     @SqlUpdate("INSERT INTO students (number, tid, cid)  VALUES (:number, :tid, :cid) ON CONFLICT (number, tid, cid) DO UPDATE SET deleted=B'0'")
     @GetGeneratedKeys
-    fun addStudent(@BindBean student: StudentClassInfoDbWrite): StudentClassInfoDbRead
+    fun addStudent(@Bind number: Int, @Bind tid: Int, @Bind cid: Int): StudentClassInfoDbRead
 
     @SqlUpdate("UPDATE students SET deleted=B'1' WHERE number=:number AND cid=:cid")
     fun removeStudent(@Bind number: Int, @Bind cid: Int)

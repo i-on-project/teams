@@ -1,11 +1,14 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
-import { Container, Header, Loader } from "semantic-ui-react"
+import { Container, Header, Loader, Message, Segment } from "semantic-ui-react"
+import { DefaultForm } from "../common/components/DefaultForm"
 import { Fetch } from "../common/components/Fetch"
 import { Loading } from "../common/components/Loading"
 import { useMenu } from "../common/components/MenuContext"
-import { Resource } from "../common/types/siren"
+import { DefaultTable } from "../common/components/Table"
+import { Action, Collection, Link_relation, Resource } from "../common/types/siren"
 import { makeHome } from "../common/Uris"
+import { TeamsTable } from "../Teams/components/TeamsTable"
 
 export function Page() {
     
@@ -35,12 +38,39 @@ export function Page() {
 }
 
 function Body({resource}: {resource: Resource}) {
+    
+    const createTeam_action = resource.actions.find( (action: Action) => action.name == "create-team" )
+    const teams_url = resource.links.find( (link: Link_relation) => link.rel == "teams").href
+
     return (
         <Container>
-            <Header as='h2'>Create your own team</Header>
-            ...
-            <Header as='h2'>Enter an existing team</Header>
-            ...
+            { createTeam_action ?
+                <Segment>
+                    <DefaultForm action={createTeam_action}/>
+                </Segment>
+                :
+                <Message warning>
+                    Team creation is not available.
+                </Message>
+            }
+            { teams_url &&
+                <Segment>
+                    <Fetch
+                        url={teams_url}
+                        renderBegin={() => <p>Waiting for URL...</p>}
+                        renderOk={
+                            (payload: Collection) => payload.entities.length != 0 ?
+                                <React.Fragment>
+                                    <Header as='h2'>Enter an existing team</Header>
+                                    <TeamsTable entities={payload.entities}/>
+                                </React.Fragment>
+                                :
+                                <Header as="h3" textAlign="center"> No teams were created.</Header>
+                        }
+                        renderLoading={() => <Loader />} 
+                    />
+                </Segment>
+                }
         </Container>
     )
 }

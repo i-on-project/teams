@@ -1,8 +1,5 @@
 import * as React from 'react'
 import { LoggedInContext } from './common/components/loggedStatus'
-import { HorizontalMenu } from './common/components/Menu'
-import { MenuContainer } from './common/components/MenuContext'
-import { Page } from './LoginSignup/LoginSignup'
 import { Router } from './Router'
 
 export function App() {

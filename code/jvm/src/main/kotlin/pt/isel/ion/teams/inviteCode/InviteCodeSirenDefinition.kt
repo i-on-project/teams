@@ -24,11 +24,11 @@ fun CollectionModel.toInviteLinksSirenObject(
 
     return SirenEntity(
         properties = this,
-        clazz = listOf(SirenClasses.COLLECTION, SirenClasses.INVITE_LINK),
+        clazz = listOf(SirenClasses.COLLECTION, SirenClasses.INVITE_CODE),
         entities = list.map {
             EmbeddedEntity(
                 properties = it,
-                clazz = listOf(SirenClasses.INVITE_LINK),
+                clazz = listOf(SirenClasses.INVITE_CODE),
                 rel = listOf(SirenRelations.ITEM),
                 links = listOf(
                     selfLink(Uris.InviteCodes.InviteCode.make(it.code)),
@@ -61,7 +61,7 @@ fun InviteLinksOutputModel.toSirenObject(
     orgId: Int
 ) = SirenEntity(
     properties = this,
-    clazz = listOf(SirenClasses.INVITE_LINK),
+    clazz = listOf(SirenClasses.INVITE_CODE),
     actions = listOf(
         SirenAction(
             name = "create-team",
@@ -78,6 +78,6 @@ fun InviteLinksOutputModel.toSirenObject(
         selfLink(Uris.InviteCodes.InviteCode.make(code)),
         homeLink(),
         logoutLink(),
-        //TODO: signup()
+        SirenLink(SirenRelations.TEAMS, Uris.Teams.make(orgId, this.cid))
     )
 )

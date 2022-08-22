@@ -13,6 +13,9 @@ interface AuthenticationDAO {
     @SqlUpdate("DELETE FROM user_session WHERE number=:number AND sessionid=:sessionId")
     fun deleteSession(@Bind number: Int, @Bind sessionId: String)
 
+    @SqlQuery("SELECT number FROM user_session WHERE sessionid=:sessionId")
+    fun getNumber(@Bind sessionId: String): Int
+
     /* Verification of users (Teacher or Student) */
     @SqlUpdate("INSERT INTO to_verify (code, number) VALUES (:code, :number)")
     fun createVerification(@Bind code: String, @Bind number: Int)

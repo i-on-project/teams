@@ -25,7 +25,7 @@ object SirenRelations {
     const val TAGS = "tags"
     const val DELIVERIES = "deliveries"
     const val REPOS = "repos"
-    const val INVITE_LINKS = "invite-links"
+    const val INVITE_CODES = "invite-codes"
 
     //Individual resources
     const val ORGANIZATION = "organization"
@@ -34,4 +34,5 @@ object SirenRelations {
     const val REPO = "repo"
     const val DELIVERY = "delivery"
     const val ASSIGNMENT = "assignment"
+    const val INVITE_CODE = "invite-code"
 }

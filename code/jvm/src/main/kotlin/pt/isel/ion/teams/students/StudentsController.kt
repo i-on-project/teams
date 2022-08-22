@@ -3,6 +3,7 @@ package pt.isel.ion.teams.students
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.authentication.AuthenticationService
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
@@ -11,7 +12,11 @@ import pt.isel.ion.teams.teams.toCompactOutput
 
 @RestController
 @RequestMapping(Uris.Students.MAIN_PATH)
-class StudentsController(val studentsService: StudentsService, val teamsService: TeamsService) {
+class StudentsController(
+    val studentsService: StudentsService,
+    val teamsService: TeamsService,
+    val authService: AuthenticationService
+    ) {
 
     @GetMapping(Uris.Students.FromClassroom.PATH)
     fun getAllStudentsByClassroom(
@@ -92,9 +97,10 @@ class StudentsController(val studentsService: StudentsService, val teamsService:
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
         @PathVariable teamId: Int,
-        @RequestBody student: StudentClassInfoInputModel
+        @CookieValue session: String
     ): ResponseEntity<Any> {
-        val std = studentsService.addStudent(student.toDb(teamId,classId)).toOutput()
+        val number = authService.getNumber(session) as Int
+        val std = studentsService.addStudent(number,teamId,classId).toOutput()
 
         return ResponseEntity
             .created(Uris.Students.Student.make(orgId, classId, std.number))

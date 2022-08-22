@@ -1,6 +1,7 @@
 package pt.isel.ion.teams.students
 
 import org.jdbi.v3.core.Jdbi
+import org.jdbi.v3.sqlobject.customizer.Bind
 import org.springframework.stereotype.Component
 import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 
@@ -48,9 +49,9 @@ class StudentsService(val jdbi: Jdbi) {
             jdbi.onDemand(StudentsDAO::class.java).deleteStudent(number)
         }
 
-    fun addStudent(student: StudentClassInfoDbWrite) =
+    fun addStudent(number: Int, tid: Int, cid: Int) =
         sqlExceptionHandler {
-            jdbi.onDemand(StudentsDAO::class.java).addStudent(student)
+            jdbi.onDemand(StudentsDAO::class.java).addStudent(number,tid,cid)
         }
 
     fun removeStudent(number: Int, cid: Int) =

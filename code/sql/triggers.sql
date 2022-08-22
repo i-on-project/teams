@@ -6,7 +6,7 @@ CREATE TRIGGER check_team_members_counter
 EXECUTE PROCEDURE check_team_members_fun();
 
 CREATE TRIGGER check_team_counter
-    AFTER INSERT
+    BEFORE INSERT
     ON teams
     FOR EACH ROW
 EXECUTE PROCEDURE check_class_teams_fun();
