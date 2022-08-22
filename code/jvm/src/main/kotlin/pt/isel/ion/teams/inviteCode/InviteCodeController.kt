@@ -9,13 +9,12 @@ import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
 
 @RestController
-@RequestMapping(Uris.InviteCodes.MAIN_PATH)
 class InviteCodeController(
     val service: InviteCodeService,
     val classroomsService: ClassroomsService
     ) {
 
-    @GetMapping
+    @GetMapping(Uris.InviteCodes.MAIN_PATH)
     fun getAllInviteCodes(
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int,
@@ -46,7 +45,7 @@ class InviteCodeController(
             .body(inviteLink.toSirenObject(orgId))
     }
 
-    @PostMapping
+    @PostMapping(Uris.InviteCodes.MAIN_PATH)
     fun createInviteCode(
         @PathVariable orgId: Int,
         @PathVariable classId: Int,

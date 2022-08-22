@@ -2,8 +2,15 @@ module.exports = {
     mode: 'development',
     devtool: false,
     devServer: {
-        port: 3030,
-        hot: false
+        port: 3000,
+        hot: false,
+        devMiddleware: {
+            index: false, // specify to enable root proxying
+          },
+        proxy: {
+            context: ['/auth', '/api'],
+            target:  'http://localhost:8080'
+          },
     },
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],

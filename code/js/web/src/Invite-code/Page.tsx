@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useParams } from "react-router-dom"
-import { Header, Loader } from "semantic-ui-react"
+import { Container, Header, Loader } from "semantic-ui-react"
 import { Fetch } from "../common/components/Fetch"
 import { Loading } from "../common/components/Loading"
 import { useMenu } from "../common/components/MenuContext"
@@ -36,11 +36,11 @@ export function Page() {
 
 function Body({resource}: {resource: Resource}) {
     return (
-        <div>
+        <Container>
             <Header as='h2'>Create your own team</Header>
             ...
             <Header as='h2'>Enter an existing team</Header>
             ...
-        </div>
+        </Container>
     )
 }

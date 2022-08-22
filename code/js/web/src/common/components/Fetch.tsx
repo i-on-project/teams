@@ -1,9 +1,7 @@
 import * as React from "react"
-import { useReducer, useEffect} from "react"
+import { useReducer, useEffect } from "react"
 import { ChangedContext } from "./changedStatus"
 import { Error, ErrorNOk } from "./error"
-
-const apiUrl: string = 'http://localhost:8080' 
 
 export type FetchProps = {
     url: string,
@@ -51,7 +49,14 @@ async function doFetch(uri: string, dispatcher: (action: Action) => void, signal
     }
     dispatcher({ type: 'fetch-started', url: url })
     try {
-        const response = await fetch(url, { signal, credentials: 'include' })
+        const response = await fetch(
+            url,
+            { 
+                signal,
+                credentials: 'include'
+             }
+        )
+
         dispatcher({ type: 'response', response: response })
         if (response.ok) {
             const payload = await response.json()
@@ -82,7 +87,7 @@ function fetchEffect(url: string, dispatcher: (action: Action) => void) {
 }
 
 function buildUrl(uri: string): string {
-    return apiUrl + uri
+    return 'http://localhost:8080' + uri
 }
 
 export function Fetch(props: FetchProps) {
@@ -91,7 +96,6 @@ export function Fetch(props: FetchProps) {
     const [state, dispatcher] = useReducer(reducer, { state: 'begin' })
     useEffect(() => fetchEffect(props.url, dispatcher), [props.url, dispatcher, changed])
 
-
     switch (state.state) {
         case 'begin': return props.renderBegin()
 
@@ -99,8 +103,8 @@ export function Fetch(props: FetchProps) {
 
         case 'error-receive': return props.renderError(state.error) ? props.renderError(state.error) : <Error error={state.error} />
 
-        case 'response-received': return state.response.ok ? props.renderLoading() : (props.renderNok(state.response) ? props.renderNok(state.response) : <ErrorNOk message={state.response}/>)
+        case 'response-received': return state.response.ok ? props.renderLoading() : (props.renderNok(state.response) ? props.renderNok(state.response) : <ErrorNOk message={state.response} />)
 
-        case 'payload-receive': return props.renderOk(state.payload) 
+        case 'payload-receive': return props.renderOk(state.payload)
     }
 }
