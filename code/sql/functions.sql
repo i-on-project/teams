@@ -8,7 +8,7 @@ DECLARE
 BEGIN
 
     --guarantees that max members per team is not exceed
-    IF (members_counter > (SELECT maxmembersperteam FROM classrooms WHERE id = new.cId)) THEN
+    IF (members_counter = (SELECT maxmembersperteam FROM classrooms WHERE id = new.cId)) THEN
         BEGIN
             RAISE EXCEPTION 'Student cannot enter this group.';
         END;

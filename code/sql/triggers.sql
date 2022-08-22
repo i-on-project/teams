@@ -1,6 +1,6 @@
 --Classroom Counters Triggers
 CREATE TRIGGER check_team_members_counter
-    AFTER INSERT OR UPDATE
+    BEFORE INSERT OR UPDATE
     ON students
     FOR EACH ROW
 EXECUTE PROCEDURE check_team_members_fun();
