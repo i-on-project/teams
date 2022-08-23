@@ -81,6 +81,14 @@ class ResourceAlreadyExistsException : BaseException(
     "The resource you are trying to create already exists and thus cannot be created"
 )
 
+class DbActionNotAllowed : BaseException(
+    URI("NÃO TEM"),
+    "Conflict",
+    409,
+    "The action requested is not allowed."
+)
+
+
 /******************** 500 ********************/
 
 class DbConnectionException : BaseException(
@@ -101,7 +109,7 @@ class UnknownDbException : BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
     "Internal Server Error",
     500,
-    "AN unknown database error has occured and the request cannot be completed"
+    "An unknown database error has occured and the request cannot be completed"
 )
 
 class SQLSyntaxErrorException: BaseException(

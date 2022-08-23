@@ -5,7 +5,6 @@ import { DefaultForm } from "../common/components/DefaultForm"
 import { Fetch } from "../common/components/Fetch"
 import { Loading } from "../common/components/Loading"
 import { useMenu } from "../common/components/MenuContext"
-import { DefaultTable } from "../common/components/Table"
 import { Action, Collection, Link_relation, Resource } from "../common/types/siren"
 import { makeHome } from "../common/Uris"
 import { TeamsTable } from "../Teams/components/TeamsTable"
@@ -34,7 +33,6 @@ export function Page() {
                 renderLoading={() => <Loading />}
             />
     )
-
 }
 
 function Body({resource}: {resource: Resource}) {

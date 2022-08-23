@@ -74,10 +74,11 @@ function convertUrltoObj(url: string) {
 export function LoginSignup() {
 
   const setLoggedState = useLoggedInState().setLoggedState
-  const [messageState, messageDispatch] = React.useReducer(messageReducer, { hidden: true, success: false, error: false, status: null, message: null })
   const [url, setUrl] = React.useState('*No URL yet*')
   const [parameters, setParameters] = React.useState<RegisterParams>({})
   const [loadindState, setLoading] = React.useState(false)
+  const [messageState, messageDispatch] = React.useReducer(messageReducer,
+     { hidden: true, success: false, error: false, status: null, message: null })
 
   electron.customProtocolUrl((_event, value) => {
     console.log(value)
