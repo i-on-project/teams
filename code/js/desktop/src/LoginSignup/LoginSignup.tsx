@@ -50,6 +50,7 @@ export function LoginSignup() {
   const setLoggedState = useLoggedInState().setLoggedState
   const [url, setUrl] = React.useState('*No URL yet*')
   const [parameters, setParameters] = React.useState<RegisterParams>({})
+  const [loadindState, setLoading] = React.useState(false)
 
   electron.customProtocolUrl((_event, value) => {
     console.log(value)
@@ -62,51 +63,71 @@ export function LoginSignup() {
     const urlObj = convertUrltoObj(url)
     console.log(urlObj)
 
-    switch (urlObj.type) {
-      case "login":
-        fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
-          .then(resp => resp.json())
-          .then((token: AccessToken) => {
-            console.log(token)
-            setLoggedState({ logged: true, access_token: token })
-          })
-
-      case "register": {
-        fetch(`http://localhost:8080/auth/register?clientId=desktop-register`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(parameters)
-        })
-          .then(() =>
-            fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`)
-              .then(resp => resp.json())
-              .then((token: AccessToken) => {
-                console.log(token)
-                setLoggedState({ logged: true, access_token: token })
-              }))
+    async function checkRespOk(resp: Response) {
+      if (resp.ok) {
+        return resp.json()
       }
+
+      throw new Error(await resp.json())
+    }
+
+    if (urlObj.type === "login") {
+      fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
+        .then(checkRespOk)
+        .then((token: AccessToken) => {
+          console.log(token)
+          setLoggedState({ logged: true, access_token: token })
+        })
+        .catch(err => {
+          setLoading(false)
+        })
+    } else if (urlObj.type === "register") {
+      fetch(`http://localhost:8080/auth/register?clientId=desktop-register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(parameters)
+      })
+        .then(() => fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`))
+        .then(checkRespOk)
+        .then((token: AccessToken) => {
+          console.log(token)
+          setLoggedState({ logged: true, access_token: token })
+        })
+        .catch(err => {
+          setLoading(false)
+        })
     }
 
   }, [url])
 
+  function loginButtonOnClick() {
+    setLoading(true)
+    electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop')
+  }
+
+  function signupButtonOnClick() {
+    setLoading(true)
+    electron.externalBrowserApi.open('http://localhost:8080/auth/register?clientId=desktop-register')
+  }
+
   return (
     <div>
-        <Button onClick={() => {setLoggedState({ logged: true, access_token: 'belele' })}}> Fake Login </Button>
       <div>
+        <Button onClick={() => { setLoggedState({ logged: true, access_token: 'belele' }) }}> Fake Login </Button>
         The url is: {url}
       </div>
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Image src='./public/logo_blue.svg' size="medium" centered />
-          <Segment stacked style={{ marginTop: '16px' }}>
+          <Segment stacked style={{ marginTop: '16px' }} disabled={loadindState} loading={loadindState}>
             <Header as="h3">Login via GitHub</Header>
             <Button
               circular
               color='black'
               icon='github'
-              onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop') }}
+              onClick={loginButtonOnClick}
             />
 
             <Divider horizontal>Or</Divider>
@@ -123,7 +144,7 @@ export function LoginSignup() {
               <Button
                 circular
                 color='black'
-                onClick={() => { electron.externalBrowserApi.open('http://localhost:8080/auth/register?clientId=desktop-register') }}
+                onClick={signupButtonOnClick}
               >
                 <Icon name='github' />
                 Sign up

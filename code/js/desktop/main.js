@@ -130,7 +130,6 @@ if (!gotTheLock) {
 
 // Handle the protocol on MacOS/Linux.
 app.on('open-url', (event, url) => {
-    dialog.showErrorBox('Welcome Back', `You arrived from ${url}`)
     urlToRenderer(url)
 })
 
