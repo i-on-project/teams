@@ -201,6 +201,16 @@ class AuthenticationController(
             if (type == "register" && number != null) {
                 //Associate GitHub username with school number
                 teachersService.updateTeacher(TeacherDbUpdate(number.toInt(), githubusername = ghUserInfo.login))
+
+                //Verification
+                val user = teachersService.getTeacherByUsername(ghUserInfo.login)
+
+                //Creating and storing verification id
+                val verificationId = UUID.randomUUID().toString()
+                authService.createVerification(verificationId, user.number)
+
+                //Sending verification email
+                emailService.sendVerificationEmail(user.name, user.email, verificationId)
             } else {
                 //Verification if the user trying to log in is in fact registered
                 try {
@@ -209,16 +219,6 @@ class AuthenticationController(
                     throw UserNotRegisteredException()
                 }
             }
-
-            //Verification
-            val user = teachersService.getTeacherByUsername(ghUserInfo.login)
-
-            //Creating and storing verification id
-            val verificationId = UUID.randomUUID().toString()
-            authService.createVerification(verificationId, user.number)
-
-            //Sending verification email
-            emailService.sendVerificationEmail(user.name, user.email, verificationId)
 
             val accessTokenCookie = ResponseCookie.from("accessToken", at.access_token)
                 .path("/auth/access_token")

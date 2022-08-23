@@ -14,6 +14,13 @@ declare type AccessToken = {
   access_token: string
 }
 
+declare type Problem = {
+  type: string,
+  title: string,
+  status: number,
+  detail: string
+}
+
 declare type UrlObj = {
   protocol: string,
   code: string,
@@ -26,6 +33,18 @@ declare type RegisterParams = {
   number?: string,
   office?: string
 }
+
+declare type Message = {
+  code: number,
+  message: string
+}
+
+type MessageState = { hidden: boolean, success: boolean, error: boolean, status: number, message: string }
+
+type MessageAction =
+  | { type: 'error', status: number, message: string }
+  | { type: 'success' }
+  | { type: 'reset' }
 
 function convertUrltoObj(url: string) {
 
@@ -45,9 +64,22 @@ function convertUrltoObj(url: string) {
   return obj
 }
 
+function messageReducer(state: MessageState, action: MessageAction): MessageState {
+  switch (action.type) {
+    case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
+
+    case 'error': return { hidden: false, success: false, error: true, status: action.status, message: action.message }
+
+    case 'reset': return { hidden: true, success: false, error: false, status: null, message: null }
+
+    default: return state
+  }
+}
+
 export function LoginSignup() {
 
   const setLoggedState = useLoggedInState().setLoggedState
+  const [messageState, messageDispatch] = React.useReducer(messageReducer, { hidden: true, success: false, error: false, status: null, message: null })
   const [url, setUrl] = React.useState('*No URL yet*')
   const [parameters, setParameters] = React.useState<RegisterParams>({})
   const [loadindState, setLoading] = React.useState(false)
@@ -68,7 +100,7 @@ export function LoginSignup() {
         return resp.json()
       }
 
-      throw new Error(await resp.json())
+      throw await resp.json()
     }
 
     if (urlObj.type === "login") {
@@ -76,10 +108,12 @@ export function LoginSignup() {
         .then(checkRespOk)
         .then((token: AccessToken) => {
           console.log(token)
+          messageDispatch({ type: 'success' })
           setLoggedState({ logged: true, access_token: token })
         })
-        .catch(err => {
+        .catch((err: Problem) => {
           setLoading(false)
+          messageDispatch({ type: 'error', status: err.status, message: err.detail })
         })
     } else if (urlObj.type === "register") {
       fetch(`http://localhost:8080/auth/register?clientId=desktop-register`, {
@@ -122,6 +156,14 @@ export function LoginSignup() {
         <Grid.Column style={{ maxWidth: 450 }}>
           <Image src='./public/logo_blue.svg' size="medium" centered />
           <Segment stacked style={{ marginTop: '16px' }} disabled={loadindState} loading={loadindState}>
+            <Message
+              hidden={messageState.hidden}
+              positive={messageState.success}
+              error={messageState.error}
+              header={messageState.status}
+              content={messageState.message}
+              onDismiss={() => {messageDispatch({ type: 'reset' })}}
+            />
             <Header as="h3">Login via GitHub</Header>
             <Button
               circular
