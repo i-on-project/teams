@@ -34,17 +34,24 @@ declare type RegisterParams = {
   office?: string
 }
 
-declare type Message = {
-  code: number,
-  message: string
-}
-
 type MessageState = { hidden: boolean, success: boolean, error: boolean, status: number, message: string }
 
 type MessageAction =
   | { type: 'error', status: number, message: string }
   | { type: 'success' }
   | { type: 'reset' }
+
+function messageReducer(state: MessageState, action: MessageAction): MessageState {
+  switch (action.type) {
+    case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
+
+    case 'error': return { hidden: false, success: false, error: true, status: action.status, message: action.message }
+
+    case 'reset': return { hidden: true, success: false, error: false, status: null, message: null }
+
+    default: return state
+  }
+}
 
 function convertUrltoObj(url: string) {
 
@@ -62,18 +69,6 @@ function convertUrltoObj(url: string) {
   const obj: UrlObj = { protocol: protocol, code: code, type: type }
 
   return obj
-}
-
-function messageReducer(state: MessageState, action: MessageAction): MessageState {
-  switch (action.type) {
-    case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
-
-    case 'error': return { hidden: false, success: false, error: true, status: action.status, message: action.message }
-
-    case 'reset': return { hidden: true, success: false, error: false, status: null, message: null }
-
-    default: return state
-  }
 }
 
 export function LoginSignup() {
@@ -107,7 +102,6 @@ export function LoginSignup() {
       fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
         .then(checkRespOk)
         .then((token: AccessToken) => {
-          console.log(token)
           messageDispatch({ type: 'success' })
           setLoggedState({ logged: true, access_token: token })
         })
@@ -126,11 +120,12 @@ export function LoginSignup() {
         .then(() => fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`))
         .then(checkRespOk)
         .then((token: AccessToken) => {
-          console.log(token)
+          messageDispatch({ type: 'success' })
           setLoggedState({ logged: true, access_token: token })
         })
-        .catch(err => {
+        .catch((err: Problem) => {
           setLoading(false)
+          messageDispatch({ type: 'error', status: err.status, message: err.detail })
         })
     }
 
@@ -162,7 +157,7 @@ export function LoginSignup() {
               error={messageState.error}
               header={messageState.status}
               content={messageState.message}
-              onDismiss={() => {messageDispatch({ type: 'reset' })}}
+              onDismiss={() => { messageDispatch({ type: 'reset' }) }}
             />
             <Header as="h3">Login via GitHub</Header>
             <Button

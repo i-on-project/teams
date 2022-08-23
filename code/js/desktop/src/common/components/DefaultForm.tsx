@@ -8,13 +8,43 @@ interface FormData {
     [str: string]: any
 }
 
+declare type Problem = {
+    type: string,
+    title: string,
+    status: number,
+    detail: string
+}
+
+type MessageState = { hidden: boolean, success: boolean, error: boolean, status: number, message: string }
+
+type MessageAction =
+    | { type: 'error', status: number, message: string }
+    | { type: 'success' }
+    | { type: 'reset' }
+
+function messageReducer(state: MessageState, action: MessageAction): MessageState {
+    switch (action.type) {
+        case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
+
+        case 'error': return { hidden: false, success: false, error: true, status: action.status, message: action.message }
+
+        case 'reset': return { hidden: true, success: false, error: false, status: null, message: null }
+
+        default: return state
+    }
+}
+
 export function DefaultForm({ action, divider = false }: { action: Action, divider?: boolean }) {
 
     const { setChanged } = useContext(ChangedContext)
     const [state, setState] = useState<FormData>({})
+    const [loadindState, setLoading] = React.useState(false)
+    const [messageState, messageDispatch] = React.useReducer(messageReducer, { hidden: true, success: false, error: false, status: null, message: null })
 
     function onSubmit(event: any) {
         event.preventDefault();
+
+        setLoading(true)
 
         fetch(`http://localhost:8080${action.href}`, {
             method: action.method,
@@ -25,15 +55,34 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
             credentials: 'include',
             body: JSON.stringify(state)
         })
-            .then(() => {
-                setChanged(true)
+            .then(async (resp: Response) => {
+                if (resp.ok) {
+                    messageDispatch({ type: 'success' })
+                    setChanged(true)
+                    setLoading(false)
+                    return
+                }
+
+                throw await resp.json()
+            })
+            .catch((err: Problem) => {
+                setLoading(false)
+                messageDispatch({ type: 'error', status: err.status, message: err.detail })
             })
     }
 
     return (
         <div>
             <Header as='h2'>{action.title}</Header>
-            <Form onSubmit={(event) => onSubmit(event)}>
+            <Message
+              hidden={messageState.hidden}
+              positive={messageState.success}
+              error={messageState.error}
+              header={messageState.status}
+              content={messageState.message}
+              onDismiss={() => { messageDispatch({ type: 'reset' }) }}
+            />
+            <Form onSubmit={(event) => onSubmit(event)} loading={loadindState}>
                 {buildFields()}
                 <Button color='blue' fluid type='submit' onClick={(event) => onSubmit(event)}>{action.title}</Button>
                 {
@@ -48,12 +97,12 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
         function defaultFormField(field: Field) {
             return (
                 <React.Fragment>
-                <Form.Field key={field.name} required>
-                    <label>{field.name}</label>
-                    <input placeholder={`Write ${field.name} here...`} onChange={(event) => setState({ ...state, [field.name]: event.target.value })} />
-                </Form.Field>
-                {field.name == "date" && <Message>Date format: YYYY-MM-DD hh:mm:ss</Message>}
-            </React.Fragment>
+                    <Form.Field key={field.name} required>
+                        <label>{field.name}</label>
+                        <input placeholder={`Write ${field.name} here...`} onChange={(event) => setState({ ...state, [field.name]: event.target.value })} />
+                    </Form.Field>
+                    {field.name == "date" && <Message>Date format: YYYY-MM-DD hh:mm:ss</Message>}
+                </React.Fragment>
             )
         }
 
