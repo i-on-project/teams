@@ -19,7 +19,7 @@ import pt.isel.ion.teams.inviteCode.InviteLinksOutputModel
 @AutoConfigureMockMvc
 class InviteCodesControllerTests {
 
-    @Autowired
+    /*@Autowired
     private lateinit var client: MockMvc
 
     private var mapper = jacksonObjectMapper()
@@ -141,5 +141,5 @@ class InviteCodesControllerTests {
             .andExpect {
                 status { isOk() }
             }
-    }
+    }*/
 }

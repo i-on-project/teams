@@ -37,3 +37,16 @@ data class UserInfoInputModel(
 
 fun UserInfoInputModel.toTeacherDbWrite() = TeacherDbWrite(number, name, email!!, office!!)
 fun UserInfoInputModel.toStudentDbWrite() = StudentDbWrite(number, name)
+
+/* ******************** SESSION ******************** */
+
+data class UserSession(
+    val number: Int,
+    val sessionId: String,
+    val userType: Char
+)
+
+data class DesktopUserSession(
+    val sessionId: String,
+    val accessToken: String
+)

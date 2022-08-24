@@ -27,11 +27,8 @@ class ErrorsController : ResponseEntityExceptionHandler() {
     //TODO Review URIs
     val type400 = URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md")
     val type404 = URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md")
-    val type405 = URI("")
     val type406 = URI("")
-    val type415 = URI("")
     val type500 = URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md")
-    val type503 = URI("")
 
     /*                      BUSINESS EXCEPTIONS                       */
 

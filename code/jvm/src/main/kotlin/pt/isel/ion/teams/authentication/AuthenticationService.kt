@@ -11,8 +11,8 @@ class AuthenticationService(val jdbi: Jdbi) {
 
     /* User Session */
 
-    fun createSession(number: Int, sessionId: String,  usertype: Char) {
-        sqlExceptionHandler {
+    fun createSession(number: Int, sessionId: String,  usertype: Char): UserSession {
+        return sqlExceptionHandler {
             jdbi.onDemand(AuthenticationDAO::class.java).createSession(number, sessionId, usertype)
         }
     }
