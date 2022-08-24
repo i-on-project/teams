@@ -30,7 +30,7 @@ export function makeStudentsClassroom(orgId: UriParam, classId: UriParam) {
 
 //Invite Codes
 export function makeInviteCodes(orgId: UriParam, classId: UriParam) {
-  return `/orgs/${orgId}/classrooms/${classId}/invite-codes`
+  return `/orgs/${orgId}/classrooms/${classId}/invite-code`
 }
 
 //Teams

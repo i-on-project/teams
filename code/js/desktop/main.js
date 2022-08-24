@@ -1,5 +1,6 @@
-const { app, BrowserWindow, ipcMain, Notification, clipboard, shell, webContents, dialog } = require('electron')
+const { app, BrowserWindow, ipcMain, Notification, clipboard, shell, webContents, dialog, session } = require('electron')
 const path = require('path')
+//const fetch = require('electron-main-fetch');
 
 /* ****************************** WINDOW CONFIGURATION ******************************
 
@@ -62,6 +63,10 @@ ipcMain.on('openBrowser', (_, url) => {
  * IPC messages from renderer, that expect a response (renderer to main to renderer)
  */
 
+async function getCookies() {
+    return await mainWindow.webContents.session.cookies.get({})
+}
+
 /**
  * IPC messages to renderer (main to renderer)
  */
@@ -121,6 +126,8 @@ if (!gotTheLock) {
             createWindow()
 
             //IPC both ways
+            ipcMain.handle('getCookies', getCookies)
+            ipcMain.handle('externalFetch', externalFetch)
 
             app.on('activate', () => {
                 if (BrowserWindow.getAllWindows().length === 0) createWindow()

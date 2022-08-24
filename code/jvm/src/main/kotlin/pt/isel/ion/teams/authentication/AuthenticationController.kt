@@ -172,7 +172,7 @@ class AuthenticationController(
                 authService.createVerification(verificationId, user.number)
 
                 //Sending verification email
-                emailService.sendVerificationEmail(user.name, user.email, verificationId)
+                emailService.sendVerificationEmail(user.name, "a${user.number}@alunos.isel.pt", verificationId)
 
                 return ResponseEntity
                     .ok(accessToken)

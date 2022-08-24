@@ -45,7 +45,7 @@ export function VerticalFixedMenu() {
                         name={item.name}
                         active={item.isActive}
                         onClick={() => navigate(item.href)} />
-                    <Menu.Menu key={item.name} >
+                    <Menu.Menu key={`${item.name}submenu`} >
                         {
                             item.subItems.map((subItem: MenuItem) => {
                                 return (

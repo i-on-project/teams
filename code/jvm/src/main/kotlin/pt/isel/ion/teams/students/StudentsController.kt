@@ -99,7 +99,7 @@ class StudentsController(
         @PathVariable teamId: Int,
         @CookieValue session: String
     ): ResponseEntity<Any> {
-        val number = authService.getNumber(session) as Int  //TODO
+        val number = authService.getNumber(session)
         val std = studentsService.addStudent(number,teamId,classId).toOutput()
 
         return ResponseEntity

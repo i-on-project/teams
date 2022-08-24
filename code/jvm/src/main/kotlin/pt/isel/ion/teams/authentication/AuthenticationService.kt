@@ -22,8 +22,8 @@ class AuthenticationService(val jdbi: Jdbi) {
             jdbi.onDemand(AuthenticationDAO::class.java).deleteSession(number, sessionId)
         }
     }
-    fun getNumber(sessionId: String){
-        sqlExceptionHandler {
+    fun getNumber(sessionId: String): Int {
+        return sqlExceptionHandler {
             jdbi.onDemand(AuthenticationDAO::class.java).getNumber(sessionId)
         }
     }

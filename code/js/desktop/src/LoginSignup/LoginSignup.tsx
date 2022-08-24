@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Form, Grid, Header, Message, Segment, Image, Divider, Icon } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment, Image, Divider, Icon, StrictConfirmProps, StrictGridColumnProps } from 'semantic-ui-react';
 import { useLoggedInState } from "../common/components/loggedStatus"
 
 
@@ -7,11 +7,13 @@ declare const electron: {
   externalBrowserApi: {
     open: (value: string) => undefined
   },
+  cookiesApi: () => Promise<[]>,
   customProtocolUrl: (callback: (_event: any, value: string) => void) => void,
 }
 
-declare type AccessToken = {
-  access_token: string
+declare type SessionInfo = {
+  access_token: string,
+  sessionId: string
 }
 
 declare type Problem = {
@@ -102,9 +104,11 @@ export function LoginSignup() {
     if (urlObj.type === "login") {
       fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
         .then(checkRespOk)
-        .then((token: AccessToken) => {
+        .then((session: SessionInfo) => {
           messageDispatch({ type: 'success' })
-          setLoggedState({ logged: true, access_token: token })
+          console.log(session)
+          //setLoggedState({ logged: true, access_token: token })
+          setLoading(false)
         })
         .catch((err: Problem) => {
           setLoading(false)
@@ -120,9 +124,10 @@ export function LoginSignup() {
       })
         .then(() => fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`))
         .then(checkRespOk)
-        .then((token: AccessToken) => {
+        .then((session: SessionInfo) => {
           messageDispatch({ type: 'success' })
-          setLoggedState({ logged: true, access_token: token })
+          console.log(session)
+          //setLoggedState({ logged: true, access_token: token })
         })
         .catch((err: Problem) => {
           setLoading(false)

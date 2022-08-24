@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Loader, Menu} from 'semantic-ui-react'
+import { Button, Loader, Menu } from 'semantic-ui-react'
 import { Fetch } from '../common/components/fetch'
 import { useMenu } from '../common/components/MenuContext'
 import { useMenuItemNameContext } from '../common/components/MenuItemNameContext'
@@ -48,27 +48,28 @@ export function Page() {
         return (
             <React.Fragment>
                 <h1> Your Organizations and Classrooms</h1>
-                    {
-                        collection.entities.map((entity: Entity) =>
-                            <Menu fluid vertical size='large'>
-                                <Menu.Item  
-                                    key={entity.properties.id} 
-                                    onClick={() => { 
-                                        menuItemNameContext.setOrgName(entity.properties.name)
-                                        navigate(makeOrganization(entity.properties.id))
-                                    }}
-                                    name={entity.properties.name}
-                                />
-                                {
-                                    getClassrooms(
-                                        entity.properties.id, 
-                                        entity.properties.name,
-                                        entity.links.find((link: Link_relation) => link.rel == 'classrooms')
-                                    )
-                                }
-                            </Menu>
-                        )
-                    }
+                {
+                    collection.entities.map((entity: Entity) =>
+                        <Menu fluid vertical size='large'>
+                            <Menu.Item
+                                key={entity.properties.id}
+                                onClick={() => {
+                                    menuItemNameContext.setOrgName(entity.properties.name)
+                                    navigate(makeOrganization(entity.properties.id))
+                                }}
+                                name={entity.properties.name}
+                            />
+                            {
+                                getClassrooms(
+                                    entity.properties.id,
+                                    entity.properties.name,
+                                    entity.links.find((link: Link_relation) => link.rel == 'classrooms')
+                                )
+                            }
+
+                        </Menu>
+                    )
+                }
                 {
                     prevUri != null &&
                     <Button onClick={() => console.log('click')}>Previous</Button>
@@ -89,15 +90,15 @@ export function Page() {
                     url={link.href}
                     renderBegin={() => <p>Waiting for URL...</p>}
                     renderOk={(payload) =>
-                        <Menu.Menu fluid>
+                        <Menu.Menu>
                             {
                                 payload.entities.map((entity: Entity) =>
                                     <Menu.Item
-                                        key={entity.properties.id} 
-                                        onClick={() => { 
+                                        key={entity.properties.id}
+                                        onClick={() => {
                                             menuItemNameContext.setOrgName(name)
                                             menuItemNameContext.setClassName(entity.properties.name)
-                                            navigate(makeClassroom(id,entity.properties.id))
+                                            navigate(makeClassroom(id, entity.properties.id))
                                         }}
                                         name={entity.properties.name}
                                     />
@@ -105,7 +106,7 @@ export function Page() {
                             }
                         </Menu.Menu>
                     }
-                    renderLoading={() => <Loader/>}
+                    renderLoading={() => <Loader />}
                 />
             )
 

@@ -2,7 +2,7 @@ const { ipcRenderer, contextBridge } = require('electron')
 
 contextBridge.exposeInMainWorld(
     'electron', {
-    
+
     //Renderer to main
     notificationApi: {
         sendNotification(notification) {
@@ -24,5 +24,6 @@ contextBridge.exposeInMainWorld(
     customProtocolUrl: (callback) => ipcRenderer.on('url', callback),
 
     //Renderer to main to renderer
+    cookiesApi: () => ipcRenderer.invoke('getCookies'),
 }
 )

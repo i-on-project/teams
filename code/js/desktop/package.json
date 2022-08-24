@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@electron/remote": "^2.0.8",
+    "electron-main-fetch": "^1.0.0",
     "electron-request": "^1.8.1",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.0.1",

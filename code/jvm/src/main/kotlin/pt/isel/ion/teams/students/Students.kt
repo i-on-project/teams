@@ -7,7 +7,6 @@ package pt.isel.ion.teams.students
 data class CompleteStudentDbRead(
     val number: Int,
     val name: String,
-    val email: String,
     val tid: Int,
     val cid: Int
 )
