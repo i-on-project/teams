@@ -166,7 +166,7 @@ CREATE TABLE TAGS
 CREATE TABLE USER_SESSION
 (
     number    int NOT NULL,
-    sessionId int NOT NULL,
+    sessionId varchar(50) NOT NULL,
     userType  varchar(1), -- S for student and T for teacher
     PRIMARY KEY (number, sessionId)
 );

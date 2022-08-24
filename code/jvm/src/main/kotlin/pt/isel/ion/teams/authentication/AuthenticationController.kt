@@ -22,6 +22,8 @@ const val DESKTOP_CLIENT_ID = "desktop"
 const val DESKTOP_REGISTER_CLIENT_ID = "desktop-register"
 const val WEB_CLIENT_ID = "web"
 const val WEB_REGISTER_CLIENT_ID = "web-register"
+const val TEACHER_SESSION_USER_TYPE = 'T'
+const val STUDENT_SESSION_USER_TYPE = 'S'
 //TODO: After deployment activate flag secure on cookies
 
 @RestController
@@ -220,19 +222,14 @@ class AuthenticationController(
                 }
             }
 
-            val accessTokenCookie = ResponseCookie.from("accessToken", at.access_token)
-                .path("/auth/access_token")
-                .domain("localhost")
-                .maxAge(ONE_MONTH)
-                .httpOnly(true)
-                .secure(false)
-                .sameSite("Strict")
-                .build()
+            //Session creation
+
+            val user = teachersService.getTeacherByUsername(ghUserInfo.login)
+            val sessionId = UUID.randomUUID().toString()
+            val session = authService.createSession(user.number, sessionId, TEACHER_SESSION_USER_TYPE)
 
             return ResponseEntity
-                .status(200)
-                .header(HttpHeaders.SET_COOKIE, accessTokenCookie.toString())
-                .body(at.toCompact())
+                .ok(DesktopUserSession(session.sessionId, at.access_token))
         }
     }
 
@@ -336,7 +333,9 @@ class AuthenticationController(
                 .retrieve()
                 .bodyToMono(ClientToken::class.java)
 
-        return resp.block()
+        val belele = resp.block()
+
+        return belele
     }
 
     /**
