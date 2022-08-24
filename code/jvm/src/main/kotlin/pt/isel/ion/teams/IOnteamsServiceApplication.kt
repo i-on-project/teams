@@ -43,15 +43,8 @@ class WebConfig : WebMvcConfigurer {
     override fun addCorsMappings(registry: CorsRegistry) {
         //Allows Cross Origin With the Web Application
         registry
-            .addMapping("/api/**")
-            .allowedOrigins("http://localhost:3000","http://127.0.0.1:3000")
-            .allowCredentials(true)
-
-        registry
-            .addMapping("/auth/**")
-            .allowedOrigins("http://localhost:3000","http://127.0.0.1:3000", "http://localhost:8080")
-            .allowedHeaders("Access-Control-Allow-Headers", "Origin", "X-Requested-With", "Content-Type", "Accept")
-            .exposedHeaders("Location")
+            .addMapping("/**")
+            .allowedOrigins("http://localhost:3000", "http://127.0.0.1:3000")
             .allowCredentials(true)
     }
 }

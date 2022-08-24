@@ -1,6 +1,9 @@
 package pt.isel.ion.teams.authentication
 
-import org.springframework.http.*
+import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseCookie
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.client.WebClient
 import pt.isel.ion.teams.common.Uris
@@ -10,7 +13,9 @@ import pt.isel.ion.teams.students.StudentsService
 import pt.isel.ion.teams.teacher.TeacherDbUpdate
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
+import java.net.URI
 import java.util.*
+import javax.servlet.http.HttpServletResponse
 
 
 const val GITHUB_OAUTH_URI = "https://github.com/login/oauth/authorize"
@@ -65,9 +70,9 @@ class AuthenticationController(
     @PostMapping(Uris.Register.PATH)
     fun postRegisterUser(
         @RequestParam clientId: String,
-        @RequestBody userInfo: UserInfoInputModel
+        @RequestBody userInfo: UserInfoInputModel,
+        response: HttpServletResponse
     ): ResponseEntity<Any> {
-
 
         if (clientId == DESKTOP_REGISTER_CLIENT_ID) {
 
@@ -305,11 +310,13 @@ class AuthenticationController(
             .status(303)
             .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
             .header(HttpHeaders.SET_COOKIE, clientIdCookie.toString())
-            .header(
-                HttpHeaders.LOCATION, GITHUB_OAUTH_URI +
-                        "?client_id=" + System.getenv("CLIENT_ID") + "&" +
-                        "scope=" + scope + "&" +
-                        "state=" + state
+            .location(
+                URI.create(
+                    GITHUB_OAUTH_URI +
+                            "?client_id=" + System.getenv("CLIENT_ID") + "&" +
+                            "scope=" + scope + "&" +
+                            "state=" + state
+                )
             )
             .build()
     }
