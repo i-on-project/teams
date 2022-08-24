@@ -4,6 +4,34 @@ import { useLoggedInState } from "../common/components/loggedStatus"
 import { useMenu } from '../common/components/MenuContext';
 import { makeAbout } from '../common/Uris';
 
+
+declare type Problem = {
+  type: string,
+  title: string,
+  status: number,
+  detail: string
+}
+
+type MessageState = { hidden: boolean, success: boolean, error: boolean, status: number, message: string }
+
+type MessageAction =
+  | { type: 'error', status: number, message: string }
+  | { type: 'success' }
+  | { type: 'reset' }
+
+function messageReducer(state: MessageState, action: MessageAction): MessageState {
+  switch (action.type) {
+    case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
+
+    case 'error': return { hidden: false, success: false, error: true, status: action.status, message: action.message }
+
+    case 'reset': return { hidden: true, success: false, error: false, status: null, message: null }
+
+    default: return state
+  }
+}
+
+
 declare type AccessToken = {
   access_token: string
 }
@@ -110,13 +138,22 @@ export function Page() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(parameters)
+        body: JSON.stringify(parameters),
+        credentials: 'include'
       }
     )
-      .then(resp => resp.json())
+      .then( async resp => { 
+        if (resp.ok) resp.json()
+        throw await resp.json()
+      })
       .then((token: AccessToken) => {
         console.log(token)
-        //setLoggedState({ logged: true, access_token: token })
+        messageDispatch({ type: 'success' })
+        setLoggedState({ logged: true, access_token: token })
+      })
+      .catch((err: Problem) => {
+        setLoading(false)
+        messageDispatch({ type: 'error', status: err.status, message: err.detail })
       })
   }
 
@@ -199,32 +236,4 @@ export function Page() {
       </Grid.Row>
     </Grid>
   )
-}
-
-
-
-declare type Problem = {
-  type: string,
-  title: string,
-  status: number,
-  detail: string
-}
-
-type MessageState = { hidden: boolean, success: boolean, error: boolean, status: number, message: string }
-
-type MessageAction =
-  | { type: 'error', status: number, message: string }
-  | { type: 'success' }
-  | { type: 'reset' }
-
-function messageReducer(state: MessageState, action: MessageAction): MessageState {
-  switch (action.type) {
-    case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
-
-    case 'error': return { hidden: false, success: false, error: true, status: action.status, message: action.message }
-
-    case 'reset': return { hidden: true, success: false, error: false, status: null, message: null }
-
-    default: return state
-  }
 }

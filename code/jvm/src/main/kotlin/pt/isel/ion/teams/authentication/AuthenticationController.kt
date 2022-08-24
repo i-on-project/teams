@@ -15,6 +15,7 @@ import java.util.*
 
 const val GITHUB_OAUTH_URI = "https://github.com/login/oauth/authorize"
 const val GITHUB_TEACHER_SCOPE = "admin:org"
+const val GITHUB_STUDENT_SCOPE = "read:project"
 
 const val HALF_HOUR: Long = 60 * 30
 const val ONE_MONTH: Long = 60 * 60 * 24 * 30
@@ -301,7 +302,8 @@ class AuthenticationController(
             .sameSite("Lax")
             .build()
 
-        //TODO: Rever o scope para estudantes
+        val scope = if (clientId.contains("web")) GITHUB_STUDENT_SCOPE else GITHUB_TEACHER_SCOPE
+
         return ResponseEntity
             .status(303)
             .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
@@ -309,7 +311,7 @@ class AuthenticationController(
             .header(
                 HttpHeaders.LOCATION, GITHUB_OAUTH_URI +
                         "?client_id=" + System.getenv("CLIENT_ID") + "&" +
-                        "scope=" + GITHUB_TEACHER_SCOPE + "&" +
+                        "scope=" + scope + "&" +
                         "state=" + state
             )
             .build()
