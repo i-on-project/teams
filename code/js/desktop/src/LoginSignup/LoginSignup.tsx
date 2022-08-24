@@ -107,7 +107,7 @@ export function LoginSignup() {
         .then((session: SessionInfo) => {
           messageDispatch({ type: 'success' })
           console.log(session)
-          //setLoggedState({ logged: true, access_token: token })
+          setLoggedState({ logged: true, access_token: token })
           setLoading(false)
         })
         .catch((err: Problem) => {
@@ -127,7 +127,7 @@ export function LoginSignup() {
         .then((session: SessionInfo) => {
           messageDispatch({ type: 'success' })
           console.log(session)
-          //setLoggedState({ logged: true, access_token: token })
+          setLoggedState({ logged: true, access_token: token })
         })
         .catch((err: Problem) => {
           setLoading(false)
