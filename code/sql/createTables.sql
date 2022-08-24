@@ -84,7 +84,6 @@ CREATE TABLE STUDENT
 (
     number         int         NOT NULL,
     name           varchar(50) NOT NULL,
-    email          varchar(50) NOT NULL,
     githubUsername varchar(50),
     deleted        bit(1) DEFAULT B'0',
     UNIQUE (number, name),

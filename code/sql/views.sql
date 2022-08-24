@@ -43,8 +43,8 @@ FROM teams
 WHERE state = 'pending'
   AND deleted = B'0';
 
-CREATE VIEW STUDENTS_VIEW (number, name, email, githubusername, tId, cId) AS
-SELECT sts.number, st.name, st.email, githubusername, sts.tId, sts.cId
+CREATE VIEW STUDENTS_VIEW (number, name, githubusername, tId, cId) AS
+SELECT sts.number, st.name,githubusername, sts.tId, sts.cId
 FROM student st
          JOIN students sts ON sts.number = st.number
 WHERE sts.deleted = B'0';

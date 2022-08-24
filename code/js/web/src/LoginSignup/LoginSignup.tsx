@@ -105,12 +105,18 @@ export function Page() {
   function onclickSignUp() {
     setLoading(true)
     fetch('http://localhost:8080/auth/register?clientId=web-register',
-      { credentials: 'include', mode: 'cors' }
+      { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(parameters)
+      }
     )
       .then(resp => resp.json())
       .then((token: AccessToken) => {
         console.log(token)
-        setLoggedState({ logged: true, access_token: token })
+        //setLoggedState({ logged: true, access_token: token })
       })
   }
 

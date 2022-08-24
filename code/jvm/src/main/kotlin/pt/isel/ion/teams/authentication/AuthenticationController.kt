@@ -64,11 +64,11 @@ class AuthenticationController(
         @RequestParam clientId: String,
         @RequestBody userInfo: UserInfoInputModel
     ): ResponseEntity<Any> {
-        if (userInfo.email == null) throw MissingRegisterParametersException()
+
 
         if (clientId == DESKTOP_REGISTER_CLIENT_ID) {
 
-            if (userInfo.office == null) throw MissingRegisterParametersException()
+            if (userInfo.office == null || userInfo.email == null) throw MissingRegisterParametersException()
             if (!authService.checkIsAuthorisedTeacher(userInfo.email)) throw NotAnAuthorizedEmailException()
 
             teachersService.createTeacher(userInfo.toTeacherDbWrite())

@@ -28,16 +28,11 @@ fun ClientToken.toCompact() = CompactClientToken(this.access_token)
 
 /* ******************** USER REGISTRATION ******************** */
 
-data class StudentInfoDbWrite(
-    val name: String,
-    val number: Int
-)
-
 data class UserInfoInputModel(
     val number: Int,
     val name: String,
     val email: String?,
-    var office: String?
+    val office: String?
 )
 
 fun UserInfoInputModel.toTeacherDbWrite() = TeacherDbWrite(number, name, email!!, office!!)
