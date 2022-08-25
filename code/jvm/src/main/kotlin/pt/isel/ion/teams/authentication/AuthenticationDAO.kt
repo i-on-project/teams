@@ -12,8 +12,8 @@ interface AuthenticationDAO {
     @GetGeneratedKeys
     fun createSession(@Bind number: Int, @Bind sessionId: String, @Bind usertype: Char): UserSession
 
-    @SqlUpdate("DELETE FROM user_session WHERE number=:number AND sessionid=:sessionId")
-    fun deleteSession(@Bind number: Int, @Bind sessionId: String)
+    @SqlUpdate("DELETE FROM user_session WHERE sessionid=:sessionId")
+    fun deleteSession(@Bind sessionId: String)
 
     @SqlQuery("SELECT number FROM user_session WHERE sessionid=:sessionId")
     fun getNumber(@Bind sessionId: String): Int

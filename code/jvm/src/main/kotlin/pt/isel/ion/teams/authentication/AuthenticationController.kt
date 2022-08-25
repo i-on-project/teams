@@ -188,8 +188,7 @@ class AuthenticationController(
                 emailService.sendVerificationEmail(user.name, "a${user.number}@alunos.isel.pt", verificationId)
 
                 return ResponseEntity
-                    .status(200)
-                    .build()
+                    .ok("Teste")
             }
 
             else -> throw InvalidClientIdException()
@@ -202,8 +201,8 @@ class AuthenticationController(
      */
     @GetMapping(Uris.DesktopAccessToken.PATH)
     fun getDesktopAccessToken(
-        @RequestParam code: String,
-        @RequestParam type: String,
+        @RequestParam code: String?,
+        @RequestParam type: String?,
         @RequestParam number: String?,
         @CookieValue accessToken: String?
     ): ResponseEntity<Any> {
@@ -212,10 +211,10 @@ class AuthenticationController(
          * If the request has an access token return that access token, if not fetch a new access token
          * from the GitHub token endpoint
          */
-        if (accessToken != null) {
+        if (accessToken != null && accessToken != "deleted") {
             return ResponseEntity
-                .ok(accessToken)
-        } else {
+                .ok(AccessToken(accessToken))
+        } else if(code != null && type != null) {
 
             val at = getAccessToken(code) ?: throw NoAccessTokenException()
             val ghUserInfo = getGithubUserInfo(at.access_token) ?: throw NoGithubUserFoundException()
@@ -263,11 +262,36 @@ class AuthenticationController(
 
                 val user = teachersService.getTeacherByUsername(ghUserInfo.login)
                 val sessionId = UUID.randomUUID().toString()
-                val session = authService.createSession(user.number, sessionId, TEACHER_SESSION_USER_TYPE)
+                authService.createSession(user.number, sessionId, TEACHER_SESSION_USER_TYPE)
+
+                val accessTokenCookie = ResponseCookie.from("accessToken", at.access_token)
+                    .path("/auth/")
+                    .domain("localhost")
+                    .maxAge(ONE_MONTH)
+                    .httpOnly(true)
+                    .secure(true)
+                    .sameSite("None")
+                    .build()
+
+                val sessionCookie = ResponseCookie.from("session", sessionId)
+                    .path("/")
+                    .domain("localhost")
+                    .maxAge(ONE_MONTH)
+                    .httpOnly(true)
+                    .secure(true)
+                    .sameSite("None")
+                    .build()
 
                 return ResponseEntity
-                    .ok(DesktopUserSession(session.sessionId, at.access_token))
+                    .status(200)
+                    .header(HttpHeaders.SET_COOKIE, accessTokenCookie.toString())
+                    .header(HttpHeaders.SET_COOKIE, sessionCookie.toString())
+                    .body(AccessToken(at.access_token))
             }
+        } else {
+            return ResponseEntity
+                .status(404)
+                .build()
         }
     }
 
@@ -292,11 +316,38 @@ class AuthenticationController(
      */
     @GetMapping(Uris.Logout.PATH)
     fun getLogout(
-        @RequestParam number: Int,
-        @CookieValue sessionCookie: SessionCookie
+        @CookieValue session: String,
+        @CookieValue accessToken: String?
     ): ResponseEntity<Any> {
-        authService.deleteSession(number, sessionCookie.sessionId)
+        authService.deleteSession(session)
 
+        if (accessToken != null) {
+            val accessTokenCookie = ResponseCookie.from("accessToken", "deleted")
+                .path("/auth/")
+                .domain("localhost")
+                .maxAge(HALF_HOUR)
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("None")
+                .build()
+
+            val sessionCookie = ResponseCookie.from("session", "deleted")
+                .path("/")
+                .domain("localhost")
+                .maxAge(HALF_HOUR)
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("None")
+                .build()
+
+            return ResponseEntity
+                .status(200)
+                .header(HttpHeaders.SET_COOKIE, accessTokenCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, sessionCookie.toString())
+                .build()
+        }
+
+        //TODO: Logout for web application
         return ResponseEntity
             .ok(null)
     }

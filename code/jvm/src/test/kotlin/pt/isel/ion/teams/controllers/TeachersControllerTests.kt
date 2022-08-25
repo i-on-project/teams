@@ -158,7 +158,7 @@ class TeachersControllerTests {
         teachersService.deleteTeacher(47217)
     }
 
-    @Test
+    /*@Test
     fun updateTeacherCidTest() {
         assertNotNull(client)
 
@@ -187,7 +187,7 @@ class TeachersControllerTests {
         //Fetch classrooms by teacher to see if it was successfully added
         val classes = classroomsService.getAllClassroomsByTeacher(teacher.number) //TODO: bad test
         assertEquals(classes.last().id, 2)
-    }
+    }*/
 
     //TODO create and two updates test, there is no delete in this case
 }

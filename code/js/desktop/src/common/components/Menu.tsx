@@ -29,9 +29,11 @@ export function VerticalFixedMenu() {
     }
 
     function onLogout() {
-        //TODO: perform logout
-        setLoggedState({logged: false, access_token: null})
-        navigate('/')
+        fetch('http://localhost:8080/auth/logout')
+            .then(() => {
+                setLoggedState({ logged: false, access_token: null })
+                navigate('/')
+            })
     }
 
 

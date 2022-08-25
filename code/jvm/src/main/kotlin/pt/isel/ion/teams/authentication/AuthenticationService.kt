@@ -17,9 +17,9 @@ class AuthenticationService(val jdbi: Jdbi) {
         }
     }
 
-    fun deleteSession(@Bind number: Int, sessionId: String) {
+    fun deleteSession(sessionId: String) {
         sqlExceptionHandler {
-            jdbi.onDemand(AuthenticationDAO::class.java).deleteSession(number, sessionId)
+            jdbi.onDemand(AuthenticationDAO::class.java).deleteSession(sessionId)
         }
     }
     fun getNumber(sessionId: String): Int {

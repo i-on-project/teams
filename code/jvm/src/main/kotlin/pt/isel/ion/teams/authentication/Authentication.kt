@@ -10,6 +10,10 @@ data class ClientToken(
     val token_type: String
 )
 
+data class AccessToken(
+    val access_token: String,
+)
+
 data class CompactClientToken(
     val access_token: String
 )

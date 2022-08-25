@@ -4,17 +4,22 @@ import { LoggedInContext } from './common/components/loggedStatus';
 import { LoginSignup } from './LoginSignup/LoginSignup';
 import { Router } from './Router/Router';
 
+declare type AccessToken = {
+  access_token: string,
+  scope: string,
+  token_type: string
+}
 export default function App() {
 
-  const [logged, setLogged] = React.useState({logged: false, access_token: null})
+  const [logged, setLogged] = React.useState({ logged: false, access_token: null })
 
   return (
     <LoggedInContext.Provider value={{ loggedInState: logged, setLoggedState: setLogged }}>
       {
         logged.logged ?
-          <Router />
-          :
-          <LoginSignup />
+        <Router />
+        :
+        <LoginSignup />
       }
     </LoggedInContext.Provider>
   )

@@ -11,9 +11,10 @@ declare const electron: {
   customProtocolUrl: (callback: (_event: any, value: string) => void) => void,
 }
 
-declare type SessionInfo = {
+declare type AccessToken = {
   access_token: string,
-  sessionId: string
+  scope: string,
+  token_type: string
 }
 
 declare type Problem = {
@@ -91,12 +92,32 @@ export function LoginSignup() {
   })
 
   React.useEffect(() => {
+    fetch(`http://localhost:8080/auth/access_token`)
+        .then(resp => {
+          if (!resp.ok) {
+            throw new Error("No Access Token")
+          }
+          return resp
+        })
+        .then(resp => resp.json())
+        .then((token: string) => {
+          console.log(token)
+          setLoggedState({ logged: true, access_token: token })
+        })
+        .catch((err: Error) => {
+          console.log(err)
+        })
+  }, [])
+
+  React.useEffect(() => {
     if (!url.includes('code=')) return
 
     const urlObj = convertUrltoObj(url)
     console.log(urlObj)
 
     async function checkRespOk(resp: Response) {
+      console.log('In verification')
+
       if (!resp.ok) {
         throw await resp.json()
       }
@@ -108,10 +129,10 @@ export function LoginSignup() {
       fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
         .then(checkRespOk)
         .then(resp => resp.json())
-        .then((session: SessionInfo) => {
+        .then((token: string) => {
           messageDispatch({ type: 'success' })
-          console.log(session)
-          setLoggedState({ logged: true, access_token: session })
+          console.log(token)
+          setLoggedState({ logged: true, access_token: token })
           setLoading(false)
         })
         .catch((err: Problem) => {
@@ -128,11 +149,9 @@ export function LoginSignup() {
       })
         .then(() => fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`))
         .then(checkRespOk)
-        .then((resp) => {
+        .then(() => {
           messageDispatch({ type: 'info', message: 'A verification email was sent. After verifying please login.' })
           setLoading(false)
-          console.log(resp)
-          //setLoggedState({ logged: true, access_token: session })
         })
         .catch((err: Problem) => {
           setLoading(false)
