@@ -16,6 +16,9 @@ interface TeamsDAO {
         @Bind("classroomId") classroomId: Int
     ): List<TeamsDbRead>
 
+    @SqlQuery("SELECT t.* FROM students s JOIN teams t on t.id = s.tid and t.cid = s.cid WHERE s.number=:number")
+    fun getTeamsByStudent(@Bind number: Int): List<TeamsDbRead>
+
     @SqlQuery("SELECT * FROM teams_view WHERE id=:teamId AND cid=:cId")
     fun getTeam(@Bind("teamId") teamId: Int,@Bind("cId") cId: Int): TeamsDbRead
 
