@@ -26,8 +26,8 @@ interface StudentsDAO {
     @SqlQuery("SELECT * FROM students_view WHERE number=:number")
     fun getStudent(@Bind("number") number: Int): CompleteStudentDbRead
 
-    @SqlQuery("SELECT * FROM students_view WHERE githubusername=:username")
-    fun getStudentByUsername(@Bind("username") username: String): CompleteStudentDbRead
+    @SqlQuery("SELECT * FROM student WHERE githubusername=:username")
+    fun getStudentByUsername(@Bind("username") username: String): StudentInfoDbRead
 
     /**
      * Action on Student table.

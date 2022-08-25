@@ -33,7 +33,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation(kotlin("script-runtime"))
 
-	//runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.76.Final:osx-aarch_64")
+	runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.79.Final:osx-aarch_64")
 
 	//Sendgrid
 	implementation("com.sendgrid:sendgrid-java:4.9.3")

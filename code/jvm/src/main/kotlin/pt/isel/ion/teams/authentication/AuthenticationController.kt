@@ -190,12 +190,12 @@ class AuthenticationController(
                 authService.createVerification(verificationId, user.number)
 
                 //Sending verification email
-                emailService.sendVerificationEmail(user.name, "A${user.number}@alunos.isel.pt", verificationId)
+                emailService.sendVerificationEmail(user.name, "a${user.number}@alunos.isel.pt", verificationId)
 
                 return ResponseEntity
                     .status(303)
                     .header(
-                        HttpHeaders.LOCATION, "http://localhost:3000/login?toVerify=true"
+                        HttpHeaders.LOCATION, "http://localhost:3000/#/login?toVerify=true"
                     )
                     .build()
             }
@@ -385,7 +385,7 @@ class AuthenticationController(
         //In student registration it is necessary to store the student number so that the GitHub username
         //can later be associated with that number.
         val clientIdCookieValue =
-            if (number == null && clientId == WEB_REGISTER_CLIENT_ID) "$clientId+$number" else clientId
+            if (number != null && clientId == WEB_REGISTER_CLIENT_ID) "$clientId+$number" else clientId
 
         val clientIdCookie = ResponseCookie.from("clientId", clientIdCookieValue)
             .path("/auth/callback")
