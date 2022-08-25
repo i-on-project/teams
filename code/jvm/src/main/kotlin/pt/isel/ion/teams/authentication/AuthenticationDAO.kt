@@ -18,7 +18,11 @@ interface AuthenticationDAO {
     @SqlQuery("SELECT number FROM user_session WHERE sessionid=:sessionId")
     fun getNumber(@Bind sessionId: String): Int
 
+    @SqlQuery("SELECT * FROM to_verify WHERE number=:number")
+    fun getVerificationId(@Bind number: Int): String
 
+    @SqlQuery("SELECT number FROM user_session WHERE sessionid=:sessionId")
+    fun getUserFromSession(sessionId: String): Int
 
     /* Verification of users (Teacher or Student) */
     @SqlUpdate("INSERT INTO to_verify (code, number) VALUES (:code, :number)")
@@ -26,11 +30,5 @@ interface AuthenticationDAO {
 
     @SqlUpdate("DELETE FROM to_verify WHERE code=:code")
     fun verifyUser(@Bind code: String)
-
-    @SqlQuery("SELECT * FROM to_verify WHERE number=:number")
-    fun isVerified(@Bind number: Int): Boolean
-
-    @SqlQuery("SELECT * FROM to_verify WHERE number=:number")
-    fun getVerificationId(@Bind number: Int): String
 
 }

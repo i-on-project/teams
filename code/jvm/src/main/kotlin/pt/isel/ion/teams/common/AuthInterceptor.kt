@@ -20,9 +20,13 @@ class AuthInterceptor(val service: AuthenticationService) : HandlerInterceptor {
         handler: Any
     ): Boolean {
         try {
-            if ()
-            val cookie = request.cookies.find { it.name == "session" } ?: return false
-            service.getUserFromSession(cookie.value)
+            val cookie = request.cookies.find { it.name == "session" }
+            val bearerHeader = request.getHeader("Authorization")
+            if (cookie != null)
+                service.getUserFromSession(cookie.value)
+            else if (bearerHeader != null)
+                service.getUserFromSession(bearerHeader.removePrefix("Bearer "))
+            else return false
         }catch (e: NullPointerException){
             return false
         }

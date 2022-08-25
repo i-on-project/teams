@@ -42,13 +42,6 @@ class AuthenticationService(val jdbi: Jdbi) {
         }
     }
 
-    fun isVerified( number: Int): Boolean {
-        return sqlExceptionHandler {
-            jdbi.onDemand(AuthenticationDAO::class.java).isVerified(number)
-        }
-    }
-
-<<<<<<< HEAD
     /* Session verification. */
     fun getUserFromSession(sessionId: String){
         sqlExceptionHandler {
@@ -57,7 +50,6 @@ class AuthenticationService(val jdbi: Jdbi) {
     }
 
     /* Teacher email verification. */
-=======
     fun getVerificationId( number: Int): String {
         return sqlExceptionHandler {
             jdbi.onDemand(AuthenticationDAO::class.java).getVerificationId(number)
