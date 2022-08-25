@@ -7,13 +7,15 @@ package pt.isel.ion.teams.students
 data class CompleteStudentDbRead(
     val number: Int,
     val name: String,
+    val githubusername: String?,
     val tid: Int,
     val cid: Int
 )
 
 data class StudentInfoDbRead(
     val number: Int,
-    val name: String
+    val name: String,
+    val githubusername: String?
 )
 
 data class StudentClassInfoDbRead(

@@ -80,6 +80,7 @@ export function Page() {
   const [loadindState, setLoading] = React.useState(false)
   const [messageState, messageDispatch] = React.useReducer(messageReducer,
     { hidden: true, success: false, error: false, status: null, message: null })
+  const [searchParams, setSearchParams] = useSearchParams();
 
   React.useEffect(() => {
     setItems([
@@ -88,6 +89,10 @@ export function Page() {
         href: makeAbout()
       }
     ])
+
+    if (searchParams.get("toVerify"))
+      messageDispatch({ type: 'info', message: 'A verification email was sent. After verifying please login. The email may be in your spam folder.' })
+
   }, [])
 
   React.useEffect(() => {
@@ -160,13 +165,6 @@ export function Page() {
       })
   }
 
-
-  const { search } = useLocation();
-  const query = React.useMemo(() => new URLSearchParams(search), [search]);
-
-
-  if (query.get("toVerify") == "true")
-    messageDispatch({ type: 'info', message: 'A verification email was sent. After verifying please login.' })
 
 
   //TODO: change download files
