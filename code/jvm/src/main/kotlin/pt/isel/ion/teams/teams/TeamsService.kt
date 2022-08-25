@@ -3,6 +3,7 @@ package pt.isel.ion.teams.teams
 import org.jdbi.v3.core.Jdbi
 import org.springframework.stereotype.Component
 import pt.isel.ion.teams.common.errors.sqlExceptionHandler
+import pt.isel.ion.teams.students.StudentsDAO
 
 @Component
 class TeamsService(val jdbi: Jdbi) {
@@ -12,6 +13,11 @@ class TeamsService(val jdbi: Jdbi) {
             jdbi
                 .onDemand(TeamsDAO::class.java)
                 .getAllTeamsOfClassroom(pageSize + 1, pageIndex * pageSize, classroomId)
+        }
+
+    fun getTeamsByStudent(number: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(TeamsDAO::class.java).getTeamsByStudent(number)
         }
 
     fun getTeam(teamId: Int, classId: Int) =
