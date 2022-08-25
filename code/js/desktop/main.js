@@ -116,7 +116,7 @@ if (!gotTheLock) {
 
         //Hanle the protocol on Windows
         if (process.platform == 'win32') {
-            urlToRenderer(commandLine[2])
+            urlToRenderer(commandLine.find((elem) => elem.includes('ion-teams://')))
         }
     })
 

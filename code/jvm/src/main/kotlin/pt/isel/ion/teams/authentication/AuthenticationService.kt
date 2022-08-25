@@ -48,6 +48,14 @@ class AuthenticationService(val jdbi: Jdbi) {
         }
     }
 
+    /* Session verification. */
+    fun getUserFromSession(sessionId: String){
+        sqlExceptionHandler {
+            jdbi.onDemand(AuthenticationDAO::class.java).getUserFromSession(sessionId)
+        }
+    }
+
+    /* Teacher email verification. */
     fun checkIsAuthorisedTeacher(email: String): Boolean {
         val emails = File("allowed_teachers.txt").readLines(Charsets.UTF_8)
 

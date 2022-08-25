@@ -13,7 +13,7 @@ import pt.isel.ion.teams.teacher.toTeachersSirenObject
 @RestController
 @RequestMapping(Uris.Home.PATH)
 class HomeController(
-    //@RequestParam clientId: String
+    @RequestParam clientId: String
 ) {
 
     @GetMapping
