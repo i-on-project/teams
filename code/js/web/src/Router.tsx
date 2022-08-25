@@ -24,7 +24,7 @@ export function Router({logged}: {logged : boolean}){
                             <Routes>
                                 <Route path='' element={<Introduction.Page/>}/>
                                 <Route path='/about' element={<About.Page/>}/>
-                                <Route path='/start' element={<LoginSignup.Page/>}/>
+                                <Route path='/login' element={<LoginSignup.Page/>}/>
                                 <Route path='/invite-code/:code' element={<InviteCode.Page/>}/>
                             </Routes>
                     }

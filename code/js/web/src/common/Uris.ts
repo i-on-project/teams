@@ -8,7 +8,7 @@ export function makeAbout(): string {
 
 //Log in or Sign up or Download
 export function makeLoginSignup(): string {
-  return '/start'
+  return '/login'
 }
 
 //Home page (logged in)

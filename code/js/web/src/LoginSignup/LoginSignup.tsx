@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { Button, Form, Grid, Header, Message, Segment, Image, Divider, Icon, Container } from 'semantic-ui-react';
 import { useLoggedInState } from "../common/components/loggedStatus"
 import { useMenu } from '../common/components/MenuContext';
@@ -16,12 +17,15 @@ type MessageState = { hidden: boolean, success: boolean, error: boolean, status:
 
 type MessageAction =
   | { type: 'error', status: number, message: string }
+  | { type: 'info', message: string }
   | { type: 'success' }
   | { type: 'reset' }
 
 function messageReducer(state: MessageState, action: MessageAction): MessageState {
   switch (action.type) {
     case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
+
+    case 'info': return { hidden: false, success: true, error: false, status: null, message: action.message }
 
     case 'error': return { hidden: false, success: false, error: true, status: action.status, message: action.message }
 
@@ -133,7 +137,7 @@ export function Page() {
   function onclickSignUp() {
     setLoading(true)
     fetch('http://localhost:8080/auth/register?clientId=web-register',
-      { 
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -142,20 +146,28 @@ export function Page() {
         credentials: 'include'
       }
     )
-      .then( async resp => { 
-        if (resp.ok) resp.json()
+      .then(async resp => {
+        if (resp.ok) return resp.json()
         throw await resp.json()
       })
-      .then((token: AccessToken) => {
-        console.log(token)
-        messageDispatch({ type: 'success' })
-        setLoggedState({ logged: true, access_token: token })
+      .then((jsonRedirectObj: { location: string }) => {
+        window.open(jsonRedirectObj.location, '_blank', 'noopener,noreferrer');
       })
       .catch((err: Problem) => {
         setLoading(false)
+        console.log(err)
         messageDispatch({ type: 'error', status: err.status, message: err.detail })
       })
   }
+
+
+  const { search } = useLocation();
+  const query = React.useMemo(() => new URLSearchParams(search), [search]);
+
+
+  if (query.get("toVerify") == "true")
+    messageDispatch({ type: 'info', message: 'A verification email was sent. After verifying please login.' })
+
 
   //TODO: change download files
   return (

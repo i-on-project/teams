@@ -18,8 +18,8 @@ data class CompactClientToken(
     val access_token: String
 )
 
-data class SessionCookie(
-    val sessionId: String
+data class JSONRedirectObj(
+    val location: String
 )
 
 data class GitHubUserInfo(

@@ -1,9 +1,12 @@
 package pt.isel.ion.teams.authentication
 
+import io.netty.resolver.DefaultAddressResolverGroup
+import org.springframework.boot.configurationprocessor.json.JSONObject
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
+import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.client.WebClient
 import pt.isel.ion.teams.common.Uris
@@ -14,6 +17,8 @@ import pt.isel.ion.teams.teacher.TeacherDbUpdate
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
 import java.net.URI
+import java.net.URI.create
+import java.net.http.HttpClient
 import java.util.*
 import javax.servlet.http.HttpServletResponse
 
@@ -185,10 +190,14 @@ class AuthenticationController(
                 authService.createVerification(verificationId, user.number)
 
                 //Sending verification email
-                emailService.sendVerificationEmail(user.name, "a${user.number}@alunos.isel.pt", verificationId)
+                emailService.sendVerificationEmail(user.name, "A${user.number}@alunos.isel.pt", verificationId)
 
                 return ResponseEntity
-                    .ok("Teste")
+                    .status(303)
+                    .header(
+                        HttpHeaders.LOCATION, "http://localhost:3000/login?toVerify=true"
+                    )
+                    .build()
             }
 
             else -> throw InvalidClientIdException()
@@ -387,22 +396,38 @@ class AuthenticationController(
             .sameSite("Lax")
             .build()
 
-        val scope = if (clientId.contains("web")) GITHUB_STUDENT_SCOPE else GITHUB_TEACHER_SCOPE
-
-        return ResponseEntity
-            .status(303)
-            .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
-            .header(HttpHeaders.SET_COOKIE, clientIdCookie.toString())
-            .location(
-                URI.create(
-                    GITHUB_OAUTH_URI +
-                            "?client_id=" + System.getenv("CLIENT_ID") + "&" +
-                            "scope=" + scope + "&" +
-                            "state=" + state
+        if (clientId.contains("web")) {
+            return ResponseEntity
+                .status(200)
+                .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, clientIdCookie.toString())
+                .body(
+                    JSONRedirectObj(
+                        GITHUB_OAUTH_URI +
+                                "?client_id=" + System.getenv("CLIENT_ID") + "&" +
+                                "scope=" + GITHUB_STUDENT_SCOPE + "&" +
+                                "state=" + state
+                    )
                 )
-            )
-            .build()
+        } else {
+            return ResponseEntity
+                .status(303)
+                .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, clientIdCookie.toString())
+                .location(
+                    URI.create(
+                        GITHUB_OAUTH_URI +
+                                "?client_id=" + System.getenv("CLIENT_ID") + "&" +
+                                "scope=" + GITHUB_TEACHER_SCOPE + "&" +
+                                "state=" + state
+                    )
+                )
+                .build()
+        }
+
+
     }
+
 
     /* ****************** HTTP REQUESTS ****************** */
 
@@ -425,9 +450,7 @@ class AuthenticationController(
                 .retrieve()
                 .bodyToMono(ClientToken::class.java)
 
-        val belele = resp.block()
-
-        return belele
+        return resp.block()
     }
 
     /**
