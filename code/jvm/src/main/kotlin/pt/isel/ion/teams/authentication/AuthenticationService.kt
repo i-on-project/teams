@@ -42,9 +42,15 @@ class AuthenticationService(val jdbi: Jdbi) {
         }
     }
 
-    fun isVerified( number: Int) {
-        sqlExceptionHandler {
+    fun isVerified( number: Int): Boolean {
+        return sqlExceptionHandler {
             jdbi.onDemand(AuthenticationDAO::class.java).isVerified(number)
+        }
+    }
+
+    fun getVerificationId( number: Int): String {
+        return sqlExceptionHandler {
+            jdbi.onDemand(AuthenticationDAO::class.java).getVerificationId(number)
         }
     }
 

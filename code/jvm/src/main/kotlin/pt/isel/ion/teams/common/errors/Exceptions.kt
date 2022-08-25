@@ -62,9 +62,16 @@ class NoAccessTokenException: BaseException(
 
 class NoGithubUserFoundException: BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
-    "Resource Not Found",
+    "Unauthorized",
     403,
     "There is no existing github user associated with the login process."
+)
+
+class UserNotVerifiedException: BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    "Unauthorized",
+    403,
+    "The user has not yet verified its email address. A new email was sent."
 )
 
 class EmptyDbReturnException: BaseException(

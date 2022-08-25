@@ -134,7 +134,20 @@ class AuthenticationController(
 
                 //Verification if the user trying to log in is in fact registered
                 try {
-                    studentsService.getStudentByUsername(ghUserInfo.login)
+                    val user = studentsService.getStudentByUsername(ghUserInfo.login)
+                    var verId = ""
+
+                    try {
+                        verId = authService.getVerificationId(user.number)
+                    } catch (_: EmptyDbReturnException) {
+                        //No verification id expected if user verified
+                    }
+
+                    if (!verId.equals("")) {
+                        emailService.sendVerificationEmail(user.name, "a${user.number}@alunos.isel.pt", verId)
+
+                        throw UserNotVerifiedException()
+                    }
                 } catch (e: EmptyDbReturnException) {
                     throw UserNotRegisteredException()
                 }
@@ -175,7 +188,8 @@ class AuthenticationController(
                 emailService.sendVerificationEmail(user.name, "a${user.number}@alunos.isel.pt", verificationId)
 
                 return ResponseEntity
-                    .ok(accessToken)
+                    .status(200)
+                    .build()
             }
 
             else -> throw InvalidClientIdException()
@@ -219,23 +233,41 @@ class AuthenticationController(
 
                 //Sending verification email
                 emailService.sendVerificationEmail(user.name, user.email, verificationId)
+
+                return ResponseEntity
+                    .status(200)
+                    .build()
             } else {
                 //Verification if the user trying to log in is in fact registered
                 try {
-                    teachersService.getTeacherByUsername(ghUserInfo.login)
+                    val teacher = teachersService.getTeacherByUsername(ghUserInfo.login)
+                    var verId = ""
+
+                    try {
+                        verId = authService.getVerificationId(teacher.number)
+                    } catch (_: EmptyDbReturnException) {
+                        //No verification id expected if user verified
+                    }
+
+                    if (!verId.equals("")) {
+                        emailService.sendVerificationEmail(teacher.name, teacher.email, verId)
+
+                        throw UserNotVerifiedException()
+                    }
+
                 } catch (e: EmptyDbReturnException) {
                     throw UserNotRegisteredException()
                 }
+
+                //Session creation
+
+                val user = teachersService.getTeacherByUsername(ghUserInfo.login)
+                val sessionId = UUID.randomUUID().toString()
+                val session = authService.createSession(user.number, sessionId, TEACHER_SESSION_USER_TYPE)
+
+                return ResponseEntity
+                    .ok(DesktopUserSession(session.sessionId, at.access_token))
             }
-
-            //Session creation
-
-            val user = teachersService.getTeacherByUsername(ghUserInfo.login)
-            val sessionId = UUID.randomUUID().toString()
-            val session = authService.createSession(user.number, sessionId, TEACHER_SESSION_USER_TYPE)
-
-            return ResponseEntity
-                .ok(DesktopUserSession(session.sessionId, at.access_token))
         }
     }
 
