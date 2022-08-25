@@ -30,4 +30,7 @@ interface AuthenticationDAO {
     @SqlQuery("SELECT * FROM to_verify WHERE number=:number")
     fun isVerified(@Bind number: Int): Boolean
 
+    @SqlQuery("SELECT * FROM to_verify WHERE number=:number")
+    fun getVerificationId(@Bind number: Int): String
+
 }

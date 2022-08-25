@@ -40,6 +40,7 @@ type MessageState = { hidden: boolean, success: boolean, error: boolean, status:
 
 type MessageAction =
   | { type: 'error', status: number, message: string }
+  | { type: 'info', message: string }
   | { type: 'success' }
   | { type: 'reset' }
 
@@ -48,6 +49,8 @@ function messageReducer(state: MessageState, action: MessageAction): MessageStat
     case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
 
     case 'error': return { hidden: false, success: false, error: true, status: action.status, message: action.message }
+
+    case 'info': return { hidden: false, success: true, error: false, status: null, message: action.message }
 
     case 'reset': return { hidden: true, success: false, error: false, status: null, message: null }
 
@@ -94,16 +97,17 @@ export function LoginSignup() {
     console.log(urlObj)
 
     async function checkRespOk(resp: Response) {
-      if (resp.ok) {
-        return resp.json()
+      if (!resp.ok) {
+        throw await resp.json()
       }
 
-      throw await resp.json()
+      return resp
     }
 
     if (urlObj.type === "login") {
       fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
         .then(checkRespOk)
+        .then(resp => resp.json())
         .then((session: SessionInfo) => {
           messageDispatch({ type: 'success' })
           console.log(session)
@@ -124,15 +128,18 @@ export function LoginSignup() {
       })
         .then(() => fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`))
         .then(checkRespOk)
-        .then((session: SessionInfo) => {
-          messageDispatch({ type: 'success' })
-          console.log(session)
-          setLoggedState({ logged: true, access_token: session })
+        .then((resp) => {
+          messageDispatch({ type: 'info', message: 'A verification email was sent. After verifying please login.' })
+          setLoading(false)
+          console.log(resp)
+          //setLoggedState({ logged: true, access_token: session })
         })
         .catch((err: Problem) => {
           setLoading(false)
           messageDispatch({ type: 'error', status: err.status, message: err.detail })
         })
+    } else {
+      setLoading(false)
     }
 
   }, [url])
