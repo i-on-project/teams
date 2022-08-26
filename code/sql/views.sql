@@ -1,29 +1,24 @@
-CREATE VIEW ORGANIZATIONS_VIEW (id, name, description, githubUri, avatarUri) AS
-SELECT id, name, description, githuburi, avataruri
+CREATE VIEW ORGANIZATIONS_VIEW (id, name, description) AS
+SELECT id, name, description
 FROM organizations
 WHERE deleted = B'0';
 
-CREATE VIEW CLASSROOMS_VIEW
-            (id, name, description, maxTeams, maxMembersPerTeam, repoURI, schoolYear, orgId, state, githubURI,
-             avatarURI)
+CREATE VIEW CLASSROOMS_VIEW (id, name, description, maxTeams, maxMembersPerTeam, schoolYear, orgId, state)
 AS
 SELECT id,
        name,
        description,
        maxteams,
        maxmembersperteam,
-       repouri,
        schoolyear,
        orgid,
-       state,
-       githuburi,
-       avataruri
+       state
 FROM classrooms
 WHERE deleted = B'0';
 
-CREATE VIEW INVITE_LINKS_VIEW (code, cId) AS
+CREATE VIEW INVITE_CODES_VIEW (code, cId) AS
 SELECT code, cId
-FROM invite_links
+FROM invite_codes
 WHERE deleted = B'0';
 
 CREATE VIEW TEACHERS_VIEW (number, name, email, githubusername, office) AS
@@ -92,20 +87,16 @@ SELECT id, name, date, delId, repoId
 FROM tags
 WHERE deleted = B'0';
 
-CREATE VIEW TEACHER_CLASSROOMS
-            (id, name, description, maxTeams, maxMembersPertTeam, repoUri, schoolYear, orgId, state, githubUri,
-             avatarUri, number) AS
+CREATE VIEW TEACHER_CLASSROOMS (id, name, description, maxTeams, maxMembersPertTeam,
+    schoolYear, orgId, state,  number) AS
 SELECT c.id,
        c.name,
        c.description,
        c.maxTeams,
        c.maxMembersPerTeam,
-       c.repoUri,
-       c.schoolYear,
+       c.schoolyear,
        c.orgId,
        c.state,
-       c.githubUri,
-       c.avatarUri,
        t.number
 FROM classrooms c
          JOIN teachers t on c.id = t.cid

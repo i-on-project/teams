@@ -2,37 +2,33 @@
   All the data here presented is fake. Only for tests.
  */
 
-INSERT INTO organizations (name, description, githuburi, avataruri)
-VALUES ('AVE', 'Ambientes Virtuais de Execução.', 'https://github.com/example1', 'https://github.com/example1'),
-       ('PC', 'Programação comcurrente.', 'https://github.com/example2', 'https://github.com/example2'),
-       ('Org3', 'Organization.', 'https://github.com/example3', 'https://github.com/example3'),
-       ('Org4', 'Organization.', 'https://github.com/example4', 'https://github.com/example4'),
-       ('Org5', 'Organization.', 'https://github.com/example5', 'https://github.com/example5'),
-       ('Org6', 'Organization.', 'https://github.com/example6', 'https://github.com/example6'),
-       ('Org7', 'Organization.', 'https://github.com/example7', 'https://github.com/example7'),
-       ('Org8', 'Organization.', 'https://github.com/example8', 'https://github.com/example8'),
-       ('Org9', 'Organization.', 'https://github.com/example9', 'https://github.com/example9'),
-       ('Org10', 'Organization.', 'https://github.com/example10', 'https://github.com/example10'),
-       ('Org11', 'Organization.', 'https://github.com/example11', 'https://github.com/example11');
+INSERT INTO organizations (name, description)
+VALUES ('AVE', 'Ambientes Virtuais de Execução.'),
+       ('PC', 'Programação comcurrente.'),
+       ('Org3', 'Organization.'),
+       ('Org4', 'Organization.'),
+       ('Org5', 'Organization.'),
+       ('Org6', 'Organization.'),
+       ('Org7', 'Organization.'),
+       ('Org8', 'Organization.'),
+       ('Org9', 'Organization.'),
+       ('Org10', 'Organization.'),
+       ('Org11', 'Organization.');
 
-INSERT INTO classrooms (name, description, maxteams, maxmembersperteam, repoURI, schoolyear, orgid, githuburi,
-                        avataruri)
-VALUES ('li4xd', 'Turma x 4 ano.', 3, 2, 'https://github.com/isel-leic-ave/lae-2021-22-sem2-i4xd', '2021/22', 1,
-        'https://github.com/example1', 'https://github.com/example1'),
-       ('li4yd', 'Turma y 4 ano.', 3, 2, 'https://github.com/isel-leic-ave/lae-2021-22-sem2-i4yd', '2021/22', 1,
-        'https://github.com/example2', 'https://github.com/example2'),
-       ('li5xd', 'Turma x 5 ano.', 3, 2, 'https://github.com/isel-leic-pc/pc-2021-22-sem2-i4xd', '2021/22', 2,
-        'https://github.com/example3', 'https://github.com/example3');
+INSERT INTO classrooms (name, description, maxteams, maxmembersperteam, schoolyear, orgid)
+VALUES ('li4xd', 'Turma x 4 ano.', 3, 2, '2021/22', 1),
+       ('li4yd', 'Turma y 4 ano.', 3, 2, '2021/22', 1),
+       ('li5xd', 'Turma x 5 ano.', 3, 2, '2021/22', 2);
 
 INSERT INTO teacher (number, name, email, office)
 VALUES (86951, 'Humberto Silva', 'humberto.silva@isel.pt', 'F.0.5'),
        (85462, 'Gilberto Silva', 'gilberto.silva@isel.pt', 'F.0.6');
 
-INSERT INTO teachers (number, cid,orgid)
+INSERT INTO teachers (number, cid, orgid)
 VALUES (86951, 1, 1),
        (85462, 2, 1);
 
-INSERT INTO invite_links (code, cid)
+INSERT INTO invite_codes (code, cid)
 VALUES ('8b171ab5-2f09-4272-a607-f8fd68eeca31', 1),
        ('426822c5-76e1-4cbb-bd92-b2a3dc4a261b', 2);
 

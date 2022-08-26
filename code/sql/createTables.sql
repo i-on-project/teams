@@ -3,11 +3,9 @@ CREATE TABLE ORGANIZATIONS
     id          serial,
     name        varchar(50),
     description varchar(200) NOT NULL,
-    githubUri   varchar      NOT NULL,
-    avatarUri   varchar      NOT NULL,
     deleted     bit(1) DEFAULT B'0',
     PRIMARY KEY (id),
-    UNIQUE (name, githubUri, avatarUri)
+    UNIQUE (name)
 );
 
 CREATE TABLE CLASSROOMS
@@ -17,7 +15,6 @@ CREATE TABLE CLASSROOMS
     description       varchar      NOT NULL,
     maxTeams          int          NOT NULL,
     maxMembersPerTeam int          NOT NULL,
-    repoURI           varchar      ,
     schoolYear        varchar      NOT NULL, -- (e.g. 2021/22)
     orgId             int          NOT NULL, --organization id
     state             varchar(50) DEFAULT 'active',
@@ -32,7 +29,7 @@ CREATE TABLE CLASSROOMS
     CONSTRAINT schoolYear_check CHECK ( schoolYear ~* '[0-9][0-9][0-9][0-9]/[0-9][0-9]')
 );
 
-CREATE TABLE INVITE_LINKS
+CREATE TABLE INVITE_CODES
 (
     code    varchar NOT NULL,
     cId     int     NOT NULL, --classroom id

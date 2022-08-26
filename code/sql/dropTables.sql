@@ -1,6 +1,6 @@
 DROP VIEW IF EXISTS organizations_view;
 DROP VIEW IF EXISTS classrooms_view;
-DROP VIEW IF EXISTS invite_links_view;
+DROP VIEW IF EXISTS invite_codes_view;
 DROP VIEW IF EXISTS teachers_view;
 DROP VIEW IF EXISTS teacher_view;
 DROP VIEW IF EXISTS teams_view;
@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS student;
 DROP TABLE IF EXISTS teams;
 DROP TABLE IF EXISTS teachers;
 DROP TABLE IF EXISTS teacher;
-DROP TABLE IF EXISTS invite_links;
+DROP TABLE IF EXISTS invite_codes;
 DROP TABLE IF EXISTS classrooms;
 DROP TABLE IF EXISTS organizations;
 DROP TABLE IF EXISTS user_session;

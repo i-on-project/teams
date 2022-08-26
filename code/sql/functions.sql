@@ -62,7 +62,7 @@ BEGIN
         BEGIN
             UPDATE teams SET deleted = B'1' WHERE cid = new.id;
             UPDATE teachers SET deleted = B'1' WHERE cid = new.id;
-            UPDATE invite_links SET deleted = B'1' WHERE cid = new.id;
+            UPDATE invite_codes SET deleted = B'1' WHERE cid = new.id;
             UPDATE assignments SET deleted = B'1' WHERE cid = new.id;
         END;
     END IF;
