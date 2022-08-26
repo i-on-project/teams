@@ -31,11 +31,20 @@ export function HorizontalMenu() {
     }
 
     function onLogout() {
-        //TODO: perform logout
-        setLoggedState({ logged: false, access_token: null })
-        navigate('/')
+        fetch('http://localhost:8080/auth/logout', 
+            {
+                credentials: 'include'
+            }
+        )
+            .then(() => {
+                setLoggedState(false)
+                navigate('/')
+            })
     }
 
+    function onLogin() {
+        navigate('/login')
+    }
 
     function itemsBuilder(items: MenuItem[]) {
 
@@ -81,7 +90,7 @@ export function HorizontalMenu() {
             {
                 itemsBuilder(items)
             }
-            { useLoggedInState().loggedInState.logged &&
+            { useLoggedInState().loggedInState &&
                 <Menu.Menu position="right">
                     <Menu.Item key={'logout-button'}>
                         <Button fluid circular icon negative onClick={() => { onLogout() }}>
@@ -90,10 +99,10 @@ export function HorizontalMenu() {
                     </Menu.Item>
                 </Menu.Menu>
             }
-            {(!useLoggedInState().loggedInState.logged && !window.location.href.endsWith('/start')) &&
+            {(!useLoggedInState().loggedInState && !window.location.href.endsWith('/start')) &&
                 <Menu.Menu position="right">
                     <Menu.Item key={'loginSignup-button'}>
-                        <Button fluid circular secondary onClick={() => { setLoggedState({ logged: true, access_token: null }) }}>Log in or Sign up</Button>
+                        <Button fluid circular secondary onClick={() => { onLogin() }}>Log in or Sign up</Button>
                     </Menu.Item>
                 </Menu.Menu>
             }

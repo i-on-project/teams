@@ -4,7 +4,7 @@ import { Router } from './Router'
 
 export function App() {
     
-    const [logged, setLogged] = React.useState({logged: false, access_token: null})
+    const [logged, setLogged] = React.useState(false)
 
   return (
     <LoggedInContext.Provider value={{ loggedInState: logged, setLoggedState: setLogged }}>

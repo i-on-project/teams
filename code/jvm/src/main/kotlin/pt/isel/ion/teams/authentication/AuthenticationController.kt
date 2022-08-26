@@ -50,6 +50,25 @@ class AuthenticationController(
         return githubAuthRedirect(clientId)
     }
 
+    @GetMapping(Uris.AutoLogin.PATH)
+    fun getAutoLogin(
+        @CookieValue session: String?
+    ): ResponseEntity<Any> {
+
+        if (session != null && session != "deleted") {
+
+            try {
+                authService.getNumber(session)
+            } catch (_: Exception) {
+                return ResponseEntity.status(404).build()
+            }
+
+            return ResponseEntity.status(200).build()
+        }
+
+        return ResponseEntity.status(404).build()
+    }
+
     /**
      * Used by the  Desktop app to follow the GitHub flow, if the external sign-in process is successful
      * the register process will be completed with a POST from the app directly to the service.
@@ -103,8 +122,6 @@ class AuthenticationController(
     ): ResponseEntity<Any> {
         //Verification of state to prevent CSRF attack
         if (state != userState) throw InvalidAuthenticationStateException()
-
-        //TODO: create session
 
         var number: String? = null
         var processedClientId = clientId
@@ -163,6 +180,7 @@ class AuthenticationController(
 
                     return ResponseEntity
                         .status(303)
+                        .header(HttpHeaders.SET_COOKIE, sessionCookie.toString())
                         .header(
                             HttpHeaders.LOCATION, "http://localhost:3000/?logged=true"
                         )
@@ -341,6 +359,7 @@ class AuthenticationController(
     ): ResponseEntity<Any> {
         authService.deleteSession(session)
 
+        //Logout for desktop application
         if (accessToken != null) {
             val accessTokenCookie = ResponseCookie.from("accessToken", "deleted")
                 .path("/auth/")
@@ -367,9 +386,20 @@ class AuthenticationController(
                 .build()
         }
 
-        //TODO: Logout for web application
+        //Logout for web application
+        val sessionCookie = ResponseCookie.from("session", "deleted")
+            .path("/")
+            .domain("localhost")
+            .maxAge(HALF_HOUR)
+            .httpOnly(true)
+            .secure(true)
+            .sameSite("None")
+            .build()
+
         return ResponseEntity
-            .ok(null)
+            .status(200)
+            .header(HttpHeaders.SET_COOKIE, sessionCookie.toString())
+            .build()
     }
 
     /* ****************** AUXILIARY FUNCTIONS ****************** */

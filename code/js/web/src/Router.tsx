@@ -12,7 +12,7 @@ import { useLoggedInState } from "./common/components/loggedStatus";
 
 export function Router(){
 
-    const logged = useLoggedInState().loggedInState.logged
+    const logged = useLoggedInState().loggedInState
 
     return (
         <BrowserRouter>

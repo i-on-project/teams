@@ -1,7 +1,8 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button, Container, Divider, Header, Icon, Input, Loader } from 'semantic-ui-react'
 import { Fetch } from "../common/components/Fetch";
+import { useLoggedInState } from "../common/components/loggedStatus";
 import { useMenu } from "../common/components/MenuContext";
 import { makeAbout, makeHome, makeInviteCode } from "../common/Uris";
 

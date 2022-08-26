@@ -8,6 +8,10 @@ object Uris {
         const val PATH = "/auth/login"
     }
 
+    object AutoLogin {
+        const val PATH = "/auth/autologin"
+    }
+
     object Logout {
         const val PATH = "/auth/logout"
     }

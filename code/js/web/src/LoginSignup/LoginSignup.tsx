@@ -77,11 +77,22 @@ export function Page() {
 
   function onclickLogIn() {
     setLoading(true)
-    fetch('http://localhost:8080/auth/login?clientId=web')
-      .then(resp => resp.json())
-      .then((token: AccessToken) => {
-        console.log(token)
-        setLoggedState({ logged: true, access_token: token })
+    fetch('http://localhost:8080/auth/login?clientId=web',
+      {
+        credentials: 'include'
+      }
+    )
+      .then(async resp => {
+        if (resp.ok) return resp.json()
+        throw await resp.json()
+      })
+      .then((jsonRedirectObj: { location: string }) => {
+        window.location.href = jsonRedirectObj.location
+      })
+      .catch((err: Problem) => {
+        setLoading(false)
+        console.log(err)
+        messageDispatch({ type: 'error', status: err.status, message: err.detail })
       })
   }
 
@@ -102,7 +113,7 @@ export function Page() {
         throw await resp.json()
       })
       .then((jsonRedirectObj: { location: string }) => {
-        window.open(jsonRedirectObj.location, '_blank', 'noopener,noreferrer');
+        window.location.href = jsonRedirectObj.location
       })
       .catch((err: Problem) => {
         setLoading(false)
@@ -118,7 +129,7 @@ export function Page() {
     <Grid columns={2} stackable textAlign='center'>
       <Grid.Row verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }} >
-          <Segment stacked>
+          <Segment stacked >
             <Header as='h3'>
               Download Desktop app
             </Header>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { Button, Container, Divider, Header, Segment } from 'semantic-ui-react'
 import { useLoggedInState } from "../common/components/loggedStatus";
 import { useMenu } from "../common/components/MenuContext";
@@ -9,6 +9,8 @@ export function Page() {
 
     const setItems = useMenu().setItems
     const navigate = useNavigate()
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { loggedInState, setLoggedState } = useLoggedInState()
 
     React.useEffect(() => {
         setItems([
@@ -17,6 +19,30 @@ export function Page() {
                 href: makeAbout()
             }
         ])
+
+        if (searchParams.get("logged") === "true") {
+            setLoggedState(true)
+            navigate("/")
+        } else {
+            fetch(`http://localhost:8080/auth/autologin`,
+                {
+                    credentials: "include"
+                }
+            )
+                .then(resp => {
+                    if (!resp.ok) {
+                        throw new Error("Not logged in")
+                    }
+                    return resp
+                })
+                .then(() => {
+                    setLoggedState(true)
+                    navigate("/")
+                })
+                .catch((err: Error) => {
+                    console.log(err)
+                })
+        }
     }, [])
 
     return (

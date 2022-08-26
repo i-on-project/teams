@@ -2,7 +2,8 @@ module.exports = {
     mode: 'development',
     devtool: false,
     devServer: {
-        port: 3000
+        port: 3000,
+        historyApiFallback: true,
       },
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],
