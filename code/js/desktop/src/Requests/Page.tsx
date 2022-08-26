@@ -69,7 +69,7 @@ function Body({ collection, orgId, classId }: { collection: Collection, orgId: a
         collection.entities.length != 0 ?
             <Container>
                 <h1>Requests for creating a team</h1>
-                <RequestsTable entities={collection.entities}></RequestsTable>
+                <RequestsTable entities={collection.entities} orgName={menuItemNameContext.orgName}/>
             </Container>
             :
             <NothingToShow>No Request to show.</NothingToShow>

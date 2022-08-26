@@ -18,8 +18,6 @@ class RequestsService(val jdbi: Jdbi) {
     fun acceptRequest(teamId: Int, classId: Int) {
         jdbi.onDemand(TeamsDAO::class.java).updateTeam(TeamsDbUpdate(teamId, null, "active"))
 
-        //TODO: create team (on DB and GitHub)
-        //TODO: create Repo (on DB and GitHub)
         //jdbi.onDemand(RepoDAO::class.java).createRepo(RepoDbWrite(url,name,teamId, assId))
     }
 
