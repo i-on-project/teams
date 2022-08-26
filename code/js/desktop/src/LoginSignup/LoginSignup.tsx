@@ -84,7 +84,7 @@ export function LoginSignup() {
   const [parameters, setParameters] = React.useState<RegisterParams>({})
   const [loadindState, setLoading] = React.useState(false)
   const [messageState, messageDispatch] = React.useReducer(messageReducer,
-     { hidden: true, success: false, error: false, status: null, message: null })
+    { hidden: true, success: false, error: false, status: null, message: null })
 
   electron.customProtocolUrl((_event, value) => {
     console.log(value)
@@ -93,20 +93,20 @@ export function LoginSignup() {
 
   React.useEffect(() => {
     fetch(`http://localhost:8080/auth/access_token`)
-        .then(resp => {
-          if (!resp.ok) {
-            throw new Error("No Access Token")
-          }
-          return resp
-        })
-        .then(resp => resp.json())
-        .then((token: string) => {
-          console.log(token)
-          setLoggedState({ logged: true, access_token: token })
-        })
-        .catch((err: Error) => {
-          console.log(err)
-        })
+      .then(resp => {
+        if (!resp.ok) {
+          throw new Error("No Access Token")
+        }
+        return resp
+      })
+      .then(resp => resp.json())
+      .then((token: string) => {
+        console.log(token)
+        setLoggedState({ logged: true, access_token: token })
+      })
+      .catch((err: Error) => {
+        console.log(err)
+      })
   }, [])
 
   React.useEffect(() => {
@@ -114,6 +114,24 @@ export function LoginSignup() {
 
     const urlObj = convertUrltoObj(url)
     console.log(urlObj)
+
+    async function fetchWithTimeout(resource: string, options?: any) {
+  
+      const timeout = 8000;
+    
+      const controller = new AbortController();
+      const id = setTimeout(() => {
+        console.log("Fetch timed out, aborting.")
+        setLoading(false)
+        return controller.abort()
+      }, timeout);
+      const response = await fetch(resource, {
+        ...options,
+        signal: controller.signal
+      });
+      clearTimeout(id);
+      return response;
+    }
 
     async function checkRespOk(resp: Response) {
       console.log('In verification')
@@ -126,7 +144,9 @@ export function LoginSignup() {
     }
 
     if (urlObj.type === "login") {
-      fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
+      setLoading(true)
+
+      fetchWithTimeout(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
         .then(checkRespOk)
         .then(resp => resp.json())
         .then((token: string) => {
@@ -140,14 +160,16 @@ export function LoginSignup() {
           messageDispatch({ type: 'error', status: err.status, message: err.detail })
         })
     } else if (urlObj.type === "register") {
-      fetch(`http://localhost:8080/auth/register?clientId=desktop-register`, {
+      setLoading(true)
+
+      fetchWithTimeout(`http://localhost:8080/auth/register?clientId=desktop-register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(parameters)
       })
-        .then(() => fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`))
+        .then(() => fetchWithTimeout(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`))
         .then(checkRespOk)
         .then(() => {
           messageDispatch({ type: 'info', message: 'A verification email was sent. After verifying please login.' })
@@ -164,12 +186,10 @@ export function LoginSignup() {
   }, [url])
 
   function loginButtonOnClick() {
-    setLoading(true)
     electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop')
   }
 
   function signupButtonOnClick() {
-    setLoading(true)
     electron.externalBrowserApi.open('http://localhost:8080/auth/register?clientId=desktop-register')
   }
 

@@ -48,7 +48,6 @@ function messageReducer(state: MessageState, action: MessageAction): MessageStat
     }
 }
 
-
 export function RequestsTable({ entities, orgName }: { entities: Entity[], orgName: string }) {
 
     const { setChanged } = useContext(ChangedContext)
@@ -131,7 +130,7 @@ export function RequestsTable({ entities, orgName }: { entities: Entity[], orgNa
                 <Table.Cell key={item.id + '_name'}> {item.name} </Table.Cell>
                 <Table.Cell textAlign="right" key={item.id + '_buttons'}>
                     <Button.Group>
-                        <Button positive onClick={() => onClickAccept(item.actions.find((it) => it.name == "accept-request"), item.name)} key={'Accept_' + item.id}>Accept</Button>
+                        <Button positive onClick={() => fetchAction(item.actions.find((it) => it.name == "accept-request"))} key={'Accept_' + item.id}>Accept</Button>
                         <Button negative onClick={() => fetchAction(item.actions.find((it) => it.name == "decline-request"))} key={'Decline_' + item.id}>Decline</Button>
                     </Button.Group>
                 </Table.Cell>

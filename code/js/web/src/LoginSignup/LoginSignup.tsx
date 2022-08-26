@@ -75,9 +75,27 @@ export function Page() {
       messageDispatch({ type: 'info', message: 'A verification email was sent. After verifying please login. The email may be in your spam folder.' })
   }, [])
 
+  async function fetchWithTimeout(resource: string, options?: any) {
+
+    const timeout = 8000;
+
+    const controller = new AbortController();
+    const id = setTimeout(() => {
+      console.log("Fetch timed out, aborting.")
+      setLoading(false)
+      return controller.abort()
+    }, timeout);
+    const response = await fetch(resource, {
+      ...options,
+      signal: controller.signal
+    });
+    clearTimeout(id);
+    return response;
+  }
+
   function onclickLogIn() {
     setLoading(true)
-    fetch('http://localhost:8080/auth/login?clientId=web',
+    fetchWithTimeout('http://localhost:8080/auth/login?clientId=web',
       {
         credentials: 'include'
       }
@@ -98,7 +116,7 @@ export function Page() {
 
   function onclickSignUp() {
     setLoading(true)
-    fetch('http://localhost:8080/auth/register?clientId=web-register',
+    fetchWithTimeout('http://localhost:8080/auth/register?clientId=web-register',
       {
         method: 'POST',
         headers: {
