@@ -3,11 +3,11 @@ package pt.isel.ion.teams.organizations
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import pt.isel.ion.teams.common.siren.CollectionModel
-import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.classrooms.ClassroomsService
 import pt.isel.ion.teams.classrooms.toCompactOutput
 import pt.isel.ion.teams.common.Uris
+import pt.isel.ion.teams.common.siren.CollectionModel
+import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 
 @RestController
 @RequestMapping(Uris.Organizations.MAIN_PATH)
@@ -34,9 +34,7 @@ class OrganizationController(
     @GetMapping(Uris.Organizations.Organization.PATH)
     fun getOrganization(@PathVariable orgId: Int): ResponseEntity<Any> {
         val org = organizationsService.getOrganization(orgId).toOutput()
-        val classrooms = classroomsService.getAllClassroomsByOrganizationWithPaging(10,0,orgId,null)
-
-        //TODO Detect if user is student or teacher
+        val classrooms = classroomsService.getAllClassroomsByOrganizationWithPaging(10, 0, orgId, null)
 
         return ResponseEntity
             .ok()
@@ -46,8 +44,7 @@ class OrganizationController(
 
     @PostMapping
     fun createOrganization(@RequestBody organization: OrganizationInputModel): ResponseEntity<Any> {
-        //TODO retrieve real githubURI and avatarURI
-        val org = organizationsService.createOrganization(organization.toDb("example","example")).toOutput()
+        val org = organizationsService.createOrganization(organization.toDb("example", "example")).toOutput()
 
         return ResponseEntity
             .created(Uris.Organizations.Organization.make(org.id))

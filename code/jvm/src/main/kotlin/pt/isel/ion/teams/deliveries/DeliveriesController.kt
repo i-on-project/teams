@@ -47,8 +47,6 @@ class DeliveriesController(
         val team = deliveriesService.getDelivery(deliveryId).toOutput()
         val tags = tagsService.getAllTagsWithRepoAndView(deliveryId)
 
-        //TODO Detect if user is student or teacher
-
         return ResponseEntity
             .ok()
             .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))

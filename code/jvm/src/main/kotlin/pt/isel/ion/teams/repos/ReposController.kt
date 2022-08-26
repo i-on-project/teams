@@ -3,9 +3,9 @@ package pt.isel.ion.teams.repos
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
-import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.tags.TagsService
 import pt.isel.ion.teams.tags.toCompactOutput
 
@@ -46,8 +46,6 @@ class ReposController(
     ): ResponseEntity<Any> {
         val repo = reposService.getRepo(repoId)
         val tags = tagsService.getAllTags(repoId).map { it.toCompactOutput() }
-
-        //TODO: Detect if user is student or teacher
 
         return ResponseEntity
             .ok()

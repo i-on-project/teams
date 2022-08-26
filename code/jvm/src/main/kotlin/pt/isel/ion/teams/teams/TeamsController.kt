@@ -45,8 +45,6 @@ class TeamsController(
         val team = teamsService.getTeam(teamId, classId).toOutput()
         val students = studentsService.getAllStudentsByTeam(teamId, 10, 0).map { it.toCompactOutput() }
 
-        //TODO Detect if user is student or teacher
-
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
             .body(team.toTeacherSirenObject(students, orgId, classId))
     }

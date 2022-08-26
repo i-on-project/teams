@@ -27,7 +27,8 @@ class ClassroomsController(
         .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
         .body(
             CollectionModel(pageIndex, pageSize).toClassroomSirenObject(
-                classroomsService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId, 0).map{ it.toOutput()},
+                classroomsService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId, 0)
+                    .map { it.toOutput() },
                 orgId
             )
         )
@@ -39,8 +40,6 @@ class ClassroomsController(
     ): ResponseEntity<Any> {
         val classroom = classroomsService.getClassroom(classId).toOutput()
         val teams = teamsService.getAllTeamsOfClassroom(10, 0, classId)
-
-        //TODO Detect if user is student or teacher
 
         return ResponseEntity
             .ok()
@@ -55,8 +54,8 @@ class ClassroomsController(
         @PathVariable orgId: Int,
         @RequestBody classroomInputModel: ClassroomInputModel
     ): ResponseEntity<Any> {
-        //TODO retrieve real githubURI and avatarURI
-        val classroom = classroomsService.createClassroom(classroomInputModel.toDb(orgId,"example","example")).toOutput()
+        val classroom =
+            classroomsService.createClassroom(classroomInputModel.toDb(orgId, "example", "example")).toOutput()
 
         return ResponseEntity
             .created(Uris.Classrooms.Classroom.make(orgId, classroom.id))

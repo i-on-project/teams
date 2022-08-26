@@ -7,7 +7,6 @@ import { useMenuItemNameContext } from '../common/components/MenuItemNameContext
 import { Collection, Entity, Link_relation } from '../common/types/siren'
 import { makeClassroom, makeHome, makeOrganization, makeOrganizations } from '../common/Uris'
 
-//TODO: session
 export function Page() {
 
     const setItems = useMenu().setItems

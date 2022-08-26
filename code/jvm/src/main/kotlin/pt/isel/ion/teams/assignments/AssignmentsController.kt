@@ -42,8 +42,6 @@ class AssignmentsController(val assignmentsService: AssignmentsService, val deli
         val deliveries = deliveriesService.getAllDeliveriesOfAssignment(10, 0, assignmentId)
             .map { it.toCompactOutput() }
 
-        //TODO Detect if user is student or teacher
-
         return ResponseEntity
             .ok()
             .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))

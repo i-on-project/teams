@@ -55,9 +55,9 @@ export function RequestsTable({ entities, orgName }: { entities: Entity[], orgNa
     const access_token = useLoggedInState().loggedInState.access_token
     const [messageState, messageDispatch] = React.useReducer(messageReducer,
         { hidden: true, success: false, error: false, status: null, message: null })
-    
-    function onClickAccept(action: Action, teamName: string) {
 
+    function onClickAccept(action: Action, teamName: string) {
+        /*
         fetch(` https://api.github.com/orgs/${orgName}/repos`,
             {
                 method: 'POST',
@@ -80,7 +80,7 @@ export function RequestsTable({ entities, orgName }: { entities: Entity[], orgNa
                             body: JSON.stringify({
                                  name: teamName, description: "", permission: "push", 
                                  privacy: "closed", repo_names: [`${orgName}/"project-"+teamName`],
-                                 maintainers:["github ids"] //TODO: + um pedido
+                                 maintainers:["github ids"] 
                                 })
                         }
                     ).then((resp) => {
@@ -91,10 +91,8 @@ export function RequestsTable({ entities, orgName }: { entities: Entity[], orgNa
             .catch((err) => {
                 messageDispatch({ type: 'error', status: err.status, message: err.detail })
             })
-
-
-
-
+        */
+        console.log("Not implemented. Missing comunication with github.")
     }
 
     function fetchAction(action: Action) {

@@ -4,9 +4,9 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
-import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.deliveries.DeliveriesService
 
 @RestController
@@ -46,8 +46,6 @@ class TagsController(
     ): ResponseEntity<Any> {
         val tag = tagsService.getTag(repoId, tagId)
         val delivery = deliveryService.getDelivery(tag.delId)
-
-        //TODO Check if user is teacher
 
         return ResponseEntity
             .ok()

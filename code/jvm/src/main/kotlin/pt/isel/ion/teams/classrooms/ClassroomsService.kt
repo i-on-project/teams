@@ -9,14 +9,13 @@ class ClassroomsService(val jdbi: Jdbi) {
 
     fun getAllClassroomsByOrganizationWithPaging(pageSize: Int, pageIndex: Int, orgId: Int, number: Int?) =
         sqlExceptionHandler {
-            //TODO: cookie null??
             if (number != null)
                 jdbi
                     .onDemand(ClassroomsDAO::class.java)
                     .getAllClassroomsByOrganizationOfTeacherWithPaging(pageSize + 1, pageIndex * pageSize, number)
             else
                 jdbi.onDemand(ClassroomsDAO::class.java)
-                    .getAllClassroomsByOrganization(pageSize + 1, pageIndex * pageSize,orgId)
+                    .getAllClassroomsByOrganization(pageSize + 1, pageIndex * pageSize, orgId)
 
         }
 
