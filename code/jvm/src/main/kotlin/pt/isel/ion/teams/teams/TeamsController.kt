@@ -3,6 +3,7 @@ package pt.isel.ion.teams.teams
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.authentication.AuthenticationService
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
@@ -12,23 +13,30 @@ import pt.isel.ion.teams.students.toCompactOutput
 @RestController
 @RequestMapping(Uris.Teams.MAIN_PATH)
 class TeamsController(
-    val teamsService: TeamsService, val studentsService: StudentsService
+    val teamsService: TeamsService,
+    val studentsService: StudentsService,
+    val authService: AuthenticationService
 ) {
 
     @GetMapping
     fun getAllTeamsOfClassroom(
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int,
+        @CookieValue session: String,
         @PathVariable orgId: Int,
         @PathVariable classId: Int
-    ) = ResponseEntity.ok().contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE)).body(
-            CollectionModel(pageIndex, pageSize).toTeamsSirenObject(
+    ): ResponseEntity<Any> {
+        return ResponseEntity
+            .ok()
+            .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+            .body(
+                CollectionModel(pageIndex, pageSize).toTeamsSirenObject(
                     teamsService.getAllTeamsOfClassroom(pageSize, pageIndex, classId).map { it.toCompactOutput() },
                     orgId,
                     classId
                 )
-        )
-
+            )
+    }
 
     @GetMapping(Uris.Teams.Team.PATH)
     fun getTeam(

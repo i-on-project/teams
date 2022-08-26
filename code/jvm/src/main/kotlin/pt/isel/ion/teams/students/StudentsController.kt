@@ -11,12 +11,29 @@ import pt.isel.ion.teams.teams.TeamsService
 import pt.isel.ion.teams.teams.toCompactOutput
 
 @RestController
-@RequestMapping(Uris.Students.MAIN_PATH)
+@RequestMapping
 class StudentsController(
     val studentsService: StudentsService,
     val teamsService: TeamsService,
     val authService: AuthenticationService
-    ) {
+) {
+
+    @GetMapping(Uris.Students.StudentTeams.PATH)
+    fun getTeams(
+        @CookieValue session: String
+    ): ResponseEntity<Any> {
+
+        val number = authService.getUserFromSession(session)
+        return ResponseEntity
+            .ok()
+            .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+            .body(
+                CollectionModel(0, 10).toStudentTeamsSirenObject(
+                    studentsService.getAllTeamsByStudent(number)
+                        .map { it.toOutput() }
+                )
+            )
+    }
 
     @GetMapping(Uris.Students.FromClassroom.PATH)
     fun getAllStudentsByClassroom(
@@ -100,7 +117,7 @@ class StudentsController(
         @CookieValue session: String
     ): ResponseEntity<Any> {
         val number = authService.getNumber(session)
-        val std = studentsService.addStudent(number,teamId,classId).toOutput()
+        val std = studentsService.addStudent(number, teamId, classId).toOutput()
 
         return ResponseEntity
             .created(Uris.Students.Student.make(orgId, classId, std.number))
@@ -121,7 +138,6 @@ class StudentsController(
             .ok()
             .body(null)
     }
-
 
 
 }

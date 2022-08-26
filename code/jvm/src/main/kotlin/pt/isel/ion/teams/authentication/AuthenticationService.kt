@@ -42,9 +42,15 @@ class AuthenticationService(val jdbi: Jdbi) {
     }
 
     /* Session verification. */
-    fun getUserFromSession(sessionId: String){
-        sqlExceptionHandler {
+    fun getUserFromSession(sessionId: String): Int{
+        return sqlExceptionHandler {
             jdbi.onDemand(AuthenticationDAO::class.java).getUserFromSession(sessionId)
+        }
+    }
+
+    fun getUserTypeFromSession(sessionId: String): Char {
+        return sqlExceptionHandler {
+            jdbi.onDemand(AuthenticationDAO::class.java).getUserTypeFromSession(sessionId)
         }
     }
 

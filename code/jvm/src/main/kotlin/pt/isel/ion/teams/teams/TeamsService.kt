@@ -15,11 +15,6 @@ class TeamsService(val jdbi: Jdbi) {
                 .getAllTeamsOfClassroom(pageSize + 1, pageIndex * pageSize, classroomId)
         }
 
-    fun getTeamsByStudent(number: Int) =
-        sqlExceptionHandler {
-            jdbi.onDemand(TeamsDAO::class.java).getTeamsByStudent(number)
-        }
-
     fun getTeam(teamId: Int, classId: Int) =
         sqlExceptionHandler {
             jdbi.onDemand(TeamsDAO::class.java).getTeam(teamId,classId)

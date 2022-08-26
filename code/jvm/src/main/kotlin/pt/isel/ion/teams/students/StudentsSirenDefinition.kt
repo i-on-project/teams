@@ -8,6 +8,29 @@ import pt.isel.ion.teams.teams.TeamsCompactOutputModel
 
 /* ******************* RESOURCE COLLECTION RESPONSES ******************** */
 
+fun CollectionModel.toStudentTeamsSirenObject(
+    studentList: List<StudentTeamsOutputModel>
+): SirenEntity<CollectionModel> {
+
+    return SirenEntity(
+        properties = this,
+        clazz = listOf(SirenClasses.COLLECTION, SirenClasses.STUDENT),
+        entities = studentList.map {
+            EmbeddedEntity(
+                properties = it,
+                clazz = listOf(SirenClasses.STUDENT),
+                rel = listOf(SirenRelations.ITEM),
+                links = listOf(selfLink(Uris.Students.Student.make(it.orgId, it.classId, it.number)))
+            )
+        },
+        links = listOfNotNull(
+            homeLink(),
+            logoutLink(),
+        )
+    )
+}
+
+
 /**
  * Siren definition for a student list by team collection response
  * @param studentList List of deliveries to display

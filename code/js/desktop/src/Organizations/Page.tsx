@@ -14,18 +14,16 @@ export function Page() {
     const [uri, setUri] = React.useState(`/api${makeOrganizations()}`)
 
     return (
-        <div>
-            <Fetch
-                url={uri}
-                renderBegin={() => <p>Waiting for URL...</p>}
-                renderOk={(payload) =>
-                    <UriContext.Provider value={{ uri, setUri }} >
-                        <Body collection={payload} />
-                    </UriContext.Provider>
-                }
-                renderLoading={() => <Loader />}
-            />
-        </div>
+        <Fetch
+            url={uri}
+            renderBegin={() => <p>Waiting for URL...</p>}
+            renderOk={(payload) =>
+                <UriContext.Provider value={{ uri, setUri }} >
+                    <Body collection={payload} />
+                </UriContext.Provider>
+            }
+            renderLoading={() => <Loader />}
+        />
     )
 }
 
@@ -33,7 +31,7 @@ export function Page() {
 function Body({ collection }: { collection: Collection }) {
 
     const setItems = useMenu().setItems
-    
+
 
     React.useEffect(() => {
         const menuItems: MenuItem[] = [

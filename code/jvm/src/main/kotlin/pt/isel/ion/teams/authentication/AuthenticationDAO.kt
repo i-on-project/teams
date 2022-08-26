@@ -22,7 +22,10 @@ interface AuthenticationDAO {
     fun getVerificationId(@Bind number: Int): String
 
     @SqlQuery("SELECT number FROM user_session WHERE sessionid=:sessionId")
-    fun getUserFromSession(sessionId: String): Int
+    fun getUserFromSession(@Bind sessionId: String): Int
+
+    @SqlQuery("SELECT usertype FROM user_session WHERE sessionid=:sessionId")
+    fun getUserTypeFromSession(@Bind sessionId: String): Char
 
     /* Verification of users (Teacher or Student) */
     @SqlUpdate("INSERT INTO to_verify (code, number) VALUES (:code, :number)")

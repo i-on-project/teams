@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 /**
  * Configuration of interceptor and routes that an interceptor will run.
- */
+*/
 @Configuration
 class ConfigInterceptor: WebMvcConfigurer {
     @Autowired

@@ -18,6 +18,11 @@ class StudentsService(val jdbi: Jdbi) {
             jdbi.onDemand(StudentsDAO::class.java).getAllStudentsByTeam(teamId, pageSize + 1, pageIndex * pageSize)
         }
 
+    fun getAllTeamsByStudent(number: Int) =
+        sqlExceptionHandler {
+            jdbi.onDemand(StudentsDAO::class.java).getAllTeamsByStudent(number)
+        }
+
     fun getStudent(number: Int) =
         sqlExceptionHandler {
             jdbi.onDemand(StudentsDAO::class.java).getStudent(number)

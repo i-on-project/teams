@@ -3,7 +3,7 @@ import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { Button, Container, Divider, Header, Segment } from 'semantic-ui-react'
 import { useLoggedInState } from "../common/components/loggedStatus";
 import { useMenu } from "../common/components/MenuContext";
-import { makeAbout, makeLoginSignup } from "../common/Uris";
+import { makeAbout, makeHome, makeLoginSignup } from "../common/Uris";
 
 export function Page() {
 
@@ -79,6 +79,7 @@ export function Page() {
                 <Button circular color="blue" onClick={() => { navigate(makeLoginSignup()) }}>
                     Start Right Now
                 </Button>
+                <Button circular color="red" onClick={() => {setLoggedState(true), navigate(makeHome())}}>FAKE LOGIN</Button>
             </Segment>
         </Container>
     )

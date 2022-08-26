@@ -60,7 +60,7 @@ function Body({resource}: {resource: Resource}) {
                             (payload: Collection) => payload.entities.length != 0 ?
                                 <React.Fragment>
                                     <Header as='h2'>Enter an existing team</Header>
-                                    <TeamsTable entities={payload.entities}/>
+                                    <TeamsTable collection={payload}/>
                                 </React.Fragment>
                                 :
                                 <Header as="h3" textAlign="center"> No teams were created.</Header>

@@ -1,17 +1,16 @@
 import * as React from "react"
 import { useState } from 'react'
 import { Button, Message, Table } from 'semantic-ui-react';
-import { DefaultTable } from '../../common/components/Table'
-import { Action, Entity, Resource } from '../../common/types/siren';
+import { DefaultTable, Paging } from '../../common/components/Table'
+import { Action, Collection, Entity, Resource } from '../../common/types/siren';
 
-export function TeamsTable({ entities }: { entities: Entity[], }) {
+export function TeamsTable({ collection }: { collection: Collection, }) {
 
     const [successMsg, setSuccessMsg] = useState(false)
     const [errorMsg, setErrorMsg] = useState(false)
 
     //Assign Student to a team
     function onClick(href: string) {
-        //TODO: TEST
         fetch(`http://localhost:8080${href}`, { credentials: 'include' })
             .then((response: Response) =>
                 response.json()
@@ -39,7 +38,7 @@ export function TeamsTable({ entities }: { entities: Entity[], }) {
     }
 
     function rowSpan() {
-        const teams = entities.map((entity: Entity) => {
+        const teams = collection.entities.map((entity: Entity) => {
             return {
                 id: entity.properties.id,
                 name: entity.properties.name,
@@ -59,10 +58,9 @@ export function TeamsTable({ entities }: { entities: Entity[], }) {
             </Table.Row>
         )
     }
-
     return (
         <React.Fragment>
-            <DefaultTable propNames={["Name", ""]}>{rowSpan()}</DefaultTable>
+            <DefaultTable propNames={["Name", ""]} >{rowSpan()}</DefaultTable>
             {successMsg && <Message success>Success!</Message>}
             {errorMsg && <Message negative>Something Went wrong.</Message>}
         </React.Fragment>

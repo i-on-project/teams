@@ -1,4 +1,4 @@
-package pt.isel.ion.teams.home
+package pt.isel.ion.teams.repos.home
 
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*

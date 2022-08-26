@@ -99,6 +99,7 @@ object Uris {
         }
     }
 
+
     object Repos {
         const val MAIN_PATH = "/api/orgs/{orgId}/classrooms/{classId}/teams/{teamId}/repos"
         private val TEMPLATE = UriTemplate(MAIN_PATH)
@@ -165,7 +166,7 @@ object Uris {
             )
 
         object FromClassroom {
-            const val PATH = "/students"
+            const val PATH = MAIN_PATH + "/students"
             private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
             fun make(orgId: Int, classId: Int) = TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId))
 
@@ -178,7 +179,7 @@ object Uris {
         }
 
         object FromTeam {
-            const val PATH = "/teams/{teamId}/students"
+            const val PATH = MAIN_PATH +"/teams/{teamId}/students"
             private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
             fun make(orgId: Int, classId: Int, teamId: Int) =
                 TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "teamId" to teamId))
@@ -198,10 +199,16 @@ object Uris {
         }
 
         object Student {
-            const val PATH = "/students/{number}"
+            const val PATH = MAIN_PATH + "/students/{number}"
             private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
             fun make(orgId: Int, classId: Int, number: Int) =
                 TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "number" to number))
+        }
+
+        object StudentTeams {
+            const val PATH = "/api/student/teams"
+            private val TEMPLATE = UriTemplate(PATH)
+            fun make() = TEMPLATE
         }
 
     }

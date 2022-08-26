@@ -1,4 +1,4 @@
-package pt.isel.ion.teams.home
+package pt.isel.ion.teams.repos.home
 
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity

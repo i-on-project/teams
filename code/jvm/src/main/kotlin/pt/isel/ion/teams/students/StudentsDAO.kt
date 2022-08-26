@@ -22,6 +22,9 @@ interface StudentsDAO {
         @Bind("offset") offset: Int
     ): List<CompleteStudentDbRead>
 
+    @SqlQuery("SELECT * FROM student_teams WHERE number=:number")
+    fun getAllTeamsByStudent(@Bind number: Int): List<StudentTeamsDbRead>
+
     @SqlQuery("SELECT * FROM students_view WHERE number=:number")
     fun getStudent(@Bind("number") number: Int): CompleteStudentDbRead
 

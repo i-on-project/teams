@@ -40,6 +40,16 @@ data class StudentDbUpdate(
     val githubusername: String? = null
 )
 
+data class StudentTeamsDbRead(
+    val orgName: String,
+    val orgId: Int,
+    val className: String,
+    val classId: Int,
+    val teamName: String,
+    val teamId: Int,
+    val number: Int
+)
+
 /**
  * For external use only.
  */
@@ -80,6 +90,16 @@ data class StudentUpdateModel(
     val githubusername: String?
 )
 
+data class StudentTeamsOutputModel(
+    val orgName: String,
+    val orgId: Int,
+    val className: String,
+    val classId: Int,
+    val teamName: String,
+    val teamId: Int,
+    val number: Int
+)
+
 /**
  * Functions to transition from external to internal, or vice-versa.
  */
@@ -91,3 +111,4 @@ fun StudentClassInfoDbRead.toOutput() = StudentClassInfoOutputModel(this.number,
 fun CompleteStudentDbRead.toOutput() = CompleteStudentOutputModel(this.number, this.name, this.tid)
 fun CompleteStudentDbRead.toCompactOutput() =StudentCompactOutputModel(this.number,this.name)
 fun StudentUpdateModel.toDb(number: Int) = StudentDbUpdate(number, this.name, this.githubusername)
+fun StudentTeamsDbRead.toOutput() = StudentTeamsOutputModel(orgName, orgId, className, classId, teamName, teamId, number)
