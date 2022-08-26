@@ -29,9 +29,9 @@ interface ClassroomsDAO {
     fun getClassroom(@Bind("id") id: Int): ClassroomDbRead
 
     @SqlUpdate(
-        "INSERT INTO classrooms (name, description, maxteams, maxmembersperteam, repouri, schoolyear, orgid,githuburi,avataruri) " +
-                "VALUES (:name, :description, :maxTeams, :maxMembersPerTeam, :schoolYear, :orgId,:githubURI,:avatarURI) " +
-                "ON CONFLICT (repouri,githuburi,avataruri) DO UPDATE SET deleted = B'0', name=:name, " +
+        "INSERT INTO classrooms (name, description, maxteams, maxmembersperteam, schoolyear, orgid) " +
+                "VALUES (:name, :description, :maxTeams, :maxMembersPerTeam, :schoolYear, :orgId) " +
+                "ON CONFLICT (name,orgid) DO UPDATE SET deleted = B'0', name=:name, " +
                 "description=:description, maxteams=:maxTeams, maxmembersperteam=:maxMembersPerTeam, " +
                 "schoolyear=:schoolYear, orgid=:orgId"
     )

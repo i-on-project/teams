@@ -149,7 +149,7 @@ export function FormLoading({ name, fieldsName }: { name: string, fieldsName: st
             {fieldsName.map((fieldName) =>
                 <Form.Field key={fieldName}>
                     <label>fieldName</label>
-                    <input placeholder={`Write ${fieldName} here...`} />
+                    <input placeholder={`Write ${fieldName} here...`}  />
                 </Form.Field>
             )}
             <Button positive type='submit'>{name}</Button>

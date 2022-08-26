@@ -9,12 +9,9 @@ data class ClassroomDbRead(
     val description: String,
     val maxTeams: Int,
     val maxMembersPerTeam: Int,
-    val repoURI: String,
     val schoolYear: String,
     val orgId: Int,
     val state: String,
-    val githubURI: String,
-    val avatarURI: String
 )
 
 data class ClassroomDbWrite(
@@ -24,8 +21,6 @@ data class ClassroomDbWrite(
     val maxMembersPerTeam: Int,
     val schoolYear: String,
     val orgId: Int,
-    val githubURI: String,
-    val avatarURI: String
 )
 
 data class ClassroomDbUpdate(
@@ -48,8 +43,6 @@ data class ClassroomOutputModel(
     val description: String,
     val schoolYear: String,
     val state: String,
-    val githubURI: String,
-    val avatarURI: String
 )
 
 data class SimpleClassroomOutputModel(
@@ -89,7 +82,7 @@ data class ClassroomUpdateModel(
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun ClassroomInputModel.toDb(orgId: Int, githubUri: String, avatarUri: String) =
+fun ClassroomInputModel.toDb(orgId: Int) =
     ClassroomDbWrite(
         this.name,
         this.description,
@@ -97,8 +90,6 @@ fun ClassroomInputModel.toDb(orgId: Int, githubUri: String, avatarUri: String) =
         this.maxMembersPerTeam,
         this.schoolYear,
         orgId,
-        githubUri,
-        avatarUri
     )
 
 fun ClassroomUpdateModel.toDb(id: Int) =
@@ -119,8 +110,6 @@ fun ClassroomDbRead.toOutput() =
         this.description,
         this.schoolYear,
         this.state,
-        this.githubURI,
-        this.avatarURI
     )
 
 fun ClassroomDbRead.toSimpleOutput() =

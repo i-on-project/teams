@@ -15,9 +15,9 @@ interface OrganizationsDAO {
     fun getOrganization(@Bind("id") id: Int): OrganizationDbRead
 
     @SqlUpdate(
-        "INSERT INTO organizations (name, description,githuburi,avataruri) " +
-                "VALUES (:name,:description,:githubUri,:avatarUri) " +
-                "ON CONFLICT (name,githuburi,avataruri) DO UPDATE SET deleted = B'0', description=:description"
+        "INSERT INTO organizations (name, description) " +
+                "VALUES (:name,:description) " +
+                "ON CONFLICT (name) DO UPDATE SET deleted = B'0', description=:description"
     )
     @GetGeneratedKeys
     fun createOrganization(@BindBean organization: OrganizationDbWrite): OrganizationDbRead

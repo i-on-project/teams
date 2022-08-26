@@ -112,7 +112,7 @@ fun AssignmentOutputModel.toTeacherSirenObject(
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
                 SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "date", type = "string")
+                SirenAction.Field(name = "date", type = "datetime-local")
             )
         ),
         SirenAction(
@@ -123,7 +123,7 @@ fun AssignmentOutputModel.toTeacherSirenObject(
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
                 SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "releaseDate", type = "string"),
+                SirenAction.Field(name = "releaseDate", type = "datetime-local"),
                 SirenAction.Field(name = "cId", type = "number"),
                 SirenAction.Field(name = "description", type = "string"),
             )

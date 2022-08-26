@@ -4,12 +4,14 @@ import { Button, Loader, Menu } from 'semantic-ui-react'
 import { Fetch } from '../common/components/fetch'
 import { useMenu } from '../common/components/MenuContext'
 import { useMenuItemNameContext } from '../common/components/MenuItemNameContext'
+import { UriContext } from '../common/components/UriContext'
 import { Collection, Entity, Link_relation } from '../common/types/siren'
 import { makeClassroom, makeHome, makeOrganization, makeOrganizations } from '../common/Uris'
 
 export function Page() {
 
     const setItems = useMenu().setItems
+    const [uri, setUri] = React.useState(`/api${makeOrganizations()}`)
 
     React.useEffect(() => {
         setItems([
@@ -27,10 +29,12 @@ export function Page() {
 
     return (
         <Fetch
-            url={`/api${makeOrganizations()}`}
+            url={uri}
             renderBegin={() => <p>Waiting for URL...</p>}
             renderOk={(payload) =>
-                <Body collection={payload} />
+                <UriContext.Provider value={{ uri, setUri }} >
+                    <Body collection={payload} />
+                </UriContext.Provider>
             }
             renderLoading={() => <Loader />}
         />

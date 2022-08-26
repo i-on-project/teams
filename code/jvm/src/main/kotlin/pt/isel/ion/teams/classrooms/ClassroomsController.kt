@@ -55,7 +55,7 @@ class ClassroomsController(
         @RequestBody classroomInputModel: ClassroomInputModel
     ): ResponseEntity<Any> {
         val classroom =
-            classroomsService.createClassroom(classroomInputModel.toDb(orgId, "example", "example")).toOutput()
+            classroomsService.createClassroom(classroomInputModel.toDb(orgId)).toOutput()
 
         return ResponseEntity
             .created(Uris.Classrooms.Classroom.make(orgId, classroom.id))

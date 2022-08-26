@@ -7,15 +7,11 @@ data class OrganizationDbRead(
     val id: Int,
     val name: String,
     val description: String,
-    val githubUri: String,
-    val avatarUri: String,
 )
 
 data class OrganizationDbWrite(
     val name: String,
     val description: String,
-    val githubUri: String,
-    val avatarUri: String,
 )
 
 data class OrganizationDbUpdate(
@@ -32,8 +28,6 @@ data class OrganizationOutputModel(
     val id: Int,
     val name: String,
     val description: String,
-    val githubUri: String,
-    val avatarUri: String,
 )
 
 data class OrganizationCompactOutputModel(
@@ -57,7 +51,7 @@ data class OrganizationUpdateModel(
  */
 
 fun OrganizationInputModel.toDb(githubUri: String, avatarUri: String) =
-    OrganizationDbWrite(this.name, this.description, githubUri, avatarUri)
+    OrganizationDbWrite(this.name, this.description)
 
 fun OrganizationUpdateModel.toDb(id: Int) = OrganizationDbUpdate(id, this.name, this.description)
 
@@ -66,4 +60,4 @@ fun OrganizationOutputModel.toCompactOutput() = OrganizationCompactOutputModel(t
 fun OrganizationDbRead.toCompactOutput() = OrganizationCompactOutputModel(this.id, this.name, this.description)
 
 fun OrganizationDbRead.toOutput() =
-    OrganizationOutputModel(this.id, this.name, this.description, this.githubUri, this.avatarUri)
+    OrganizationOutputModel(this.id, this.name, this.description)

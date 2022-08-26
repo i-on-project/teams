@@ -76,8 +76,6 @@ fun ClassroomOutputModel.toStudentSirenObject(
     links = listOf(
         selfLink(Uris.Classrooms.make(orgId)),
         homeLink(),
-        SirenLink(SirenRelations.GITHUB, URI(this.githubURI)),
-        SirenLink(SirenRelations.AVATAR, URI(this.avatarURI)),
         SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
         SirenLink(SirenRelations.ASSIGNMENTS, Uris.Assignments.make(orgId, id)),
         SirenLink(SirenRelations.TEAM, Uris.Teams.Team.make(orgId, id, teamId)),
@@ -113,7 +111,7 @@ fun ClassroomOutputModel.toTeacherSirenObject(
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
                 SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "releaseDate", type = "string"),
+                SirenAction.Field(name = "releaseDate", type = "datetime-local"),
                 SirenAction.Field(name = "description", type = "string"),
             )
         ),
@@ -148,8 +146,6 @@ fun ClassroomOutputModel.toTeacherSirenObject(
     links = listOf(
         selfLink(Uris.Classrooms.make(orgId)),
         homeLink(),
-        SirenLink(SirenRelations.GITHUB, URI(this.githubURI)),
-        SirenLink(SirenRelations.AVATAR, URI(this.avatarURI)),
         SirenLink(SirenRelations.ORGANIZATION, Uris.Organizations.Organization.make(orgId)),
         SirenLink(SirenRelations.ASSIGNMENTS, Uris.Assignments.make(orgId, id)),
         SirenLink(SirenRelations.REQUESTS, Uris.Requests.make(orgId, id)),

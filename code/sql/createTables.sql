@@ -18,8 +18,6 @@ CREATE TABLE CLASSROOMS
     schoolYear        varchar      NOT NULL, -- (e.g. 2021/22)
     orgId             int          NOT NULL, --organization id
     state             varchar(50) DEFAULT 'active',
-    githubUri         varchar      ,
-    avatarUri         varchar      ,
     deleted           bit(1)      DEFAULT B'0',
     PRIMARY KEY (id),
     FOREIGN KEY (orgId) REFERENCES ORGANIZATIONS (id),

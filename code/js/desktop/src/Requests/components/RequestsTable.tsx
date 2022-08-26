@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useContext } from "react";
 import { Button, Message, Table } from 'semantic-ui-react';
-import { useLoggedInState } from "../../../out/ion-teams-desktop-win32-x64/resources/app/src/common/components/loggedStatus";
+import { useLoggedInState } from "../../common/components/loggedStatus";
 import { ChangedContext } from "../../common/components/changedStatus";
 import { DefaultTable } from '../../common/components/Table'
 import { Action, Entity } from '../../common/types/siren';

@@ -29,8 +29,6 @@ fun CollectionModel.toOrganizationsSirenObject(orgsList: List<OrganizationOutput
                 links = listOf(
                     selfLink(Uris.Organizations.Organization.make(it.id)),
                     SirenLink(SirenRelations.CLASSROOMS,Uris.Classrooms.make(it.id)),
-                    SirenLink(SirenRelations.GITHUB, URI(it.githubUri)),
-                    SirenLink(SirenRelations.AVATAR, URI(it.avatarUri)),
                 )
             )
         },
@@ -112,7 +110,6 @@ fun OrganizationOutputModel.toTeacherSirenObject(classroomList: List<ClassroomCo
     links = listOf(
         selfLink(Uris.Organizations.Organization.make(id)),
         homeLink(),
-        SirenLink(SirenRelations.GITHUB, URI(githubUri)),
         logoutLink(),
         SirenLink(SirenRelations.CLASSROOMS, Uris.Classrooms.make(id)),
         SirenLink(SirenRelations.ORGANIZATIONS, URI(Uris.Organizations.MAIN_PATH))
