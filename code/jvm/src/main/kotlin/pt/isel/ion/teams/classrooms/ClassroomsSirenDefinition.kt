@@ -139,8 +139,8 @@ fun ClassroomOutputModel.toTeacherSirenObject(
             )
         ),
         SirenAction(
-            name = "create-invite-link",
-            title = "Create Invite-Link",
+            name = "create-invite-code",
+            title = "Create Invite-code",
             method = HttpMethod.POST,
             href = Uris.InviteCodes.make(orgId, id),
         ),
