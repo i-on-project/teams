@@ -3,6 +3,7 @@ package pt.isel.ion.teams.organizations
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.authentication.AuthenticationService
 import pt.isel.ion.teams.classrooms.ClassroomsService
 import pt.isel.ion.teams.classrooms.toCompactOutput
 import pt.isel.ion.teams.common.Uris
@@ -14,22 +15,28 @@ import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 @CrossOrigin("https://localhost:5000")
 class OrganizationController(
     val organizationsService: OrganizationsService,
-    val classroomsService: ClassroomsService
+    val classroomsService: ClassroomsService,
+    val authService: AuthenticationService
 ) {
 
     @GetMapping
     fun getAllOrganizations(
+        @CookieValue session: String,
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int
-    ) = ResponseEntity
-        .ok()
-        .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-        .body(
-            CollectionModel(pageIndex, pageSize)
-                .toOrganizationsSirenObject(
-                    organizationsService.getAllOrganizationsOfTeacher(0, pageSize, pageIndex).map { it.toOutput() }
-                )
-        )
+    ): ResponseEntity<Any> {
+        val number = authService.getNumber(session)
+
+        return ResponseEntity
+            .ok()
+            .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+            .body(
+                CollectionModel(pageIndex, pageSize)
+                    .toOrganizationsSirenObject(
+                        organizationsService.getAllOrganizationsOfTeacher(number, pageSize, pageIndex).map { it.toOutput() }
+                    )
+            )
+    }
 
     @GetMapping(Uris.Organizations.Organization.PATH)
     fun getOrganization(@PathVariable orgId: Int): ResponseEntity<Any> {

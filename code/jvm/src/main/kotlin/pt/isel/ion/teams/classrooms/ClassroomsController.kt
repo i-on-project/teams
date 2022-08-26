@@ -3,6 +3,7 @@ package pt.isel.ion.teams.classrooms
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import pt.isel.ion.teams.authentication.AuthenticationService
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
@@ -13,25 +14,30 @@ import pt.isel.ion.teams.teams.toCompactOutput
 @RequestMapping(Uris.Classrooms.MAIN_PATH)
 class ClassroomsController(
     val classroomsService: ClassroomsService,
-    val teamsService: TeamsService
+    val teamsService: TeamsService,
+    val authService: AuthenticationService
 ) {
 
     @GetMapping
     fun getAllClassroomsByOrganization(
-        //@CookieValue(name="number") number: Int?,
+        @CookieValue session: String,
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int,
         @PathVariable orgId: Int
-    ) = ResponseEntity
-        .ok()
-        .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-        .body(
-            CollectionModel(pageIndex, pageSize).toClassroomSirenObject(
-                classroomsService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId, 0)
-                    .map { it.toOutput() },
-                orgId
+    ): ResponseEntity<Any> {
+        val number = authService.getNumber(session)
+
+        return ResponseEntity
+            .ok()
+            .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+            .body(
+                CollectionModel(pageIndex, pageSize).toClassroomSirenObject(
+                    classroomsService.getAllClassroomsByOrganizationWithPaging(pageSize, pageIndex, orgId, number)
+                        .map { it.toOutput() },
+                    orgId
+                )
             )
-        )
+    }
 
     @GetMapping(Uris.Classrooms.Classroom.PATH)
     fun getClassroom(

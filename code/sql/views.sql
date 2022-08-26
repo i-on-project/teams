@@ -87,7 +87,7 @@ SELECT id, name, date, delId, repoId
 FROM tags
 WHERE deleted = B'0';
 
-CREATE VIEW TEACHER_CLASSROOMS (id, name, description, maxTeams, maxMembersPertTeam,
+CREATE VIEW TEACHER_CLASSROOMS (id, name, description, maxTeams, maxMembersPerTeam,
     schoolYear, orgId, state,  number) AS
 SELECT c.id,
        c.name,
@@ -101,6 +101,13 @@ SELECT c.id,
 FROM classrooms c
          JOIN teachers t on c.id = t.cid
 WHERE c.deleted = B'0'
+  AND t.deleted = B'0';
+
+CREATE VIEW TEACHER_ORGANIZATIONS (id, name, description, number) AS
+SELECT o.id, o.name, o.description, t.number
+FROM organizations o
+        JOIN teachers t on o.id = t.orgid
+WHERE o.deleted = B'0'
   AND t.deleted = B'0';
 
 CREATE VIEW STUDENT_TEAMS (orgName, orgId, className, classId, teamName, teamId, number) AS
