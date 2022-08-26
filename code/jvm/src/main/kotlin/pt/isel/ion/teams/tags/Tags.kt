@@ -1,8 +1,5 @@
 package pt.isel.ion.teams.tags
 
-import java.util.Date
-
-
 /**
  * For internal use only.
  */

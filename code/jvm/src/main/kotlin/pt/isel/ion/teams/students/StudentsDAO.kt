@@ -5,7 +5,6 @@ import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
-import pt.isel.ion.teams.teacher.CompleteTeacherDbRead
 
 interface StudentsDAO {
 
