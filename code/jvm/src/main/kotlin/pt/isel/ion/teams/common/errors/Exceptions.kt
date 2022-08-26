@@ -33,21 +33,21 @@ class MissingRegisterParametersException: BaseException(
 )
 
 class InvalidAuthenticationStateException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"), //TODO Update URL
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
     "Forbidden",
     403,
     "The state return by the authorization provider does not match the user's state."
 )
 
 class UserNotRegisteredException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"), //TODO Update URL
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
     "Forbidden",
     403,
     "The user attempting to login is not yet registered."
 )
 
 class NotAnAuthorizedEmailException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"), //TODO Update URL
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
     "Forbidden",
     403,
     "The provided teacher's email for registration was not pre authorized."
@@ -73,6 +73,14 @@ class UserNotVerifiedException: BaseException(
     403,
     "The user has not yet verified its email address. A new email was sent."
 )
+
+class UserNotAuthenticatedException: BaseException(
+    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    "Unauthorized",
+    403,
+    "The user is not authenticated."
+)
+
 
 class EmptyDbReturnException: BaseException(
     URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
