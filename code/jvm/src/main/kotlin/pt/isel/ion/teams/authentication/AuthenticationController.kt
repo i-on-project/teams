@@ -13,7 +13,6 @@ import pt.isel.ion.teams.students.StudentsService
 import pt.isel.ion.teams.teacher.TeacherDbUpdate
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
-import java.net.URI.create
 import java.util.*
 import javax.servlet.http.HttpServletResponse
 

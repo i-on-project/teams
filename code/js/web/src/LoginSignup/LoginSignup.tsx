@@ -53,28 +53,9 @@ declare type RegisterParams = {
   office?: string
 }
 
-function convertUrltoObj(url: string) {
-
-  let split = url.split('://')
-  const protocol = split[0]
-
-  split = split[1].split('&')
-
-  //Obtaining the code
-  const code = split[0].split('=')[1]
-
-  //Obtaining the code
-  const type = split[1].split('=')[1]
-
-  const obj: UrlObj = { protocol: protocol, code: code, type: type }
-
-  return obj
-}
-
 export function Page() {
 
   const setLoggedState = useLoggedInState().setLoggedState
-  const [url, setUrl] = React.useState('*No URL yet*')
   const [parameters, setParameters] = React.useState<RegisterParams>({})
   const setItems = useMenu().setItems
   const [loadindState, setLoading] = React.useState(false)
@@ -93,40 +74,6 @@ export function Page() {
     if (searchParams.get("toVerify"))
       messageDispatch({ type: 'info', message: 'A verification email was sent. After verifying please login. The email may be in your spam folder.' })
   }, [])
-
-  React.useEffect(() => {
-    if (!url.includes('code=')) return
-
-    const urlObj = convertUrltoObj(url)
-    console.log(urlObj)
-
-    switch (urlObj.type) {
-      case "login":
-        fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
-          .then(resp => resp.json())
-          .then((token: AccessToken) => {
-            console.log(token)
-            setLoggedState({ logged: true, access_token: token })
-          })
-
-      case "register": {
-        fetch(`http://localhost:8080/auth/register?clientId=web-register`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(parameters)
-        })
-          .then(() =>
-            fetch(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`)
-              .then(resp => resp.json())
-              .then((token: AccessToken) => {
-                console.log(token)
-                setLoggedState({ logged: true, access_token: token })
-              }))
-      }
-    }
-  }, [url])
 
   function onclickLogIn() {
     setLoading(true)

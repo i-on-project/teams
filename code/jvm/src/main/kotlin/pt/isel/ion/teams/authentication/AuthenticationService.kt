@@ -1,7 +1,6 @@
 package pt.isel.ion.teams.authentication
 
 import org.jdbi.v3.core.Jdbi
-import org.jdbi.v3.sqlobject.customizer.Bind
 import org.springframework.stereotype.Component
 import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 import java.io.File

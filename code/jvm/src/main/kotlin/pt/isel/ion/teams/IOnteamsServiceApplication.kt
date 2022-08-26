@@ -1,6 +1,5 @@
 package pt.isel.ion.teams
 
-import io.netty.resolver.DefaultAddressResolverGroup
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.postgres.PostgresPlugin
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-import java.net.http.HttpClient
 import javax.sql.DataSource
 
 

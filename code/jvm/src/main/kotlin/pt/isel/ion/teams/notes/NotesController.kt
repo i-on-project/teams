@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
-import pt.isel.ion.teams.teams.*
 
 @RestController
 @RequestMapping(Uris.Notes.MAIN_PATH)
