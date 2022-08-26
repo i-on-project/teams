@@ -92,7 +92,6 @@ export function Page() {
 
     if (searchParams.get("toVerify"))
       messageDispatch({ type: 'info', message: 'A verification email was sent. After verifying please login. The email may be in your spam folder.' })
-
   }, [])
 
   React.useEffect(() => {

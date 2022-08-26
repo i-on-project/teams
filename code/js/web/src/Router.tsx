@@ -1,5 +1,5 @@
 import * as React from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HorizontalMenu } from "./common/components/Menu";
 import { MenuContainer } from "./common/components/MenuContext";
 import { MenuItemNameContainer } from "./common/components/MenuItemNameContext";
@@ -8,10 +8,14 @@ import * as About from "./About/Page"
 import * as Introduction from "./Introduction/Page"
 import * as LoginSignup from "./LoginSignup/LoginSignup"
 import * as InviteCode from "./Invite-code/Page"
+import { useLoggedInState } from "./common/components/loggedStatus";
 
-export function Router({logged}: {logged : boolean}){
+export function Router(){
+
+    const logged = useLoggedInState().loggedInState.logged
+
     return (
-        <HashRouter>
+        <BrowserRouter>
             <MenuContainer>
                 <HorizontalMenu/>
                 <MenuItemNameContainer>
@@ -30,6 +34,6 @@ export function Router({logged}: {logged : boolean}){
                     }
                 </MenuItemNameContainer>
             </MenuContainer>
-        </HashRouter>
+        </BrowserRouter>
     )
 }

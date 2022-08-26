@@ -1,12 +1,9 @@
 package pt.isel.ion.teams.authentication
 
-import io.netty.resolver.DefaultAddressResolverGroup
-import org.springframework.boot.configurationprocessor.json.JSONObject
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
-import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.client.WebClient
 import pt.isel.ion.teams.common.Uris
@@ -16,9 +13,7 @@ import pt.isel.ion.teams.students.StudentsService
 import pt.isel.ion.teams.teacher.TeacherDbUpdate
 import pt.isel.ion.teams.teacher.TeachersService
 import reactor.core.publisher.Mono
-import java.net.URI
 import java.net.URI.create
-import java.net.http.HttpClient
 import java.util.*
 import javax.servlet.http.HttpServletResponse
 
@@ -148,17 +143,34 @@ class AuthenticationController(
                         //No verification id expected if user verified
                     }
 
-                    if (!verId.equals("")) {
+                    if (verId != "") {
                         emailService.sendVerificationEmail(user.name, "a${user.number}@alunos.isel.pt", verId)
 
                         throw UserNotVerifiedException()
                     }
+
+                    //Session creation
+                    val sessionId = UUID.randomUUID().toString()
+                    authService.createSession(user.number, sessionId, STUDENT_SESSION_USER_TYPE)
+
+                    val sessionCookie = ResponseCookie.from("session", sessionId)
+                        .path("/")
+                        .domain("localhost")
+                        .maxAge(ONE_MONTH)
+                        .httpOnly(true)
+                        .secure(true)
+                        .sameSite("Lax")
+                        .build()
+
+                    return ResponseEntity
+                        .status(303)
+                        .header(
+                            HttpHeaders.LOCATION, "http://localhost:3000/?logged=true"
+                        )
+                        .build()
                 } catch (e: EmptyDbReturnException) {
                     throw UserNotRegisteredException()
                 }
-
-                return ResponseEntity
-                    .ok(accessToken)
             }
 
             DESKTOP_REGISTER_CLIENT_ID -> {
@@ -195,7 +207,7 @@ class AuthenticationController(
                 return ResponseEntity
                     .status(303)
                     .header(
-                        HttpHeaders.LOCATION, "http://localhost:3000/#/login?toVerify=true"
+                        HttpHeaders.LOCATION, "http://localhost:3000/login?toVerify=true"
                     )
                     .build()
             }
@@ -257,7 +269,7 @@ class AuthenticationController(
                         //No verification id expected if user verified
                     }
 
-                    if (!verId.equals("")) {
+                    if (verId != "") {
                         emailService.sendVerificationEmail(teacher.name, teacher.email, verId)
 
                         throw UserNotVerifiedException()
@@ -414,13 +426,11 @@ class AuthenticationController(
                 .status(303)
                 .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
                 .header(HttpHeaders.SET_COOKIE, clientIdCookie.toString())
-                .location(
-                    URI.create(
-                        GITHUB_OAUTH_URI +
-                                "?client_id=" + System.getenv("CLIENT_ID") + "&" +
-                                "scope=" + GITHUB_TEACHER_SCOPE + "&" +
-                                "state=" + state
-                    )
+                .header(
+                    HttpHeaders.LOCATION, GITHUB_OAUTH_URI +
+                            "?client_id=" + System.getenv("CLIENT_ID") + "&" +
+                            "scope=" + GITHUB_TEACHER_SCOPE + "&" +
+                            "state=" + state
                 )
                 .build()
         }

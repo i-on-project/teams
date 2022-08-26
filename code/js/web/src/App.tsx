@@ -8,9 +8,7 @@ export function App() {
 
   return (
     <LoggedInContext.Provider value={{ loggedInState: logged, setLoggedState: setLogged }}>
-        {
-            <Router logged={logged.logged}/>
-        } 
+        <Router/>
     </LoggedInContext.Provider>
     )
 }
