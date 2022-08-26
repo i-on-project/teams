@@ -31,7 +31,7 @@ export function ClassroomInfo({ resource, orgId, classId }: { resource: Resource
             <Grid.Row columns={1}>
                 <Divider />
                 <Container>
-                <Header as={'h2'}>Invite Links</Header>
+                <Header as={'h2'}>Invite Codes</Header>
                     <Fetch
                         url={`/api${makeInviteCodes(orgId, classId)}`}
                         renderBegin={() => <p>Waiting for URL...</p>}

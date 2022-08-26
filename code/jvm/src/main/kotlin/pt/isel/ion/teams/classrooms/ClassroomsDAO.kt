@@ -30,7 +30,7 @@ interface ClassroomsDAO {
 
     @SqlUpdate(
         "INSERT INTO classrooms (name, description, maxteams, maxmembersperteam, repouri, schoolyear, orgid,githuburi,avataruri) " +
-                "VALUES (:name, :description, :maxTeams, :maxMembersPerTeam, :repoURI, :schoolYear, :orgId,:githubURI,:avatarURI) " +
+                "VALUES (:name, :description, :maxTeams, :maxMembersPerTeam, :schoolYear, :orgId,:githubURI,:avatarURI) " +
                 "ON CONFLICT (repouri,githuburi,avataruri) DO UPDATE SET deleted = B'0', name=:name, " +
                 "description=:description, maxteams=:maxTeams, maxmembersperteam=:maxMembersPerTeam, " +
                 "schoolyear=:schoolYear, orgid=:orgId"

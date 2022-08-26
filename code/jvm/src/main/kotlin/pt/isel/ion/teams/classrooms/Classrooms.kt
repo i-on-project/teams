@@ -22,7 +22,6 @@ data class ClassroomDbWrite(
     val description: String,
     val maxTeams: Int,
     val maxMembersPerTeam: Int,
-    val repoURI: String,
     val schoolYear: String,
     val orgId: Int,
     val githubURI: String,
@@ -74,7 +73,6 @@ data class ClassroomInputModel(
     val description: String,
     val maxTeams: Int,
     val maxMembersPerTeam: Int,
-    val repoURI: String,
     val schoolYear: String,
 )
 
@@ -97,7 +95,6 @@ fun ClassroomInputModel.toDb(orgId: Int, githubUri: String, avatarUri: String) =
         this.description,
         this.maxTeams,
         this.maxMembersPerTeam,
-        this.repoURI,
         this.schoolYear,
         orgId,
         githubUri,

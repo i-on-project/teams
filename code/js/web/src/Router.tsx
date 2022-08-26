@@ -23,13 +23,13 @@ export function Router(){
                         logged ?
                             <Routes>
                                 <Route path='' element={<Home.Page/>}/>
+                                <Route path='/invite-code/:code' element={<InviteCode.Page/>}/>
                             </Routes>
                             :
                             <Routes>
                                 <Route path='' element={<Introduction.Page/>}/>
                                 <Route path='/about' element={<About.Page/>}/>
                                 <Route path='/login' element={<LoginSignup.Page/>}/>
-                                <Route path='/invite-code/:code' element={<InviteCode.Page/>}/>
                             </Routes>
                     }
                 </MenuItemNameContainer>
