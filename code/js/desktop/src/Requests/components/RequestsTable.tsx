@@ -1,13 +1,58 @@
 import * as React from "react"
 import { useContext } from "react";
-import { Button, Table } from 'semantic-ui-react';
+import { Button, Message, Table } from 'semantic-ui-react';
 import { ChangedContext } from "../../common/components/changedStatus";
 import { DefaultTable } from '../../common/components/Table'
 import { Action, Entity } from '../../common/types/siren';
 
+declare type Problem = {
+    type: string,
+    title: string,
+    status: number,
+    detail: string
+  }
+  
+  declare type UrlObj = {
+    protocol: string,
+    code: string,
+    type: string
+  }
+  
+  declare type RegisterParams = {
+    name?: string,
+    email?: string,
+    number?: string,
+    office?: string
+  }
+  
+  type MessageState = { hidden: boolean, success: boolean, error: boolean, status: number, message: string }
+  
+  type MessageAction =
+    | { type: 'error', status: number, message: string }
+    | { type: 'info', message: string }
+    | { type: 'success' }
+    | { type: 'reset' }
+  
+  function messageReducer(state: MessageState, action: MessageAction): MessageState {
+    switch (action.type) {
+      case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
+  
+      case 'error': return { hidden: false, success: false, error: true, status: action.status, message: action.message }
+  
+      case 'info': return { hidden: false, success: true, error: false, status: null, message: action.message }
+  
+      case 'reset': return { hidden: true, success: false, error: false, status: null, message: null }
+  
+      default: return state
+    }
+  }
+  
+
 export function RequestsTable({ entities }: { entities: Entity[] }) {
 
     const { setChanged } = useContext(ChangedContext)
+    const [messageState, messageDispatch] = React.useReducer(messageReducer,
+        { hidden: true, success: false, error: false, status: null, message: null })
 
     function onClick(action: Action) {
 
@@ -19,7 +64,15 @@ export function RequestsTable({ entities }: { entities: Entity[] }) {
             },
             credentials: 'include'
         })
-            .then( () => setChanged(true))
+            .then( (resp) => {
+                if(resp.ok){
+                    messageDispatch({ type: 'success' })
+                    setChanged(true)
+                }
+            })
+            .catch( (err) => {
+                messageDispatch({ type: 'error', status: err.status, message: err.detail })
+            })
     }
 
     function rowSpan() {
@@ -46,6 +99,16 @@ export function RequestsTable({ entities }: { entities: Entity[] }) {
     }
 
     return (
-        <DefaultTable propNames={["Name", ""]}>{rowSpan()}</DefaultTable>
+        <React.Fragment>
+            <Message
+              hidden={messageState.hidden}
+              positive={messageState.success}
+              error={messageState.error}
+              header={messageState.status}
+              content={messageState.message}
+              onDismiss={() => { messageDispatch({ type: 'reset' }) }}
+            />
+            <DefaultTable propNames={["Name", ""]}>{rowSpan()}</DefaultTable>
+        </React.Fragment>
     )
 }

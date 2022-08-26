@@ -18,14 +18,14 @@ export type FetchProps = {
 type State =
     | { state: 'begin' }
     | { state: 'loading', url: string }
-    | { state: 'response-received', response: Response, payload?: any }
+    | { state: 'response-received', response: Response }
     | { state: 'payload-receive', payload: any }
     | { state: 'error-receive', error: Error }
 
 type Action =
     | { type: 'fetch-started', url: string }
     | { type: 'error', error: Error }
-    | { type: 'response', response: any, payload?: any }
+    | { type: 'response', response: any}
     | { type: 'payload', payload: any }
     | { type: 'reset' }
 
@@ -53,7 +53,7 @@ async function doFetch(uri: string, dispatcher: (action: Action) => void, signal
     dispatcher({ type: 'fetch-started', url: url })
     try {
         const response = await fetch(url, { signal, credentials: 'include' })
-        dispatcher({ type: 'response', response: response, payload: await response.json() })
+        dispatcher({ type: 'response', response: response })
         if (response.ok) {
             const payload = await response.json()
             dispatcher({ type: 'payload', payload: payload })
@@ -100,7 +100,7 @@ export function Fetch(props: FetchProps) {
 
         case 'error-receive': return props.renderError ? props.renderError(state.error) : <Error error={state.error} />
 
-        case 'response-received': return state.response.ok ? props.renderLoading() : (props.renderNok ? props.renderNok(state.response) : <ErrorNOk resp={state.response} payload={state.payload}/>)
+        case 'response-received': return state.response.ok ? props.renderLoading() : (props.renderNok ? props.renderNok(state.response) : <ErrorNOk resp={state.response} />)
 
         case 'payload-receive': return props.renderOk(state.payload) 
     }

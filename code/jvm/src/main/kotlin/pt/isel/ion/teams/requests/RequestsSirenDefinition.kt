@@ -42,7 +42,7 @@ fun CollectionModel.toRequestSirenObject(
                         name = "decline-request",
                         title = "Decline Request",
                         method = HttpMethod.DELETE,
-                        href = Uris.Teams.Team.make(orgId, classId, it.tid)
+                        href = Uris.Requests.Request.make(orgId, classId, it.tid)
                     )
                 ),
                 links = listOf(

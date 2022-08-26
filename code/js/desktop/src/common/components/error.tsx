@@ -2,10 +2,9 @@ import * as React from "react"
 import { useNavigate } from "react-router"
 import { Button, Container, Header, TextArea } from "semantic-ui-react"
 
-export function ErrorNOk({ resp, payload }: { resp: Response, payload?: any }) {
+export function ErrorNOk({ resp }: { resp: Response }) {
 
     const navigate = useNavigate()
-    console.log(payload) //TODO: try again
 
     return (
         <Container>
@@ -14,7 +13,6 @@ export function ErrorNOk({ resp, payload }: { resp: Response, payload?: any }) {
             <Button primary fluid onClick={() => navigate('/', { replace: false })}>Home</Button>
         </Container>
     )
-
 
 }
 
