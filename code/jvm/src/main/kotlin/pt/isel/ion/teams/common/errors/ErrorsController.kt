@@ -24,11 +24,10 @@ import java.net.URI
 @ControllerAdvice
 class ErrorsController : ResponseEntityExceptionHandler() {
 
-    //TODO Review URIs
-    val type400 = URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md")
-    val type404 = URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md")
-    val type406 = URI("")
-    val type500 = URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md")
+    val uriType400 = URI("https://github.com/i-on-project/teams/blob/main/docs/api/problems/bad_request.md")
+    val uriType404 = URI("https://github.com/i-on-project/teams/blob/main/docs/api/problems/not_found.md")
+    val uriType406 = URI("https://github.com/i-on-project/teams/blob/main/docs/api/problems/not_acceptable.md")
+    val uriType500 = URI("https://github.com/i-on-project/teams/blob/main/docs/api/problems/internal_server_error.md")
 
     /*                      BUSINESS EXCEPTIONS                       */
 
@@ -48,7 +47,7 @@ class ErrorsController : ResponseEntityExceptionHandler() {
             .status(500)
             .contentType(ProblemJsonModel.MEDIA_TYPE)
             .body(ProblemJsonModel(
-                type500,
+                uriType500,
                 "Unknown server error",
                 500,
                 "An unexpected server error occurred, please contact admin."
@@ -70,73 +69,10 @@ class ErrorsController : ResponseEntityExceptionHandler() {
             .contentType(ProblemJsonModel.MEDIA_TYPE)
             .body(
                 ProblemJsonModel(
-                    type400,
+                    uriType400,
                     "Bad Request",
                     400,
                     "Method argument not valid"
-                )
-            )
-    }
-
-    override fun handleNoHandlerFoundException(
-        ex: NoHandlerFoundException,
-        headers: HttpHeaders,
-        status: HttpStatus,
-        request: WebRequest
-    ): ResponseEntity<Any> {
-
-        logger.info("Handling NoHandlerFoundException")
-        return ResponseEntity
-            .status(404)
-            .contentType(ProblemJsonModel.MEDIA_TYPE)
-            .body(
-                ProblemJsonModel(
-                    type404,
-                    "Resource Not Found",
-                    404,
-                    "No handler not found for the request"
-                )
-            )
-    }
-
-    override fun handleHttpMediaTypeNotAcceptable(
-        ex: HttpMediaTypeNotAcceptableException,
-        headers: HttpHeaders,
-        status: HttpStatus,
-        request: WebRequest
-    ): ResponseEntity<Any> {
-
-        logger.info("Handling HttpMediaTypeNotAcceptableException")
-        return ResponseEntity
-            .status(406)
-            .contentType(ProblemJsonModel.MEDIA_TYPE)
-            .body(
-                ProblemJsonModel(
-                    type406,
-                    "Not Acceptable",
-                    406,
-                    "Http media type not acceptable"
-                )
-            )
-    }
-
-    override fun handleMissingPathVariable(
-        ex: MissingPathVariableException,
-        headers: HttpHeaders,
-        status: HttpStatus,
-        request: WebRequest
-    ): ResponseEntity<Any> {
-
-        logger.info("Handling MissingPathVariableException")
-        return ResponseEntity
-            .status(500)
-            .contentType(ProblemJsonModel.MEDIA_TYPE)
-            .body(
-                ProblemJsonModel(
-                    type500,
-                    "Internal Server Error",
-                    500,
-                    "Missing path variable"
                 )
             )
     }
@@ -154,7 +90,7 @@ class ErrorsController : ResponseEntityExceptionHandler() {
             .contentType(ProblemJsonModel.MEDIA_TYPE)
             .body(
                 ProblemJsonModel(
-                    type400,
+                    uriType400,
                     "Bad Request",
                     400,
                     "Missing servlet request parameter"
@@ -175,31 +111,10 @@ class ErrorsController : ResponseEntityExceptionHandler() {
             .contentType(ProblemJsonModel.MEDIA_TYPE)
             .body(
                 ProblemJsonModel(
-                    type400,
+                    uriType400,
                     "Bad Request",
                     400,
                     "Servlet request binding error"
-                )
-            )
-    }
-
-    override fun handleConversionNotSupported(
-        ex: ConversionNotSupportedException,
-        headers: HttpHeaders,
-        status: HttpStatus,
-        request: WebRequest
-    ): ResponseEntity<Any> {
-
-        logger.info("Handling ConversionNotSupportedException")
-        return ResponseEntity
-            .status(500)
-            .contentType(ProblemJsonModel.MEDIA_TYPE)
-            .body(
-                ProblemJsonModel(
-                    type500,
-                    "Internal Server Error",
-                    500,
-                    "Conversion not supported"
                 )
             )
     }
@@ -217,7 +132,7 @@ class ErrorsController : ResponseEntityExceptionHandler() {
             .contentType(ProblemJsonModel.MEDIA_TYPE)
             .body(
                 ProblemJsonModel(
-                    type400,
+                    uriType400,
                     "Bad Request",
                     400,
                     "Missing servlet request parameter"
@@ -238,31 +153,10 @@ class ErrorsController : ResponseEntityExceptionHandler() {
             .contentType(ProblemJsonModel.MEDIA_TYPE)
             .body(
                 ProblemJsonModel(
-                    type400,
+                    uriType400,
                     "Bad Request",
                     400,
                     "Http message not readable"
-                )
-            )
-    }
-
-    override fun handleHttpMessageNotWritable(
-        ex: HttpMessageNotWritableException,
-        headers: HttpHeaders,
-        status: HttpStatus,
-        request: WebRequest
-    ): ResponseEntity<Any> {
-
-        logger.info("Handling HttpMessageNotWritableException")
-        return ResponseEntity
-            .status(500)
-            .contentType(ProblemJsonModel.MEDIA_TYPE)
-            .body(
-                ProblemJsonModel(
-                    type500,
-                    "Internal Server Error",
-                    500,
-                    "Http message not writable"
                 )
             )
     }
@@ -280,7 +174,7 @@ class ErrorsController : ResponseEntityExceptionHandler() {
             .contentType(ProblemJsonModel.MEDIA_TYPE)
             .body(
                 ProblemJsonModel(
-                    type400,
+                    uriType400,
                     "Bad Request",
                     400,
                     "Missing servlet request part"
@@ -301,10 +195,115 @@ class ErrorsController : ResponseEntityExceptionHandler() {
             .contentType(ProblemJsonModel.MEDIA_TYPE)
             .body(
                 ProblemJsonModel(
-                    type400,
+                    uriType400,
                     "Bad Request",
                     400,
                     "Bind error"
+                )
+            )
+    }
+
+    override fun handleNoHandlerFoundException(
+        ex: NoHandlerFoundException,
+        headers: HttpHeaders,
+        status: HttpStatus,
+        request: WebRequest
+    ): ResponseEntity<Any> {
+
+        logger.info("Handling NoHandlerFoundException")
+        return ResponseEntity
+            .status(404)
+            .contentType(ProblemJsonModel.MEDIA_TYPE)
+            .body(
+                ProblemJsonModel(
+                    uriType404,
+                    "Resource Not Found",
+                    404,
+                    "No handler not found for the request."
+                )
+            )
+    }
+
+    override fun handleHttpMediaTypeNotAcceptable(
+        ex: HttpMediaTypeNotAcceptableException,
+        headers: HttpHeaders,
+        status: HttpStatus,
+        request: WebRequest
+    ): ResponseEntity<Any> {
+
+        logger.info("Handling HttpMediaTypeNotAcceptableException")
+        return ResponseEntity
+            .status(406)
+            .contentType(ProblemJsonModel.MEDIA_TYPE)
+            .body(
+                ProblemJsonModel(
+                    uriType406,
+                    "Not Acceptable",
+                    406,
+                    "Http media type not acceptable"
+                )
+            )
+    }
+
+    override fun handleConversionNotSupported(
+        ex: ConversionNotSupportedException,
+        headers: HttpHeaders,
+        status: HttpStatus,
+        request: WebRequest
+    ): ResponseEntity<Any> {
+
+        logger.info("Handling ConversionNotSupportedException")
+        return ResponseEntity
+            .status(500)
+            .contentType(ProblemJsonModel.MEDIA_TYPE)
+            .body(
+                ProblemJsonModel(
+                    uriType500,
+                    "Internal Server Error",
+                    500,
+                    "Conversion not supported"
+                )
+            )
+    }
+
+    override fun handleMissingPathVariable(
+        ex: MissingPathVariableException,
+        headers: HttpHeaders,
+        status: HttpStatus,
+        request: WebRequest
+    ): ResponseEntity<Any> {
+
+        logger.info("Handling MissingPathVariableException")
+        return ResponseEntity
+            .status(500)
+            .contentType(ProblemJsonModel.MEDIA_TYPE)
+            .body(
+                ProblemJsonModel(
+                    uriType500,
+                    "Internal Server Error",
+                    500,
+                    "Missing path variable"
+                )
+            )
+    }
+
+    override fun handleHttpMessageNotWritable(
+        ex: HttpMessageNotWritableException,
+        headers: HttpHeaders,
+        status: HttpStatus,
+        request: WebRequest
+    ): ResponseEntity<Any> {
+
+        logger.info("Handling HttpMessageNotWritableException")
+        return ResponseEntity
+            .status(500)
+            .contentType(ProblemJsonModel.MEDIA_TYPE)
+            .body(
+                ProblemJsonModel(
+                    uriType500,
+                    "Internal Server Error",
+                    500,
+                    "Http message not writable"
                 )
             )
     }

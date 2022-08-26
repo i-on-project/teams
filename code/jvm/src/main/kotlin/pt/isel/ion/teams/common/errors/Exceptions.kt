@@ -9,73 +9,79 @@ open class BaseException(
     open val detail: String?,
 ): Exception()
 
+val uriType400 = URI("https://github.com/i-on-project/teams/blob/main/docs/api/problems/bad_request.md")
+val uriType403 = URI("https://github.com/i-on-project/teams/blob/main/docs/api/problems/unauthorized.md.md")
+val uriType404 = URI("https://github.com/i-on-project/teams/blob/main/docs/api/problems/not_found.md")
+val uriType409 = URI("https://github.com/i-on-project/teams/blob/main/docs/api/problems/conflict.md")
+val uriType500 = URI("https://github.com/i-on-project/teams/blob/main/docs/api/problems/internal_server_error.md")
+
 /******************** 400 ********************/
 
 class InvalidDateFormatException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md"),
+    uriType400,
     "Bad Request",
     400,
     "The date you inserted is in an invalid format, must be <yyyy-mm-dd hh:mm:ss>"
 )
 
 class InvalidClientIdException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md"),
+    uriType400,
     "Bad Request",
     400,
     "The Client ID you provided in not valid in the current context."
 )
 
 class MissingRegisterParametersException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/bad_request.md"),
+    uriType400,
     "Bad Request",
     400,
     "There is one or more register parameters missing."
 )
 
 class InvalidAuthenticationStateException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    uriType403,
     "Forbidden",
     403,
     "The state return by the authorization provider does not match the user's state."
 )
 
 class UserNotRegisteredException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    uriType403,
     "Forbidden",
     403,
     "The user attempting to login is not yet registered."
 )
 
 class NotAnAuthorizedEmailException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    uriType403,
     "Forbidden",
     403,
     "The provided teacher's email for registration was not pre authorized."
 )
 
 class NoAccessTokenException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    uriType403,
     "Unauthorized",
     403,
     "No access token was provided by the token endpoint."
 )
 
 class NoGithubUserFoundException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    uriType403,
     "Unauthorized",
     403,
     "There is no existing github user associated with the login process."
 )
 
 class UserNotVerifiedException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    uriType403,
     "Unauthorized",
     403,
     "The user has not yet verified its email address. A new email was sent."
 )
 
 class UserNotAuthenticatedException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    uriType403,
     "Unauthorized",
     403,
     "The user is not authenticated."
@@ -83,21 +89,21 @@ class UserNotAuthenticatedException: BaseException(
 
 
 class EmptyDbReturnException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/not_found.md"),
+    uriType404,
     "Resource Not Found",
     404,
-    "The database resource you tried to access was not found or does not exist"
+    "The database resource you tried to access was not found or does not exist."
 )
 
 class ResourceAlreadyExistsException : BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/conflict.md"),
+    uriType409,
     "Conflict",
     409,
     "The resource you are trying to create already exists and thus cannot be created"
 )
 
 class DbActionNotAllowed : BaseException(
-    URI("NÃO TEM"),
+    uriType409,
     "Conflict",
     409,
     "The action requested is not allowed."
@@ -107,50 +113,50 @@ class DbActionNotAllowed : BaseException(
 /******************** 500 ********************/
 
 class DbConnectionException : BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
+    uriType500,
     "Internal Server Error",
     500,
-    "The connection with the database failed for an unknown reason"
+    "The connection with the database failed for an unknown reason."
 )
 
 class DbTableNonExistentException : BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
+    uriType500,
     "Internal Server Error",
     500,
-    "The database table you are trying to access does not exist"
+    "The database table you are trying to access does not exist."
 )
 
 class UnknownDbException : BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
+    uriType500,
     "Internal Server Error",
     500,
-    "An unknown database error has occured and the request cannot be completed"
+    "An unknown database error has occured and the request cannot be completed."
 )
 
 class SQLSyntaxErrorException: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
+    uriType500,
     "Internal Server Error",
     500,
-    "The SQL syntax of the query you tried to perform is incorrect"
+    "The SQL syntax of the query you tried to perform is incorrect."
 )
 
 class DbForeignKeyViolation: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
+    uriType500,
     "Internal Server Error",
     500,
-    "The database query contains a foreign key violation"
+    "The database query contains a foreign key violation."
 )
 
 class DbCheckViolation: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
+    uriType500,
     "Internal Server Error",
     500,
-    "The database query contains a check violation"
+    "The database query contains a check violation."
 )
 
 class DbNotNullViolation: BaseException(
-    URI("https://github.com/isel-leic-daw/project-g4/blob/main/docs/api/problems/internal_server_error.md"),
+    uriType500,
     "Internal Server Error",
     500,
-    "The database query contains a not null violation"
+    "The database query contains a not null violation."
 )

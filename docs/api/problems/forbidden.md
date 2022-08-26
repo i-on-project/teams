@@ -24,4 +24,8 @@ The client does not have access rights to the content; that is, it is unauthoriz
 
 - **NoGithubUserFoundException**: No GitHub user was found associated with the current login process.
 
+- **UserNotVerifiedException**: The user has not yet verified its email address. A new email was sent.
+
+- **UserNotAuthenticatedException**: The user is not authenticated.
+
 For aditional information please contact the system admin.

@@ -16,4 +16,6 @@ The Conflict status code indicates that the request could not be completed due t
 
 - **ResourceAlreadyExistsException**: The resource you are trying to create already exists and thus cannot be created.
 
+- **DbActionNotAllowed**: The action requested is not allowed.
+
 For aditional information please contact the system admin.

@@ -16,4 +16,6 @@ The Not Found status code indicates that the origin server did not find a curren
 
 - **EmptyDbReturnException**: The required resource ins't present in the database.
 
+- **NoHandlerFoundException** - No handler not found for the request.
+
 For aditional information please contact the system admin.
