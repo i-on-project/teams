@@ -59,7 +59,8 @@ class OrganizationController(
     ): ResponseEntity<Any> {
         val org = organizationsService.createOrganization(organization.toDb()).toOutput()
         val number = authService.getNumber(session)
-        teachersService.addTeacher(SimpleTeacherDbRead(number,null,number))
+        teachersService.addTeacher(SimpleTeacherDbRead(number,null,org.id))
+
         return ResponseEntity
             .created(Uris.Organizations.Organization.make(org.id))
             .contentType(MediaType.APPLICATION_JSON)

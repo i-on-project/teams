@@ -4,7 +4,7 @@ import { Button, Loader, Menu } from 'semantic-ui-react'
 import { Fetch } from '../common/components/fetch'
 import { useMenu } from '../common/components/MenuContext'
 import { useMenuItemNameContext } from '../common/components/MenuItemNameContext'
-import { UriContext } from '../common/components/UriContext'
+import { UriContext, useUri } from '../common/components/UriContext'
 import { Collection, Entity, Link_relation } from '../common/types/siren'
 import { makeClassroom, makeHome, makeOrganization, makeOrganizations } from '../common/Uris'
 
@@ -27,23 +27,29 @@ export function Page() {
         ])
     }, [])
 
+    React.useEffect(() => {
+      console.log('CHANGED URI')
+    }, [uri])
+    
+
     return (
         <Fetch
             url={uri}
             renderBegin={() => <p>Waiting for URL...</p>}
             renderOk={(payload) =>
                 <UriContext.Provider value={{ uri, setUri }} >
-                    <Body collection={payload} />
+                    <Body collection={payload} setUri={setUri} />
                 </UriContext.Provider>
             }
             renderLoading={() => <Loader />}
         />
     )
 
-    function Body({ collection }: { collection: Collection }) {
+    function Body({ collection, setUri }: { collection: Collection, setUri: any }) {
 
         const navigate = useNavigate()
         const menuItemNameContext = useMenuItemNameContext()
+        const uri = useUri()
 
         const nextUri = collection.links.find(link => link.rel === 'next')?.href
         const prevUri = collection.links.find(link => link.rel === 'prev')?.href
@@ -75,11 +81,11 @@ export function Page() {
                 }
                 {
                     prevUri != null &&
-                    <Button onClick={() => console.log('click')}>Previous</Button>
+                    <Button onClick={() => setUri(prevUri!!)}>Previous</Button>
                 }
                 {
                     nextUri != null &&
-                    <Button onClick={() => console.log('click')}>Next</Button>
+                    <Button onClick={() => setUri(nextUri!!)}>Next</Button>
                 }
             </React.Fragment>
         )

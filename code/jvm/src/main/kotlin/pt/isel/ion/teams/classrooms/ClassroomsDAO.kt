@@ -8,7 +8,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
 interface ClassroomsDAO {
 
-    @SqlQuery("SELECT id, name, description, maxTeams, maxmemberspertteam, schoolYear, orgId, state " +
+    @SqlQuery("SELECT id, name, description, maxTeams, maxmembersperteam, schoolYear, orgId, state " +
             "FROM teacher_classrooms_view AS c WHERE number=:number LIMIT :limit OFFSET :offset")
     fun getAllClassroomsByOrganizationOfTeacherWithPaging(
         @Bind("limit") limit: Int,
