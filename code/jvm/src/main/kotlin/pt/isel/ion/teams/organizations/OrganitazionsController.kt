@@ -51,7 +51,7 @@ class OrganizationController(
 
     @PostMapping
     fun createOrganization(@RequestBody organization: OrganizationInputModel): ResponseEntity<Any> {
-        val org = organizationsService.createOrganization(organization.toDb("example", "example")).toOutput()
+        val org = organizationsService.createOrganization(organization.toDb()).toOutput()
 
         return ResponseEntity
             .created(Uris.Organizations.Organization.make(org.id))

@@ -50,7 +50,7 @@ data class OrganizationUpdateModel(
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun OrganizationInputModel.toDb(githubUri: String, avatarUri: String) =
+fun OrganizationInputModel.toDb() =
     OrganizationDbWrite(this.name, this.description)
 
 fun OrganizationUpdateModel.toDb(id: Int) = OrganizationDbUpdate(id, this.name, this.description)
