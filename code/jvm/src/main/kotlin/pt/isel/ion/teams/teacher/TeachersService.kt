@@ -39,10 +39,20 @@ class TeachersService(val jdbi: Jdbi) {
 
     fun addTeacher(simpleTeacherDbRead: SimpleTeacherDbRead) =
         sqlExceptionHandler {
-            jdbi.onDemand(TeachersDAO::class.java).addTeacher(simpleTeacherDbRead)
+            if (simpleTeacherDbRead.cid == null)
+                jdbi.onDemand(TeachersDAO::class.java).addTeacherToOrganization(simpleTeacherDbRead)
+            else {
+                jdbi.onDemand(TeachersDAO::class.java).addTeacherToOrganization(simpleTeacherDbRead)
+                jdbi.onDemand(TeachersDAO::class.java).addTeacherToClassroom(simpleTeacherDbRead)
+            }
         }
     fun removeTeacher(simpleTeacherDbRead: SimpleTeacherDbRead) =
         sqlExceptionHandler {
-            jdbi.onDemand(TeachersDAO::class.java).removeTeacher(simpleTeacherDbRead)
+            if (simpleTeacherDbRead.cid == null)
+                jdbi.onDemand(TeachersDAO::class.java).removeTeacherFromOrganization(simpleTeacherDbRead)
+            else {
+                jdbi.onDemand(TeachersDAO::class.java).removeTeacherFromClassroom(simpleTeacherDbRead)
+                jdbi.onDemand(TeachersDAO::class.java).removeTeacherFromOrganization(simpleTeacherDbRead)
+            }
         }
 }

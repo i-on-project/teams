@@ -7,6 +7,8 @@ import pt.isel.ion.teams.authentication.AuthenticationService
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
+import pt.isel.ion.teams.teacher.SimpleTeacherDbRead
+import pt.isel.ion.teams.teacher.TeachersService
 import pt.isel.ion.teams.teams.TeamsService
 import pt.isel.ion.teams.teams.toCompactOutput
 
@@ -15,7 +17,8 @@ import pt.isel.ion.teams.teams.toCompactOutput
 class ClassroomsController(
     val classroomsService: ClassroomsService,
     val teamsService: TeamsService,
-    val authService: AuthenticationService
+    val authService: AuthenticationService,
+    val teachersService: TeachersService
 ) {
 
     @GetMapping
@@ -57,11 +60,13 @@ class ClassroomsController(
 
     @PostMapping
     fun createClassroom(
+        @CookieValue session: String,
         @PathVariable orgId: Int,
         @RequestBody classroomInputModel: ClassroomInputModel
     ): ResponseEntity<Any> {
-        val classroom =
-            classroomsService.createClassroom(classroomInputModel.toDb(orgId)).toOutput()
+        val classroom = classroomsService.createClassroom(classroomInputModel.toDb(orgId)).toOutput()
+        val number = authService.getNumber(session)
+        teachersService.addTeacher(SimpleTeacherDbRead(number,classroom.id,orgId))
 
         return ResponseEntity
             .created(Uris.Classrooms.Classroom.make(orgId, classroom.id))

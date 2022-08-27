@@ -21,11 +21,10 @@ SELECT code, cId
 FROM invite_codes
 WHERE deleted = B'0';
 
-CREATE VIEW TEACHERS_VIEW (number, name, email, githubusername, office) AS
-SELECT ts.number, t.name, t.email, t.githubusername, t.office, ts.cId, ts.orgid
-FROM teachers ts
-         JOIN teacher t on ts.number = t.number
-WHERE ts.deleted = B'0';
+CREATE VIEW TEACHERS_VIEW (number, name, email, office) AS
+SELECT number, name, email, office, deleted
+FROM teacher
+WHERE deleted = B'0';
 
 CREATE VIEW TEAMS_VIEW (id, name, cId, state) AS
 SELECT id, name, cid, state
@@ -73,7 +72,7 @@ FROM deliveries d
 WHERE d.deleted = B'0'
   AND tg.deleted = B'0';
 
-CREATE VIEW TAGS_WITH_REPO_AND_TEAM (id, name, date, repoId, teamId, teamName, delId) AS
+CREATE VIEW TAGS_WITH_REPO_AND_TEAM_VIEW (id, name, date, repoId, teamId, teamName, delId) AS
 SELECT t.id, t.name, t.date, r.id, tm.id, tm.name, d.id
 FROM tags t
          JOIN repos r on r.id = t.repoid
@@ -87,7 +86,7 @@ SELECT id, name, date, delId, repoId
 FROM tags
 WHERE deleted = B'0';
 
-CREATE VIEW TEACHER_CLASSROOMS (id, name, description, maxTeams, maxMembersPerTeam,
+CREATE VIEW TEACHER_CLASSROOMS_VIEW (id, name, description, maxTeams, maxMembersPerTeam,
     schoolYear, orgId, state,  number) AS
 SELECT c.id,
        c.name,
@@ -99,18 +98,18 @@ SELECT c.id,
        c.state,
        t.number
 FROM classrooms c
-         JOIN teachers t on c.id = t.cid
+         JOIN teachers_classroom t on c.id = t.cid
 WHERE c.deleted = B'0'
   AND t.deleted = B'0';
 
-CREATE VIEW TEACHER_ORGANIZATIONS (id, name, description, number) AS
+CREATE VIEW TEACHER_ORGANIZATIONS_VIEW (id, name, description, number) AS
 SELECT o.id, o.name, o.description, t.number
 FROM organizations o
-        JOIN teachers t on o.id = t.orgid
+        JOIN teachers_organization t on o.id = t.orgid
 WHERE o.deleted = B'0'
   AND t.deleted = B'0';
 
-CREATE VIEW STUDENT_TEAMS (orgName, orgId, className, classId, teamName, teamId, number) AS
+CREATE VIEW STUDENT_TEAMS_VIEW (orgName, orgId, className, classId, teamName, teamId, number) AS
 SELECT o.name, o.id, c.name, c.id, t.name, t.id, s.number
 FROM students s
          JOIN teams t on t.id = s.tid

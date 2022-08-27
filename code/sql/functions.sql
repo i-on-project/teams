@@ -46,6 +46,7 @@ $cascade_delete_organizations_fun$
 BEGIN
     IF (old.deleted = B'0' AND new.deleted = B'1') THEN
         BEGIN
+            UPDATE teachers_organization SET deleted = B'1' WHERE teachers_organization.orgid = new.id;
             UPDATE classrooms SET deleted = B'1' WHERE orgid = new.id;
         END;
     END IF;
@@ -61,7 +62,7 @@ BEGIN
     IF (old.deleted = B'0' AND new.deleted = B'1') THEN
         BEGIN
             UPDATE teams SET deleted = B'1' WHERE cid = new.id;
-            UPDATE teachers SET deleted = B'1' WHERE cid = new.id;
+            UPDATE teachers_classroom SET deleted = B'1' WHERE cid = new.id;
             UPDATE invite_codes SET deleted = B'1' WHERE cid = new.id;
             UPDATE assignments SET deleted = B'1' WHERE cid = new.id;
         END;

@@ -9,6 +9,8 @@ import pt.isel.ion.teams.classrooms.toCompactOutput
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
+import pt.isel.ion.teams.teacher.SimpleTeacherDbRead
+import pt.isel.ion.teams.teacher.TeachersService
 
 @RestController
 @RequestMapping(Uris.Organizations.MAIN_PATH)
@@ -16,6 +18,7 @@ import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 class OrganizationController(
     val organizationsService: OrganizationsService,
     val classroomsService: ClassroomsService,
+    val teachersService: TeachersService,
     val authService: AuthenticationService
 ) {
 
@@ -50,9 +53,13 @@ class OrganizationController(
     }
 
     @PostMapping
-    fun createOrganization(@RequestBody organization: OrganizationInputModel): ResponseEntity<Any> {
+    fun createOrganization(
+        @RequestBody organization: OrganizationInputModel,
+        @CookieValue session: String
+    ): ResponseEntity<Any> {
         val org = organizationsService.createOrganization(organization.toDb()).toOutput()
-
+        val number = authService.getNumber(session)
+        teachersService.addTeacher(SimpleTeacherDbRead(number,null,number))
         return ResponseEntity
             .created(Uris.Organizations.Organization.make(org.id))
             .contentType(MediaType.APPLICATION_JSON)
@@ -67,9 +74,11 @@ class OrganizationController(
             .body(organizationsService.updateOrganization(organization.toDb(orgId)).toOutput())
 
     @DeleteMapping(Uris.Organizations.Organization.PATH)
-    fun deleteProject(@PathVariable("orgId") id: Int): ResponseEntity<Any> {
+    fun deleteOrganization(
+        @PathVariable("orgId") id: Int,
+        @CookieValue session: String
+    ): ResponseEntity<Any> {
         organizationsService.deleteOrganization(id)
-
         return ResponseEntity
             .ok()
             .body(null)

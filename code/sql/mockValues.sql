@@ -24,7 +24,11 @@ INSERT INTO teacher (number, name, email, office)
 VALUES (86951, 'Humberto Silva', 'humberto.silva@isel.pt', 'F.0.5'),
        (85462, 'Gilberto Silva', 'gilberto.silva@isel.pt', 'F.0.6');
 
-INSERT INTO teachers (number, cid, orgid)
+INSERT INTO teachers_organization (number, orgid)
+VALUES (86951, 1),
+       (85462, 1);
+
+INSERT INTO teachers_classroom (number, cid, orgid)
 VALUES (86951, 1, 1),
        (85462, 2, 1);
 

@@ -23,7 +23,7 @@ data class InfoTeacherDbRead(
 
 data class SimpleTeacherDbRead(
     val number: Int,
-    val cid: Int,
+    val cid: Int?,
     val orgid: Int
 )
 
@@ -59,7 +59,7 @@ data class CompleteTeacherOutputModel(
 
 data class SimpleTeacherOutputModel(
     val number: Int,
-    val cid: Int,
+    val cid: Int?,
     val orgid: Int
 )
 

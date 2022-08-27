@@ -8,7 +8,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
 interface TeachersDAO {
 
-    @SqlQuery("SELECT * FROM teachers_view WHERE cid=:classId LIMIT :limit OFFSET :offset")
+    @SqlQuery("SELECT * FROM teacher_classrooms_view WHERE id=:classId LIMIT :limit OFFSET :offset")
     fun getTeachersByClass(
         @Bind("limit") limit: Int,
         @Bind("offset") offset: Int,
@@ -38,10 +38,17 @@ interface TeachersDAO {
     /**
      * Actions on table teachers.
      */
-    @SqlUpdate("INSERT INTO teachers (number, cid, orgid) VALUES (:number,:cid, :orgid)")
+    @SqlUpdate("INSERT INTO teachers_classroom (number, cid, orgid) VALUES (:number,:cid, :orgid)")
     @GetGeneratedKeys
-    fun addTeacher(@BindBean simpleTeacherDbRead: SimpleTeacherDbRead): SimpleTeacherDbRead
+    fun addTeacherToClassroom(@BindBean simpleTeacherDbRead: SimpleTeacherDbRead): SimpleTeacherDbRead
 
-    @SqlUpdate("DELETE FROM teachers WHERE number=:number AND cid=:cid AND orgid=:orgid")
-    fun removeTeacher(@BindBean simpleTeacherDbRead: SimpleTeacherDbRead)
+    @SqlUpdate("INSERT INTO teachers_organization (number, orgid) VALUES (:number,:orgid) ON CONFLICT (number,orgid) do nothing")
+    @GetGeneratedKeys
+    fun addTeacherToOrganization(@BindBean simpleTeacherDbRead: SimpleTeacherDbRead): SimpleTeacherDbRead
+
+    @SqlUpdate("DELETE FROM teachers_classroom WHERE number=:number AND cid=:cid AND orgid=:orgid")
+    fun removeTeacherFromClassroom(@BindBean simpleTeacherDbRead: SimpleTeacherDbRead)
+
+    @SqlUpdate("DELETE FROM teachers_organization WHERE number=:number AND orgid=:orgid")
+    fun removeTeacherFromOrganization(@BindBean simpleTeacherDbRead: SimpleTeacherDbRead)
 }

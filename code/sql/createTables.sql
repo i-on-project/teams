@@ -49,11 +49,21 @@ CREATE TABLE TEACHER
     CONSTRAINT email_check CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
 );
 
-CREATE TABLE TEACHERS
+CREATE TABLE TEACHERS_ORGANIZATION
 (
     number  int NOT NULL,
-    cId     int,
-    orgId   int,
+    orgId   int NOT NULL,
+    deleted bit(1) DEFAULT B'0',
+    PRIMARY KEY (number, orgId),
+    FOREIGN KEY (number) REFERENCES TEACHER (number),
+    FOREIGN KEY (orgId) REFERENCES ORGANIZATIONS (id)
+);
+
+CREATE TABLE TEACHERS_CLASSROOM
+(
+    number  int NOT NULL,
+    cId     int NOT NULL,
+    orgId   int NOT NULL,
     deleted bit(1) DEFAULT B'0',
     PRIMARY KEY (number, cId, orgId),
     FOREIGN KEY (number) REFERENCES TEACHER (number),

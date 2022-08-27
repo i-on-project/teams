@@ -18,7 +18,7 @@ interface TagsDAO {
     @SqlQuery("SELECT * FROM tags_view WHERE repoid = :repoId")
     fun getAllTags(@Bind("repoId") repoId: Int): List<TagDbRead>
 
-    @SqlQuery("SELECT * FROM tags_with_repo_and_team WHERE delid = :delId")
+    @SqlQuery("SELECT * FROM tags_with_repo_and_team_view WHERE delid = :delId")
     fun getAllTagsWithRepoAndView(@Bind("delId") delId: Int): List<TagWithTeamRepoDbRead>
 
     @SqlQuery("SELECT * FROM tags_view WHERE repoid = :repoId AND id = :id")
