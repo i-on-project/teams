@@ -12,7 +12,12 @@ class ClassroomsService(val jdbi: Jdbi) {
             if (number != null)
                 jdbi
                     .onDemand(ClassroomsDAO::class.java)
-                    .getAllClassroomsByOrganizationOfTeacherWithPaging(pageSize + 1, pageIndex * pageSize, number)
+                    .getAllClassroomsByOrganizationOfTeacherWithPaging(
+                        pageSize + 1,
+                        pageIndex * pageSize,
+                        number,
+                        orgId
+                    )
             else
                 jdbi.onDemand(ClassroomsDAO::class.java)
                     .getAllClassroomsByOrganization(pageSize + 1, pageIndex * pageSize, orgId)

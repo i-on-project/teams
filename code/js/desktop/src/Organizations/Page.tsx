@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Container, Divider, Loader } from "semantic-ui-react"
+import { ChangedContainer } from "../common/components/changedStatus"
 import { DefaultForm } from "../common/components/DefaultForm"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
@@ -14,16 +15,19 @@ export function Page() {
     const [uri, setUri] = React.useState(`/api${makeOrganizations()}`)
 
     return (
-        <Fetch
-            url={uri}
-            renderBegin={() => <p>Waiting for URL...</p>}
-            renderOk={(payload) =>
-                <UriContext.Provider value={{ uri, setUri }} >
-                    <Body collection={payload} />
-                </UriContext.Provider>
-            }
-            renderLoading={() => <Loader />}
-        />
+        <ChangedContainer>
+            <Fetch
+                url={uri}
+                renderBegin={() => <p>Waiting for URL...</p>}
+                renderOk={(payload) =>
+                    <UriContext.Provider value={{ uri, setUri }} >
+                        <Body collection={payload} />
+                    </UriContext.Provider>
+                }
+                renderLoading={() => <Loader />}
+            />
+        </ChangedContainer>
+
     )
 }
 
