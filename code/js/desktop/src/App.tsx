@@ -17,9 +17,9 @@ export default function App() {
     <LoggedInContext.Provider value={{ loggedInState: logged, setLoggedState: setLogged }}>
       {
         logged.logged ?
-        <Router />
-        :
-        <LoginSignup />
+          <Router />
+          :
+          <LoginSignup />
       }
     </LoggedInContext.Provider>
   )

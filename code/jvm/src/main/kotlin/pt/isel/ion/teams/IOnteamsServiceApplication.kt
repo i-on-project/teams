@@ -1,4 +1,4 @@
-package pt.isel.ion.teams
+    package pt.isel.ion.teams
 
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
@@ -34,7 +34,9 @@ class IOnteamsServiceApplication(
     }
 }
 fun main(args: Array<String>) {
-    runApplication<IOnteamsServiceApplication>(*args)
+    runApplication<IOnteamsServiceApplication>(*args) {
+        setDefaultProperties(mapOf("server.port" to (System.getenv("PORT") ?: "8080")))
+    }
 }
 
 @Configuration
