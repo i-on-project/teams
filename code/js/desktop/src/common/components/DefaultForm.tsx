@@ -3,6 +3,7 @@ import { useContext, useState } from 'react'
 import { Button, Container, Divider, Dropdown, Form, Header, Message, Modal } from "semantic-ui-react";
 import { Action, Field } from "../types/siren";
 import { ChangedContext, useChangedState } from './changedStatus';
+import { useServiceLocation } from './ServiceLocationContext';
 
 interface FormData {
     [str: string]: any
@@ -37,6 +38,7 @@ function messageReducer(state: MessageState, action: MessageAction): MessageStat
 export function DefaultForm({ action, divider = false }: { action: Action, divider?: boolean }) {
 
     const { setChanged } = useChangedState()
+    const apiUrl = useServiceLocation().url
     const [state, setState] = useState<FormData>({})
     const [loadindState, setLoading] = React.useState(false)
     const [messageState, messageDispatch] = React.useReducer(messageReducer, { hidden: true, success: false, error: false, status: null, message: null })
@@ -46,7 +48,7 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
 
         setLoading(true)
 
-        fetch(`http://localhost:8080${action.href}`, {
+        fetch(`${apiUrl}${action.href}`, {
             method: action.method,
             headers: {
                 'Accept': action.type,

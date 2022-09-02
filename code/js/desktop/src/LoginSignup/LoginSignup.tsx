@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Button, Form, Grid, Header, Message, Segment, Image, Divider, Icon, StrictConfirmProps, StrictGridColumnProps } from 'semantic-ui-react';
 import { useLoggedInState } from "../common/components/loggedStatus"
+import { useServiceLocation } from '../common/components/ServiceLocationContext';
 
 
 declare const electron: {
@@ -80,6 +81,7 @@ function convertUrltoObj(url: string) {
 export function LoginSignup() {
 
   const setLoggedState = useLoggedInState().setLoggedState
+  const apiUrl = useServiceLocation().url
   const [url, setUrl] = React.useState('*No URL yet*')
   const [parameters, setParameters] = React.useState<RegisterParams>({})
   const [loadindState, setLoading] = React.useState(false)
@@ -92,7 +94,7 @@ export function LoginSignup() {
   })
 
   React.useEffect(() => {
-    fetch(`http://localhost:8080/auth/access_token`)
+    fetch(`${apiUrl}/auth/access_token`)
       .then(resp => {
         if (!resp.ok) {
           throw new Error("No Access Token")
@@ -146,7 +148,7 @@ export function LoginSignup() {
     if (urlObj.type === "login") {
       setLoading(true)
 
-      fetchWithTimeout(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=login`)
+      fetchWithTimeout(`${apiUrl}/auth/access_token?code=${urlObj.code}&type=login`)
         .then(checkRespOk)
         .then(resp => resp.json())
         .then((token: string) => {
@@ -162,14 +164,14 @@ export function LoginSignup() {
     } else if (urlObj.type === "register") {
       setLoading(true)
 
-      fetchWithTimeout(`http://localhost:8080/auth/register?clientId=desktop-register`, {
+      fetchWithTimeout(`${apiUrl}/auth/register?clientId=desktop-register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(parameters)
       })
-        .then(() => fetchWithTimeout(`http://localhost:8080/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`))
+        .then(() => fetchWithTimeout(`${apiUrl}/auth/access_token?code=${urlObj.code}&type=register&number=${parameters.number}`))
         .then(checkRespOk)
         .then(() => {
           messageDispatch({ type: 'info', message: 'A verification email was sent. After verifying please login.' })
@@ -186,11 +188,11 @@ export function LoginSignup() {
   }, [url])
 
   function loginButtonOnClick() {
-    electron.externalBrowserApi.open('http://localhost:8080/auth/login?clientId=desktop')
+    electron.externalBrowserApi.open(`${apiUrl}/auth/login?clientId=desktop`)
   }
 
   function signupButtonOnClick() {
-    electron.externalBrowserApi.open('http://localhost:8080/auth/register?clientId=desktop-register')
+    electron.externalBrowserApi.open(`${apiUrl}/auth/register?clientId=desktop-register`)
   }
 
   return (

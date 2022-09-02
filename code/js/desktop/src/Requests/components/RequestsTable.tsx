@@ -5,6 +5,7 @@ import { useLoggedInState } from "../../common/components/loggedStatus";
 import { ChangedContext } from "../../common/components/changedStatus";
 import { DefaultTable } from '../../common/components/Table'
 import { Action, Entity } from '../../common/types/siren';
+import { useServiceLocation } from "../../common/components/ServiceLocationContext";
 
 declare type Problem = {
     type: string,
@@ -96,7 +97,9 @@ export function RequestsTable({ entities, orgName }: { entities: Entity[], orgNa
 
     function fetchAction(action: Action) {
 
-        fetch(`http://localhost:8080${action.href}`, {
+        const apiUrl = useServiceLocation().url
+
+        fetch(`${apiUrl}${action.href}`, {
             method: action.method,
             headers: {
                 'Accept': action.type,
