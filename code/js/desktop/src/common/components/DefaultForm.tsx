@@ -37,7 +37,7 @@ function messageReducer(state: MessageState, action: MessageAction): MessageStat
 
 export function DefaultForm({ action, divider = false }: { action: Action, divider?: boolean }) {
 
-    const { setChanged } = useChangedState()
+    const { setChanged } = useContext(ChangedContext)
     const apiUrl = useServiceLocation().url
     const [state, setState] = useState<FormData>({})
     const [loadindState, setLoading] = React.useState(false)

@@ -2,7 +2,7 @@ import { createContext, useState, useContext } from "react"
 import * as React from "react"
 
 export const ChangedContext = createContext({
-    changed: true,
+    changed: false,
     setChanged: (state: boolean) => {}
 })
 
@@ -11,11 +11,11 @@ export function useChangedState() {
 }
 
 export function ChangedContainer({children}:{children: React.ReactNode}) {
-    const [state, setState] = useState(true)
+    const [state, setState] = useState(false)
 
     React.useEffect(() => {
         console.log("CHANGED IS NOW GOING TO FALSE")
-        return () => {setState(false)}
+        setState(false)
     }, [state])
     
     return (
