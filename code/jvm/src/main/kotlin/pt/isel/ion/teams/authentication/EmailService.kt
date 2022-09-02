@@ -23,7 +23,7 @@ class EmailService {
     fun sendVerificationEmail(name: String, email: String, verificationId: String): Response {
 
         val to = Email(email)
-        val content = Content(CONTENT_TYPE, "Welcome to i-on Teams, $name! \nPlease verify your identity through the following link: http://localhost:8080/auth/verify/$verificationId")
+        val content = Content(CONTENT_TYPE, "Welcome to i-on Teams, $name! \nPlease verify your identity through the following link: https://ion-teams-service.herokuapp.com/auth/verify/$verificationId")
         val mail = Mail(FROM, SUBJECT, to, content);
         val request = Request()
         try {
