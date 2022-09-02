@@ -92,6 +92,10 @@ export function Fetch(props: FetchProps) {
     const [state, dispatcher] = useReducer(reducer, { state: 'begin' })
     useEffect(() => fetchEffect(props.url, dispatcher), [props.url, dispatcher, changed])
 
+    useEffect(() => {
+        console.log("Changed status update")
+    }, [changed])
+
 
     switch (state.state) {
         case 'begin': return props.renderBegin()
