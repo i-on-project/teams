@@ -171,7 +171,7 @@ class AuthenticationController(
 
                     val sessionCookie = ResponseCookie.from("session", sessionId)
                         .path("/")
-                        .domain("localhost")
+                        .domain("ion-teams-service.herokuapp.com")
                         .maxAge(ONE_MONTH)
                         .httpOnly(true)
                         .secure(true)
@@ -304,7 +304,7 @@ class AuthenticationController(
 
                 val accessTokenCookie = ResponseCookie.from("accessToken", at.access_token)
                     .path("/auth/")
-                    .domain("localhost")
+                    .domain("ion-teams-service.herokuapp.com")
                     .maxAge(ONE_MONTH)
                     .httpOnly(true)
                     .secure(true)
@@ -313,7 +313,7 @@ class AuthenticationController(
 
                 val sessionCookie = ResponseCookie.from("session", sessionId)
                     .path("/")
-                    .domain("localhost")
+                    .domain("ion-teams-service.herokuapp.com")
                     .maxAge(ONE_MONTH)
                     .httpOnly(true)
                     .secure(true)
@@ -363,7 +363,7 @@ class AuthenticationController(
         if (accessToken != null) {
             val accessTokenCookie = ResponseCookie.from("accessToken", "deleted")
                 .path("/auth/")
-                .domain("localhost")
+                .domain("ion-teams-service.herokuapp.com")
                 .maxAge(HALF_HOUR)
                 .httpOnly(true)
                 .secure(true)
@@ -372,7 +372,7 @@ class AuthenticationController(
 
             val sessionCookie = ResponseCookie.from("session", "deleted")
                 .path("/")
-                .domain("localhost")
+                .domain("ion-teams-service.herokuapp.com")
                 .maxAge(HALF_HOUR)
                 .httpOnly(true)
                 .secure(true)
@@ -389,7 +389,7 @@ class AuthenticationController(
         //Logout for web application
         val sessionCookie = ResponseCookie.from("session", "deleted")
             .path("/")
-            .domain("localhost")
+            .domain("ion-teams-service.herokuapp.com")
             .maxAge(HALF_HOUR)
             .httpOnly(true)
             .secure(true)
@@ -416,10 +416,10 @@ class AuthenticationController(
 
         val stateCookie = ResponseCookie.from("userState", state)
             .path("/auth/callback")
-            .domain("localhost")
+            .domain("ion-teams-service.herokuapp.com")
             .maxAge(HALF_HOUR)
             .httpOnly(true)
-            .secure(false)
+            .secure(true)
             .sameSite("Lax")
             .build()
 
@@ -430,10 +430,10 @@ class AuthenticationController(
 
         val clientIdCookie = ResponseCookie.from("clientId", clientIdCookieValue)
             .path("/auth/callback")
-            .domain("localhost")
+            .domain("ion-teams-service.herokuapp.com")
             .maxAge(HALF_HOUR)
             .httpOnly(true)
-            .secure(false)
+            .secure(true)
             .sameSite("Lax")
             .build()
 
