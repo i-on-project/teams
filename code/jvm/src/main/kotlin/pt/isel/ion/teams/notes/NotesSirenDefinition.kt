@@ -61,7 +61,6 @@ fun CollectionModel.toNotesSirenObject(
                 href = Uris.Notes.make(orgId, classId, teamId),
                 type = MediaType.APPLICATION_JSON,
                 fields = listOf(
-                    SirenAction.Field(name = "name", type = "string"),
                     SirenAction.Field(name = "description", type = "string"),
                 )
             )
