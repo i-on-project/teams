@@ -43,7 +43,5 @@ export function NotesAsComments({ collection }: { collection: Collection }) {
                 )
             }
         </React.Fragment>
-
-        //TODO create notes missing
     )
 }

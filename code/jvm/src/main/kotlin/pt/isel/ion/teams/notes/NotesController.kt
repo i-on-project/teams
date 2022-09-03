@@ -65,18 +65,19 @@ class NotesController(val notesService: NotesService) {
     }
 
     @PutMapping(Uris.Notes.Note.PATH)
-    fun updateTeam(
+    fun updateNote(
         @RequestBody note: NotesUpdateModel,
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
         @PathVariable teamId: Int,
+        @PathVariable noteId: Int
     ) = ResponseEntity
         .ok()
         .contentType(MediaType.APPLICATION_JSON)
-        .body(notesService.updateNote(note.toDb(teamId)).toOutput())
+        .body(notesService.updateNote(note.toDb(noteId)).toOutput())
 
     @DeleteMapping(Uris.Notes.Note.PATH)
-    fun deleteTeam(@PathVariable noteId: Int): ResponseEntity<Any> {
+    fun deleteNote(@PathVariable noteId: Int): ResponseEntity<Any> {
         notesService.deleteNote(noteId)
 
         return ResponseEntity

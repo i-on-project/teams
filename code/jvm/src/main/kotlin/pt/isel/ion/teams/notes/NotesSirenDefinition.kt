@@ -47,7 +47,7 @@ fun CollectionModel.toNotesSirenObject(
                     SirenAction(
                         name = "delete-note",
                         title = "Delete Note",
-                        method = HttpMethod.PUT,
+                        method = HttpMethod.DELETE,
                         href = Uris.Notes.Note.make(orgId, classId, teamId, it.id),
                     )
                 )
