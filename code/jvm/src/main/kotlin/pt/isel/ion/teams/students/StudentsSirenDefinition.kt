@@ -30,7 +30,6 @@ fun CollectionModel.toStudentTeamsSirenObject(
     )
 }
 
-
 /**
  * Siren definition for a student list by team collection response
  * @param studentList List of deliveries to display

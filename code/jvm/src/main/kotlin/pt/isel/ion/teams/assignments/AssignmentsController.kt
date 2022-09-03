@@ -10,6 +10,9 @@ import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.deliveries.DeliveriesService
 import pt.isel.ion.teams.deliveries.toCompactOutput
 
+/**
+ * Controller responsible for handling request made to the Assignment resource.
+ */
 @RestController
 @RequestMapping(Uris.Assignments.MAIN_PATH)
 class AssignmentsController(val assignmentsService: AssignmentsService, val deliveriesService: DeliveriesService) {
@@ -99,5 +102,4 @@ class AssignmentsController(val assignmentsService: AssignmentsService, val deli
             .ok()
             .body(null)
     }
-
 }

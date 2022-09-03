@@ -12,6 +12,9 @@ import pt.isel.ion.teams.teacher.TeachersService
 import pt.isel.ion.teams.teams.TeamsService
 import pt.isel.ion.teams.teams.toCompactOutput
 
+/**
+ * Controller responsible for handling request made to the Classroom resource.
+ */
 @RestController
 @RequestMapping(Uris.Classrooms.MAIN_PATH)
 class ClassroomsController(
@@ -66,7 +69,7 @@ class ClassroomsController(
     ): ResponseEntity<Any> {
         val classroom = classroomsService.createClassroom(classroomInputModel.toDb(orgId)).toOutput()
         val number = authService.getNumber(session)
-        teachersService.addTeacher(SimpleTeacherDbRead(number,classroom.id,orgId))
+        teachersService.addTeacher(SimpleTeacherDbRead(number, classroom.id, orgId))
 
         return ResponseEntity
             .created(Uris.Classrooms.Classroom.make(orgId, classroom.id))

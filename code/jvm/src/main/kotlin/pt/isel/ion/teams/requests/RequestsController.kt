@@ -7,6 +7,9 @@ import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 
+/**
+ * Controller responsible for handling request made to the Request resource.
+ */
 @RestController
 @RequestMapping(Uris.Requests.MAIN_PATH)
 class RequestsController(val requestsService: RequestsService) {

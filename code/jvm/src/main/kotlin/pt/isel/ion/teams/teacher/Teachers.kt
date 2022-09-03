@@ -1,5 +1,8 @@
 package pt.isel.ion.teams.teacher
 
+/**
+ * This file contains the data class definitions for the different representations of the Teacher resource.
+ */
 
 /**
  * For internal use only.

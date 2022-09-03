@@ -3,6 +3,7 @@ import * as React from "react"
 import { useNavigate } from "react-router-dom"
 import { useMenu } from "./MenuContext"
 import { useLoggedInState } from "./loggedStatus"
+import { useServiceLocation } from "./ServiceLocationContext"
 
 
 export type MenuItem = {
@@ -19,6 +20,7 @@ export function VerticalFixedMenu() {
     const items = useMenu().items
     const navigate = useNavigate()
     const setLoggedState = useLoggedInState().setLoggedState
+    const apiUrl = useServiceLocation().url
 
     const logoStyle = {
         display: "block",
@@ -29,7 +31,7 @@ export function VerticalFixedMenu() {
     }
 
     function onLogout() {
-        fetch('http://localhost:8080/auth/logout')
+        fetch(`${apiUrl}/auth/logout`)
             .then(() => {
                 setLoggedState({ logged: false, access_token: null })
                 navigate('/')

@@ -7,6 +7,10 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import pt.isel.ion.teams.common.Uris
 
+/**
+ * Data Access Object for the Team resource. This is an interface responsible for defining the methods for
+ * accessing data of the given resource.
+ */
 interface TeamsDAO {
 
     @SqlQuery("SELECT * FROM teams_view WHERE cid=:classroomId AND state!='pending' LIMIT :limit OFFSET :offset")

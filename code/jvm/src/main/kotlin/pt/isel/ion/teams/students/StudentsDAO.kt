@@ -6,6 +6,10 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
+/**
+ * Data Access Object for the Student resource. This is an interface responsible for defining the methods for
+ * accessing data of the given resource.
+ */
 interface StudentsDAO {
 
     @SqlQuery("SELECT * FROM students_view WHERE cid=:classroomId LIMIT :limit OFFSET :offset")

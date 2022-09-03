@@ -8,11 +8,14 @@ import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.Uris
 
+/**
+ * Controller responsible for handling request made to the Invite-code resource.
+ */
 @RestController
 class InviteCodeController(
     val service: InviteCodeService,
     val classroomsService: ClassroomsService
-    ) {
+) {
 
     @GetMapping(Uris.InviteCodes.MAIN_PATH)
     fun getAllInviteCodes(
@@ -66,5 +69,4 @@ class InviteCodeController(
             .ok()
             .body(null)
     }
-
 }

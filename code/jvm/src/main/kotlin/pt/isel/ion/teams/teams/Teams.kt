@@ -1,6 +1,10 @@
 package pt.isel.ion.teams.teams
 
 /**
+ * This file contains the data class definitions for the different representations of the Team resource.
+ */
+
+/**
  * For internal use only.
  */
 data class TeamsDbRead (

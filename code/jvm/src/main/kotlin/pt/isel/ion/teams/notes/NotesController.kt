@@ -7,6 +7,9 @@ import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 
+/**
+ * Controller responsible for handling request made to the Note resource.
+ */
 @RestController
 @RequestMapping(Uris.Notes.MAIN_PATH)
 class NotesController(val notesService: NotesService) {

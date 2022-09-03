@@ -5,7 +5,6 @@ import org.springframework.http.MediaType
 import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.siren.*
 import pt.isel.ion.teams.teams.TeamsCompactOutputModel
-import java.net.URI
 
 /* ******************* RESOURCE COLLECTION RESPONSES ******************** */
 

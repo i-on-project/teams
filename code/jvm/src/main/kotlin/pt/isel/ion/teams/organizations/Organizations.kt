@@ -1,6 +1,10 @@
 package pt.isel.ion.teams.organizations
 
 /**
+ * This file contains the data class definitions for the different representations of the Organization resource.
+ */
+
+/**
  * For internal use only.
  */
 data class OrganizationDbRead(

@@ -10,8 +10,14 @@ import com.sendgrid.helpers.mail.objects.Email
 import org.springframework.stereotype.Component
 import java.io.IOException
 
+/**
+ * Service responsible for sending confirmation emails to new users.
+ */
 @Component
 class EmailService {
+    /**
+     * Defines constants in all instances of the email service.
+     */
     companion object {
         val SENDGRID_API_KEY = SendGrid(System.getenv("SENDGRID_API_KEY"))
         val FROM = Email("ion.teams@outlook.pt")
@@ -20,10 +26,14 @@ class EmailService {
         const val ENDPOINT = "mail/send"
     }
 
+    /**
+     * Method used to send the emails to new users
+     */
     fun sendVerificationEmail(name: String, email: String, verificationId: String): Response {
 
         val to = Email(email)
-        val content = Content(CONTENT_TYPE, "Welcome to i-on Teams, $name! \nPlease verify your identity through the following link: http://localhost:8080/auth/verify/$verificationId")
+        val content = Content(CONTENT_TYPE, "Welcome to i-on Teams, $name! \nPlease verify your identity through" +
+                " the following link: https://ion-teams-service.herokuapp.com/auth/verify/$verificationId")
         val mail = Mail(FROM, SUBJECT, to, content);
         val request = Request()
         try {

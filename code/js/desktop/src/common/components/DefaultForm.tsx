@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useContext, useState } from 'react'
 import { Button, Container, Divider, Dropdown, Form, Header, Message, Modal } from "semantic-ui-react";
 import { Action, Field } from "../types/siren";
-import { ChangedContext } from './changedStatus';
+import { ChangedContext, useChangedState } from './changedStatus';
+import { useServiceLocation } from './ServiceLocationContext';
 
 interface FormData {
     [str: string]: any
@@ -37,6 +38,7 @@ function messageReducer(state: MessageState, action: MessageAction): MessageStat
 export function DefaultForm({ action, divider = false }: { action: Action, divider?: boolean }) {
 
     const { setChanged } = useContext(ChangedContext)
+    const apiUrl = useServiceLocation().url
     const [state, setState] = useState<FormData>({})
     const [loadindState, setLoading] = React.useState(false)
     const [messageState, messageDispatch] = React.useReducer(messageReducer, { hidden: true, success: false, error: false, status: null, message: null })
@@ -46,7 +48,7 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
 
         setLoading(true)
 
-        fetch(`http://localhost:8080${action.href}`, {
+        fetch(`${apiUrl}${action.href}`, {
             method: action.method,
             headers: {
                 'Accept': action.type,
@@ -56,9 +58,11 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
             body: JSON.stringify(state)
         })
             .then(async (resp: Response) => {
+                console.log("On the then!!!!")
+                setChanged(true)
+
                 if (resp.ok) {
                     messageDispatch({ type: 'success' })
-                    setChanged(true)
                     setLoading(false)
                     return
                 }

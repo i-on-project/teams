@@ -71,7 +71,6 @@ async function getCookies() {
  * IPC messages to renderer (main to renderer)
  */
 function urlToRenderer(url) {
-    console.log('ATENÇÃO' + url)
     const wContents = webContents.getFocusedWebContents()
 
     if (wContents) {

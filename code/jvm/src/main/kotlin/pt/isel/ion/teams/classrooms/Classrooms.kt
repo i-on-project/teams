@@ -1,6 +1,10 @@
 package pt.isel.ion.teams.classrooms
 
 /**
+ * This file contains the data class definitions for the different representations of the Classroom resource.
+ */
+
+/**
  * For internal use only.
  */
 data class ClassroomDbRead(

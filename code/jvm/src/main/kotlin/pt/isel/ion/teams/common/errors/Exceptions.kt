@@ -2,6 +2,12 @@ package pt.isel.ion.teams.common.errors
 
 import java.net.URI
 
+/**
+ * File used to define all the business logic exceptions. All the exceptions extend a "BaseException" that defines the
+ * data that each exception must contain (type, title, status and detail), this information satisfies the media type
+ * application/problem+json in which the erros responses will be sent.
+ */
+
 open class BaseException(
     open val type: URI,
     open val title: String?,

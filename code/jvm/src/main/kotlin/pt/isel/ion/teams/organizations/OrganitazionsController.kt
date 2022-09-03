@@ -12,6 +12,9 @@ import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.teacher.SimpleTeacherDbRead
 import pt.isel.ion.teams.teacher.TeachersService
 
+/**
+ * Controller responsible for handling request made to the Organization resource.
+ */
 @RestController
 @RequestMapping(Uris.Organizations.MAIN_PATH)
 @CrossOrigin("https://localhost:5000")
@@ -36,7 +39,8 @@ class OrganizationController(
             .body(
                 CollectionModel(pageIndex, pageSize)
                     .toOrganizationsSirenObject(
-                        organizationsService.getAllOrganizationsOfTeacher(number, pageSize, pageIndex).map { it.toOutput() }
+                        organizationsService.getAllOrganizationsOfTeacher(number, pageSize, pageIndex)
+                            .map { it.toOutput() }
                     )
             )
     }
@@ -59,7 +63,7 @@ class OrganizationController(
     ): ResponseEntity<Any> {
         val org = organizationsService.createOrganization(organization.toDb()).toOutput()
         val number = authService.getNumber(session)
-        teachersService.addTeacher(SimpleTeacherDbRead(number,null,org.id))
+        teachersService.addTeacher(SimpleTeacherDbRead(number, null, org.id))
 
         return ResponseEntity
             .created(Uris.Organizations.Organization.make(org.id))

@@ -5,6 +5,10 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
+/**
+ * Data Access Object for the authentication resources. This is an interface responsible for defining the methods for
+ * accessing data of the given resource.
+ */
 interface AuthenticationDAO {
 
     /* User Session */
@@ -33,5 +37,4 @@ interface AuthenticationDAO {
 
     @SqlUpdate("DELETE FROM to_verify WHERE code=:code")
     fun verifyUser(@Bind code: String)
-
 }

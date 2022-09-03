@@ -1,6 +1,10 @@
 package pt.isel.ion.teams.requests
 
 /**
+ * This file contains the data class definitions for the different representations of the Request resource.
+ */
+
+/**
  * For internal use only.
  */
 data class RequestsDbRead(

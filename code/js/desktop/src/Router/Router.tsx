@@ -15,13 +15,15 @@ import * as Assignments from "../Assignments/Page"
 import * as Assignment from "../Assignment/Page"
 import * as Delivery from "../Delivery/Page"
 import * as Requests from "../Requests/Page"
+import { ChangedContainer } from "../common/components/changedStatus";
 
 export function Router() {
 
   return (
     <HashRouter>
       <MenuContainer>
-        <Grid columns={2}>
+        <ChangedContainer>
+          <Grid columns={2}>
           <Grid.Column width={3}>
             <VerticalFixedMenu />
           </Grid.Column>
@@ -43,6 +45,8 @@ export function Router() {
             </MenuItemNameContainer>
           </Grid.Column>
         </Grid>
+        </ChangedContainer>
+        
       </MenuContainer>
     </HashRouter >
   )

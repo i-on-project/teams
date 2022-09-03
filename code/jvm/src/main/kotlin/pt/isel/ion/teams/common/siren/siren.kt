@@ -9,6 +9,7 @@ import org.springframework.http.MediaType
 import pt.isel.ion.teams.common.Uris
 import java.net.URI
 
+//Media type definition
 const val APPLICATION_TYPE = "application"
 const val SIREN_SUBTYPE = "vnd.siren+json"
 

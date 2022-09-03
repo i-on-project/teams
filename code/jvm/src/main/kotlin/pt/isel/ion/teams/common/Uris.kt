@@ -2,6 +2,9 @@ package pt.isel.ion.teams.common
 
 import org.springframework.web.util.UriTemplate
 
+/**
+ * Uri's definitions, this is used for defining and creating Uris based on their template, and depending on their resource.
+ */
 object Uris {
 
     object Login {
@@ -166,7 +169,7 @@ object Uris {
             )
 
         object FromClassroom {
-            const val PATH = MAIN_PATH + "/students"
+            const val PATH = "$MAIN_PATH/students"
             private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
             fun make(orgId: Int, classId: Int) = TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId))
 
@@ -179,7 +182,7 @@ object Uris {
         }
 
         object FromTeam {
-            const val PATH = MAIN_PATH +"/teams/{teamId}/students"
+            const val PATH = "$MAIN_PATH/teams/{teamId}/students"
             private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
             fun make(orgId: Int, classId: Int, teamId: Int) =
                 TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "teamId" to teamId))
@@ -199,7 +202,7 @@ object Uris {
         }
 
         object Student {
-            const val PATH = MAIN_PATH + "/students/{number}"
+            const val PATH = "$MAIN_PATH/students/{number}"
             private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
             fun make(orgId: Int, classId: Int, number: Int) =
                 TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "number" to number))

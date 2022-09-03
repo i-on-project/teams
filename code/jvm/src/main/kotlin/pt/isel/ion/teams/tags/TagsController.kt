@@ -9,6 +9,9 @@ import pt.isel.ion.teams.common.siren.CollectionModel
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.deliveries.DeliveriesService
 
+/**
+ * Controller responsible for handling request made to the Tag resource.
+ */
 @RestController
 @RequestMapping(Uris.Tags.MAIN_PATH)
 class TagsController(

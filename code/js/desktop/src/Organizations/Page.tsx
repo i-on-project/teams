@@ -15,19 +15,16 @@ export function Page() {
     const [uri, setUri] = React.useState(`/api${makeOrganizations()}`)
 
     return (
-        <ChangedContainer>
-            <Fetch
-                url={uri}
-                renderBegin={() => <p>Waiting for URL...</p>}
-                renderOk={(payload) =>
-                    <UriContext.Provider value={{ uri, setUri }} >
-                        <Body collection={payload} />
-                    </UriContext.Provider>
-                }
-                renderLoading={() => <Loader />}
-            />
-        </ChangedContainer>
-
+        <Fetch
+            url={uri}
+            renderBegin={() => <p>Waiting for URL...</p>}
+            renderOk={(payload) =>
+                <UriContext.Provider value={{ uri, setUri }} >
+                    <Body collection={payload} />
+                </UriContext.Provider>
+            }
+            renderLoading={() => <Loader />}
+        />
     )
 }
 

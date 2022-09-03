@@ -10,6 +10,9 @@ import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.teams.TeamsService
 import pt.isel.ion.teams.teams.toCompactOutput
 
+/**
+ * Controller responsible for handling request made to the Student resource.
+ */
 @RestController
 @RequestMapping
 class StudentsController(
@@ -138,7 +141,5 @@ class StudentsController(
             .ok()
             .body(null)
     }
-
-
 }
 
