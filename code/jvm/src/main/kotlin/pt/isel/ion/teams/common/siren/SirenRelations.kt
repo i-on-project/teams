@@ -1,5 +1,8 @@
 package pt.isel.ion.teams.common.siren
 
+/**
+ * Relations used for the siren responses.
+ */
 object SirenRelations {
 
     //Navigation
@@ -12,7 +15,6 @@ object SirenRelations {
 
     //Outside references
     const val GITHUB = "github"
-    const val AVATAR = "avatar"
 
     //Collections
     const val CLASSROOMS = "classrooms"
@@ -34,5 +36,4 @@ object SirenRelations {
     const val REPO = "repo"
     const val DELIVERY = "delivery"
     const val ASSIGNMENT = "assignment"
-    const val INVITE_CODE = "invite-code"
 }

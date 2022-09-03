@@ -1,6 +1,10 @@
 package pt.isel.ion.teams.tags
 
 /**
+ * This file contains the data class definitions for the different representations of the Tag resource.
+ */
+
+/**
  * For internal use only.
  */
 data class TagDbRead(

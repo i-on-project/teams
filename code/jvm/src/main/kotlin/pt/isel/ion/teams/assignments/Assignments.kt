@@ -3,6 +3,10 @@ package pt.isel.ion.teams.assignments
 import java.sql.Timestamp
 
 /**
+ * This file contains the data class definitions for the different representations of the Assignment resource.
+ */
+
+/**
  * For internal use only.
  */
 data class AssignmentDbRead(

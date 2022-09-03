@@ -3,6 +3,10 @@ package pt.isel.ion.teams.authentication
 import pt.isel.ion.teams.students.StudentDbWrite
 import pt.isel.ion.teams.teacher.TeacherDbWrite
 
+/**
+ * This file contains the data class definitions for the all the types needed for authentication.
+ */
+
 /* ******************** TOKENS & COOKIES ******************** */
 data class ClientToken(
     val access_token: String,
@@ -28,8 +32,6 @@ data class GitHubUserInfo(
     val name: String
 )
 
-fun ClientToken.toCompact() = CompactClientToken(this.access_token)
-
 /* ******************** USER REGISTRATION ******************** */
 
 data class UserInfoInputModel(
@@ -48,9 +50,4 @@ data class UserSession(
     val number: Int,
     val sessionId: String,
     val userType: Char
-)
-
-data class DesktopUserSession(
-    val sessionId: String,
-    val accessToken: String
 )

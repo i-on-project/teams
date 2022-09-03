@@ -5,6 +5,11 @@ import org.springframework.stereotype.Component
 import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 import pt.isel.ion.teams.students.StudentsDAO
 
+/**
+ * Service for the Team resource. The service is responsible for implementing business logic regarding its
+ * resource, in practical terms this is, among other things, accessing data through the methods defined in the resource
+ * DAO.
+ */
 @Component
 class TeamsService(val jdbi: Jdbi) {
 

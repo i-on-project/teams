@@ -1,6 +1,10 @@
 package pt.isel.ion.teams.inviteCode
 
 /**
+ * This file contains the data class definitions for the different representations of the Invite-code resource.
+ */
+
+/**
  * For internal use only.
  */
 data class InviteLinksDbRead(

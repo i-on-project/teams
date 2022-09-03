@@ -1,6 +1,10 @@
 package pt.isel.ion.teams.students
 
 /**
+ * This file contains the data class definitions for the different representations of the Student resource.
+ */
+
+/**
  * For internal use only.
  */
 

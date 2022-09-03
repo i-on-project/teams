@@ -1,5 +1,8 @@
 package pt.isel.ion.teams.repos
 
+/**
+ * This file contains the data class definitions for the different representations of the Repo resource.
+ */
 
 /**
  * For internal use only.

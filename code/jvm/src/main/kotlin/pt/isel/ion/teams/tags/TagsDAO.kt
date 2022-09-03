@@ -6,6 +6,10 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
+/**
+ * Data Access Object for the Tag resource. This is an interface responsible for defining the methods for
+ * accessing data of the given resource.
+ */
 interface TagsDAO {
 
     @SqlQuery("SELECT * FROM tags_view WHERE repoid = :repoId LIMIT :limit OFFSET :offset")

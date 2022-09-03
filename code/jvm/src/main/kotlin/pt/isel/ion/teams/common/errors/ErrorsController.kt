@@ -21,6 +21,10 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import org.springframework.web.servlet.NoHandlerFoundException
 import java.net.URI
 
+/**
+ * Controller advice used to handle errors and send response errors as they occur. This class handles both the custom
+ * exeptions created to enforce business login and the default spring errors.
+ */
 @ControllerAdvice
 class ErrorsController : ResponseEntityExceptionHandler() {
 

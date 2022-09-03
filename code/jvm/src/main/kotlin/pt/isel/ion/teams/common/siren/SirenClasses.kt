@@ -1,5 +1,8 @@
 package pt.isel.ion.teams.common.siren
 
+/**
+ * Classes used for the siren responses
+ */
 object SirenClasses {
     const val COLLECTION = "collection"
     const val ORGANIZATION = "organization"
@@ -14,5 +17,4 @@ object SirenClasses {
     const val DELIVERY = "delivery"
     const val TAG = "tag"
     const val NOTE = "note"
-    const val HOME = "home"
 }

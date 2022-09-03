@@ -1,5 +1,9 @@
 package pt.isel.ion.teams.deliveries
 
+/**
+ * This file contains the data class definitions for the different representations of the Delivery resource.
+ */
+
 import java.sql.Timestamp
 
 /**

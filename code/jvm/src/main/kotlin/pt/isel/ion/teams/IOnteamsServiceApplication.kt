@@ -15,17 +15,18 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import javax.sql.DataSource
 
-
 @SpringBootApplication
 @ConfigurationPropertiesScan
 class IOnteamsServiceApplication(
 		private val configProperties: ConfigProperties
 ) {
+    //data source configuration
     @Bean
     fun dataSource() = PGSimpleDataSource().apply {
         setURL(configProperties.dbConnString)
     }
 
+    //jdbi configuration
     @Bean
     fun jdbi(dataSource: DataSource) = Jdbi.create(dataSource).apply {
         installPlugin(KotlinPlugin())
@@ -33,7 +34,9 @@ class IOnteamsServiceApplication(
         installPlugin(SqlObjectPlugin())
     }
 }
+
 fun main(args: Array<String>) {
+    //Verification if an environment variable exists for the PORT, if not use default port 8080
     runApplication<IOnteamsServiceApplication>(*args) {
         setDefaultProperties(mapOf("server.port" to (System.getenv("PORT") ?: "8080")))
     }

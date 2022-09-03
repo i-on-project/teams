@@ -14,6 +14,10 @@ val exceptionMap: HashMap<String, Exception> = hashMapOf(
     "23502" to DbNotNullViolation()
 )
 
+/**
+ * Handler responsible for mapping SQLExceptions into their corresponding custom exception. This is done through the
+ * code that comes in the reason of the exception, that indicated what went wrong in the data access.
+ */
 inline fun <reified T> sqlExceptionHandler(func: () -> (T?)) :T {
     try {
         return func() ?: throw EmptyDbReturnException()

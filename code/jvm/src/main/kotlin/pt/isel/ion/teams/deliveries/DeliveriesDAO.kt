@@ -6,6 +6,10 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
+/**
+ * Data Access Object for the Delivery resource. This is an interface responsible for defining the methods for
+ * accessing data of the given resource.
+ */
 interface DeliveriesDAO {
 
     @SqlQuery("SELECT * FROM deliveries_view WHERE assid = :assId LIMIT :limit OFFSET :offset")

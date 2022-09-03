@@ -9,6 +9,9 @@ import pt.isel.ion.teams.common.Uris
 import pt.isel.ion.teams.common.errors.InvalidDateFormatException
 import pt.isel.ion.teams.tags.TagsService
 
+/**
+ * Controller responsible for handling request made to the Assignment resource.
+ */
 @RestController
 @RequestMapping(Uris.Deliveries.MAIN_PATH)
 class DeliveriesController(
@@ -24,18 +27,17 @@ class DeliveriesController(
         @RequestParam(defaultValue = "0") pageIndex: Int,
         @RequestParam(defaultValue = "10") pageSize: Int
     ) = ResponseEntity
-            .ok()
-            .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
-            .body(
-                CollectionModel(pageIndex, pageSize).toDeliveriesSirenObject(
-                    deliveriesService.getAllDeliveriesOfAssignment(pageSize, pageIndex, assId)
-                        .map { it.toCompactOutput() },
-                    orgId,
-                    classId,
-                    assId
-                )
+        .ok()
+        .contentType(MediaType.parseMediaType(SIREN_MEDIA_TYPE))
+        .body(
+            CollectionModel(pageIndex, pageSize).toDeliveriesSirenObject(
+                deliveriesService.getAllDeliveriesOfAssignment(pageSize, pageIndex, assId)
+                    .map { it.toCompactOutput() },
+                orgId,
+                classId,
+                assId
             )
-
+        )
 
     @GetMapping(Uris.Deliveries.Delivery.PATH)
     fun getDelivery(

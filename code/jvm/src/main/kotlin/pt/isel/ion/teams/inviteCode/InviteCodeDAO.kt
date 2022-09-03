@@ -5,6 +5,10 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
+/**
+ * Data Access Invite-code for the Assignment resource. This is an interface responsible for defining the methods for
+ * accessing data of the given resource.
+ */
 interface InviteCodeDAO {
 
     @SqlQuery("SELECT * FROM invite_codes_view WHERE cid=:cId")

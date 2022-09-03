@@ -6,6 +6,10 @@ import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 
+/**
+ * Data Access Organization for the Assignment resource. This is an interface responsible for defining the methods for
+ * accessing data of the given resource.
+ */
 interface OrganizationsDAO {
 
     @SqlQuery("SELECT id, name, description FROM teacher_organizations_view WHERE number=:number LIMIT :limit OFFSET :offset")

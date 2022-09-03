@@ -9,6 +9,9 @@ import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.tags.TagsService
 import pt.isel.ion.teams.tags.toCompactOutput
 
+/**
+ * Controller responsible for handling request made to the Repo resource.
+ */
 @RestController
 @RequestMapping(Uris.Repos.MAIN_PATH)
 class ReposController(
@@ -35,7 +38,6 @@ class ReposController(
                     teamId
                 )
         )
-
 
     @GetMapping(Uris.Repos.Repo.PATH)
     fun getRepo(

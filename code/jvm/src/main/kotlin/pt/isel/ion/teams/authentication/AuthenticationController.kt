@@ -16,21 +16,28 @@ import reactor.core.publisher.Mono
 import java.util.*
 import javax.servlet.http.HttpServletResponse
 
-
+//GitHub constants
 const val GITHUB_OAUTH_URI = "https://github.com/login/oauth/authorize"
 const val GITHUB_TEACHER_SCOPE = "admin:org"
 const val GITHUB_STUDENT_SCOPE = "read:project"
 
+//Cookie maxAge values
 const val HALF_HOUR: Long = 60 * 30
 const val ONE_MONTH: Long = 60 * 60 * 24 * 30
+
+//Client ids
 const val DESKTOP_CLIENT_ID = "desktop"
 const val DESKTOP_REGISTER_CLIENT_ID = "desktop-register"
 const val WEB_CLIENT_ID = "web"
 const val WEB_REGISTER_CLIENT_ID = "web-register"
+
+//Session user types
 const val TEACHER_SESSION_USER_TYPE = 'T'
 const val STUDENT_SESSION_USER_TYPE = 'S'
-//TODO: After deployment activate flag secure on cookies
 
+/**
+ * Controller responsible for handling authentication requests.
+ */
 @RestController
 @RequestMapping
 class AuthenticationController(

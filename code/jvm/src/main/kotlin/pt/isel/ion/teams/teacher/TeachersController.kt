@@ -9,6 +9,9 @@ import pt.isel.ion.teams.classrooms.ClassroomsService
 import pt.isel.ion.teams.classrooms.toCompactOutput
 import pt.isel.ion.teams.common.Uris
 
+/**
+ * Controller responsible for handling request made to the Teacher resource.
+ */
 @RestController
 @RequestMapping(Uris.Teachers.MAIN_PATH)
 class TeachersController(val service: TeachersService, val classService: ClassroomsService) {

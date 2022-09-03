@@ -10,12 +10,14 @@ import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.students.StudentsService
 import pt.isel.ion.teams.students.toCompactOutput
 
+/**
+ * Controller responsible for handling request made to the Team resource.
+ */
 @RestController
 @RequestMapping(Uris.Teams.MAIN_PATH)
 class TeamsController(
     val teamsService: TeamsService,
     val studentsService: StudentsService,
-    val authService: AuthenticationService
 ) {
 
     @GetMapping

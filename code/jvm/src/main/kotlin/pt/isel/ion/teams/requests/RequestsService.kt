@@ -6,6 +6,11 @@ import pt.isel.ion.teams.common.errors.sqlExceptionHandler
 import pt.isel.ion.teams.teams.TeamsDAO
 import pt.isel.ion.teams.teams.TeamsDbUpdate
 
+/**
+ * Service for the Request resource. The service is responsible for implementing business logic regarding its
+ * resource, in practical terms this is, among other things, accessing data through the methods defined in the resource
+ * DAO.
+ */
 @Component
 class RequestsService(val jdbi: Jdbi) {
 
