@@ -80,9 +80,9 @@ fun TeacherCompactOutputModel.toTeacherSirenObject(
             href = Uris.Teachers.Teacher.make(orgId, classId, number),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "email", type = "string"),
-                SirenAction.Field(name = "office", type = "string"),
+                SirenAction.Field(name = "name", type = "text"),
+                SirenAction.Field(name = "email", type = "text"),
+                SirenAction.Field(name = "office", type = "text"),
                 SirenAction.Field(name = "cId", type = "number")
             )
         ),

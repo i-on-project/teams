@@ -121,8 +121,8 @@ fun TeamsOutputModel.toTeacherSirenObject(
             href = Uris.Teams.Team.make(orgId, classId, id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "state", type = "string"),
+                SirenAction.Field(name = "name", type = "text"),
+                SirenAction.Field(name = "state", type = "text"),
             )
         ),
         SirenAction(

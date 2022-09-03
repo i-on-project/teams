@@ -63,6 +63,12 @@ class DeliveriesController(
         @PathVariable assId: Int,
     ): ResponseEntity<Any> {
         try {
+            val split = delivery.date!!.split("T")
+            val date = split[0]
+            val time = split[1] + ":00"
+
+            delivery.date = "$date $time"
+
             val createdDelivery = deliveriesService.createDelivery(delivery.toDb(classId)).toOutput()
 
             return ResponseEntity
@@ -82,10 +88,22 @@ class DeliveriesController(
         @PathVariable classId: Int,
         @PathVariable assId: Int,
         @PathVariable deliveryId: Int,
-    ) = ResponseEntity
-        .ok()
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(deliveriesService.updateDelivery(delivery.toDb(deliveryId)).toOutput())
+    ): ResponseEntity<Any> {
+        try {
+            val split = delivery.date!!.split("T")
+            val date = split[0]
+            val time = split[1] + ":00"
+
+            delivery.date = "$date $time"
+
+            return ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(deliveriesService.updateDelivery(delivery.toDb(deliveryId)).toOutput())
+        } catch (e: IllegalArgumentException) {
+            throw InvalidDateFormatException()
+        }
+    }
 
     @DeleteMapping(Uris.Deliveries.Delivery.PATH)
     fun deleteDelivery(@PathVariable deliveryId: Int): ResponseEntity<Any> {

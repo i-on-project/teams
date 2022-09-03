@@ -62,10 +62,16 @@ class AssignmentsController(val assignmentsService: AssignmentsService, val deli
     fun createAssignment(
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
-        @RequestBody assignmentInputModel: AssignmentInputModel
+        @RequestBody assignment: AssignmentInputModel
     ): ResponseEntity<Any> {
         try {
-            val ass = assignmentsService.createAssignment(assignmentInputModel.toDb(classId))
+            val split = assignment.releaseDate!!.split("T")
+            val date = split[0]
+            val time = split[1] + ":00"
+
+            assignment.releaseDate = "$date $time"
+
+            val ass = assignmentsService.createAssignment(assignment.toDb(classId))
 
             return ResponseEntity
                 .created(Uris.Assignments.Assignment.make(orgId, classId, ass.id))
@@ -81,16 +87,24 @@ class AssignmentsController(val assignmentsService: AssignmentsService, val deli
     @PutMapping(Uris.Assignments.Assignment.PATH)
     fun updateAssignment(
         @PathVariable assignmentId: Int,
-        @RequestBody assignmentUpdateModel: AssignmentUpdateModel
-    ) =
+        @RequestBody assignment: AssignmentUpdateModel
+    ): ResponseEntity<Any> {
         try {
-            ResponseEntity
+            val split = assignment.releaseDate!!.split("T")
+            val date = split[0]
+            val time = split[1] + ":00"
+
+            assignment.releaseDate = "$date $time"
+
+            return ResponseEntity
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(assignmentsService.updateAssignment(assignmentUpdateModel.toDb(assignmentId)).toOutput())
+                .body(assignmentsService.updateAssignment(assignment.toDb(assignmentId)).toOutput())
         } catch (e: IllegalArgumentException) {
             throw InvalidDateFormatException()
         }
+    }
+
 
     @DeleteMapping(Uris.Assignments.Assignment.PATH)
     fun deleteAssignment(

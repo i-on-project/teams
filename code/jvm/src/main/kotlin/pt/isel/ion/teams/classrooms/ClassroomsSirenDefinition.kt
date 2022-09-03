@@ -109,9 +109,9 @@ fun ClassroomOutputModel.toTeacherSirenObject(
             href = Uris.Assignments.make(orgId, id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
+                SirenAction.Field(name = "name", type = "text"),
                 SirenAction.Field(name = "releaseDate", type = "datetime-local"),
-                SirenAction.Field(name = "description", type = "string"),
+                SirenAction.Field(name = "description", type = "text"),
             )
         ),
         SirenAction(
@@ -127,10 +127,10 @@ fun ClassroomOutputModel.toTeacherSirenObject(
             href = Uris.Classrooms.Classroom.make(orgId, id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "state", type = "string"),
-                SirenAction.Field(name = "description", type = "string"),
-                SirenAction.Field(name = "schoolYear", type = "string"),
+                SirenAction.Field(name = "name", type = "text"),
+                SirenAction.Field(name = "state", type = "text"),
+                SirenAction.Field(name = "description", type = "text"),
+                SirenAction.Field(name = "schoolYear", type = "text"),
                 SirenAction.Field(name = "maxGroups", type = "number"),
                 SirenAction.Field(name = "maxGroupMembers", type = "number"),
             )

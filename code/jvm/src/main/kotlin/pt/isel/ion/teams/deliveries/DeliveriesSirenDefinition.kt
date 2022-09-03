@@ -109,7 +109,7 @@ fun DeliveryOutputModel.toTeacherSirenObject(
                 href = Uris.Deliveries.Delivery.make(orgId, classId, assId, id),
                 type = MediaType.APPLICATION_JSON,
                 fields = listOf(
-                    SirenAction.Field(name = "date", type = "string"),
+                    SirenAction.Field(name = "date", type = "datetime-local"),
                 )
             ),
             SirenAction(

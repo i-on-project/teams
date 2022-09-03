@@ -41,7 +41,7 @@ fun CollectionModel.toNotesSirenObject(
                         href = Uris.Notes.Note.make(orgId, classId, teamId, it.id),
                         type = MediaType.APPLICATION_JSON,
                         fields = listOf(
-                            SirenAction.Field(name = "description", type = "string"),
+                            SirenAction.Field(name = "description", type = "text"),
                         )
                     ),
                     SirenAction(
@@ -61,7 +61,7 @@ fun CollectionModel.toNotesSirenObject(
                 href = Uris.Notes.make(orgId, classId, teamId),
                 type = MediaType.APPLICATION_JSON,
                 fields = listOf(
-                    SirenAction.Field(name = "description", type = "string"),
+                    SirenAction.Field(name = "description", type = "text"),
                 )
             )
         ),
@@ -103,7 +103,7 @@ fun NotesOutputModel.toSirenObject(
             href = Uris.Notes.Note.make(orgId, classId, teamId, id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "description", type = "string"),
+                SirenAction.Field(name = "description", type = "text"),
             )
         ),
         SirenAction(

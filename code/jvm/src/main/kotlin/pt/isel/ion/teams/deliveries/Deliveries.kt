@@ -46,12 +46,12 @@ data class DeliveryCompactOutputModel(
 
 data class DeliveryInputModel(
     val name: String,
-    val date: String
+    var date: String
 )
 
 data class DeliveryUpdateModel(
     val name: String?,
-    val date: String?
+    var date: String?
 )
 
 /**

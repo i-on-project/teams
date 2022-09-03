@@ -40,8 +40,8 @@ fun CollectionModel.toOrganizationsSirenObject(orgsList: List<OrganizationOutput
                 href = Uris.Organizations.make(),
                 type = MediaType.APPLICATION_JSON,
                 fields = listOf(
-                    SirenAction.Field(name = "name", type = "string"),
-                    SirenAction.Field(name = "description", type = "string"),
+                    SirenAction.Field(name = "name", type = "text"),
+                    SirenAction.Field(name = "description", type = "text"),
                 )
             )
         ),
@@ -81,11 +81,11 @@ fun OrganizationOutputModel.toTeacherSirenObject(classroomList: List<ClassroomCo
             href = Uris.Classrooms.make(id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "description", type = "string"),
-                SirenAction.Field(name = "schoolYear", type = "string"),
-                SirenAction.Field(name = "maxGroups", type = "string"),
-                SirenAction.Field(name = "maxMembersPerGroup", type = "string"),
+                SirenAction.Field(name = "name", type = "text"),
+                SirenAction.Field(name = "description", type = "text"),
+                SirenAction.Field(name = "schoolYear", type = "text"),
+                SirenAction.Field(name = "maxGroups", type = "number"),
+                SirenAction.Field(name = "maxMembersPerGroup", type = "number"),
             )
         ),
         SirenAction(
@@ -95,9 +95,9 @@ fun OrganizationOutputModel.toTeacherSirenObject(classroomList: List<ClassroomCo
             href = Uris.Organizations.Organization.make(id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "state", type = "string"),
-                SirenAction.Field(name = "description", type = "string"),
+                SirenAction.Field(name = "name", type = "text"),
+                SirenAction.Field(name = "state", type = "text"),
+                SirenAction.Field(name = "description", type = "text"),
             )
         ),
         SirenAction(

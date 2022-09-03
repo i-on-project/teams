@@ -70,7 +70,7 @@ fun InviteLinksOutputModel.toSirenObject(
             href = Uris.Teams.make(orgId, this.cid),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string")
+                SirenAction.Field(name = "name", type = "text")
             )
         )
     ),

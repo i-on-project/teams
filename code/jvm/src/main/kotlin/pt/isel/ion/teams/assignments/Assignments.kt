@@ -50,13 +50,13 @@ data class AssignmentCompactOutputModel(
 )
 
 data class AssignmentInputModel(
-    val releaseDate: String?,
+    var releaseDate: String?,
     val description: String,
     val name: String
 )
 
 data class AssignmentUpdateModel(
-    val releaseDate: String?,
+    var releaseDate: String?,
     val name: String,
     val description: String?,
     val cid: Int?

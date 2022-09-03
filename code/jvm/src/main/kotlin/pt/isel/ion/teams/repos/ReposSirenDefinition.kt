@@ -113,9 +113,9 @@ fun RepoOutputModel.toTeacherSirenObject(
             href = Uris.Repos.Repo.make(orgId, classId, teamId, id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "state", type = "string"),
-                SirenAction.Field(name = "url", type = "string"),
+                SirenAction.Field(name = "name", type = "text"),
+                SirenAction.Field(name = "state", type = "text"),
+                SirenAction.Field(name = "url", type = "text"),
                 SirenAction.Field(name = "assId", type = "number"),
             )
         ),
@@ -132,8 +132,8 @@ fun RepoOutputModel.toTeacherSirenObject(
             href = Uris.Tags.make(orgId, classId, teamId, id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
-                SirenAction.Field(name = "url", type = "string"),
+                SirenAction.Field(name = "name", type = "text"),
+                SirenAction.Field(name = "url", type = "text"),
                 SirenAction.Field(name = "assId", type = "number"),
             )
         ),

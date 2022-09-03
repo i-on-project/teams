@@ -111,7 +111,7 @@ fun AssignmentOutputModel.toTeacherSirenObject(
             href = Uris.Deliveries.make(orgId,classId,id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
+                SirenAction.Field(name = "name", type = "text"),
                 SirenAction.Field(name = "date", type = "datetime-local")
             )
         ),
@@ -122,10 +122,10 @@ fun AssignmentOutputModel.toTeacherSirenObject(
             href = Uris.Assignments.Assignment.make(orgId, classId, id),
             type = MediaType.APPLICATION_JSON,
             fields = listOf(
-                SirenAction.Field(name = "name", type = "string"),
+                SirenAction.Field(name = "name", type = "text"),
                 SirenAction.Field(name = "releaseDate", type = "datetime-local"),
                 SirenAction.Field(name = "cId", type = "number"),
-                SirenAction.Field(name = "description", type = "string"),
+                SirenAction.Field(name = "description", type = "text"),
             )
         ),
         SirenAction(

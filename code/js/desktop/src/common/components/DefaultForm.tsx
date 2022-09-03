@@ -103,7 +103,7 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
                 <React.Fragment>
                     <Form.Field key={field.name} required>
                         <label>{field.name}</label>
-                        <input placeholder={`Write ${field.name} here...`} onChange={(event) => setState({ ...state, [field.name]: event.target.value })} />
+                        <input placeholder={`Write ${field.name} here...`} type={field.type} onChange={(event) => setState({ ...state, [field.name]: event.target.value })} />
                     </Form.Field>
                     {field.name == "date" && <Message>Date format: YYYY-MM-DD hh:mm:ss</Message>}
                 </React.Fragment>
