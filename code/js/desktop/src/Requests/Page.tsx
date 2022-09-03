@@ -10,6 +10,9 @@ import { Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { RequestsTable } from "./components/RequestsTable"
 
+/**
+ * Function represents a list of requests.
+ */
 export function Page() {
 
     const { orgId, classId } = useParams()
@@ -28,7 +31,9 @@ export function Page() {
     )
 }
 
-
+/**
+ * Body function represents the body of the page. It is responsible for displaying the relevant information to the user.
+ */
 function Body({ collection, orgId, classId }: { collection: Collection, orgId: any, classId: any }) {
 
     const setItems = useMenu().setItems

@@ -6,12 +6,18 @@ import { DefaultTable, Paging } from '../../common/components/Table'
 import { Collection } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
 
+/**
+ * Function used to build an assignments table
+ */
 export function AssignmentsTable({ collection }: { collection: Collection }) {
 
   const navigate = useNavigate()  
   const { orgId, classId } = useParams()
   const setAssignmentName = useMenuItemNameContext().setAssignmentName
 
+  /**
+   * Function used to build the assignments table rows.
+   */
   function rowSpan() {
     const assignments = collection.entities.map(entity => {
       return {

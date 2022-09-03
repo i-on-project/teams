@@ -1,17 +1,22 @@
 import * as React from 'react';
-import { Button, Container, Divider, Grid, Header, List, ListHeader, ListItem, Loader, Menu, Popup, Segment } from 'semantic-ui-react';
+import { Button, Container, Divider, Grid, Header, Loader, Segment } from 'semantic-ui-react';
 import { ActionsSegment } from '../../common/components/ActionsSegment';
-import { FormInModal, DefaultModal } from '../../common/components/DefaultForm';
 import { Fetch } from '../../common/components/fetch';
-import { Action, Collection, Entity, Resource } from '../../common/types/siren';
+import {  Collection, Entity, Resource } from '../../common/types/siren';
 import { makeInviteCodes } from '../../common/Uris';
 
+/**
+ * Electron IPC API declaration to be used in this file.
+ */
 declare const electron: {
     clipboardApi: {
         copy: (value: string) => undefined
     }
 }
 
+/**
+ * Function used to display the relevant information about a classroom.
+ */
 export function ClassroomInfo({ resource, orgId, classId }: { resource: Resource, orgId: number, classId: number }) {
 
 

@@ -1,7 +1,10 @@
 import * as React from "react"
 import { useNavigate } from "react-router"
-import { Button, Container, Header, TextArea } from "semantic-ui-react"
+import { Button, Container, Header } from "semantic-ui-react"
 
+/**
+ * Functions used to display fetch errors to the user.
+ */
 export function ErrorNOk({ resp }: { resp: Response }) {
 
     const navigate = useNavigate()

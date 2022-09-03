@@ -1,3 +1,7 @@
+/**
+ * Siren type definition.
+ */
+
 export type Collection = {
     class: [ string , "collection" ],
     properties: {

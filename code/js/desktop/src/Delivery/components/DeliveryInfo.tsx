@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Grid, Header, List, ListHeader, ListItem, Segment } from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 import { ActionsSegment } from '../../common/components/ActionsSegment';
-import { FormInModal } from '../../common/components/DefaultForm';
-import { Action, Resource } from '../../common/types/siren';
+import { Resource } from '../../common/types/siren';
 
+/**
+ * Function is responsible for displaying the informatuion of a delivery.
+ */
 export function DeliveryInfo({ resource }: { resource: Resource }) {
-
 
     return (
         <Grid divided='vertically' columns='equal'>
@@ -18,8 +19,8 @@ export function DeliveryInfo({ resource }: { resource: Resource }) {
                 </Grid.Column>
                 <Grid.Column width={3}>
                     <ActionsSegment actions={resource.actions}></ActionsSegment>
-            </Grid.Column>
-        </Grid.Row>
+                </Grid.Column>
+            </Grid.Row>
         </Grid >
     )
 }

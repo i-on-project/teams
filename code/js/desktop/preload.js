@@ -1,5 +1,8 @@
 const { ipcRenderer, contextBridge } = require('electron')
 
+/**
+ * API definition for IPC comunication
+ */
 contextBridge.exposeInMainWorld(
     'electron', {
 
@@ -24,6 +27,5 @@ contextBridge.exposeInMainWorld(
     customProtocolUrl: (callback) => ipcRenderer.on('url', callback),
 
     //Renderer to main to renderer
-    cookiesApi: () => ipcRenderer.invoke('getCookies'),
 }
 )

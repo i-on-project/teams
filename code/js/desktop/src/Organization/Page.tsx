@@ -10,6 +10,9 @@ import { Resource } from "../common/types/siren";
 import { makeHome, makeOrganization, makeOrganizations } from "../common/Uris";
 import { OrganizationInfo } from "./components/OrganizationInfo";
 
+/**
+ * Function represents a page of an individual organization.
+ */
 export function Page() {
 
     const { orgId } = useParams()
@@ -28,8 +31,10 @@ export function Page() {
     )
 }
 
+/**
+ * Body function represents the page body. It is responsible for displaying the relevant information to the user.
+ */
 function Body({ resource, orgId }: { resource: Resource, orgId: any }) {
-
 
     const setItems = useMenu().setItems
     const orgName = useMenuItemNameContext().orgName

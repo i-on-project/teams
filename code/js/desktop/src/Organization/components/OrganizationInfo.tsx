@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { Grid, Header, List, ListHeader, ListItem, Popup, Segment } from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 import { ActionsSegment } from '../../common/components/ActionsSegment';
-import { DefaultForm, FormInModal } from '../../common/components/DefaultForm';
-import { Action, Resource } from '../../common/types/siren';
+import { Resource } from '../../common/types/siren';
 
+/**
+ * Function represents the information of an individual organization.
+ */
 export function OrganizationInfo({ resource }: { resource: Resource }) {
     return (
         <Grid divided='vertically' columns='equal'>

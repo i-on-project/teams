@@ -11,9 +11,13 @@ import { Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { TeamsTable } from "./components/TeamsTable"
 
+/**
+ * Teams page, displays a list of teams.
+ */
 export function Page() {
 
     const { orgId, classId } = useParams()
+    //Uri state for paging
     const [uri, setUri] = React.useState(`/api${makeTeams(orgId, classId)}`)
 
     return (
@@ -30,7 +34,9 @@ export function Page() {
     )
 }
 
-
+/**
+ * Body function represents the body of the Teams page
+ */
 function Body({ collection, orgId, classId }: { collection: Collection, orgId: any, classId: any }) {
 
     const setItems = useMenu().setItems

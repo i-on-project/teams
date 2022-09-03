@@ -1,12 +1,16 @@
 import * as React from "react"
-import { useNavigate } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
 import { DefaultTable, Paging } from '../../common/components/Table'
 import { Collection } from '../../common/types/siren';
 
+/**
+ * Function represents a table of students.
+ */
 export function StudentsTable({ collection }: { collection: Collection }) {
 
-
+  /**
+   * Function used to build the rows of the table of students.
+   */
   function rowSpan() {
     const organizations = collection.entities.map(entity => {
       return {

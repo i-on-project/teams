@@ -11,9 +11,13 @@ import { Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { StudentsTable } from "./components/StudentsTable"
 
+/**
+ * Students page, displays a list of students.
+ */
 export function Page() {
 
     const { orgId, classId } = useParams()
+    //Uri state used for paging
     const [uri, setUri] = React.useState(`/api${makeStudentsClassroom(orgId, classId)}`)
 
     return (
@@ -32,7 +36,9 @@ export function Page() {
     )
 }
 
-
+/**
+ * Body function, represents the body of the page. It is responsible for displaying relevant information to the user.
+ */
 function Body({ collection, orgId, classId }: { collection: Collection, orgId: any, classId: any }) {
 
     const setItems = useMenu().setItems

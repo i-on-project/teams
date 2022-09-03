@@ -4,13 +4,18 @@ import { Button, Loader, Menu } from 'semantic-ui-react'
 import { Fetch } from '../common/components/fetch'
 import { useMenu } from '../common/components/MenuContext'
 import { useMenuItemNameContext } from '../common/components/MenuItemNameContext'
+import { NothingToShow } from '../common/components/NothingToShow'
 import { UriContext, useUri } from '../common/components/UriContext'
 import { Collection, Entity, Link_relation } from '../common/types/siren'
 import { makeClassroom, makeHome, makeOrganization, makeOrganizations } from '../common/Uris'
 
+/**
+ * Function represents the home page.
+ */
 export function Page() {
 
     const setItems = useMenu().setItems
+    //Uri state used for paging.
     const [uri, setUri] = React.useState(`/api${makeOrganizations()}`)
 
     React.useEffect(() => {
@@ -27,11 +32,6 @@ export function Page() {
         ])
     }, [])
 
-    React.useEffect(() => {
-      console.log('CHANGED URI')
-    }, [uri])
-    
-
     return (
         <Fetch
             url={uri}
@@ -45,6 +45,9 @@ export function Page() {
         />
     )
 
+    /**
+     * Body function represents the page body. It is responsible for displaying the relevant information to the user.
+     */
     function Body({ collection, setUri }: { collection: Collection, setUri: any }) {
 
         const navigate = useNavigate()
@@ -54,7 +57,13 @@ export function Page() {
         const nextUri = collection.links.find(link => link.rel === 'next')?.href
         const prevUri = collection.links.find(link => link.rel === 'prev')?.href
 
+        const sugestion = {
+            message: "Go to organizations and create a new one.",
+            href: makeOrganizations()
+        }
+
         return (
+            collection.entities.length != 0 ?
             <React.Fragment>
                 <h1> Your Organizations and Classrooms</h1>
                 {
@@ -88,9 +97,9 @@ export function Page() {
                     <Button onClick={() => setUri(nextUri!!)}>Next</Button>
                 }
             </React.Fragment>
+            :
+            <NothingToShow sugestion={sugestion}>No Organizations to show.</NothingToShow>
         )
-
-
 
         function getClassrooms(id: number, name: string, link?: Link_relation) {
 

@@ -9,6 +9,9 @@ import { Resource } from "../common/types/siren";
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris";
 import { ClassroomInfo } from "./components/ClassroomInfo";
 
+/**
+ * Function represents a classroom page.
+ */
 export function Page() {
 
     const { orgId, classId } = useParams()
@@ -25,6 +28,9 @@ export function Page() {
     )
 }
 
+/**
+ * Body function represents the page body. It is responsible for displaying the relevant information to the user.
+ */
 function Body({ resource, orgId, classId }: { resource: Resource, orgId: any, classId: any }) {
 
     const setItems = useMenu().setItems

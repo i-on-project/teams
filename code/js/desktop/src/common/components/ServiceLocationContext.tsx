@@ -1,6 +1,10 @@
 import { createContext, useState, useContext } from "react"
 import * as React from "react"
 
+/**
+ * Context used to remove hardcoded uri's in the fetch functions.
+ */
+
 export const ServiceLocationContext = createContext(
     { url: 'https://ion-teams-service.herokuapp.com'}
 )

@@ -1,5 +1,8 @@
-import { createContext, useContext, useState } from "react"
-import * as React from "react"
+import { createContext, useContext } from "react"
+
+/**
+ * Context used to know if the app is in a logged in state or not
+ */
 
 export const LoggedInContext = createContext({
     loggedInState: {logged: true, access_token: null},

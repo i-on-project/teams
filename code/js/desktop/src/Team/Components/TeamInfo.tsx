@@ -1,11 +1,13 @@
 import * as React from 'react';
-import {  Grid, List, ListHeader, ListItem, Segment } from 'semantic-ui-react';
+import { Grid, List, ListHeader, ListItem, Segment } from 'semantic-ui-react';
 import { FormInModal } from '../../common/components/DefaultForm';
 import { Action, Resource } from '../../common/types/siren';
 import { SimpleStudentsTable } from '../../Students/components/SimpleStudentsTable';
 
+/**
+ * Function responsible for displaying the team information.
+ */
 export function TeamInfo({ resource }: { resource: Resource }) {
-
 
     return (
         <Grid divided='vertically' columns='equal'>
@@ -13,7 +15,7 @@ export function TeamInfo({ resource }: { resource: Resource }) {
                 <Grid.Column>
                     <h2>{resource.properties.name}</h2>
                     <h3>Students in this team:</h3>
-                    <SimpleStudentsTable  entities={resource.entities}/>
+                    <SimpleStudentsTable entities={resource.entities} />
                 </Grid.Column>
                 <Grid.Column width={3}>
                     <Segment color="blue">
@@ -29,9 +31,9 @@ export function TeamInfo({ resource }: { resource: Resource }) {
                                 )
                             }
                         </List>
-                </Segment>
-            </Grid.Column>
-        </Grid.Row>
+                    </Segment>
+                </Grid.Column>
+            </Grid.Row>
         </Grid >
     )
 }

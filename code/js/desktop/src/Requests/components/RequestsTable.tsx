@@ -7,26 +7,6 @@ import { DefaultTable } from '../../common/components/Table'
 import { Action, Entity } from '../../common/types/siren';
 import { useServiceLocation } from "../../common/components/ServiceLocationContext";
 
-declare type Problem = {
-    type: string,
-    title: string,
-    status: number,
-    detail: string
-}
-
-declare type UrlObj = {
-    protocol: string,
-    code: string,
-    type: string
-}
-
-declare type RegisterParams = {
-    name?: string,
-    email?: string,
-    number?: string,
-    office?: string
-}
-
 type MessageState = { hidden: boolean, success: boolean, error: boolean, status: number, message: string }
 
 type MessageAction =
@@ -35,6 +15,9 @@ type MessageAction =
     | { type: 'success' }
     | { type: 'reset' }
 
+/**
+ * Function represents a reducer for popup messages of information to the user.
+ */
 function messageReducer(state: MessageState, action: MessageAction): MessageState {
     switch (action.type) {
         case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
@@ -49,6 +32,9 @@ function messageReducer(state: MessageState, action: MessageAction): MessageStat
     }
 }
 
+/**
+ * Function responsible for building a table of team requests.
+ */
 export function RequestsTable({ entities, orgName }: { entities: Entity[], orgName: string }) {
 
     const { setChanged } = useContext(ChangedContext)
@@ -56,6 +42,9 @@ export function RequestsTable({ entities, orgName }: { entities: Entity[], orgNa
     const [messageState, messageDispatch] = React.useReducer(messageReducer,
         { hidden: true, success: false, error: false, status: null, message: null })
 
+    /**
+     * Function sgould be appart of github integration, this is not implemented due to a lack of time.
+     */
     function onClickAccept(action: Action, teamName: string) {
         /*
         fetch(` https://api.github.com/orgs/${orgName}/repos`,
@@ -92,9 +81,11 @@ export function RequestsTable({ entities, orgName }: { entities: Entity[], orgNa
                 messageDispatch({ type: 'error', status: err.status, message: err.detail })
             })
         */
-        console.log("Not implemented. Missing comunication with github.")
     }
 
+    /**
+     * Function used to send requests to the service API to either accept or deny now teams.
+     */
     function fetchAction(action: Action) {
 
         const apiUrl = useServiceLocation().url
@@ -118,6 +109,9 @@ export function RequestsTable({ entities, orgName }: { entities: Entity[], orgNa
             })
     }
 
+    /**
+     * Function responsible for build the table rows.
+     */
     function rowSpan() {
         const projects = entities.map((entity: Entity) => {
             return {

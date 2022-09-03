@@ -26,6 +26,9 @@ export function Page() {
     )
 }
 
+/**
+ * Body function represents the page body. It is responsible for displaying the relevant information to the user.
+ */
 function Body({ resource }: { resource: Resource }) {
 
     const setItems = useMenu().setItems

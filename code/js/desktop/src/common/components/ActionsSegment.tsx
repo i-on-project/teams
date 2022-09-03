@@ -3,6 +3,9 @@ import { Menu, Segment } from "semantic-ui-react";
 import { Action } from "../types/siren";
 import { FormInModal } from "./DefaultForm";
 
+/**
+ * Function represents the segment where the list of actions is displayed.
+ */
 export function ActionsSegment({ actions }: { actions: Action[] }) {
     return (
         <Segment color='blue'>

@@ -3,10 +3,14 @@ import { Table } from 'semantic-ui-react';
 import { DefaultTable } from '../../common/components/Table'
 import { Entity } from '../../common/types/siren';
 
+/**
+ * Function responsible for building a table of tags.
+ */
 export function TagsTable({ entities }: { entities: Entity[] }) {
 
-    //console.log(entities)
-
+    /**
+     * Function responsible for building the rows of the Tags table.
+     */
     function rowSpan() {
         const projects = entities.map((entity: Entity) => {
             return {

@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Container, Divider, Loader } from "semantic-ui-react"
-import { ChangedContainer } from "../common/components/changedStatus"
 import { DefaultForm } from "../common/components/DefaultForm"
 import { Fetch } from "../common/components/fetch"
 import { MenuItem } from "../common/components/Menu"
@@ -10,8 +9,12 @@ import { Action, Collection } from "../common/types/siren"
 import { makeHome, makeOrganizations } from "../common/Uris"
 import { OrganizationsTable } from "./components/OrganizationsTable"
 
+/**
+ * Function represents a page of a list os organizations.
+ */
 export function Page() {
 
+    //Uri state used for paging
     const [uri, setUri] = React.useState(`/api${makeOrganizations()}`)
 
     return (
@@ -28,11 +31,12 @@ export function Page() {
     )
 }
 
-
+/**
+ * Body function represents the page body. It is responsible for displaying the relevant information to the user.
+ */
 function Body({ collection }: { collection: Collection }) {
 
     const setItems = useMenu().setItems
-
 
     React.useEffect(() => {
         const menuItems: MenuItem[] = [

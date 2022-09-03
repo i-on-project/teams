@@ -1,9 +1,12 @@
+/**
+ * Uri definitions and templates. Functions are used every time a URI needs to be built.
+ */
+
 type UriParam = string | number
 
 export function makeHome(): string {
   return '/'
 }
-
 
 //Organizations
 export function makeOrganizations(): string {

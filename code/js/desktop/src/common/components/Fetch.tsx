@@ -1,7 +1,5 @@
-import { stat } from "original-fs"
 import * as React from "react"
 import { useReducer, useEffect} from "react"
-import { useChangedState } from "../../../out/ion-teams-desktop-darwin-arm64/ion-teams-desktop.app/Contents/Resources/app/src/common/components/changedStatus"
 import { ChangedContext } from "./changedStatus"
 import { Error, ErrorNOk } from "./error"
 
@@ -60,7 +58,6 @@ async function doFetch(uri: string, dispatcher: (action: Action) => void, signal
             dispatcher({ type: 'payload', payload: payload })
         }
     } catch (error: any) {
-        console.log(`error '${error.message}'`)
         dispatcher({ type: 'error', error: error })
     }
 }
@@ -92,11 +89,6 @@ export function Fetch(props: FetchProps) {
     const { changed } = React.useContext(ChangedContext)
     const [state, dispatcher] = useReducer(reducer, { state: 'begin' })
     useEffect(() => fetchEffect(props.url, dispatcher), [props.url, dispatcher, changed])
-
-    useEffect(() => {
-        console.log("Changed status update")
-    }, [changed])
-
 
     switch (state.state) {
         case 'begin': return props.renderBegin()

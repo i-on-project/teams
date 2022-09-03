@@ -6,11 +6,17 @@ import { DefaultTable } from '../../common/components/Table'
 import { Entity } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
 
+/**
+ * Function responsible for creating a table of teams.
+ */
 export function TeamsTable({ entities, orgId, classId }: { entities: Entity[], orgId: number, classId: number }) {
 
     const navigate = useNavigate()
-    const menuItemNameContext= useMenuItemNameContext()
+    const menuItemNameContext = useMenuItemNameContext()
 
+    /**
+     * Function responsible for building the rows of the teams table.
+     */
     function rowSpan() {
         const teams = entities.map((entity: Entity) => {
             return {

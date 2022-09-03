@@ -1,6 +1,10 @@
 import { createContext, useState, useContext } from "react"
 import * as React from "react"
 
+/**
+ * Context used to update paged when a change is made (ex. a new resource was created)
+ */
+
 export const ChangedContext = createContext({
     changed: false,
     setChanged: (state: boolean) => {}
@@ -14,7 +18,6 @@ export function ChangedContainer({children}:{children: React.ReactNode}) {
     const [state, setState] = useState(false)
 
     React.useEffect(() => {
-        console.log("CHANGED IS NOW GOING TO FALSE")
         setState(false)
     }, [state])
     

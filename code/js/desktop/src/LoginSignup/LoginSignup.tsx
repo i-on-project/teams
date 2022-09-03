@@ -1,9 +1,11 @@
 import * as React from 'react'
-import { Button, Form, Grid, Header, Message, Segment, Image, Divider, Icon, StrictConfirmProps, StrictGridColumnProps } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment, Image, Divider, Icon } from 'semantic-ui-react';
 import { useLoggedInState } from "../common/components/loggedStatus"
 import { useServiceLocation } from '../common/components/ServiceLocationContext';
 
-
+/**
+ * Electron IPC api deficitions for usage in this file
+ */
 declare const electron: {
   externalBrowserApi: {
     open: (value: string) => undefined
@@ -12,12 +14,9 @@ declare const electron: {
   customProtocolUrl: (callback: (_event: any, value: string) => void) => void,
 }
 
-declare type AccessToken = {
-  access_token: string,
-  scope: string,
-  token_type: string
-}
-
+/**
+ * Types definitions used in this file
+ */
 declare type Problem = {
   type: string,
   title: string,
@@ -46,6 +45,9 @@ type MessageAction =
   | { type: 'success' }
   | { type: 'reset' }
 
+/**
+ * Function used in a message reducer to display popup information messages.
+ */
 function messageReducer(state: MessageState, action: MessageAction): MessageState {
   switch (action.type) {
     case 'success': return { hidden: false, success: true, error: false, status: 200, message: 'Successful!' }
@@ -60,6 +62,9 @@ function messageReducer(state: MessageState, action: MessageAction): MessageStat
   }
 }
 
+/**
+ * Function used to convert the URL received from deep-linking in an object so that the information is more easily accessable.
+ */
 function convertUrltoObj(url: string) {
 
   let split = url.split('://')
@@ -70,7 +75,7 @@ function convertUrltoObj(url: string) {
   //Obtaining the code
   const code = split[0].split('=')[1]
 
-  //Obtaining the code
+  //Obtaining the type
   const type = split[1].split('=')[1]
 
   const obj: UrlObj = { protocol: protocol, code: code, type: type }
@@ -78,6 +83,9 @@ function convertUrltoObj(url: string) {
   return obj
 }
 
+/**
+ * Function represents the login/signup page, complete with all the necessary mecanisms for authenticatig and registering a user.
+ */
 export function LoginSignup() {
 
   const setLoggedState = useLoggedInState().setLoggedState
@@ -89,10 +97,12 @@ export function LoginSignup() {
     { hidden: true, success: false, error: false, status: null, message: null })
 
   electron.customProtocolUrl((_event, value) => {
-    console.log(value)
     setUrl(value)
   })
 
+  /**
+   * Attempt to auto-login, checking if there is an active access token stored as a cookie.
+   */
   React.useEffect(() => {
     fetch(`${apiUrl}/auth/access_token`)
       .then(resp => {
@@ -103,27 +113,30 @@ export function LoginSignup() {
       })
       .then(resp => resp.json())
       .then((token: string) => {
-        console.log(token)
         setLoggedState({ logged: true, access_token: token })
       })
       .catch((err: Error) => {
-        console.log(err)
+        
       })
   }, [])
 
+  /**
+   * Mecasnism of login/signup after receiving the url from deep-linking
+   */
   React.useEffect(() => {
     if (!url.includes('code=')) return
 
     const urlObj = convertUrltoObj(url)
-    console.log(urlObj)
 
+    /**
+     * Fetch implementation with a timeout of 8seconds.
+     */
     async function fetchWithTimeout(resource: string, options?: any) {
-  
+
       const timeout = 8000;
-    
+
       const controller = new AbortController();
       const id = setTimeout(() => {
-        console.log("Fetch timed out, aborting.")
         setLoading(false)
         return controller.abort()
       }, timeout);
@@ -135,8 +148,10 @@ export function LoginSignup() {
       return response;
     }
 
+    /**
+     * Function used to check if the fetch response received has a 200ok status code, if not an error is thrown.
+     */
     async function checkRespOk(resp: Response) {
-      console.log('In verification')
 
       if (!resp.ok) {
         throw await resp.json()
@@ -153,7 +168,6 @@ export function LoginSignup() {
         .then(resp => resp.json())
         .then((token: string) => {
           messageDispatch({ type: 'success' })
-          console.log(token)
           setLoggedState({ logged: true, access_token: token })
           setLoading(false)
         })
@@ -187,10 +201,16 @@ export function LoginSignup() {
 
   }, [url])
 
+  /**
+   * OnClick function of the login button
+   */
   function loginButtonOnClick() {
     electron.externalBrowserApi.open(`${apiUrl}/auth/login?clientId=desktop`)
   }
 
+  /**
+   * OnClick function of the signup button
+   */
   function signupButtonOnClick() {
     electron.externalBrowserApi.open(`${apiUrl}/auth/register?clientId=desktop-register`)
   }

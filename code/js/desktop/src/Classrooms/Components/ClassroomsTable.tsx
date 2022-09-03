@@ -6,11 +6,17 @@ import { DefaultTable } from '../../common/components/Table'
 import { Entity } from '../../common/types/siren';
 import * as Uris from '../../common/Uris';
 
+/**
+ * Function represents a table of classrooms
+ */
 export function ClassroomsTable({ entities, orgId }: { entities: Entity[], orgId: number }) {
 
     const navigate = useNavigate()
     const setClassroomName = useMenuItemNameContext().setClassName
 
+    /**
+     * Function responsible for building the table's rows.
+     */
     function rowSpan() {
         const projects = entities.map((entity: Entity) => {
             return {

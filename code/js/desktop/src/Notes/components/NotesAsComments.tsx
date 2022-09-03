@@ -3,6 +3,9 @@ import { Comment, Divider, Form } from "semantic-ui-react";
 import * as React from "react";
 import { DefaultForm, DefaultModal } from "../../common/components/DefaultForm";
 
+/**
+ * Function used to display the notes of a team as comments (a type of information structure provuided by semantic ui)
+ */
 export function NotesAsComments({ collection }: { collection: Collection }) {
 
     return (

@@ -1,13 +1,15 @@
 import * as React from 'react'
-import { useContext } from 'react'
 import { Table, Loader, Button } from 'semantic-ui-react'
-import { UriContext, useUri } from './UriContext'
+import { useUri } from './UriContext'
 
 export type Paging = {
     nextUri?: string,
     prevUri?: string
 }
 
+/**
+ * Function used by all table functions. It is a generic function that can be complemented to build custom tables for each individual resource.
+ */
 export function DefaultTable({ propNames, pagingProps, children }: { propNames: string[], pagingProps?: Paging, children: React.ReactNode }) {
     const uri = useUri()
 
@@ -39,6 +41,9 @@ export function DefaultTable({ propNames, pagingProps, children }: { propNames: 
     )
 }
 
+/**
+ * Table loading representation
+ */
 export function DefaultTableLoading() {
 
     return (

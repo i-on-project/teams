@@ -10,6 +10,9 @@ import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganiz
 import { NotesAsComments } from "../Notes/components/NotesAsComments";
 import { TeamInfo } from "./Components/TeamInfo";
 
+/**
+ * Team page, displays the information of an individual team.
+ */
 export function Page() {
 
     const { orgId, classId, teamId } = useParams()
@@ -26,6 +29,9 @@ export function Page() {
     )
 }
 
+/**
+ * Body function represents the body of the page, it is responsible for displaying all the relevant information to the user.
+ */
 function Body({ resource }: { resource: Resource }) {
 
     const { orgId, classId, teamId } = useParams()
@@ -53,7 +59,7 @@ function Body({ resource }: { resource: Resource }) {
                 href: makeClassroom(orgId, classId),
                 hasSubItems: true,
                 subItems: [
-                    { name: 'Students', href: makeStudentsClassroom(orgId, classId)},
+                    { name: 'Students', href: makeStudentsClassroom(orgId, classId) },
                     { name: 'Teams', href: makeTeams(orgId, classId) },
                     { name: 'Requests', href: makeRequests(orgId, classId) },
                     { name: 'Assignments', href: makeAssignments(orgId, classId) }
@@ -76,6 +82,9 @@ function Body({ resource }: { resource: Resource }) {
     )
 }
 
+/**
+ * Function used to display the notes of the team
+ */
 function getNotes(link: Link_relation) {
 
     return (

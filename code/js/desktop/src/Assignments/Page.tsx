@@ -11,6 +11,9 @@ import { Collection } from "../common/types/siren"
 import { makeAssignments, makeClassroom, makeHome, makeOrganization, makeOrganizations, makeRequests, makeStudentsClassroom, makeTeams } from "../common/Uris"
 import { AssignmentsTable } from "./components/AssignmentsTable"
 
+/**
+ * Function represents a assignments list page.
+ */
 export function Page() {
 
     const { orgId, classId } = useParams()
@@ -32,6 +35,9 @@ export function Page() {
     )
 }
 
+/**
+ * Body function represents the page body. It is responsible for displaying the relevant information to the user.
+ */
 function Body({ collection }: { collection: Collection }) {
 
     const setItems = useMenu().setItems

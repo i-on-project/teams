@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Header } from "semantic-ui-react";
 
 export type Sugestion = {
@@ -7,6 +7,9 @@ export type Sugestion = {
     href?: string
 } 
 
+/**
+ * Function used to guide users in case of empty pages.
+ */
 export function NothingToShow({ children, sugestion }: { children: string, sugestion?: Sugestion }) {
 
     const navigate = useNavigate()

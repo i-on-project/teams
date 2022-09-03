@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useContext, useState } from 'react'
 import { Button, Container, Divider, Dropdown, Form, Header, Message, Modal } from "semantic-ui-react";
 import { Action, Field } from "../types/siren";
-import { ChangedContext, useChangedState } from './changedStatus';
+import { ChangedContext } from './changedStatus';
 import { useServiceLocation } from './ServiceLocationContext';
 
 interface FormData {
@@ -35,6 +35,9 @@ function messageReducer(state: MessageState, action: MessageAction): MessageStat
     }
 }
 
+/**
+ * Function used to create forms with the information given by the API in the actions. All the forms are created dinamically.
+ */
 export function DefaultForm({ action, divider = false }: { action: Action, divider?: boolean }) {
 
     const { setChanged } = useContext(ChangedContext)
@@ -43,6 +46,9 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
     const [loadindState, setLoading] = React.useState(false)
     const [messageState, messageDispatch] = React.useReducer(messageReducer, { hidden: true, success: false, error: false, status: null, message: null })
 
+    /**
+     * onSubmit function for the form.
+     */
     function onSubmit(event: any) {
         event.preventDefault();
 
@@ -58,7 +64,6 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
             body: JSON.stringify(state)
         })
             .then(async (resp: Response) => {
-                console.log("On the then!!!!")
                 setChanged(true)
 
                 if (resp.ok) {
@@ -79,12 +84,12 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
         <div>
             <Header as='h2'>{action.title}</Header>
             <Message
-              hidden={messageState.hidden}
-              positive={messageState.success}
-              error={messageState.error}
-              header={messageState.status}
-              content={messageState.message}
-              onDismiss={() => { messageDispatch({ type: 'reset' }) }}
+                hidden={messageState.hidden}
+                positive={messageState.success}
+                error={messageState.error}
+                header={messageState.status}
+                content={messageState.message}
+                onDismiss={() => { messageDispatch({ type: 'reset' }) }}
             />
             <Form onSubmit={(event) => onSubmit(event)} loading={loadindState}>
                 {buildFields()}
@@ -96,8 +101,14 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
         </div>
     )
 
+    /**
+     * Function used to build the individual fields of the form
+     */
     function buildFields() {
 
+        /**
+         * Function used to build default fields. Deafault fields are those that do now represent deletes or do not have any possibilities.
+         */
         function defaultFormField(field: Field) {
             return (
                 <React.Fragment>
@@ -147,13 +158,16 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
     }
 }
 
+/**
+ * Represents a loading form
+ */
 export function FormLoading({ name, fieldsName }: { name: string, fieldsName: string[] }) {
     return (
         <Form loading>
             {fieldsName.map((fieldName) =>
                 <Form.Field key={fieldName}>
                     <label>fieldName</label>
-                    <input placeholder={`Write ${fieldName} here...`}  />
+                    <input placeholder={`Write ${fieldName} here...`} />
                 </Form.Field>
             )}
             <Button positive type='submit'>{name}</Button>
@@ -161,6 +175,9 @@ export function FormLoading({ name, fieldsName }: { name: string, fieldsName: st
     )
 }
 
+/**
+ * Represents a form inside a modal. A modal is a semantic ui structure that is characterized by a pop up in the page.
+ */
 export function FormInModal({ children, action }: { children: React.ReactNode, action: Action }) {
 
     const [open, setOpen] = useState(false)
@@ -188,6 +205,9 @@ export function FormInModal({ children, action }: { children: React.ReactNode, a
     )
 }
 
+/**
+ * Function used to build the modal.
+ */
 export function DefaultModal({ children, trigger }: { children: React.ReactNode, trigger: React.ReactNode }) {
 
     const [open, setOpen] = useState(false)

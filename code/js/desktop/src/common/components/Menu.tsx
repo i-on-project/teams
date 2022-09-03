@@ -14,7 +14,9 @@ export type MenuItem = {
     subItems?: MenuItem[]
 }
 
-
+/**
+ * Side menu definition
+ */
 export function VerticalFixedMenu() {
 
     const items = useMenu().items
@@ -30,6 +32,9 @@ export function VerticalFixedMenu() {
         width: "50 %"
     }
 
+    /**
+     * OnClick function for the logout button.
+     */
     function onLogout() {
         fetch(`${apiUrl}/auth/logout`)
             .then(() => {
@@ -38,7 +43,9 @@ export function VerticalFixedMenu() {
             })
     }
 
-
+    /**
+     * Funtion responsible for building the menu items.
+     */
     function itemsBuilder(items: MenuItem[]) {
 
         return items.map((item: MenuItem) =>

@@ -10,6 +10,9 @@ import { DeliveryInfo } from "./components/DeliveryInfo";
 import { TagsTable } from "../Tags/components/TagsTable";
 import { useMenuItemNameContext } from "../common/components/MenuItemNameContext";
 
+/**
+ * Function represents a delivery page.
+ */
 export function Page() {
 
     const { orgId, classId, assId, delId } = useParams()
@@ -26,6 +29,9 @@ export function Page() {
     )
 }
 
+/**
+ * Body function represents the page body. It is responsible for displaying the relevant information to the user.
+ */
 function Body({ resource }: { resource: Resource }) {
 
     const setItems = useMenu().setItems

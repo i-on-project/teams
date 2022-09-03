@@ -1,6 +1,9 @@
 import * as React from "react";
 import { Container, Segment, Image, Divider, Loader } from "semantic-ui-react";
 
+/**
+ * Small component that represents a loading state
+ */
 export function Loading() {
     return (
         <Container>

@@ -1,6 +1,10 @@
 import { createContext, useState } from "react"
 import * as React from "react"
 
+/**
+ * Sometimes the menu has to have a specific name instead of something else (ex. name of org instead of "org"), this context
+ * is used to define that name.
+ */
 
 export const MenuItemNameContext = createContext({
     orgName: '',
