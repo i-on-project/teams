@@ -110,6 +110,7 @@ class ErrorsController : ResponseEntityExceptionHandler() {
     ): ResponseEntity<Any> {
 
         logger.info("Handling ServletRequestBindingException")
+        logger.info(ex)
         return ResponseEntity
             .status(400)
             .contentType(ProblemJsonModel.MEDIA_TYPE)
