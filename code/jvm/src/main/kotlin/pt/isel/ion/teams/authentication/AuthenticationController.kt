@@ -427,7 +427,7 @@ class AuthenticationController(
             .maxAge(HALF_HOUR)
             .httpOnly(true)
             .secure(false)
-            .sameSite("None")
+            .sameSite("Lax")
             .build()
 
         //In student registration it is necessary to store the student number so that the GitHub username
@@ -441,7 +441,7 @@ class AuthenticationController(
             .maxAge(HALF_HOUR)
             .httpOnly(true)
             .secure(false)
-            .sameSite("None")
+            .sameSite("Lax")
             .build()
 
         if (clientId.contains("web")) {
