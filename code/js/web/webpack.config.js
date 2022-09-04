@@ -2,7 +2,7 @@ module.exports = {
     mode: 'development',
     devtool: false,
     devServer: {
-        port: 3000,
+        port: process.env.PORT ? process.env.PORT : 3000,
         historyApiFallback: true,
       },
     resolve: {
