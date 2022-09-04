@@ -427,7 +427,7 @@ class AuthenticationController(
             .maxAge(HALF_HOUR)
             .httpOnly(true)
             .secure(false)
-            .sameSite("Lax")
+            .sameSite("None")
             .build()
 
         //In student registration it is necessary to store the student number so that the GitHub username
@@ -441,7 +441,7 @@ class AuthenticationController(
             .maxAge(HALF_HOUR)
             .httpOnly(true)
             .secure(false)
-            .sameSite("Lax")
+            .sameSite("None")
             .build()
 
         if (clientId.contains("web")) {
@@ -459,15 +459,15 @@ class AuthenticationController(
                 )
         } else {
             return ResponseEntity
-                .status(200)
+                .status(303)
                 .header(HttpHeaders.SET_COOKIE, stateCookie.toString())
                 .header(HttpHeaders.SET_COOKIE, clientIdCookie.toString())
-                /*.header(
+                .header(
                     HttpHeaders.LOCATION, GITHUB_OAUTH_URI +
                             "?client_id=" + System.getenv("CLIENT_ID") + "&" +
                             "scope=" + GITHUB_TEACHER_SCOPE + "&" +
                             "state=" + state
-                )*/
+                )
                 .build()
         }
 
