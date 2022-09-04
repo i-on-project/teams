@@ -11,7 +11,6 @@ data class RepoDbRead (
     val id: Int,
     val url: String,
     val name: String,
-    val state: String,
     val tid: Int,
     val assId: Int
 )
@@ -39,7 +38,6 @@ data class RepoOutputModel(
     val id: Int,
     val url: String,
     val name: String,
-    val state: String,
     val tid: Int,
     val assId: Int
 )
@@ -48,7 +46,6 @@ data class RepoCompactOutputModel(
     val id: Int,
     val url: String,
     val name: String,
-    val state: String
 
 )
 
@@ -71,5 +68,5 @@ data class RepoUpdateModel(
 
 fun RepoInputModel.toDb(tId: Int) = RepoDbWrite(this.url, this.name, tId, this.assId)
 fun RepoUpdateModel.toDb(id: Int) = RepoDbUpdate(id, this.name, this.state, this.tid, this.assId)
-fun RepoDbRead.toOutput() = RepoOutputModel(this.id, this.url, this.name, this.state, this.assId, this.tid)
-fun RepoDbRead.toCompactOutput() = RepoCompactOutputModel(this.id, this.url, this.name, this.state)
+fun RepoDbRead.toOutput() = RepoOutputModel(this.id, this.url, this.name, this.assId, this.tid)
+fun RepoDbRead.toCompactOutput() = RepoCompactOutputModel(this.id, this.url, this.name)

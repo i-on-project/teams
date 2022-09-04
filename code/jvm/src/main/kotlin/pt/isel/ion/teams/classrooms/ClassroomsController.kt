@@ -67,8 +67,10 @@ class ClassroomsController(
         @PathVariable orgId: Int,
         @RequestBody classroomInputModel: ClassroomInputModel
     ): ResponseEntity<Any> {
-        val classroom = classroomsService.createClassroom(classroomInputModel.toDb(orgId)).toOutput()
         val number = authService.getNumber(session)
+
+
+        val classroom = classroomsService.createClassroom(classroomInputModel.toDb(orgId)).toOutput()
         teachersService.addTeacher(SimpleTeacherDbRead(number, classroom.id, orgId))
 
         return ResponseEntity

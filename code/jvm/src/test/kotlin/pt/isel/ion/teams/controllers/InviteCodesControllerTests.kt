@@ -13,19 +13,19 @@ import pt.isel.ion.teams.common.errors.ProblemJsonModel
 import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_SUBTYPE
-import pt.isel.ion.teams.inviteCode.InviteLinksOutputModel
+import pt.isel.ion.teams.inviteCode.InviteCodesOutputModel
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class InviteCodesControllerTests {
 
-    /*@Autowired
+    @Autowired
     private lateinit var client: MockMvc
 
     private var mapper = jacksonObjectMapper()
 
     @Test
-    fun getAllInviteLinksTest() {
+    fun getAllInviteCodesTest() {
         assertNotNull(client)
 
         client
@@ -38,7 +38,7 @@ class InviteCodesControllerTests {
 
                 //Class
                 jsonPath("$.class[0]") { value("collection") }
-                jsonPath("$.class[1]") { value("invite-link") }
+                jsonPath("$.class[1]") { value("invite-code") }
 
                 //Properties
                 jsonPath("$.properties.pageIndex") { isNumber() }
@@ -47,7 +47,7 @@ class InviteCodesControllerTests {
                 //Entities
                 jsonPath("$.entities") { isArray() }
                 jsonPath("$.entities[0].rel") { value("item") }
-                jsonPath("$.entities[0].class") { value("invite-link") }
+                jsonPath("$.entities[0].class") { value("invite-code") }
                 jsonPath("$.entities[0].properties.code") { isString() }
                 jsonPath("$.entities[0].properties.cid") { isNumber() }
                 jsonPath("$.entities[0].links") { isArray() }
@@ -66,11 +66,11 @@ class InviteCodesControllerTests {
     }
 
     @Test
-    fun getInviteLinkTest() {
+    fun getInviteCodeTest() {
         assertNotNull(client)
 
         client
-            .get(Uris.InviteCodes.InviteCode.make(1,1,"8b171ab5-2f09-4272-a607-f8fd68eeca31")) {
+            .get(Uris.InviteCodes.InviteCode.make("8b171ab5-2f09-4272-a607-f8fd68eeca31")) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
             }
             .andExpect {
@@ -78,7 +78,7 @@ class InviteCodesControllerTests {
                 content { contentType(SIREN_MEDIA_TYPE) }
 
                 //Class
-                jsonPath("$.class[0]") { value("invite-link") }
+                jsonPath("$.class[0]") { value("invite-code") }
 
                 //Properties
                 jsonPath("$.properties.code") { isString() }
@@ -104,7 +104,7 @@ class InviteCodesControllerTests {
         assertNotNull(client)
 
         client
-            .get(Uris.InviteCodes.InviteCode.make(1,1,"DoesNotExist"))
+            .get(Uris.InviteCodes.InviteCode.make("DoesNotExist"))
             .andExpect {
                 status { isNotFound() }
                 content { contentType(ProblemJsonModel.MEDIA_TYPE) }
@@ -133,13 +133,13 @@ class InviteCodesControllerTests {
 
         //Retrieving information from response to make update and delete
         val string: String = result.response.contentAsString
-        val createdInviteLink: InviteLinksOutputModel = mapper.readValue(string, InviteLinksOutputModel::class.java)
+        val createdInviteCode: InviteCodesOutputModel = mapper.readValue(string, InviteCodesOutputModel::class.java)
 
         //Third we try to delete what we just posted
         client
-            .delete(Uris.InviteCodes.InviteCode.make(1,1,createdInviteLink.code))
+            .delete(Uris.InviteCodes.InviteCode.make(createdInviteCode.code))
             .andExpect {
                 status { isOk() }
             }
-    }*/
+    }
 }

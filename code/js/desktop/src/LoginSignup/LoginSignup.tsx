@@ -218,9 +218,6 @@ export function LoginSignup() {
   return (
     <div>
       <div>
-        <Button onClick={() => { setLoggedState({ logged: true, access_token: 'belele' }) }}> Fake Login </Button>
-        The url is: {url}
-      </div>
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Image src='./public/logo_blue.svg' size="medium" centered />

@@ -12,7 +12,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
  */
 interface TeachersDAO {
 
-    @SqlQuery("SELECT * FROM teacher_classrooms_view WHERE id=:classId LIMIT :limit OFFSET :offset")
+    @SqlQuery("SELECT number, name, email, office FROM teachers_by_classroom_view WHERE cid=:classId LIMIT :limit OFFSET :offset")
     fun getTeachersByClass(
         @Bind("limit") limit: Int,
         @Bind("offset") offset: Int,

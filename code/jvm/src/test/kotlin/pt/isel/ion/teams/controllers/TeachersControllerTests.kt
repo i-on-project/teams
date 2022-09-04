@@ -1,7 +1,6 @@
 package pt.isel.ion.teams.controllers
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -95,7 +94,6 @@ class TeachersControllerTests {
                 jsonPath("$.properties.name") { isString() }
                 jsonPath("$.properties.email") { isString() }
                 jsonPath("$.properties.office") { isString() }
-                jsonPath("$.properties.cid") { isNumber() }
 
                 //Entities
                 jsonPath("$.entities") { isArray() }
@@ -121,7 +119,7 @@ class TeachersControllerTests {
     }
 
     @Test
-    fun getRepoNotFoundTest() {
+    fun getTeacherNotFoundTest() {
         assertNotNull(client)
 
         client
@@ -131,63 +129,4 @@ class TeachersControllerTests {
                 content { contentType(ProblemJsonModel.MEDIA_TYPE) }
             }
     }
-
-    @Test
-    fun createTeacherTest() {
-        assertNotNull(client)
-
-        //Objects to insert and compare
-        val teacherInput = TeacherInputModel(12312, "TestCreate", "test@test.test", "G.0.0")
-        val teacherOutput =
-            TeacherCompactOutputModel(12312, "TestCreate", "test@test.test", "G.0.0")
-
-        client
-            .post(Uris.Teachers.make(1,1)) {
-                accept = MediaType.APPLICATION_JSON
-                contentType = MediaType.APPLICATION_JSON
-                content = mapper.writeValueAsString(teacherInput)
-            }
-            .andExpect {
-                status { isCreated() }
-                content { contentType(MediaType.APPLICATION_JSON) }
-
-                //Assert POST response body
-                content { json(mapper.writeValueAsString(teacherOutput)) }
-            }
-
-        teachersService.deleteTeacher(47217)
-    }
-
-    /*@Test
-    fun updateTeacherCidTest() {
-        assertNotNull(client)
-
-        //Create teacher to test
-        val teacherDb =
-            TeacherDbWrite(93829, "TestUpdateCid", "test@test.test", "G.0.0", 1,1)
-        val teacher = teachersService.createTeacher(teacherDb)
-
-        //Update cid and compare
-        val teacherOutput =
-            TeacherCompactOutputModel(93829, "TestUpdateCid", "test@test.test", "G.0.0")
-        client
-            .put(Uris.Teachers.Teacher.make(1, 1, teacher.number)){
-                accept = MediaType.APPLICATION_JSON
-                contentType = MediaType.APPLICATION_JSON
-                content = "{\"cid\":2}"
-            }
-            .andExpect {
-                status { isOk() }
-                content { contentType(MediaType.APPLICATION_JSON) }
-
-                //Assert PUT response body
-                content { json(mapper.writeValueAsString(teacherOutput)) }
-            }
-
-        //Fetch classrooms by teacher to see if it was successfully added
-        val classes = classroomsService.getAllClassroomsByTeacher(teacher.number) //TODO: bad test
-        assertEquals(classes.last().id, 2)
-    }*/
-
-    //TODO create and two updates test, there is no delete in this case
 }

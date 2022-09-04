@@ -28,6 +28,7 @@ data class AssignmentDbUpdate(
     val id: Int,
     val releaseDate: Timestamp?,
     val description: String?,
+    val name: String,
     val cid: Int?
 )
 
@@ -70,7 +71,7 @@ fun AssignmentInputModel.toDb(classId: Int) =
     AssignmentDbWrite(Timestamp.valueOf(this.releaseDate), classId, this.description, this.name)
 
 fun AssignmentUpdateModel.toDb(id: Int) =
-    AssignmentDbUpdate(id, Timestamp.valueOf(this.releaseDate), this.description, this.cid)
+    AssignmentDbUpdate(id, Timestamp.valueOf(this.releaseDate), this.description, this.name, this.cid)
 
 fun AssignmentDbRead.toOutput() = AssignmentOutputModel(this.id, this.name, this.releaseDate, this.cid, this.description)
 fun AssignmentDbRead.toCompactOutput() = AssignmentCompactOutputModel(this.id, this.name, this.releaseDate)

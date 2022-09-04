@@ -77,7 +77,7 @@ class RequestsControllerTests() {
     }
 
     @Test
-    fun `acceptTeamTest`() {
+    fun acceptTeamTest() {
         assertNotNull(client)
 
         //Firstly we need to create a new team to then accept its request

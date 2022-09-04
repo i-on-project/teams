@@ -14,7 +14,7 @@ import pt.isel.ion.teams.common.siren.*
  * @param classId Invite link's classroom id
  */
 fun CollectionModel.toInviteLinksSirenObject(
-    listOfLinks: List<InviteLinksOutputModel>,
+    listOfLinks: List<InviteCodesOutputModel>,
     orgId: Int,
     classId: Int
 ): SirenEntity<CollectionModel> {
@@ -57,7 +57,7 @@ fun CollectionModel.toInviteLinksSirenObject(
  * @param orgId Invite link's organization id
  * @param classId Invite link's classroom id
  */
-fun InviteLinksOutputModel.toSirenObject(
+fun InviteCodesOutputModel.toSirenObject(
     orgId: Int
 ) = SirenEntity(
     properties = this,

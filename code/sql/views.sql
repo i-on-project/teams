@@ -102,6 +102,17 @@ FROM classrooms c
 WHERE c.deleted = B'0'
   AND t.deleted = B'0';
 
+CREATE VIEW TEACHERS_BY_CLASSROOM_VIEW (number, name, email, office) AS
+SELECT t.number,
+       t.name,
+       t.email,
+       t.office,
+       tc.cid
+FROM teacher t
+         JOIN teachers_classroom tc on tc.number = t.number
+WHERE t.deleted = B'0'
+  AND tc.deleted = B'0';
+
 CREATE VIEW TEACHER_ORGANIZATIONS_VIEW (id, name, description, number) AS
 SELECT o.id, o.name, o.description, t.number
 FROM organizations o

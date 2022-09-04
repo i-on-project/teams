@@ -12,14 +12,14 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 interface InviteCodeDAO {
 
     @SqlQuery("SELECT * FROM invite_codes_view WHERE cid=:cId")
-    fun getAlInviteLinks(@Bind("cId") cId: Int): List<InviteLinksDbRead>
+    fun getAlInviteLinks(@Bind("cId") cId: Int): List<InviteCodesDbRead>
 
     @SqlQuery("SELECT * FROM invite_codes_view WHERE code=:code")
-    fun getInviteLink( @Bind("code") code: String): InviteLinksDbRead
+    fun getInviteLink( @Bind("code") code: String): InviteCodesDbRead
 
     @SqlUpdate("INSERT INTO invite_codes (code,cId) VALUES (:code,:cId)")
     @GetGeneratedKeys
-    fun createInviteLink(@Bind("code") code: String, @Bind("cId") cId: Int): InviteLinksDbRead
+    fun createInviteLink(@Bind("code") code: String, @Bind("cId") cId: Int): InviteCodesDbRead
 
     @SqlUpdate("UPDATE invite_codes SET deleted=B'1' WHERE code=:code")
     fun deleteInviteLink(@Bind("code") code: String)

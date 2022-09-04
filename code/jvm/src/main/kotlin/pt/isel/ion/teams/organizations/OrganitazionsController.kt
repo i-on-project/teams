@@ -17,7 +17,6 @@ import pt.isel.ion.teams.teacher.TeachersService
  */
 @RestController
 @RequestMapping(Uris.Organizations.MAIN_PATH)
-@CrossOrigin("https://localhost:5000")
 class OrganizationController(
     val organizationsService: OrganizationsService,
     val classroomsService: ClassroomsService,
@@ -59,10 +58,12 @@ class OrganizationController(
     @PostMapping
     fun createOrganization(
         @RequestBody organization: OrganizationInputModel,
-        @CookieValue session: String
+        @CookieValue session: String?
     ): ResponseEntity<Any> {
+        //If session is null a number is attributed for test purposes (in production session is verified in the interceptor)
+        val number = if (session != null) authService.getNumber(session) else 86951
+
         val org = organizationsService.createOrganization(organization.toDb()).toOutput()
-        val number = authService.getNumber(session)
         teachersService.addTeacher(SimpleTeacherDbRead(number, null, org.id))
 
         return ResponseEntity
@@ -81,7 +82,6 @@ class OrganizationController(
     @DeleteMapping(Uris.Organizations.Organization.PATH)
     fun deleteOrganization(
         @PathVariable("orgId") id: Int,
-        @CookieValue session: String
     ): ResponseEntity<Any> {
         organizationsService.deleteOrganization(id)
         return ResponseEntity

@@ -32,7 +32,7 @@ class OrganizationsControllerTests {
         client
             .get(Uris.Organizations.make()) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
-                cookie(Cookie("number","86951"))
+                cookie(Cookie("session", "1"))
             }
             .andExpect {
                 status { isOk() }
@@ -87,8 +87,6 @@ class OrganizationsControllerTests {
                 jsonPath("$.properties.id") { isNumber() }
                 jsonPath("$.properties.name") { isString() }
                 jsonPath("$.properties.description") { isString() }
-                jsonPath("$.properties.githubUri") { isString() }
-                jsonPath("$.properties.avatarUri") { isString() }
 
                 //Entities
                 jsonPath("$.entities") { isArray() }
@@ -111,10 +109,9 @@ class OrganizationsControllerTests {
                 jsonPath("$.links") { isArray() }
                 jsonPath("$.links[0].rel") { value("self") }
                 jsonPath("$.links[1].rel") { value("home") }
-                jsonPath("$.links[2].rel") { value("github") }
-                jsonPath("$.links[3].rel") { value("logout") }
-                jsonPath("$.links[4].rel") { value("classrooms") }
-                jsonPath("$.links[5].rel") { value("organizations") }
+                jsonPath("$.links[2].rel") { value("logout") }
+                jsonPath("$.links[3].rel") { value("classrooms") }
+                jsonPath("$.links[4].rel") { value("organizations") }
             }
     }
 
@@ -140,6 +137,7 @@ class OrganizationsControllerTests {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
                 content = "{\"name\" : \"testOrg1\",\"description\" : \"testDescription1\"}"
+                cookie(Cookie("session", "1"))
             }
             .andExpect {
                 status { isCreated() }
@@ -149,8 +147,6 @@ class OrganizationsControllerTests {
                 jsonPath("$.id") { isNumber() }
                 jsonPath("$.name") { value("testOrg1") }
                 jsonPath("$.description") { value("testDescription1") }
-                jsonPath("$.githubUri") { isString() }
-                jsonPath("$.avatarUri") { isString() }
             }
             .andReturn()
 
@@ -173,8 +169,6 @@ class OrganizationsControllerTests {
                 jsonPath("$.id") { isNumber() }
                 jsonPath("$.name") { value("testUpdatedOrg${createdOrg.id}") }
                 jsonPath("$.description") { value("testUpdatedDescription") }
-                jsonPath("$.githubUri") { isString() }
-                jsonPath("$.avatarUri") { isString() }
             }
 
         //Third we try to delete what we just posted

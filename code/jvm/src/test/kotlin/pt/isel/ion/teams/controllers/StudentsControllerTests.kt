@@ -156,6 +156,7 @@ class StudentsControllerTests {
             }
     }
 
+    //TODO: Failed Test
     @Test
     fun getRepoNotFoundTest() {
         assertNotNull(client)
@@ -190,15 +191,5 @@ class StudentsControllerTests {
             }
 
         studentsService.deleteStudent(46912)
-    }
-
-    @Test
-    fun putStudentTest() {
-        assertNotNull(client)
-
-        val studentInput = StudentInputModel(46912, "Martim Francisco").toDb()
-        val student = studentsService.createStudent(studentInput)
-
-        //TODO
     }
 }

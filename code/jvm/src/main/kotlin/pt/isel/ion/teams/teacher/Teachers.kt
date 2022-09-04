@@ -12,8 +12,6 @@ data class CompleteTeacherDbRead(
     val name: String,
     val email: String,
     val office: String,
-    val cid: Int,
-    val orgid: Int
 )
 
 data class InfoTeacherDbRead(
@@ -56,8 +54,6 @@ data class CompleteTeacherOutputModel(
     val name: String,
     val email: String,
     val office: String,
-    val cid: Int,
-    val orgid: Int
 )
 
 data class SimpleTeacherOutputModel(
@@ -94,7 +90,7 @@ data class TeacherUpdateModel(
  */
 fun TeacherInputModel.toDb() = TeacherDbWrite(this.number, this.name, this.email, this.office)
 fun TeacherUpdateModel.toDb(number: Int) = TeacherDbUpdate(number, this.name, this.email, this.office, this.githubusername, this.cid, this.orgid)
-fun CompleteTeacherDbRead.toOutput() = CompleteTeacherOutputModel(this.number, this.name, this.email, this.office, this.cid, this.orgid)
+fun CompleteTeacherDbRead.toOutput() = CompleteTeacherOutputModel(this.number, this.name, this.email, this.office)
 fun SimpleTeacherDbRead.toOutput() = SimpleTeacherOutputModel(this.number, this.cid, this.orgid)
 fun InfoTeacherDbRead.toOutput() = TeacherCompactOutputModel(this.number, this.name, this.email, this.office)
 fun CompleteTeacherDbRead.toCompactOutput() = TeacherCompactOutputModel(this.number, this.name, this.email, this.office)

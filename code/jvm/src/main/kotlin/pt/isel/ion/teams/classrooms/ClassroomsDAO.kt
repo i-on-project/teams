@@ -28,9 +28,7 @@ interface ClassroomsDAO {
         @Bind("orgId") orgId: Int
     ): List<ClassroomDbRead>
 
-    @SqlQuery("SELECT cl.id, cl.name, cl.description, cl.maxTeams, cl.maxMembersPerTeam, cl.repouri, cl.schoolYear, " +
-            "cl.orgId, cl.state, cl.githuburi, cl.avataruri FROM classrooms AS cl JOIN teachers AS t on cl.id = t.cid " +
-            "WHERE t.number = :number AND cl.deleted = B'0' AND t.deleted = B'0'")
+    @SqlQuery("SELECT id, name, description, maxTeams, maxMembersPerTeam, schoolYear, orgId, state FROM teacher_classrooms_view AS cl WHERE cl.number = :number")
     fun getAllClassroomsByTeacher(@Bind("number") teacherNum: Int): List<ClassroomDbRead>
 
     @SqlQuery("SELECT * FROM classrooms_view WHERE id = :id")

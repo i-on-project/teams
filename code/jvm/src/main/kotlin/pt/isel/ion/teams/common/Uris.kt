@@ -170,7 +170,7 @@ object Uris {
 
         object FromClassroom {
             const val PATH = "$MAIN_PATH/students"
-            private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
+            private val TEMPLATE = UriTemplate(PATH)
             fun make(orgId: Int, classId: Int) = TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId))
 
             private const val PAGE_PATH = "${PATH}?pageIndex={pageIndex}&pageSize={pageSize}"
@@ -183,7 +183,7 @@ object Uris {
 
         object FromTeam {
             const val PATH = "$MAIN_PATH/teams/{teamId}/students"
-            private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
+            private val TEMPLATE = UriTemplate(PATH)
             fun make(orgId: Int, classId: Int, teamId: Int) =
                 TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "teamId" to teamId))
 
@@ -203,7 +203,7 @@ object Uris {
 
         object Student {
             const val PATH = "$MAIN_PATH/students/{number}"
-            private val TEMPLATE = UriTemplate(MAIN_PATH + PATH)
+            private val TEMPLATE = UriTemplate(PATH)
             fun make(orgId: Int, classId: Int, number: Int) =
                 TEMPLATE.expand(mapOf("orgId" to orgId, "classId" to classId, "number" to number))
         }

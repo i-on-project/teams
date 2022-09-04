@@ -135,7 +135,7 @@ class DeliveriesControllerTests {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
                 content = "{\"name\": \"phase 3\"," +
-                        "    \"date\": \"2022-05-09 23:59:59\"}"
+                        "    \"date\": \"2022-05-09T23:59\"}"
             }
             .andExpect {
                 status { isCreated() }
@@ -144,7 +144,7 @@ class DeliveriesControllerTests {
                 //Assert POST response body
                 jsonPath("$.id") { isNumber() }
                 jsonPath("$.name") { value("phase 3") }
-                jsonPath("$.date") { value("2022-05-09 23:59:59") }
+                jsonPath("$.date") { value("2022-05-09 23:59:00") }
             }
             .andReturn()
 
@@ -158,7 +158,7 @@ class DeliveriesControllerTests {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
                 content = "{\"name\": \"updateTest\","+
-                        "    \"date\": \"2022-06-09 23:59:59\"}"
+                        "    \"date\": \"2022-06-09T23:59\"}"
             }
             .andExpect {
                 status { isOk() }
@@ -167,7 +167,7 @@ class DeliveriesControllerTests {
                 //Assert POST response body
                 jsonPath("$.id") { isNumber() }
                 jsonPath("$.name") { value("updateTest") }
-                jsonPath("$.date") { value("2022-06-09 23:59:59") }
+                jsonPath("$.date") { value("2022-06-09 23:59:00") }
             }
 
         //Third we try to delete what we just posted

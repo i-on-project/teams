@@ -14,6 +14,7 @@ import pt.isel.ion.teams.common.errors.ProblemJsonModel
 import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_SUBTYPE
+import javax.servlet.http.Cookie
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,6 +32,7 @@ class ClassroomsControllerTests {
         client
             .get(Uris.Classrooms.make(1)) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
+                cookie(Cookie("session", "1"))
             }
             .andExpect {
                 status { isOk() }
@@ -104,20 +106,18 @@ class ClassroomsControllerTests {
                 jsonPath("$.actions[0].name") { value("create-assignment") }
                 jsonPath("$.actions[1].name") { value("delete-classroom") }
                 jsonPath("$.actions[2].name") { value("update-classroom") }
-                jsonPath("$.actions[3].name") { value("create-invite-link") }
+                jsonPath("$.actions[3].name") { value("create-invite-code") }
 
                 //Links
                 jsonPath("$.links") { isArray() }
                 jsonPath("$.links[0].rel") { value("self") }
                 jsonPath("$.links[1].rel") { value("home") }
-                jsonPath("$.links[2].rel") { value("github") }
-                jsonPath("$.links[3].rel") { value("avatar") }
-                jsonPath("$.links[4].rel") { value("organization") }
-                jsonPath("$.links[5].rel") { value("assignments") }
-                jsonPath("$.links[6].rel") { value("requests") }
-                jsonPath("$.links[7].rel") { value("invite-links") }
-                jsonPath("$.links[8].rel") { value("students") }
-                jsonPath("$.links[9].rel") { value("logout") }
+                jsonPath("$.links[2].rel") { value("organization") }
+                jsonPath("$.links[3].rel") { value("assignments") }
+                jsonPath("$.links[4].rel") { value("requests") }
+                jsonPath("$.links[5].rel") { value("invite-codes") }
+                jsonPath("$.links[6].rel") { value("students") }
+                jsonPath("$.links[7].rel") { value("logout") }
             }
     }
 
@@ -148,6 +148,7 @@ class ClassroomsControllerTests {
                         "    \"maxMembersPerTeam\": 4," +
                         "    \"repoURI\": \"repoURIexample\"," +
                         "    \"schoolYear\": \"2021/22\"}"
+                cookie(Cookie("session", "1"))
             }
             .andExpect {
                 status { isCreated() }
@@ -159,7 +160,6 @@ class ClassroomsControllerTests {
                 jsonPath("$.description") { value("testDescription") }
                 jsonPath("$.state") { value("active") }
                 jsonPath("$.schoolYear") { value("2021/22") }
-                jsonPath("$.githubURI") { isString() }
                 jsonPath("$.schoolYear") { isString() }
             }
             .andReturn()
@@ -189,7 +189,6 @@ class ClassroomsControllerTests {
                 jsonPath("$.description") { value("testUpdatedDescription") }
                 jsonPath("$.state") { value("active") }
                 jsonPath("$.schoolYear") { value("2021/22") }
-                jsonPath("$.githubURI") { isString() }
                 jsonPath("$.schoolYear") { isString() }
             }
 

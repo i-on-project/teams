@@ -7,17 +7,17 @@ package pt.isel.ion.teams.inviteCode
 /**
  * For internal use only.
  */
-data class InviteLinksDbRead(
+data class InviteCodesDbRead(
     val code: String,
     val cId: Int
 )
 
-data class InviteLinksDbWrite(
+data class InviteCodesDbWrite(
     val code: String,
     val cId: Int
 )
 
-data class InviteLinksDbUpdate(
+data class InviteCodesDbUpdate(
     val code: String,
     val cId: Int
 )
@@ -26,22 +26,22 @@ data class InviteLinksDbUpdate(
  * For external use only.
  */
 
-data class InviteLinksOutputModel(
+data class InviteCodesOutputModel(
     val code: String,
     val cid: Int
 )
 
-data class InviteLinksCompactOutputModel(
+data class InviteCodesCompactOutputModel(
     val code: String,
     val cId: Int
 )
 
-data class InviteLinksInputModel(
+data class InviteCodesInputModel(
     val code: String,
     val cId: Int
 )
 
-data class InviteLinksUpdateModel(
+data class InviteCodesUpdateModel(
     val code: String,
     val cId: Int
 )
@@ -50,9 +50,9 @@ data class InviteLinksUpdateModel(
  * Functions to transition from external to internal, or vice-versa.
  */
 
-fun InviteLinksInputModel.toDb() =
-    InviteLinksDbWrite(this.code, this.cId)
-fun InviteLinksUpdateModel.toDb() =
-    InviteLinksDbUpdate(this.code, this.cId)
-fun InviteLinksDbRead.toOutput() = InviteLinksOutputModel(this.code, this.cId)
-fun InviteLinksDbRead.toCompactOutput() = InviteLinksCompactOutputModel(this.code, this.cId)
+fun InviteCodesInputModel.toDb() =
+    InviteCodesDbWrite(this.code, this.cId)
+fun InviteCodesUpdateModel.toDb() =
+    InviteCodesDbUpdate(this.code, this.cId)
+fun InviteCodesDbRead.toOutput() = InviteCodesOutputModel(this.code, this.cId)
+fun InviteCodesDbRead.toCompactOutput() = InviteCodesCompactOutputModel(this.code, this.cId)

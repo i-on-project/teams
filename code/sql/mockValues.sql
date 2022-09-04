@@ -16,9 +16,9 @@ VALUES ('AVE', 'Ambientes Virtuais de Execução.'),
        ('Org11', 'Organization.');
 
 INSERT INTO classrooms (name, description, maxteams, maxmembersperteam, schoolyear, orgid)
-VALUES ('li4xd', 'Turma x 4 ano.', 3, 2, '2021/22', 1),
-       ('li4yd', 'Turma y 4 ano.', 3, 2, '2021/22', 1),
-       ('li5xd', 'Turma x 5 ano.', 3, 2, '2021/22', 2);
+VALUES ('li4xd', 'Turma x 4 ano.', 10, 2, '2021/22', 1),
+       ('li4yd', 'Turma y 4 ano.', 10, 2, '2021/22', 1),
+       ('li5xd', 'Turma x 5 ano.', 10, 2, '2021/22', 2);
 
 INSERT INTO teacher (number, name, email, office)
 VALUES (86951, 'Humberto Silva', 'humberto.silva@isel.pt', 'F.0.5'),
@@ -74,4 +74,7 @@ VALUES ('phase 1', 1, 1),
 INSERT INTO notes (tid, description)
 VALUES (3, 'Does not meet all requirements.'),
        (2, 'Does meet all requirements.');
+
+INSERT INTO user_session (number, sessionid, usertype)
+VALUES (86951, 1, 'T')
 

@@ -29,7 +29,7 @@ class NotesControllerTests {
         assertNotNull(client)
 
         client
-            .get(Uris.Notes.make(1,1,1)) {
+            .get(Uris.Notes.make(1,1,3)) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
             }
             .andExpect {
@@ -54,7 +54,7 @@ class NotesControllerTests {
                 jsonPath("$.entities[0].links[0].rel") { value("self") }
 
                 //Actions
-                jsonPath("$.actions") { doesNotExist() }
+                jsonPath("$.actions") { isArray() }
 
                 //Links
                 jsonPath("$.links") { isArray() }

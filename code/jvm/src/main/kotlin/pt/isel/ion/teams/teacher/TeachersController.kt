@@ -54,7 +54,7 @@ class TeachersController(val service: TeachersService, val classService: Classro
             .contentType(MediaType.APPLICATION_JSON)
             .body(service.updateTeacher(teacher.toDb(number)).toOutput())
 
-    @PostMapping(Uris.Teachers.Teacher.PATH)
+    @PostMapping(Uris.Teachers.MAIN_PATH)
     fun addTeacher(
         @PathVariable orgId: Int,
         @PathVariable classId: Int,

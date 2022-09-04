@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.web.server.Cookie
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.*
 import pt.isel.ion.teams.assignments.AssignmentOutputModel
@@ -14,6 +15,7 @@ import pt.isel.ion.teams.common.errors.ProblemJsonModel
 import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_SUBTYPE
+import org.springframework.test.web.servlet.request
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -99,8 +101,9 @@ class AssignmentsControllerTests {
 
                 //Actions
                 jsonPath("$.actions") { isArray() }
-                jsonPath("$.actions[0].name") { value("update-assignment") }
-                jsonPath("$.actions[1].name") { value("delete-assignment") }
+                jsonPath("$.actions[0].name") { value("create-delivery") }
+                jsonPath("$.actions[1].name") { value("update-assignment") }
+                jsonPath("$.actions[2].name") { value("delete-assignment") }
 
                 //Links
                 jsonPath("$.links") { isArray() }
@@ -133,8 +136,9 @@ class AssignmentsControllerTests {
             .post(Uris.Assignments.make(1,1)) {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
-                content = "{\"releaseDate\": \"2022-06-06 14:00:00\"," +
-                        "    \"description\": \"Develop an app for android with the folowing requirements: .....\"}"
+                content = "{\"releaseDate\": \"2022-06-06T14:00\"," +
+                        "    \"description\": \"Develop an app for android with the folowing requirements: .....\"," +
+                        "\"name\": \"Assignment 1\"}"
             }
             .andExpect {
                 status { isCreated() }
@@ -143,6 +147,7 @@ class AssignmentsControllerTests {
                 //Assert POST response body
                 jsonPath("$.id") { isNumber() }
                 jsonPath("$.releaseDate") { value("2022-06-06 14:00:00") }
+                jsonPath("$.name") { value("Assignment 1") }
                 jsonPath("$.description") {
                     value("Develop an app for android with the folowing requirements: .....")
                 }
@@ -159,8 +164,9 @@ class AssignmentsControllerTests {
             .put(Uris.Assignments.Assignment.make(1,1,createdAssignment.id)) {
                 accept = MediaType.APPLICATION_JSON
                 contentType = MediaType.APPLICATION_JSON
-                content = "{\"releaseDate\": \"2022-02-22 22:22:22\"," +
-                        "    \"description\": \"Test updated description\"}"
+                content = "{\"releaseDate\": \"2022-02-22T22:22\"," +
+                        "    \"description\": \"Test updated description\"," +
+                        "\"name\": \"Assignment 1.1\"}"
             }
             .andExpect {
                 status { isOk() }
@@ -168,8 +174,9 @@ class AssignmentsControllerTests {
 
                 //Assert POST response body
                 jsonPath("$.id") { isNumber() }
-                jsonPath("$.releaseDate") { value("2022-02-22 22:22:22") }
+                jsonPath("$.releaseDate") { value("2022-02-22 22:22:00") }
                 jsonPath("$.description") { value("Test updated description") }
+                jsonPath("$.name") { value("Assignment 1.1") }
                 jsonPath("$.cid") { isNumber() }
             }
 

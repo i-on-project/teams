@@ -14,6 +14,7 @@ import pt.isel.ion.teams.common.siren.APPLICATION_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_MEDIA_TYPE
 import pt.isel.ion.teams.common.siren.SIREN_SUBTYPE
 import pt.isel.ion.teams.teams.TeamsOutputModel
+import javax.servlet.http.Cookie
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,6 +32,7 @@ class TeamsControllerTests {
         client
             .get(Uris.Teams.make(1,1)) {
                 accept = MediaType(APPLICATION_TYPE, SIREN_SUBTYPE)
+                cookie(Cookie("session", "1"))
             }
             .andExpect {
                 status { isOk() }
@@ -100,7 +102,6 @@ class TeamsControllerTests {
                 jsonPath("$.actions") { isArray() }
                 jsonPath("$.actions[0].name") { value("update-team") }
                 jsonPath("$.actions[1].name") { value("delete-team") }
-                jsonPath("$.actions[2].name") { value("create-note") }
 
                 //Links
                 jsonPath("$.links") { isArray() }
