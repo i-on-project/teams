@@ -46,7 +46,7 @@ interface TeachersDAO {
     @GetGeneratedKeys
     fun addTeacherToClassroom(@BindBean simpleTeacherDbRead: SimpleTeacherDbRead): SimpleTeacherDbRead
 
-    @SqlUpdate("INSERT INTO teachers_organization (number, orgid) VALUES (:number,:orgid) ON CONFLICT (number,orgid) do nothing")
+    @SqlUpdate("INSERT INTO teachers_organization (number, orgid) VALUES (:number,:orgid) ON CONFLICT (number,orgid) DO UPDATE SET deleted = B'0'")
     @GetGeneratedKeys
     fun addTeacherToOrganization(@BindBean simpleTeacherDbRead: SimpleTeacherDbRead): SimpleTeacherDbRead
 
