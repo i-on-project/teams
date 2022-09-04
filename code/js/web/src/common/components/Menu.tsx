@@ -31,7 +31,7 @@ export function HorizontalMenu() {
     }
 
     function onLogout() {
-        fetch('http://localhost:8080/auth/logout', 
+        fetch('https://ion-teams-service.herokuapp.com/auth/logout', 
             {
                 credentials: 'include'
             }

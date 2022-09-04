@@ -3,7 +3,7 @@ import { useReducer, useEffect} from "react"
 import { ChangedContext } from "./changedStatus"
 import { Error, ErrorNOk } from "./error"
 
-const apiUrl: string = 'http://localhost:8080' 
+const apiUrl: string = 'https://ion-teams-service.herokuapp.com' 
 
 export type FetchProps = {
     url: string,

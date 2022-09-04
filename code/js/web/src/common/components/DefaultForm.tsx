@@ -48,7 +48,7 @@ export function DefaultForm({ action, divider = false }: { action: Action, divid
         event.preventDefault();
         setLoading(true)
 
-        fetch(`http://localhost:8080${action.href}`, {
+        fetch(`https://ion-teams-service.herokuapp.com${action.href}`, {
             method: action.method,
             headers: {
                 'Accept': action.type,

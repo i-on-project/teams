@@ -426,7 +426,7 @@ class AuthenticationController(
             .domain("ion-teams-service.herokuapp.com")
             .maxAge(HALF_HOUR)
             .httpOnly(true)
-            .secure(true)
+            .secure(false)
             .sameSite("Lax")
             .build()
 
@@ -440,7 +440,7 @@ class AuthenticationController(
             .domain("ion-teams-service.herokuapp.com")
             .maxAge(HALF_HOUR)
             .httpOnly(true)
-            .secure(true)
+            .secure(false)
             .sameSite("Lax")
             .build()
 

@@ -95,7 +95,7 @@ export function Page() {
 
   function onclickLogIn() {
     setLoading(true)
-    fetchWithTimeout('http://localhost:8080/auth/login?clientId=web',
+    fetchWithTimeout('https://ion-teams-service.herokuapp.com/auth/login?clientId=web',
       {
         credentials: 'include'
       }
@@ -116,7 +116,7 @@ export function Page() {
 
   function onclickSignUp() {
     setLoading(true)
-    fetchWithTimeout('http://localhost:8080/auth/register?clientId=web-register',
+    fetchWithTimeout('https://ion-teams-service.herokuapp.com/auth/register?clientId=web-register',
       {
         method: 'POST',
         headers: {

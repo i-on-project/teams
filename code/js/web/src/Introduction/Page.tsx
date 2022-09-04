@@ -24,7 +24,7 @@ export function Page() {
             setLoggedState(true)
             navigate("/")
         } else {
-            fetch(`http://localhost:8080/auth/autologin`,
+            fetch(`https://ion-teams-service.herokuapp.com/auth/autologin`,
                 {
                     credentials: "include"
                 }

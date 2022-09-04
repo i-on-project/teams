@@ -9,6 +9,7 @@ import { AssignmentInfo } from "./components/AssignmentInfo";
 import { DeliveriesTable } from "../Deliveries/components/DeliveriesTable";
 import { useMenu } from "../common/components/MenuContext";
 import { useMenuItemNameContext } from "../common/components/MenuItemNameContext";
+import { NothingToShow } from "../common/components/NothingToShow";
 
 export function Page() {
 
@@ -75,14 +76,16 @@ function Body({ resource }: { resource: Resource }) {
     return (
         <Container>
             <AssignmentInfo resource={resource} />
-            { resource.entities.length != 0 &&
+            <Divider />
+            { resource.entities.length != 0 ?
                 <React.Fragment>
-                    <Divider />
                     <h1>Deliveries of the assignment</h1>
                     {
                         <DeliveriesTable entities={resource.entities}></DeliveriesTable>
                     }
                 </React.Fragment>
+                :
+                <NothingToShow>No deliveries for this assignment.</NothingToShow>
             }
         </Container>
     )

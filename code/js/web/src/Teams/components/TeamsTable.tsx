@@ -11,14 +11,14 @@ export function TeamsTable({ collection }: { collection: Collection, }) {
 
     //Assign Student to a team
     function onClick(href: string) {
-        fetch(`http://localhost:8080${href}`, { credentials: 'include' })
+        fetch(`https://ion-teams-service.herokuapp.com${href}`, { credentials: 'include' })
             .then((response: Response) =>
                 response.json()
             )
             .then((resource: Resource) => {
                 const action = resource.actions.find((action: Action) => action.name == 'add-student')
                 if (action) {
-                    fetch(`http://localhost:8080${action.href}`, {
+                    fetch(`https://ion-teams-service.herokuapp.com${action.href}`, {
                         method: action.method,
                         headers: {
                             'Accept': action.type,
