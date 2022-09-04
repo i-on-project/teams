@@ -69,7 +69,7 @@ class DeliveriesController(
 
             delivery.date = "$date $time"
 
-            val createdDelivery = deliveriesService.createDelivery(delivery.toDb(classId)).toOutput()
+            val createdDelivery = deliveriesService.createDelivery(delivery.toDb(assId)).toOutput()
 
             return ResponseEntity
                 .created(Uris.Deliveries.Delivery.make(orgId, classId, assId, createdDelivery.id))
