@@ -1,4 +1,6 @@
-# i-on Teams
+<div align="center">
+ <img src="docs/logo.png" />
+</div>
 
 ## Overview
 
