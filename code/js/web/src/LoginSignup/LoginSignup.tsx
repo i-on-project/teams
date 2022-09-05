@@ -159,10 +159,10 @@ export function Page() {
             <p>
               For Mac Os:
               <div />
-              <Button circular icon as={'a'} href='/logo_blue.svg' download>
+              <Button circular icon as={'a'} href='/ion-teams-desktop-macos-x64.zip' download>
                 <Icon name='apple' /> x64
               </Button>
-              <Button circular icon as={'a'} href='/logo_blue.svg' download>
+              <Button circular icon as={'a'} href='/ion-teams-desktop-macos-arm64.zip' download>
                 <Icon name='apple' /> arm
               </Button>
             </p>
