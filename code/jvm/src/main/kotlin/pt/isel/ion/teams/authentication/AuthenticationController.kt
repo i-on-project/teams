@@ -182,7 +182,7 @@ class AuthenticationController(
                         .maxAge(ONE_MONTH)
                         .httpOnly(true)
                         .secure(true)
-                        .sameSite("Lax")
+                        .sameSite("None")
                         .build()
 
                     return ResponseEntity
