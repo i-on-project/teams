@@ -67,21 +67,21 @@ class NotAnAuthorizedEmailException: BaseException(
 
 class NoAccessTokenException: BaseException(
     uriType403,
-    "Unauthorized",
+    "Forbidden",
     403,
     "No access token was provided by the token endpoint."
 )
 
 class NoGithubUserFoundException: BaseException(
     uriType403,
-    "Unauthorized",
+    "Forbidden",
     403,
     "There is no existing github user associated with the login process."
 )
 
 class UserNotVerifiedException: BaseException(
     uriType403,
-    "Unauthorized",
+    "Forbidden",
     403,
     "The user has not yet verified its email address. A new email was sent."
 )
@@ -89,7 +89,7 @@ class UserNotVerifiedException: BaseException(
 class UserNotAuthenticatedException: BaseException(
     uriType403,
     "Unauthorized",
-    403,
+    401,
     "The user is not authenticated."
 )
 

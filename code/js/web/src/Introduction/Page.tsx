@@ -79,7 +79,6 @@ export function Page() {
                 <Button circular color="blue" onClick={() => { navigate(makeLoginSignup()) }}>
                     Start Right Now
                 </Button>
-                <Button circular color="red" onClick={() => {setLoggedState(true), navigate(makeHome())}}>FAKE LOGIN</Button>
             </Segment>
         </Container>
     )
