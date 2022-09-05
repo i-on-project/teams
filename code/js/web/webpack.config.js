@@ -1,5 +1,5 @@
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     devtool: false,
     devServer: {
         allowedHosts: "all",
