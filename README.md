@@ -1,5 +1,19 @@
 <div align="center">
  <img src="docs/logo.png" />
+ <div>
+        <a href="../../graphs/contributors">
+            <img src="https://img.shields.io/github/contributors/i-on-project/teams" />
+        </a>
+        <a href="../../stargazers">
+            <img src="https://img.shields.io/github/stars/i-on-project/teams" />
+        </a>
+        <a href="../../issues">
+            <img src="https://img.shields.io/github/issues/i-on-project/teams" />
+        </a>
+        <a href="../../pulls">
+            <img src="https://img.shields.io/github/issues-pr/i-on-project/teams" />
+        </a>
+    </div>
 </div>
 
 ## Overview
