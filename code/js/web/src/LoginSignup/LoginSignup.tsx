@@ -154,7 +154,7 @@ export function Page() {
             <p>
               For Windows:
               <div />
-              <Button circular icon='windows' as={'a'} href='/logo_blue.svg' download />
+              <Button circular icon='windows' as={'a'} href='/ion-teams-desktop-Setup.exe' download />
             </p>
             <p>
               For Mac Os:
