@@ -84,8 +84,8 @@ fun OrganizationOutputModel.toTeacherSirenObject(classroomList: List<ClassroomCo
                 SirenAction.Field(name = "name", type = "text"),
                 SirenAction.Field(name = "description", type = "text"),
                 SirenAction.Field(name = "schoolYear", type = "text"),
-                SirenAction.Field(name = "maxGroups", type = "number"),
-                SirenAction.Field(name = "maxMembersPerGroup", type = "number"),
+                SirenAction.Field(name = "maxTeams", type = "number"),
+                SirenAction.Field(name = "maxMembersPerTeam", type = "number"),
             )
         ),
         SirenAction(
