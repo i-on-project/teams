@@ -426,8 +426,8 @@ class AuthenticationController(
             .domain("ion-teams-service.herokuapp.com")
             .maxAge(HALF_HOUR)
             .httpOnly(true)
-            .secure(false)
-            .sameSite("Lax")
+            .secure(true)
+            .sameSite("None")
             .build()
 
         //In student registration it is necessary to store the student number so that the GitHub username
@@ -440,8 +440,8 @@ class AuthenticationController(
             .domain("ion-teams-service.herokuapp.com")
             .maxAge(HALF_HOUR)
             .httpOnly(true)
-            .secure(false)
-            .sameSite("Lax")
+            .secure(true)
+            .sameSite("None")
             .build()
 
         if (clientId.contains("web")) {
