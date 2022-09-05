@@ -20,6 +20,10 @@
 
 The i-on Teams project provides a system  providing apps for both students and teachers made to improve efficacy and help with the management of GitHub repositories, in a classroom context.
 
+## OAuth App
+
+The OAuth App used to authenticate users on our applications on Github, is associated with the [i-on Teams](https://github.com/i-on-Teams) organization.
+
 ## Repository organization
 
 * [Code](code)
