@@ -177,8 +177,8 @@ class AuthenticationController(
                     authService.createSession(user.number, sessionId, STUDENT_SESSION_USER_TYPE)
 
                     val sessionCookie = ResponseCookie.from("session", sessionId)
-                        .path("/")
-                        .domain("herokuapp.com")
+                        .path("/api/")
+                        .domain("ion-teams-service.herokuapp.com")
                         .maxAge(ONE_MONTH)
                         .httpOnly(true)
                         .secure(true)
