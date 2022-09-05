@@ -57,7 +57,7 @@ data class RequestsUpdateModel(
  */
 
 fun RequestsInputModel.toDb() = RequestsDbWrite(this.cid, this.teamName, this.cid)
-fun RequestsDbRead.toOutput() = RequestsOutputModel(this.cid, this.teamName, this.tid)
+fun RequestsDbRead.toOutput() = RequestsOutputModel(this.tid, this.teamName, this.cid)
 fun RequestsDbRead.toCompactOutput() = RequestsCompactOutputModel(this.teamName, this.cid)
 fun RequestsOutputModel.toCompactOutput() = RequestsCompactOutputModel(this.teamName, this.cid)
 
