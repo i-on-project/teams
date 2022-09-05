@@ -131,7 +131,7 @@ export function Page() {
         throw await resp.json()
       })
       .then((jsonRedirectObj: { location: string }) => {
-        //window.location.href = jsonRedirectObj.location
+        window.location.href = jsonRedirectObj.location
       })
       .catch((err: Problem) => {
         setLoading(false)
