@@ -38,12 +38,13 @@ function messageReducer(state: MessageState, action: MessageAction): MessageStat
 export function RequestsTable({ entities, orgName }: { entities: Entity[], orgName: string }) {
 
     const { setChanged } = useContext(ChangedContext)
+    const apiUrl = useServiceLocation().url
     const access_token = useLoggedInState().loggedInState.access_token
     const [messageState, messageDispatch] = React.useReducer(messageReducer,
         { hidden: true, success: false, error: false, status: null, message: null })
 
     /**
-     * Function sgould be appart of github integration, this is not implemented due to a lack of time.
+     * Function should be appart of github integration, this is not implemented due to a lack of time.
      */
     function onClickAccept(action: Action, teamName: string) {
         /*
@@ -87,8 +88,6 @@ export function RequestsTable({ entities, orgName }: { entities: Entity[], orgNa
      * Function used to send requests to the service API to either accept or deny now teams.
      */
     function fetchAction(action: Action) {
-
-        const apiUrl = useServiceLocation().url
 
         fetch(`${apiUrl}${action.href}`, {
             method: action.method,
