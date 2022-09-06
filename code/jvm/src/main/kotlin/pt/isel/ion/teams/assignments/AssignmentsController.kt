@@ -90,11 +90,13 @@ class AssignmentsController(val assignmentsService: AssignmentsService, val deli
         @RequestBody assignment: AssignmentUpdateModel
     ): ResponseEntity<Any> {
         try {
-            val split = assignment.releaseDate!!.split("T")
-            val date = split[0]
-            val time = split[1] + ":00"
+            if (assignment.releaseDate != null) {
+                val split = assignment.releaseDate!!.split("T")
+                val date = split[0]
+                val time = split[1] + ":00"
 
-            assignment.releaseDate = "$date $time"
+                assignment.releaseDate = "$date $time"
+            }
 
             return ResponseEntity
                 .ok()

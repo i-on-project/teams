@@ -60,7 +60,7 @@ class TeamsController(
         @PathVariable classId: Int,
     ): ResponseEntity<Any> {
         val number = authService.getNumber(session)
-        
+
         val createdTeam = teamsService.createTeam(team.toDb(classId)).toOutput()
         studentsService.addStudent(number, createdTeam.id, classId)
 
