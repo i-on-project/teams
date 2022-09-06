@@ -18,6 +18,7 @@ import pt.isel.ion.teams.students.toCompactOutput
 class TeamsController(
     val teamsService: TeamsService,
     val studentsService: StudentsService,
+    val authService: AuthenticationService
 ) {
 
     @GetMapping
@@ -53,11 +54,15 @@ class TeamsController(
 
     @PostMapping
     fun createTeam(
+        @CookieValue session: String,
         @RequestBody team: TeamsInputModel,
         @PathVariable orgId: Int,
         @PathVariable classId: Int,
     ): ResponseEntity<Any> {
+        val number = authService.getNumber(session)
+        
         val createdTeam = teamsService.createTeam(team.toDb(classId)).toOutput()
+        studentsService.addStudent(number, createdTeam.id, classId)
 
         return ResponseEntity.created(Uris.Teams.Team.make(orgId, classId, createdTeam.id))
             .contentType(MediaType.APPLICATION_JSON).body(createdTeam)
