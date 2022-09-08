@@ -26,7 +26,7 @@ interface AssignmentsDAO {
     @GetGeneratedKeys
     fun createAssignment(@BindBean assignment: AssignmentDbWrite): AssignmentDbRead
 
-    @SqlUpdate("UPDATE assignments SET releasedate = COALESCE(:releaseDate,releasedate), name = COALESCE(:name,name), description = COALESCE(:description,description), cid = COALESCE(:cid,cid) WHERE id=:id")
+    @SqlUpdate("UPDATE assignments SET releasedate = COALESCE(:releaseDate,releasedate), name = COALESCE(:name,name), description = COALESCE(:description,description) WHERE id=:id")
     @GetGeneratedKeys
     fun updateAssignment(@BindBean assignment: AssignmentDbUpdate): AssignmentDbRead
 
